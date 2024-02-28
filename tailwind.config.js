@@ -1,4 +1,5 @@
 import { colors } from "./config/tailwind/colors";
+import spacing from "./config/tailwind/spacing";
 
 export default {
   content: [
@@ -12,6 +13,7 @@ export default {
   theme: {
     extend: {
       colors: colors,
+      spacing: spacing,
     },
   },
   plugins: [],
