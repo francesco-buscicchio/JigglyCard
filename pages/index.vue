@@ -6,5 +6,6 @@
 
 <script setup lang="ts">
 import collection from "../service/firebase.collection";
-collection.readCollection("test");
+const result = await collection.readCollection("test");
+console.log(result);
 </script>

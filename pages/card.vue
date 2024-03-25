@@ -1,4 +1,6 @@
 <template>
+  <HeaderMobile class="w-full lg:hidden" />
+  <HeaderDesktop class="hidden w-full lg:block" />
   <div class="container mx-auto p-4 bg-white-400">
     <h1 class="text-xl font-bold mb-8">Prodotti in Evidenza</h1>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
