@@ -1,6 +1,6 @@
 <template>
   <div class="bg-ultralitePink">
-    <div class="relative flex justify-between items-center px-4 py-2 mx-4 mt-2">
+    <div class="relative flex justify-between items-center px-4 py-2 mt-2">
       <img src="../../public/img/logo.png" alt="Logo" class="w-10" />
       <button @click="toggleMenu" class="z-20">
         <svg
@@ -50,12 +50,18 @@
           </div>
         </div>
         <div class="px-4 py-4 flex flex-col">
-          <button class="py-2 flex items-center gap-x-6 font-semibold">
+          <button class="py-2 flex items-center gap-x-6 font-semibold relative">
             <img
               src="../../public/img/cart.png"
               alt="Carrello"
-              class="w-6 h-6"
+              class="w-6 h-6 relative"
             />
+            <span
+              v-if="header.cartCount > 0"
+              class="absolute left-4 -top-2 rounded-full bg-red-500 text-white px-2 py-1 text-xs"
+            >
+              {{ header.cartCount }}
+            </span>
             Carrello
           </button>
           <button class="py-2 flex items-center gap-x-6 mt-4 font-semibold">
@@ -68,42 +74,36 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent, ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const isMenuVisible = ref(false);
-    const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
-    const filteredResults = ref([] as string[]);
-    const searchQuery = ref("");
+type HeaderPropsType = {
+  cartCount: number;
+};
 
-    function toggleMenu() {
-      isMenuVisible.value = !isMenuVisible.value;
-    }
+const props = defineProps<{ header: HeaderPropsType }>();
 
-    function filterResults(event: Event) {
-      const query = (event.target as HTMLInputElement).value;
-      filteredResults.value = query
-        ? searchResults.value.filter((result) =>
-            result.toLowerCase().includes(query.toLowerCase())
-          )
-        : [];
-    }
+const isMenuVisible = ref(false);
+const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
+const filteredResults = ref([] as string[]);
+const searchQuery = ref("");
 
-    function highlightResult(result: string) {
-      if (!searchQuery.value) return result;
-      const re = new RegExp(searchQuery.value, "gi");
-      return result.replace(re, (match) => `<mark>${match}</mark>`);
-    }
+function toggleMenu() {
+  isMenuVisible.value = !isMenuVisible.value;
+}
 
-    return {
-      isMenuVisible,
-      filteredResults,
-      toggleMenu,
-      filterResults,
-      highlightResult,
-    };
-  },
-});
+function filterResults(event: Event) {
+  const query = (event.target as HTMLInputElement).value;
+  filteredResults.value = query
+    ? searchResults.value.filter((result) =>
+        result.toLowerCase().includes(query.toLowerCase())
+      )
+    : [];
+}
+
+function highlightResult(result: string) {
+  if (!searchQuery.value) return result;
+  const re = new RegExp(searchQuery.value, "gi");
+  return result.replace(re, (match) => `<mark>${match}</mark>`);
+}
 </script>
