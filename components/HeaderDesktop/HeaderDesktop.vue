@@ -27,12 +27,17 @@
       </div>
 
       <div class="flex items-center gap-x-4">
-        <button class="mr-4">
+        <button class="mr-4 relative">
           <img
             src="../../public/img/cart.png"
             alt="Carrello"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
+          <span
+            class="absolute left-4 -top-4 rounded-full bg-red-500 text-white text-xs px-2 py-1"
+          >
+            {{ header.cartCount }}
+          </span>
         </button>
         <button>
           <img
@@ -45,33 +50,33 @@
     </div>
   </div>
 </template>
-  
-  <script lang="ts">
-import { defineComponent, ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const searchQuery = ref("");
-    const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]); // Mocked search results
-    const filteredResults = ref([]);
+<script lang="ts" setup>
+import { ref } from "vue";
 
-    function filterResults(event: Event) {
-      const query = (event.target as HTMLInputElement).value;
-      if (query) {
-        filteredResults.value = searchResults.value.filter((result) =>
-          result.toLowerCase().includes(query.toLowerCase())
-        );
-      } else {
-        filteredResults.value = [];
-      }
-    }
+type HeaderPropsType = {
+  cartCount: number;
+};
 
-    return { searchQuery, filteredResults, filterResults };
-  },
-});
+const props = defineProps<{ header: HeaderPropsType }>();
+
+const searchQuery = ref("");
+const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
+const filteredResults = ref([] as string[]);
+
+function filterResults(event: Event) {
+  const query = (event.target as HTMLInputElement).value;
+  if (query) {
+    filteredResults.value = searchResults.value.filter((result) =>
+      result.toLowerCase().includes(query.toLowerCase())
+    );
+  } else {
+    filteredResults.value = [];
+  }
+}
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .input {
   @apply w-full px-4 py-2 border-2 border-mediumPink bg-white rounded outline-none focus:border-darkPink;
 }
@@ -79,4 +84,3 @@ export default defineComponent({
   @apply absolute z-10 bg-white shadow-md max-h-60 overflow-y-auto mt-1 rounded-md;
 }
 </style>
-  
