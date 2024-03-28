@@ -1,5 +1,7 @@
 <template>
-  <div class="px-6 py-4 max-w-sm rounded-lg border border-gray-200 shadow-md">
+  <div
+    class="px-6 py-4 max-w-sm rounded-lg border border-gray-200 shadow-md bg-white"
+  >
     <div class="flex flex-col gap-4" v-if="type === 'checkboxList'">
       <h3 class="text-xl font-bold">{{ title }}</h3>
       <div
