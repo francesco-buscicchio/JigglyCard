@@ -4,7 +4,7 @@
     <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
     <div class="flex">
       <div
-        class="filters-section sticky top-0 pt-[var(--header-height)] h-screen bg-gray-100 p-4 w-full max-w-[30vw] overflow-auto"
+        class="filters-section sticky top-0 pt-[var(--header-height)] h-screen bg-gray-100 p-4 w-full max-w-[30vw] overflow-auto pt-20"
       >
         <FilterCard
           :filters="checkboxFilters"
@@ -219,14 +219,8 @@ const products = ref([
 
 <style>
 .filters-section {
-  width: 240px; /* Or your preferred width */
+  width: 300px; /* Or your preferred width */
   z-index: 10;
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --header-height: 80px; /* Adjust based on your desktop header's actual height */
-  }
 }
 
 /* Additional styles */
