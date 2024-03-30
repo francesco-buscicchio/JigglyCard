@@ -1,6 +1,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -9,5 +8,5 @@ export default defineNuxtConfig({
   },
 
   css: ["~/assets/css/main.scss"],
-  modules: ["@nuxt/image"]
+  modules: ["@nuxt/image", "nuxt-icon"],
 });

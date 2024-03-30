@@ -2,6 +2,7 @@
   <div class="relative min-h-screen">
     <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
     <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
+    <FilterMobile />
     <div class="flex">
       <FilterDesktop />
 
