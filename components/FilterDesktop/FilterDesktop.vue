@@ -1,15 +1,14 @@
 <template>
   <div
-    class="flex flex-col items-start justify-center min-h-screen p-4 w-full max-w-[30vw]"
+    class="filters-section sticky top-0 h-screen bg-gray-100 p-4 w-full max-w-[30vw] overflow-auto pt-[80px] hidden lg:block"
   >
     <FilterCardDesktop
       :filters="checkboxFilters"
-      class="w-full mb-8"
+      class="w-full mb-8 mt-20"
       title="Conditions"
       type="checkboxList"
       @update:filters="handleFiltersUpdate"
     />
-
     <FilterCardDesktop
       title="Price Range"
       type="rangeSelector"
@@ -21,9 +20,7 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
-
+<script setup lang="ts">
 const checkboxFilters = ref([
   { label: "Near Mint", enabled: false },
   { label: "Excellent", enabled: false },
@@ -39,14 +36,14 @@ const priceRange = ref({
   value: 20,
 });
 
-function handleFiltersUpdate(filterName) {
-  // const filter = checkboxFilters.value.find((f) => f.name === filterName);
-  // if (filter) {
-  //   filter.enabled = !filter.enabled;
-  // }
+function handleFiltersUpdate(filterName: string) {
+  const filter = checkboxFilters.value.find((f) => f.label === filterName);
+  if (filter) {
+    filter.enabled = !filter.enabled;
+  }
 }
 
-function handleRangeUpdate(newValue) {
+function handleRangeUpdate(newValue: number) {
   priceRange.value.value = newValue;
 }
 </script>
