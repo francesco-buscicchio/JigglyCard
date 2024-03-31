@@ -1,7 +1,7 @@
 <template>
   <div class="bg-ultralitePink">
     <div class="flex justify-between items-center bg-ultralitePink px-4">
-      <img src="../../public/img/logo.png" alt="Logo" style="width: 40px" />
+      <img src="~/public/img/logo.png" alt="Logo" style="width: 40px" />
 
       <div class="flex-grow mx-4 w-full px-4 py-2">
         <div class="relative">
@@ -29,7 +29,7 @@
       <div class="flex items-center gap-x-4">
         <button class="mr-4 relative">
           <img
-            src="../../public/img/cart.png"
+            src="~/public/img/cart.png"
             alt="Carrello"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
@@ -41,7 +41,7 @@
         </button>
         <button>
           <img
-            src="../../public/img/user.png"
+            src="~/public/img/user.png"
             alt="Utente"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
