@@ -23,15 +23,9 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import conditions from "~/data/conditions";
 
-const checkboxFilters = ref([
-  { label: "Near Mint", enabled: false },
-  { label: "Excellent", enabled: false },
-  { label: "Good", enabled: false },
-  { label: "Light Played", enabled: false },
-  { label: "Played", enabled: false },
-  { label: "Poor", enabled: false },
-]);
+const checkboxFilters = ref(conditions);
 
 const priceRange = ref({
   min: 0,

@@ -1,7 +1,7 @@
 <template>
   <div class="bg-ultralitePink">
     <div class="relative flex justify-between items-center px-4 py-2 mt-2">
-      <img src="../../public/img/logo.png" alt="Logo" class="w-10" />
+      <img src="~/public/img/logo.png" alt="Logo" class="w-10" />
       <button @click="toggleMenu" class="z-20">
         <svg
           class="w-6 h-6"
@@ -51,11 +51,7 @@
         </div>
         <div class="px-4 py-4 flex flex-col">
           <button class="py-2 flex items-center gap-x-6 font-semibold relative">
-            <img
-              src="../../public/img/cart.png"
-              alt="Carrello"
-              class="w-6 h-6 relative"
-            />
+            <img :src="cart" alt="Carrello" class="w-6 h-6 relative" />
             <span
               v-if="header.cartCount > 0"
               class="absolute left-4 -top-2 rounded-full bg-red-500 text-white px-2 py-1 text-xs"
@@ -65,7 +61,7 @@
             Carrello
           </button>
           <button class="py-2 flex items-center gap-x-6 mt-4 font-semibold">
-            <img src="../../public/img/user.png" alt="Utente" class="w-6 h-6" />
+            <img :src="user" alt="Utente" class="w-6 h-6" />
             Utente
           </button>
         </div>
@@ -76,6 +72,8 @@
 
 <script lang="ts" setup>
 import { defineComponent, ref } from "vue";
+import cart from "~/public/img/cart.png";
+import user from "~/public/img/user.png";
 
 type HeaderPropsType = {
   cartCount: number;
