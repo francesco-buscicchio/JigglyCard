@@ -3,32 +3,35 @@ import { Firestore, getFirestore } from "firebase/firestore";
 import { getAuth, type Auth } from "firebase/auth";
 
 class FirebaseSingleton {
-  private static firebaseApp: FirebaseApp;
-  private static firestore: Firestore;
-  private static auth: Auth;
-  private static firebaseConfig = {
-    apiKey: "AIzaSyCFiPFwVBdO-8MdmbGdPmdzf1yDZUtR8jA",
-    authDomain: "jigglycard.firebaseapp.com",
-    projectId: "jigglycard",
-    storageBucket: "jigglycard.appspot.com",
-    messagingSenderId: "977236188890",
-    appId: "1:977236188890:web:a54a287a543cb4fee30fe3",
-    measurementId: "G-XN3L8FR9RP",
-  };
+  private static instance: FirebaseSingleton;
+  private firebaseApp: FirebaseApp;
+  private firestore: Firestore;
+  private auth: Auth;
 
-  private constructor() {}
+  private constructor(config: any) {
+    this.firebaseApp = initializeApp(config);
+    this.firestore = getFirestore(this.firebaseApp);
+    this.auth = getAuth(this.firebaseApp);
+  }
 
-  public static getInstance() {
-    if (!FirebaseSingleton.firebaseApp) {
-      FirebaseSingleton.firebaseApp = initializeApp(
-        FirebaseSingleton.firebaseConfig,
-        "JigglyCardTest"
-      );
-      FirebaseSingleton.firestore = getFirestore(FirebaseSingleton.firebaseApp);
-      FirebaseSingleton.auth = getAuth(FirebaseSingleton.firebaseApp);
+  public static getInstance(config?: any): FirebaseSingleton {
+    if (!this.instance) {
+      if (!config) {
+        throw new Error(
+          "Firebase configuration is required on first initialization"
+        );
+      }
+      this.instance = new FirebaseSingleton(config);
     }
+    return this.instance;
+  }
 
-    return FirebaseSingleton.firestore;
+  public getFirestore(): Firestore {
+    return this.firestore;
+  }
+
+  public getAuth(): Auth {
+    return this.auth;
   }
 }
 

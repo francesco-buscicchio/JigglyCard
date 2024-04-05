@@ -5,7 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import collection from "../service/firebase.collection";
-const result = await collection.readCollection("test");
+import FirebaseCollection from "../service/firebase.collection";
+const fbcol = new FirebaseCollection();
+const result = await fbcol.readCollection("test");
 console.log(result);
 </script>
