@@ -39,11 +39,11 @@
               class="p-2 hover:bg-pink-100 opacity-2 flex items-center gap-4"
               style="background-color: #ffffff"
             >
-              <img
+              <!-- <img
                 src="../../public/img/product-placeholder.png"
                 alt="Prodotto"
                 class="w-10 h-10 object-cover rounded-full bg-white-400"
-              />
+              /> -->
               <!-- Example Product Image -->
               <span v-html="highlightResult(result)"></span>
             </div>
