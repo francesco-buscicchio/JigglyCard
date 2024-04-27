@@ -1,4 +1,5 @@
 <template>
+  <NewsBanner :news="newsBannerData" class="pb-9"></NewsBanner>
   <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
   <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
   <div class="lg:flex flex-row pt-4 justify-between mx-8">
@@ -48,6 +49,16 @@ const carouselData = [
     id: 2,
     image: "Ossidiana.jpg",
     linkUrl: "/",
+  },
+];
+
+const newsBannerData = [
+  {
+    label: "💸 CLICCA QUI PER VENDERE LA TUA COLLEZIONE 💸",
+    url: "/card",
+  },
+  {
+    label: "💲 CODICE WELCOMEJIGGLY PER AVERE UNO SCONTO DEL 10% 💲",
   },
 ];
 
