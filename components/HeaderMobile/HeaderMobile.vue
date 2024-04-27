@@ -1,7 +1,12 @@
 <template>
   <div class="bg-ultralitePink">
     <div class="relative flex justify-between items-center px-4 py-2 mt-2">
-      <img src="~/public/img/logo.png" alt="Logo" class="w-10" />
+      <img
+        src="~/public/img/logo.png"
+        alt="Logo"
+        class="w-10 cursor-pointer"
+        @click="handleLogoClick"
+      />
       <button @click="toggleMenu" class="z-20">
         <svg
           class="w-6 h-6"
@@ -85,6 +90,10 @@ const isMenuVisible = ref(false);
 const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
 const filteredResults = ref([] as string[]);
 const searchQuery = ref("");
+
+const handleLogoClick = () => {
+  navigateTo("/");
+};
 
 function toggleMenu() {
   isMenuVisible.value = !isMenuVisible.value;
