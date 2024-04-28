@@ -1,6 +1,11 @@
 <template>
   <div class="max-h-6 w-full">
-    <Swiper :loop="true" :autoplay="true" :modules="[Autoplay]">
+    <Swiper
+      :loop="true"
+      :autoplay="true"
+      class="max-h-6 cursor-grab"
+      :modules="[Autoplay]"
+    >
       <SwiperSlide v-for="news in props.news">
         <div
           class="w-full bg-black text-center py-2 text-xs text-white"
