@@ -2,7 +2,7 @@
   <div class="rounded-3xl overflow-hidden shadow-lg bg-white">
     <!-- I feel like hugging you -->
     <NuxtImg
-      class="h-full"
+      class="h-auto w-full object-cover"
       :src="product.image"
       alt="Sunset in the mountains"
     />
