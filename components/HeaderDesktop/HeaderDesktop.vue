@@ -2,7 +2,7 @@
   <div class="bg-ultralitePink">
     <div class="flex justify-between items-center bg-ultralitePink px-4">
       <img
-        src="~/public/img/logo.png"
+        src="~/assets/img/logo.png"
         alt="Logo"
         style="width: 40px"
         @click="handleLogoClick"
@@ -35,7 +35,7 @@
       <div class="flex items-center gap-x-4">
         <button class="mr-4 relative">
           <img
-            src="~/public/img/cart.png"
+            src="~/assets/img/cart.png"
             alt="Carrello"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
@@ -47,7 +47,7 @@
         </button>
         <button>
           <img
-            src="~/public/img/user.png"
+            src="~/assets/img/user.png"
             alt="Utente"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
