@@ -22,10 +22,10 @@
       </button>
 
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
-        <NuxtImg
-          src="../public/img/HeroSingleCard.png"
+        <img
+          src="../assets/img/HeroSingleCard.png"
           class="w-full h-full object-cover cursor-pointer"
-        ></NuxtImg>
+        ></img>
       </div>
     </div>
   </div>
@@ -33,21 +33,25 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
+import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
+import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
+import Ossidiana from '../../assets/img/Ossidiana.jpg';
+
 
 const carouselData = [
   {
     id: 0,
-    image: "DestinoPaldea.jpg",
+    image: DestinoPaldea,
     linkUrl: "/",
   },
   {
     id: 1,
-    image: "EvoluzioniPaldea.jpg",
+    image: EvoluzioniPaldea,
     linkUrl: "/",
   },
   {
     id: 2,
-    image: "Ossidiana.jpg",
+    image: Ossidiana,
     linkUrl: "/",
   },
 ];

@@ -2,7 +2,7 @@
   <div class="bg-ultralitePink">
     <div class="relative flex justify-between items-center px-4 py-2 mt-2">
       <img
-        src="~/public/img/logo.png"
+        src="~/assets/img/logo.png"
         alt="Logo"
         class="w-10 cursor-pointer"
         @click="handleLogoClick"
@@ -45,7 +45,7 @@
               style="background-color: #ffffff"
             >
               <!-- <img
-                src="../../public/img/product-placeholder.png"
+                src="../../assets/img/product-placeholder.png"
                 alt="Prodotto"
                 class="w-10 h-10 object-cover rounded-full bg-white-400"
               /> -->
@@ -77,8 +77,8 @@
 
 <script lang="ts" setup>
 import { defineComponent, ref } from "vue";
-import cart from "~/public/img/cart.png";
-import user from "~/public/img/user.png";
+import cart from "~/assets/img/cart.png";
+import user from "~/assets/img/user.png";
 
 type HeaderPropsType = {
   cartCount: number;
