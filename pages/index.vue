@@ -24,7 +24,7 @@
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
         <NuxtImg
           src="../public/img/HeroSingleCard.png"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover cursor-pointer"
         ></NuxtImg>
       </div>
     </div>
