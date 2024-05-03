@@ -1,14 +1,14 @@
 <template>
   <div class="rounded-3xl overflow-hidden shadow-lg bg-white">
     <!-- I feel like hugging you -->
-    <NuxtImg
+    <img
       class="h-auto w-full object-cover"
       :src="product.image"
       alt="Sunset in the mountains"
     />
     <!-- You are so cute -->
     <div class="px-6 py-4 flex items-center">
-      <NuxtImg :src="product.logo" alt="Crown Zenith" class="w-6 mr-4" />
+      <img :src="product.logo" alt="Crown Zenith" class="w-6 mr-4" />
       <p class="font-bold text-xl">{{ product.name }}</p>
     </div>
 

@@ -13,12 +13,8 @@
       }"
       :pagination="true"
     >
-      <SwiperSlide v-for="photo in data">
-        <NuxtImg
-          :src="`../public/img/${photo.image}`"
-          alt=""
-          class="object-cover"
-        />
+      <SwiperSlide v-for="photo in data" :key="photo.id">
+        <img :src="photo.image" alt="" class="object-cover" />
       </SwiperSlide>
     </Swiper>
   </div>
