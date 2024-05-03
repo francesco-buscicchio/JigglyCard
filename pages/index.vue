@@ -24,7 +24,7 @@
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
         <img
           src="../assets/img/HeroSingleCard.png"
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover cursor-pointer"
         ></img>
       </div>
     </div>
