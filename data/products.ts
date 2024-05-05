@@ -1,11 +1,14 @@
+import pikachu from "../assets/img/SWSH12pt5_IT_160.png";
+import zenith from "../assets/img/crown-zenith.jpg";
+
 export default [
   {
     id: 1,
     name: "Pikachu (CRZ 160)",
     description: "Questa è una descrizione del Prodotto 1.",
     price: "29,99",
-    image: "../assets/img/SWSH12pt5_IT_160.png",
-    logo: "../assets/img/crown-zenith.jpg",
+    image: pikachu,
+    logo: zenith,
     language: [
       {
         id: 1,
@@ -32,8 +35,8 @@ export default [
     name: "Pikachu (CRZ 160)",
     description: "Questa è una descrizione del Prodotto 1.",
     price: "29,99",
-    image: "../assets/img/SWSH12pt5_IT_160.png",
-    logo: "../assets/img/crown-zenith.jpg",
+    image: pikachu,
+    logo: zenith,
     language: [
       {
         id: 1,
@@ -60,8 +63,8 @@ export default [
     name: "Pikachu (CRZ 160)",
     description: "Questa è una descrizione del Prodotto 1.",
     price: "29,99",
-    image: "../assets/img/SWSH12pt5_IT_160.png",
-    logo: "../assets/img/crown-zenith.jpg",
+    image: pikachu,
+    logo: zenith,
     language: [
       {
         id: 1,
@@ -88,8 +91,8 @@ export default [
     name: "Pikachu (CRZ 160)",
     description: "Questa è una descrizione del Prodotto 1.",
     price: "29,99",
-    image: "../assets/img/SWSH12pt5_IT_160.png",
-    logo: "../assets/img/crown-zenith.jpg",
+    image: pikachu,
+    logo: zenith,
     language: [
       {
         id: 1,
@@ -116,8 +119,8 @@ export default [
     name: "Pikachu (CRZ 160)",
     description: "Questa è una descrizione del Prodotto 1.",
     price: "29,99",
-    image: "../assets/img/SWSH12pt5_IT_160.png",
-    logo: "../assets/img/crown-zenith.jpg",
+    image: pikachu,
+    logo: zenith,
     language: [
       {
         id: 1,
