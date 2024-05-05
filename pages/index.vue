@@ -36,6 +36,7 @@ import { onMounted, ref } from "vue";
 import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
 import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
+import newsBannerData from '../data/newsBanner';
 
 
 const carouselData = [
@@ -53,16 +54,6 @@ const carouselData = [
     id: 2,
     image: Ossidiana,
     linkUrl: "/",
-  },
-];
-
-const newsBannerData = [
-  {
-    label: "💸 CLICCA QUI PER VENDERE LA TUA COLLEZIONE 💸",
-    url: "/card",
-  },
-  {
-    label: "💲 CODICE WELCOMEJIGGLY PER AVERE UNO SCONTO DEL 10% 💲",
   },
 ];
 
