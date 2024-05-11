@@ -7,7 +7,7 @@
           class=" flex-grow w-full md:w-auto mb-4 md:mb-0 text-white" 
           :style="{ fontSize: sectionFontSize }"
         >
-          <div class="p-6 w-full"> 
+          <div class="p-8 w-full"> 
             <h1 class="section-title">{{ section.title }}</h1>
             <div v-if="Array.isArray(section.sections)">
               <div v-for="(item, index) in section.sections" :key="index">
@@ -23,9 +23,9 @@
           </div>
         </div>
       </div>
-      <div class="bg-mediumPink text-white flex flex-col items-center md:flex-row md:justify-between">
-        <h3 >{{ footer.text }}</h3>
-        <img
+      <div class="bg-mediumPink text-white flex flex-col items-center md:flex-row md:justify-between px-8 py-2">
+        <h3 class="whitespace-normal break-words" >{{ footer.text }}</h3>
+        <Img
             v-if="footer.img"
             :src="footer.img"
             alt="Logo"
