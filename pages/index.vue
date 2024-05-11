@@ -29,7 +29,12 @@
       </div>
     </div>
   </div>
-  <Footer />
+  <br>
+  <Footer       
+    :sections="sectionsData" 
+    :footer="footerData"
+  />
+
 </template>
 
 <script setup lang="ts">
@@ -38,7 +43,6 @@ import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
 import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
 import newsBannerData from '../data/newsBanner';
-
 
 const carouselData = [
   {
@@ -72,9 +76,43 @@ onMounted(() => {
   imageDiv.value.style.height = `${remainingHeight}px`; // Imposta l'altezza rimanente
 });
 
+const sectionsData = [
+  {
+    title: "Section 1",
+    sections: [
+      { value: "Item 1", link: "#" },
+      { value: "Item 2", link: "#" },
+      { value: "Item 3", link: "#" }
+    ]
+  },
+  {
+    title: "Section 2",
+    sections: [
+      "Lorem ipsum dolor sit amet",
+      "consectetur adipiscing elit",
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+    ]
+  },
+  {
+    title: "Section 3",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+    ]
+  },
+];
+
+const footerData = {
+  text: "Mock Footer",
+  img: "~/assets/img/logo.png" 
+};
+
 // Qui sotto puoi inserire i tuoi commenti o il codice esistente
 //import FirebaseCollection from "../service/firebase.collection";
 //const fbcol = new FirebaseCollection();
 //const result = await fbcol.readCollection("test");
 //console.log(result);
 </script>
+
