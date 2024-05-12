@@ -40,7 +40,7 @@
     >
       <Accordion class="min-w-full bg-white">
         <template #header>
-          <h3 class="font-bold">Condizioni</h3>
+          <h3 class="font-bold">{{ $t("Conditions") }}</h3>
         </template>
         <div
           v-for="(item, index) of checkboxFilters"
