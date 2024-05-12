@@ -100,6 +100,7 @@
       <button
         @click="toggleFilter"
         class="bg-mediumPink hover:bg-darkPink text-white font-bold py-2 px-4 flex items-center justify-center rounded-lg w-4/5 my-4 mx-auto"
+        aria-label="Applica Filtro"
       >
         APPLICA
       </button>

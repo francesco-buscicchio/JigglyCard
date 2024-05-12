@@ -2,7 +2,7 @@
   <div class="bg-ultralitePink">
     <div class="relative flex justify-between items-center px-4 py-2 mt-2">
       <div class="flex-row items-center h-full">
-        <button class="z-20">
+        <button class="z-20" aria-label="Menu">
           <Icon name="fluent-mdl2:list" class="w-6 h-6 mr-3"></Icon>
         </button>
 
@@ -21,7 +21,7 @@
 
       <div class="flex flex-row items-center">
         <Icon name="ep:user" class="w-6 h-6 mr-3"></Icon>
-        <button class="mr-4 relative">
+        <button class="mr-4 relative" aria-label="Carrello">
           <Icon name="clarity:shopping-cart-line" class="w-6 h-6" />
           <span
             class="absolute left-4 -top-4 rounded-full bg-red-500 text-white text-xs px-2 py-1"
