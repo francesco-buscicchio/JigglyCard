@@ -11,18 +11,21 @@
     >
       <button
         class="bg-lightPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
+        aria-label="Offerte Settimanali"
       >
        {{ $t('WeeklyOffers') }}
       </button>
 
       <button
         class="bg-mediumPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
+        aria-label="Preordini"
       >
         {{ $t('PreOrders')}}
       </button>
 
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
         <img
+          alt="Sfoglia le singole"
           src="../assets/img/HeroSingleCard.png"
           class="w-full h-full object-cover cursor-pointer"
         ></img>
@@ -38,6 +41,13 @@ import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
 import newsBannerData from '../data/newsBanner';
 
+useHead({
+  title: "Jigglycard",
+  meta: [{
+    name: 'Jigglycard',
+    content: "Entra nel magico mondo Pokemon, carte singole, prodotti sealed, permuta collezioni..."
+  }]
+})
 
 const carouselData = [
   {
