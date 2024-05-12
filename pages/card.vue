@@ -1,4 +1,5 @@
 <template>
+  {{ data }}
   <div class="relative min-h-screen">
     <FilterMobile />
     <div class="flex">
@@ -26,6 +27,7 @@ import ProductCard from "../components/ProductCard/ProductCard.vue";
 import HeaderMobile from "../components/HeaderMobile/HeaderMobile.vue";
 import HeaderDesktop from "../components/HeaderDesktop/HeaderDesktop.vue";
 import productsData from "../data/products";
+const data = await useAsyncData("products", () => GqlProducts({ first: 3 }));
 
 const products = ref(productsData);
 </script>
