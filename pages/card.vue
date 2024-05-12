@@ -8,7 +8,7 @@
 
       <div class="content-section flex-grow">
         <div class="container mx-auto p-4 bg-white-400">
-          <h1 class="text-xl font-bold mb-8">Prodotti in Evidenza</h1>
+          <h1 class="text-xl font-bold mb-8">{{ $t("FeaturedProducts") }}</h1>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <ProductCard
               v-for="product in products"
@@ -34,9 +34,7 @@ const products = ref(productsData);
 
 <style>
 .filters-section {
-  width: 300px; /* Or your preferred width */
+  width: 300px;
   z-index: 10;
 }
-
-/* Additional styles */
 </style>
