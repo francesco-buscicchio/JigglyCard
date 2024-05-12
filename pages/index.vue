@@ -1,7 +1,4 @@
 <template>
-  <NewsBanner :news="newsBannerData" class="lg:pb-9"></NewsBanner>
-  <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
-  <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
   <div class="lg:flex flex-row pt-4 justify-between mx-8">
     <div class="lg:w-[75%] w-full">
       <CarouselHero :data="carouselData" />
