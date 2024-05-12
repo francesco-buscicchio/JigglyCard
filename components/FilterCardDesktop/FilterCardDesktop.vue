@@ -112,7 +112,7 @@ watch(() => range.value, updateTooltipPosition);
 <style scoped>
 .tooltip {
   position: absolute;
-  top: -25px; /* Adjust this value to position the tooltip */
+  top: -25px;
   transform: translateX(-50%);
   background-color: #fba2a9;
   color: white;
@@ -123,6 +123,6 @@ watch(() => range.value, updateTooltipPosition);
 
 .range-slider::-webkit-slider-thumb {
   appearance: none;
-  margin-top: 0; /* Necessary to align the tooltip properly */
+  margin-top: 0;
 }
 </style>

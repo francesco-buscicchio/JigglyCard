@@ -12,13 +12,13 @@
       <button
         class="bg-lightPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
       >
-        Offerte settimanali
+       {{ $t('WeeklyOffers') }}
       </button>
 
       <button
         class="bg-mediumPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
       >
-        Preordini
+        {{ $t('PreOrders')}}
       </button>
 
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
@@ -60,18 +60,18 @@ const carouselData = [
 const imageDiv = ref(null);
 
 onMounted(() => {
-  const parentHeight = imageDiv.value.parentElement.clientHeight; // Altezza del div contenitore
+  const parentHeight = imageDiv.value.parentElement.clientHeight;
   let otherButtonsHeight = 0;
   imageDiv.value.parentElement
     .querySelectorAll('button:not([ref="ciaoButton"])')
     .forEach((button) => {
-      otherButtonsHeight += button.clientHeight; // Somma altezze degli altri bottoni
+      otherButtonsHeight += button.clientHeight;
     });
   const remainingHeight = parentHeight - otherButtonsHeight - 48;
-  imageDiv.value.style.height = `${remainingHeight}px`; // Imposta l'altezza rimanente
+  imageDiv.value.style.height = `${remainingHeight}px`;
 });
 
-// Qui sotto puoi inserire i tuoi commenti o il codice esistente
+
 //import FirebaseCollection from "../service/firebase.collection";
 //const fbcol = new FirebaseCollection();
 //const result = await fbcol.readCollection("test");
