@@ -3,6 +3,7 @@
     <button
       @click="toggle"
       class="flex justify-between items-center w-full p-5"
+      aria-label="Accordion Button"
     >
       <slot name="header"></slot>
       <span
