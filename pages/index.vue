@@ -102,12 +102,22 @@ const sectionsData = [
       "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
     ]
   },
+  {
+    title: "Section 4",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit fvfvfvfv",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore chi legge e scemo senza accento aliqua"
+    ]
+  },
 ];
 
 const footerData = {
-  text: "Mock Footer",
-  img: "~/assets/img/logo.png" 
+  text: ["Mock Footer 1", "Mock Footer 2"],
+  imgs: ["~/assets/img/logo1.png", "~/assets/img/logo2.png"]
 };
+
 
 // Qui sotto puoi inserire i tuoi commenti o il codice esistente
 //import FirebaseCollection from "../service/firebase.collection";
