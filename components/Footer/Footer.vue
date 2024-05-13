@@ -1,13 +1,14 @@
 <template>
   <div class="gap-4">
-    <div class="grid md:grid-cols-4 gap-4 bg-lightPink">
+    <div class="grid md:grid-cols-4 md:gap-4 bg-lightPink">
       <div
         v-for="(section, sectionIndex) in sections"
         :key="'section-' + sectionIndex"
         class="w-full md:w-auto mb-4 md:mb-0 text-white"
         :style="{ fontSize: sectionFontSize }"
       >
-        <div class="px-8 py-2 md:p-8">
+        <!-- Sezioni del footer -->
+        <div class="px-8 py-4 md:p-8">
           <h1 class="section-title">{{ section.title }}</h1>
           <div v-if="Array.isArray(section.sections)">
             <div v-for="(item, index) in section.sections" :key="index">
