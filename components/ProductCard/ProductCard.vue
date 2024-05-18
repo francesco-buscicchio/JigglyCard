@@ -5,7 +5,6 @@
       :src="product.image"
       alt="Immagine di prodotto"
     />
-    <!-- You are so cute -->
     <div class="px-6 py-4 flex items-center">
       <img :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
       <p class="font-bold text-xl">{{ product.name }}</p>

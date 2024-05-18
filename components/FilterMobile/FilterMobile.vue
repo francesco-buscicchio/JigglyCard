@@ -62,7 +62,6 @@
         </template>
         <div class="py-4">
           <div class="flex flex-col space-y-4">
-            <!-- Minimum Price Input -->
             <div class="flex-col items-center justify-between">
               <label
                 for="minPrice"
@@ -78,7 +77,6 @@
               />
             </div>
 
-            <!-- Maximum Price Input -->
             <div class="flex-col items-center justify-between">
               <label
                 for="maxPrice"
