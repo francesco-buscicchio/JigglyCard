@@ -24,7 +24,9 @@
         </div>
       </div>
     </div>
-    <div class="bg-mediumPink text-white flex flex-col items-center md:flex-row md:justify-between py-2">
+    <div
+      class="bg-mediumPink text-white flex flex-col items-center md:flex-row md:justify-between py-2"
+    >
       <!-- Testo del footer -->
       <div class="md:flex py-2 md:py-0">
         <template v-if="Array.isArray(footer.text)">
@@ -37,15 +39,19 @@
         </template>
       </div>
       <!-- Immagini del footer -->
-      <div class="footer-imgs md:px-8">
+      <div class="flex flex-row items-center md:px-8">
         <template v-if="Array.isArray(footer.imgs)">
-          <div class="footer-img py-2 md:py-0" v-for="(img, index) in footer.imgs" :key="index">
-            <Img :src="img" alt="Logo" class="w-16 md:ml-6" />
+          <div
+            class="footer-img py-2 px-2 md:py-0"
+            v-for="(img, index) in footer.imgs"
+            :key="index"
+          >
+            <Img :src="img.img" alt="Logo" class="max-h-6" />
           </div>
         </template>
         <template v-else>
-          <div class="footer-img">
-            <Img v-if="footer.imgs" :src="footer.imgs" alt="Logo" class="w-16 md:ml-6" />
+          <div class="footer-img max-h-6">
+            <Img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
           </div>
         </template>
       </div>
@@ -54,25 +60,38 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
+
+type SocialLinksType = {
+  img: string;
+  url: string;
+};
 
 const props = defineProps({
   sections: {
-    type: Array as PropType<Array<{ title: string; sections: Array<string | { value: string; link: string }> }>>,
-    default: () => []
+    type: Array as PropType<
+      Array<{
+        title: string;
+        sections: Array<string | { value: string; link: string }>;
+      }>
+    >,
+    default: () => [],
   },
   footer: {
-    type: Object as PropType<{ text: string | string[]; imgs?: string | string[] }>,
-    default: () => ({ text: '', imgs: [] })
-  }
+    type: Object as PropType<{
+      text: string | string[];
+      imgs?: SocialLinksType | SocialLinksType[];
+    }>,
+    default: () => ({ text: "", imgs: [] }),
+  },
 });
 
-const sectionFontSize = '16px';
+const sectionFontSize = "16px";
 </script>
 
 <style scoped>
 .section-title {
-  border-bottom: 2px solid white; 
+  border-bottom: 2px solid white;
 }
 
 /* Stili per il layout desktop */
@@ -88,7 +107,9 @@ const sectionFontSize = '16px';
 
   .footer-imgs {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
   }
 
   .footer-img {

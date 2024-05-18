@@ -43,6 +43,10 @@ import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
 import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
 import newsBannerData from '../data/newsBanner';
+import facebookLogo from '~/assets/icons/facebook.svg'
+import instagramLogo from '~/assets/icons/instagram.svg'
+import tiktokLogo from '~/assets/icons/tiktok.svg'
+import youtubeLogo from '~/assets/icons/youtube.svg'
 
 useHead({
   title: "Jigglycard",
@@ -123,7 +127,20 @@ const sectionsData = [
 
 const footerData = {
   text: ["Mock Footer 1", "Mock Footer 2"],
-  imgs: ["~/assets/img/logo1.png", "~/assets/img/logo2.png"]
+  imgs: [
+    {
+      img: facebookLogo,
+      url: '/'
+    },
+
+    {
+      img: instagramLogo,
+      url: '/'
+    },
+    {
+      img: youtubeLogo,
+      url: '/'
+    }]
 };
 
 
