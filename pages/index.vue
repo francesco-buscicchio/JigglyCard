@@ -29,6 +29,12 @@
       </div>
     </div>
   </div>
+  <br>
+  <Footer       
+    :sections="sectionsData" 
+    :footer="footerData"
+  />
+
 </template>
 
 <script setup lang="ts">
@@ -37,6 +43,10 @@ import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
 import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
 import newsBannerData from '../data/newsBanner';
+import facebookLogo from '~/assets/icons/facebook.svg'
+import instagramLogo from '~/assets/icons/instagram.svg'
+import tiktokLogo from '~/assets/icons/tiktok.svg'
+import youtubeLogo from '~/assets/icons/youtube.svg'
 
 useHead({
   title: "Jigglycard",
@@ -78,9 +88,67 @@ onMounted(() => {
   imageDiv.value.style.height = `${remainingHeight}px`;
 });
 
+const sectionsData = [
+  {
+    title: "Section 1",
+    sections: [
+      { value: "Item 1", link: "#" },
+      { value: "Item 2", link: "#" },
+      { value: "Item 3", link: "#" }
+    ]
+  },
+  {
+    title: "Section 2",
+    sections: [
+      "Lorem ipsum dolor sit amet",
+      "consectetur adipiscing elit",
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+    ]
+  },
+  {
+    title: "Section 3",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+    ]
+  },
+  {
+    title: "Section 4",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit fvfvfvfv",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore chi legge e scemo senza accento aliqua"
+    ]
+  },
+];
+
+const footerData = {
+  text: ["Mock Footer 1", "Mock Footer 2"],
+  imgs: [
+    {
+      img: facebookLogo,
+      url: '/'
+    },
+
+    {
+      img: instagramLogo,
+      url: '/'
+    },
+    {
+      img: youtubeLogo,
+      url: '/'
+    }]
+};
+
+
+// Qui sotto puoi inserire i tuoi commenti o il codice esistente
 
 //import FirebaseCollection from "../service/firebase.collection";
 //const fbcol = new FirebaseCollection();
 //const result = await fbcol.readCollection("test");
 //console.log(result);
 </script>
+
