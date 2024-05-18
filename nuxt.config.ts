@@ -21,5 +21,11 @@ export default defineNuxtConfig({
     },
   },
   css: ["~/assets/css/main.scss"],
-  modules: ["@nuxt/image", "nuxt-icon", "nuxt-swiper", "@nuxt/ui"],
+  modules: [
+    "@nuxt/image",
+    "nuxt-icon",
+    "nuxt-swiper",
+    "@nuxt/ui",
+    "@nuxtjs/i18n",
+  ],
 });

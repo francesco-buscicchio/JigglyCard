@@ -1,14 +1,12 @@
 <template>
   <div class="rounded-3xl overflow-hidden shadow-lg bg-white">
-    <!-- I feel like hugging you -->
     <img
       class="h-auto w-full object-cover"
       :src="product.image"
-      alt="Sunset in the mountains"
+      alt="Immagine di prodotto"
     />
-    <!-- You are so cute -->
     <div class="px-6 py-4 flex items-center">
-      <img :src="product.logo" alt="Crown Zenith" class="w-6 mr-4" />
+      <img :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
       <p class="font-bold text-xl">{{ product.name }}</p>
     </div>
 
@@ -46,7 +44,8 @@
     <div class="m-4">
       <button
         @click="addToCart(product)"
-        class="bg-mediumPink hover:bg-darkPink text-white font-bold py-2 px-4 rounded w-full flex items-center justify-center rounded-lg"
+        class="bg-mediumPink hover:bg-darkPink text-white font-bold py-2 px-4 w-full flex items-center justify-center rounded-lg"
+        aria-label="Aggiungi al carrello"
       >
         <svg
           class="w-5 h-5 mr-2"

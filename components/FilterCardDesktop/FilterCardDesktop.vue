@@ -7,14 +7,32 @@
       <div
         v-for="filter in filters"
         :key="filter.name"
-        class="flex items-center justify-between"
+        class="flex items-center"
       >
-        <span>{{ filter.label }}</span>
         <div
-          class="min-w-4 min-h-4 rounded-full border-lightPink border-2 cursor-pointer transition-colors duration-300 ml-4"
-          :class="filter.enabled ? 'bg-darkPink' : 'bg-ultralitePink'"
+          class="min-w-5 min-h-5 border-2 cursor-pointer transition-colors duration-300 mr-4 relative rounded-md"
+          :class="
+            filter.enabled
+              ? 'bg-darkPink border-darkPink'
+              : 'bg-ultralitePink border-lightPink'
+          "
           @click="toggleFilter(filter)"
-        ></div>
+        >
+          <span
+            class="absolute inset-0 flex justify-center items-center"
+            v-show="filter.enabled"
+          >
+            <svg viewBox="0 0 24 24" fill="none" class="h-3 w-3 text-white">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M9 19a1 1 0 01-.707-.293l-5-5a1 1 0 111.414-1.414L9 16.586 18.293 7.293a1 1 0 111.414 1.414l-10 10A1 1 0 019 19z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </div>
+        <span>{{ filter.label }}</span>
       </div>
     </div>
 
@@ -94,7 +112,7 @@ watch(() => range.value, updateTooltipPosition);
 <style scoped>
 .tooltip {
   position: absolute;
-  top: -25px; /* Adjust this value to position the tooltip */
+  top: -25px;
   transform: translateX(-50%);
   background-color: #fba2a9;
   color: white;
@@ -105,6 +123,6 @@ watch(() => range.value, updateTooltipPosition);
 
 .range-slider::-webkit-slider-thumb {
   appearance: none;
-  margin-top: 0; /* Necessary to align the tooltip properly */
+  margin-top: 0;
 }
 </style>

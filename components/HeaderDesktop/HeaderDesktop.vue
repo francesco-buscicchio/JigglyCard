@@ -33,7 +33,7 @@
       </div>
 
       <div class="flex items-center gap-x-4">
-        <button class="mr-4 relative">
+        <button class="mr-4 relative" aria-label="Carrello">
           <img
             src="~/assets/img/cart.png"
             alt="Carrello"

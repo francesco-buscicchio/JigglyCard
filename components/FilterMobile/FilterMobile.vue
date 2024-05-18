@@ -40,7 +40,7 @@
     >
       <Accordion class="min-w-full bg-white">
         <template #header>
-          <h3 class="font-bold">Condizioni</h3>
+          <h3 class="font-bold">{{ $t("Conditions") }}</h3>
         </template>
         <div
           v-for="(item, index) of checkboxFilters"
@@ -62,7 +62,6 @@
         </template>
         <div class="py-4">
           <div class="flex flex-col space-y-4">
-            <!-- Minimum Price Input -->
             <div class="flex-col items-center justify-between">
               <label
                 for="minPrice"
@@ -78,7 +77,6 @@
               />
             </div>
 
-            <!-- Maximum Price Input -->
             <div class="flex-col items-center justify-between">
               <label
                 for="maxPrice"
@@ -100,6 +98,7 @@
       <button
         @click="toggleFilter"
         class="bg-mediumPink hover:bg-darkPink text-white font-bold py-2 px-4 flex items-center justify-center rounded-lg w-4/5 my-4 mx-auto"
+        aria-label="Applica Filtro"
       >
         APPLICA
       </button>

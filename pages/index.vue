@@ -1,7 +1,4 @@
 <template>
-  <NewsBanner :news="newsBannerData" class="pb-9"></NewsBanner>
-  <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
-  <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
   <div class="lg:flex flex-row pt-4 justify-between mx-8">
     <div class="lg:w-[75%] w-full">
       <CarouselHero :data="carouselData" />
@@ -11,18 +8,21 @@
     >
       <button
         class="bg-lightPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
+        aria-label="Offerte Settimanali"
       >
-        Offerte settimanali
+       {{ $t('WeeklyOffers') }}
       </button>
 
       <button
         class="bg-mediumPink w-full text-white py-8 rounded-xl text-xl col-span-6 lg:block hidden"
+        aria-label="Preordini"
       >
-        Preordini
+        {{ $t('PreOrders')}}
       </button>
 
       <div ref="imageDiv" class="bg-black text-white w-full col-span-12">
         <img
+          alt="Sfoglia le singole"
           src="../assets/img/HeroSingleCard.png"
           class="w-full h-full object-cover cursor-pointer"
         ></img>
@@ -43,6 +43,14 @@ import DestinoPaldea from '../../assets/img/DestinoPaldea.jpg';
 import EvoluzioniPaldea from '../../assets/img/EvoluzioniPaldea.jpg';
 import Ossidiana from '../../assets/img/Ossidiana.jpg';
 import newsBannerData from '../data/newsBanner';
+
+useHead({
+  title: "Jigglycard",
+  meta: [{
+    name: 'Jigglycard',
+    content: "Entra nel magico mondo Pokemon, carte singole, prodotti sealed, permuta collezioni..."
+  }]
+})
 
 const carouselData = [
   {
@@ -65,15 +73,15 @@ const carouselData = [
 const imageDiv = ref(null);
 
 onMounted(() => {
-  const parentHeight = imageDiv.value.parentElement.clientHeight; // Altezza del div contenitore
+  const parentHeight = imageDiv.value.parentElement.clientHeight;
   let otherButtonsHeight = 0;
   imageDiv.value.parentElement
     .querySelectorAll('button:not([ref="ciaoButton"])')
     .forEach((button) => {
-      otherButtonsHeight += button.clientHeight; // Somma altezze degli altri bottoni
+      otherButtonsHeight += button.clientHeight;
     });
   const remainingHeight = parentHeight - otherButtonsHeight - 48;
-  imageDiv.value.style.height = `${remainingHeight}px`; // Imposta l'altezza rimanente
+  imageDiv.value.style.height = `${remainingHeight}px`;
 });
 
 const sectionsData = [
@@ -120,6 +128,7 @@ const footerData = {
 
 
 // Qui sotto puoi inserire i tuoi commenti o il codice esistente
+
 //import FirebaseCollection from "../service/firebase.collection";
 //const fbcol = new FirebaseCollection();
 //const result = await fbcol.readCollection("test");
