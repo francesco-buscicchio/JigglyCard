@@ -46,12 +46,17 @@
             v-for="(img, index) in footer.imgs"
             :key="index"
           >
-            <Img :src="img.img" alt="Logo" class="max-h-6" />
+            <NuxtImg :src="img.img" alt="Logo" class="min-w-6" />
           </div>
         </template>
         <template v-else>
-          <div class="footer-img max-h-6">
-            <Img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
+          <div class="footer-img W-6">
+            <NuxtImg
+              v-if="footer.imgs"
+              :src="footer.imgs.img"
+              alt="Logo"
+              class="min-w-6"
+            />
           </div>
         </template>
       </div>

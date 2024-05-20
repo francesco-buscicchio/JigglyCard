@@ -12,8 +12,8 @@
           @click="toggleSearch"
         ></Icon>
       </div>
-      <img
-        src="~/assets/img/logo.png"
+      <NuxtImg
+        src="/img/logo.png"
         alt="Logo"
         class="w-10 cursor-pointer"
         @click="handleLogoClick"

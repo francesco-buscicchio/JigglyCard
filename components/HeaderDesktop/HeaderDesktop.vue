@@ -1,8 +1,8 @@
 <template>
   <div class="bg-ultralitePink">
     <div class="flex justify-between items-center bg-ultralitePink px-4">
-      <img
-        src="~/assets/img/logo.png"
+      <NuxtImg
+        src="/img/logo.png"
         alt="Logo"
         style="width: 40px"
         @click="handleLogoClick"
@@ -34,8 +34,8 @@
 
       <div class="flex items-center gap-x-4">
         <button class="mr-4 relative" aria-label="Carrello">
-          <img
-            src="~/assets/img/cart.png"
+          <NuxtImg
+            src="/img/cart.png"
             alt="Carrello"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />
@@ -46,8 +46,8 @@
           </span>
         </button>
         <button>
-          <img
-            src="~/assets/img/user.png"
+          <NuxtImg
+            src="/img/user.png"
             alt="Utente"
             class="min-h-6 min-w-6 max-h-6 max-w-6"
           />

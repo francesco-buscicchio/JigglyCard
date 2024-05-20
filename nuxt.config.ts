@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "light",
   },
+  image: {
+    dir: "assets",
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

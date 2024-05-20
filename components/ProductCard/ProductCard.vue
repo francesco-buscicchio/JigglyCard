@@ -1,12 +1,12 @@
 <template>
   <div class="rounded-3xl overflow-hidden shadow-lg bg-white">
-    <img
+    <NuxtImg
       class="h-auto w-full object-cover"
       :src="product.image"
       alt="Immagine di prodotto"
     />
     <div class="px-6 py-4 flex items-center">
-      <img :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
+      <NuxtImg :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
       <p class="font-bold text-xl">{{ product.name }}</p>
     </div>
 
