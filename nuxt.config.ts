@@ -4,6 +4,7 @@ export default defineNuxtConfig({
     preference: "light",
   },
   image: {
+    provider: "ipx",
     dir: "assets",
   },
   postcss: {
