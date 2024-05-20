@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("primevue/resources/themes/aura-light-green/theme.css");
+
 html {
   background-color: white;
 }

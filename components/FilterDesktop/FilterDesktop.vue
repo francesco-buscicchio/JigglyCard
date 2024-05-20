@@ -25,11 +25,7 @@ import conditions from "~/data/conditions";
 
 const checkboxFilters = ref(conditions);
 
-const priceRange = ref({
-  min: 0,
-  max: 100,
-  value: 20,
-});
+const priceRange = ref([0, 100]);
 
 function handleFiltersUpdate(filterName: string) {
   const filter = checkboxFilters.value.find((f) => f.label === filterName);
@@ -39,6 +35,6 @@ function handleFiltersUpdate(filterName: string) {
 }
 
 function handleRangeUpdate(newValue: number) {
-  priceRange.value.value = newValue;
+  //priceRange.value.value = newValue;
 }
 </script>

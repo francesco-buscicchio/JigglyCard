@@ -4,7 +4,8 @@
     <div class="grid grid-cols-12 gap-x-4 gap-y-4">
       <div
         class="lg:col-span-3 col-span-12 shadow-lg rounded-lg border p-4"
-        v-for="item of productsToDisplay"
+        v-for="(item, index) of productsToDisplay"
+        :key="index"
       >
         <div
           class="flex flex-row items-center justify-between cursor-pointer"
@@ -57,7 +58,7 @@ for (let product of productsToDisplay) {
 
 function filterArrayMultiplesOfFour(arr: any[]): any[] {
   let maxLen = 16;
-  if (isMobile()) {
+  if (isMobile().value) {
     maxLen = 8;
   }
   const newArr = arr.slice(0, maxLen);

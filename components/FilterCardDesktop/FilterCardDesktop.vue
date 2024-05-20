@@ -40,46 +40,27 @@
       <h3 class="text-xl font-bold">{{ title }}</h3>
       <div>
         <span>{{ rangeLabel }}</span>
-        <input
-          type="range"
-          class="range-slider w-full h-2 rounded-lg cursor-pointer"
-          :style="{
-            'accent-color': '#fba2a9',
-            cursor: 'pointer',
-          }"
-          :min="range.min"
-          :max="range.max"
-          v-model="range.value"
-          @input="updateRange"
-          @mousemove="updateTooltipPosition($event)"
-          ref="slider"
-        />
-        <div class="tooltip" :style="{ left: tooltipPosition + 'px' }">
-          {{ range.value + " €" }}
+        <Slider v-model="range.value" range class="w-full px-6 my-2" />
+        <div class="flex justify-between text-xs">
+          <span>{{ range.value[0] + " €" }}</span>
+          <span>{{ range.value[1] + " €" }}</span>
         </div>
-        <div class="flex justify-between text-xs px-2">
-          <span>{{ range.min + " €" }}</span>
-          <span>{{ range.max + " €" }}</span>
-        </div>
+
+        {{ range.value }}
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 
 defineProps({
-  title: String,
-  filters: Array,
-  type: String,
-  rangeLabel: String,
-});
-
-const range = reactive({
-  min: 0,
-  max: 100,
-  value: 50,
+  title: string;
+  filters: any;
+  type: string;
+  rangeLabel: string;
+  range: number[];
 });
 
 const emit = defineEmits(["update:filters", "update:range"]);
@@ -110,17 +91,6 @@ watch(() => range.value, updateTooltipPosition);
 </script>
 
 <style scoped>
-.tooltip {
-  position: absolute;
-  top: -25px;
-  transform: translateX(-50%);
-  background-color: #fba2a9;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-  user-select: none;
-}
-
 .range-slider::-webkit-slider-thumb {
   appearance: none;
   margin-top: 0;
