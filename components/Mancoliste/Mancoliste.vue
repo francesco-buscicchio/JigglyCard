@@ -3,7 +3,7 @@
     <div class="text-xl font-bold pb-4">Set Fossil - Carte singole</div>
     <div class="grid grid-cols-12 gap-x-4 gap-y-4">
       <div
-        class="col-span-3 shadow-lg rounded-lg border p-4"
+        class="lg:col-span-3 col-span-12 shadow-lg rounded-lg border p-4"
         v-for="item of productsToDisplay"
       >
         <div
@@ -56,7 +56,10 @@ for (let product of productsToDisplay) {
 }
 
 function filterArrayMultiplesOfFour(arr: any[]): any[] {
-  const maxLen = 16;
+  let maxLen = 16;
+  if (isMobile()) {
+    maxLen = 8;
+  }
   const newArr = arr.slice(0, maxLen);
   const remainder = newArr.length % 4;
   return remainder === 0 ? newArr : newArr.slice(0, newArr.length - remainder);
