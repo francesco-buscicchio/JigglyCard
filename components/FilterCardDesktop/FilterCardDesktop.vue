@@ -53,9 +53,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue";
 
-defineProps({
+const props = defineProps({
   title: string;
   filters: any;
   type: string;
@@ -64,30 +63,17 @@ defineProps({
 });
 
 const emit = defineEmits(["update:filters", "update:range"]);
-const slider = ref(null);
-const tooltipPosition = ref("0%");
 
-function toggleFilter(filter) {
+function toggleFilter(filter: any) {
   console.log("click");
   filter.enabled = !filter.enabled;
   emit("update:filters", filter.name);
 }
 
 function updateRange() {
-  emit("update:range", range.value);
-  updateTooltipPosition();
+  emit("update:range", props.range.value);
 }
 
-function updateTooltipPosition(event) {
-  const sliderElement = slider.value;
-  if (!sliderElement) return;
-
-  const rect = sliderElement.getBoundingClientRect();
-  const percent = ((range.value - range.min) / (range.max - range.min)) * 100;
-  tooltipPosition.value = `calc(${percent}% - ${event.clientX - rect.left}px)`;
-}
-
-watch(() => range.value, updateTooltipPosition);
 </script>
 
 <style scoped>
