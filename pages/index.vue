@@ -30,10 +30,17 @@
     </div>
   </div>
   <br>
+
+  <Mancoliste 
+    :set="{
+      collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'], 
+      typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE']
+    }"/>
   <Footer       
     :sections="sectionsData" 
     :footer="footerData"
   />
+
 
 </template>
 
