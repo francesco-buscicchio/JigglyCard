@@ -9,6 +9,7 @@ export default {
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
     "./app.vue",
+    "./formkit.theme.ts",
     "./error.vue",
   ],
   theme: {

@@ -9,6 +9,10 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  formkit: {
+    autoImport: true,
+    configFile: "./formkit.config.ts",
+  },
   runtimeConfig: {
     public: {
       FB_API_KEY: process.env.FB_API_KEY,
@@ -28,5 +32,6 @@ export default defineNuxtConfig({
     "@nuxt/ui",
     "@nuxtjs/i18n",
     "nuxt-medusa",
+    "@formkit/nuxt",
   ],
 });
