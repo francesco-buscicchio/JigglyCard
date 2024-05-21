@@ -1,12 +1,5 @@
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 
-export const isDesktop = () => {
-  let isDesktop = () =>
-    useBreakpoints(breakpointsTailwind).greaterOrEqual("lg");
-  return isDesktop;
-};
+export const isDesktop = () => useBreakpoints(breakpointsTailwind).greaterOrEqual("lg");
 
-export const isMobile = () => {
-  let isMobile = () => useBreakpoints(breakpointsTailwind).smaller("lg");
-  return isMobile;
-};
+export const isMobile = () => useBreakpoints(breakpointsTailwind).smaller("lg");
