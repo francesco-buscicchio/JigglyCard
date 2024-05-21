@@ -2,10 +2,10 @@
   <div
     class="px-6 py-4 max-w-sm rounded-lg border border-gray-200 shadow-md bg-white"
   >
-    <div class="flex flex-col gap-4" v-if="type === 'checkboxList'">
+    <div class="flex flex-col gap-4" v-if="data.type === 'checkboxList'">
       <h3 class="text-xl font-bold">{{ title }}</h3>
       <div
-        v-for="filter in filters"
+        v-for="filter in data.filters"
         :key="filter.name"
         class="flex items-center"
       >
@@ -36,31 +36,77 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-4 relative" v-if="type === 'rangeSelector'">
-      <h3 class="text-xl font-bold">{{ title }}</h3>
+    <div
+      class="flex flex-col gap-4 relative"
+      v-if="data.type === 'rangeSelector'"
+    >
+      <h3 class="text-xl font-bold">{{ data.title }}</h3>
       <div>
-        <span>{{ rangeLabel }}</span>
-        <Slider v-model="range.value" range class="w-full px-6 my-2" />
+        <span>{{ data.rangeLabel }}</span>
+        <Slider
+          v-model="rangeValue"
+          range
+          class="w-full px-6 my-4 bg-black"
+          @change="rangeValueChanged"
+        />
         <div class="flex justify-between text-xs">
-          <span>{{ range.value[0] + " €" }}</span>
-          <span>{{ range.value[1] + " €" }}</span>
+          <div class="max-w-20">
+            <InputNumber
+              v-model="rangeStart"
+              inputId="currency-germany"
+              mode="currency"
+              currency="EUR"
+              locale="it-IT"
+              @update:model-value="rangeInputChanged"
+            />
+          </div>
+          <InputNumber
+            v-model="rangeEnd"
+            inputId="currency-germany"
+            mode="currency"
+            currency="EUR"
+            locale="it-IT"
+            class="max-w-20"
+            @update:model-value="rangeInputChanged"
+          />
         </div>
-
-        {{ range.value }}
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-
-const props = defineProps({
+type FilterCardType = {
   title: string;
-  filters: any;
+  filters?: any;
   type: string;
-  rangeLabel: string;
-  range: number[];
-});
+  rangeLabel?: string;
+  range?: number[];
+};
+
+const props = defineProps<{ data: FilterCardType }>();
+const rangeValue = ref(props.data.range);
+const rangeStart = ref(0);
+const rangeEnd = ref(0);
+
+if (props.data.range) {
+  rangeStart.value = props.data.range[0];
+  rangeEnd.value = props.data.range[1];
+}
+
+const rangeValueChanged = () => {
+  if (rangeValue.value) {
+    rangeStart.value = rangeValue.value[0];
+    rangeEnd.value = rangeValue.value[1];
+  }
+};
+
+const rangeInputChanged = () => {
+  if (rangeValue.value) {
+    rangeValue.value[0] = rangeStart.value;
+    rangeValue.value[1] = rangeEnd.value;
+  }
+};
 
 const emit = defineEmits(["update:filters", "update:range"]);
 
@@ -73,12 +119,15 @@ function toggleFilter(filter: any) {
 function updateRange() {
   emit("update:range", props.range.value);
 }
-
 </script>
 
 <style scoped>
-.range-slider::-webkit-slider-thumb {
-  appearance: none;
-  margin-top: 0;
+::v-deep .p-slider-range {
+  background: #f94451 !important;
+}
+
+::v-deep .p-inputtext {
+  max-width: 80px !important;
+  min-height: 30px !important;
 }
 </style>
