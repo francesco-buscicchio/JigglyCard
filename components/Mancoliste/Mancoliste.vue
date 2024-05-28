@@ -4,7 +4,8 @@
     <div class="grid grid-cols-12 gap-x-4 gap-y-4">
       <div
         class="lg:col-span-3 col-span-12 shadow-lg rounded-lg border p-4"
-        v-for="item of productsToDisplay"
+        v-for="(item, index) of productsToDisplay"
+        :key="index"
       >
         <div
           class="flex flex-row items-center justify-between cursor-pointer"
@@ -24,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+import mancolisteData from "~/data/mancolisteData";
 type MancolistePropsType = {
   collectionID: string[];
   typeID: string[];
@@ -32,11 +34,15 @@ type MancolistePropsType = {
 const props = defineProps<{ set: MancolistePropsType }>();
 
 const client = useMedusaClient();
-const { products } = await client.products.list({
+/*const { products } = await client.products.list({
   collection_id: props.set.collectionID,
   type_id: props.set.typeID,
-});
+});*/
+
+const products = mancolisteData.products;
+
 const productsToDisplay: any[] = filterArrayMultiplesOfFour(products);
+
 for (let product of productsToDisplay) {
   let maxPrice = 0;
   for (const variant of product.variants) {
