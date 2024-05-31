@@ -1,5 +1,7 @@
 <template>
-  <PrivacyModal />
+  <!-- <PrivacyModal /> -->
+  <!-- <Newsletter /> -->
+
 
   <div class="lg:flex flex-row pt-4 justify-between mx-8">
     <div class="w-full">
@@ -16,6 +18,8 @@
     }"
   />
   -->
+  <ServiceBanner :sections="sectionsDataService"/>
+<br>
   <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
@@ -69,6 +73,47 @@ onMounted(() => {
   const remainingHeight = parentHeight - otherButtonsHeight - 48;
   imageDiv.value.style.height = `${remainingHeight}px`;
 });
+
+const sectionsDataService = [
+  {
+    title: "Section 1",
+    sections: [
+      { value: "Item 1", link: "#" },
+      { value: "Item 2", link: "#" },
+      { value: "Item 3", link: "#" },
+    ],
+    imgUrl: facebookLogo,
+  },
+  {
+    title: "Section 2",
+    sections: [
+      "Lorem ipsum dolor sit amet",
+      "consectetur adipiscing elit",
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    ],
+    imgUrl: facebookLogo,
+  },
+  {
+    title: "Section 3",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+    ],
+    imgUrl: facebookLogo,
+  },
+  {
+    title: "Section 4",
+    sections: [
+      { value: "Item Link", link: "#" },
+      "consectetur adipiscing elit fvfvfvfv",
+      { value: "Item Link", link: "#" },
+      "sed do eiusmod tempor incididunt ut labore et dolore chi legge e scemo senza accento aliqua",
+    ],
+    imgUrl: facebookLogo,
+  },
+];
 
 const sectionsData = [
   {
