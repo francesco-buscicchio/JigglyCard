@@ -1,30 +1,29 @@
 <template>
-  <!-- <PrivacyModal /> -->
-  <!-- <Newsletter /> -->
+  <PrivacyModal />
+  <Newsletter />
 
-
-  <div class="lg:flex flex-row pt-4 justify-between mx-8">
-    <div class="w-full">
-      <CarouselHero :data="carouselData" />
+    <div class="lg:flex flex-row pt-4 justify-between mx-8">
+      <div class="w-full">
+        <CarouselHero :data="carouselData" />
+      </div>
     </div>
-  </div>
-  <br />
+    <br />
 
-  <!--
-  <Mancoliste
-    :set="{
-      collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
-      typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE'],
-    }"
-  />
-  -->
-  <ServiceBanner :sections="sectionsDataService"/>
+<!--
+<Mancoliste
+  :set="{
+    collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
+    typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE'],
+  }"
+/>
+-->
+<ServiceBanner :sections="sectionsDataService"/>
 <br>
-  <Footer :sections="sectionsData" :footer="footerData" />
+<Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from 'vue';
 import DestinoPaldea from "../../assets/img/DestinoPaldea.jpg";
 import EvoluzioniPaldea from "../../assets/img/EvoluzioniPaldea.jpg";
 import Ossidiana from "../../assets/img/Ossidiana.jpg";
@@ -63,6 +62,7 @@ const carouselData = [
 const imageDiv = ref(null);
 
 onMounted(() => {
+  nextTick(() => {
   const parentHeight = imageDiv.value.parentElement.clientHeight;
   let otherButtonsHeight = 0;
   imageDiv.value.parentElement
@@ -72,6 +72,7 @@ onMounted(() => {
     });
   const remainingHeight = parentHeight - otherButtonsHeight - 48;
   imageDiv.value.style.height = `${remainingHeight}px`;
+  })
 });
 
 const sectionsDataService = [
