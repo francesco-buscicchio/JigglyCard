@@ -21,14 +21,11 @@
 </template>
 
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from "swiper/vue";
 import { EffectCube, Pagination } from "swiper/modules";
 
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 import "swiper/css";
-
-const swiper = useSwiper();
 
 type CarouselHeroType = {
   id: number;
