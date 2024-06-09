@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import mancolisteData from "~/data/mancolisteData";
+//import mancolisteData from "~/data/mancolisteData";
 type MancolistePropsType = {
   collectionID: string[];
   typeID: string[];
@@ -34,12 +34,10 @@ type MancolistePropsType = {
 const props = defineProps<{ set: MancolistePropsType }>();
 
 const client = useMedusaClient();
-/*const { products } = await client.products.list({
+const { products } = await client.products.list({
   collection_id: props.set.collectionID,
   type_id: props.set.typeID,
-});*/
-
-const products = mancolisteData.products;
+});
 
 const productsToDisplay: any[] = filterArrayMultiplesOfFour(products);
 

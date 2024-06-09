@@ -36,7 +36,6 @@
 </template>
   
   <script setup lang="ts">
-import { defineProps } from "vue";
 import { colors } from "~/config/tailwind/colors";
 
 const props = defineProps({

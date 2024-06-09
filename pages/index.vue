@@ -9,14 +9,12 @@
   </div>
   <br />
 
-  <!--
-<Mancoliste
-  :set="{
-    collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
-    typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE'],
-  }"
-/>
--->
+  <Mancoliste
+    :set="{
+      collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],
+      typeID: [],
+    }"
+  />
   <ServiceBanner :sections="sectionsDataService" />
   <br />
   <Footer :sections="sectionsData" :footer="footerData" />

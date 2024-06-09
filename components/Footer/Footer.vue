@@ -46,12 +46,12 @@
             v-for="(img, index) in footer.imgs"
             :key="index"
           >
-            <Img :src="img.img" alt="Logo" class="max-h-6" />
+            <img :src="img.img" alt="Logo" class="max-h-6" />
           </div>
         </template>
         <template v-else>
           <div class="footer-img max-h-6">
-            <Img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
+            <img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
           </div>
         </template>
       </div>
