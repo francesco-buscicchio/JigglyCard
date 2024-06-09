@@ -1,5 +1,6 @@
 <template>
   <PrivacyModal />
+  <Newsletter />
 
   <div class="lg:flex flex-row pt-4 justify-between mx-8">
     <div class="w-full">
@@ -9,24 +10,28 @@
   <br />
 
   <!--
-  <Mancoliste
-    :set="{
-      collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
-      typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE'],
-    }"
-  />
-  -->
+<Mancoliste
+  :set="{
+    collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
+    typeID: ['ptyp_01HYAS1R5WK6ZT5PYX6NXAGSEE'],
+  }"
+/>
+-->
+  <ServiceBanner :sections="sectionsDataService" />
+  <br />
   <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import DestinoPaldea from "../../assets/img/DestinoPaldea.jpg";
 import EvoluzioniPaldea from "../../assets/img/EvoluzioniPaldea.jpg";
 import Ossidiana from "../../assets/img/Ossidiana.jpg";
 import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 useHead({
   title: "Jigglycard",
@@ -59,16 +64,41 @@ const carouselData = [
 const imageDiv = ref(null);
 
 onMounted(() => {
-  const parentHeight = imageDiv.value.parentElement.clientHeight;
-  let otherButtonsHeight = 0;
-  imageDiv.value.parentElement
-    .querySelectorAll('button:not([ref="ciaoButton"])')
-    .forEach((button) => {
-      otherButtonsHeight += button.clientHeight;
-    });
-  const remainingHeight = parentHeight - otherButtonsHeight - 48;
-  imageDiv.value.style.height = `${remainingHeight}px`;
+  nextTick(() => {
+    const parentHeight = imageDiv.value.parentElement.clientHeight;
+    let otherButtonsHeight = 0;
+    imageDiv.value.parentElement
+      .querySelectorAll('button:not([ref="ciaoButton"])')
+      .forEach((button) => {
+        otherButtonsHeight += button.clientHeight;
+      });
+    const remainingHeight = parentHeight - otherButtonsHeight - 48;
+    imageDiv.value.style.height = `${remainingHeight}px`;
+  });
 });
+
+const sectionsDataService = [
+  {
+    title: t("serviceHomepage.FastShipping"),
+    sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
+    imgUrl: "material-symbols:local-shipping",
+  },
+  {
+    title: t("serviceHomepage.Support"),
+    sections: [t("serviceHomepage.SupportDescription")],
+    imgUrl: "material-symbols:support-agent-sharp",
+  },
+  {
+    title: t("serviceHomepage.Prices"),
+    sections: [t("serviceHomepage.PricesDescription")],
+    imgUrl: "solar:tag-price-bold-duotone",
+  },
+  {
+    title: t("serviceHomepage.Security"),
+    sections: [t("serviceHomepage.SecurityDescription")],
+    imgUrl: "solar:tag-price-bold-duotone",
+  },
+];
 
 const sectionsData = [
   {
