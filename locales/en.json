@@ -2,5 +2,15 @@
   "FeaturedProducts": "Prodotti in Evidenza",
   "Conditions": "Conditions",
   "WeeklyOffers": "Weekly Offers",
-  "PreOrders": "Pre-orders"
+  "PreOrders": "Pre-orders",
+  "serviceHomepage": {
+    "FastShipping": "Fast Shipping",
+    "FastShippingDescription": "Orders are delivered within 2 working days and are always insured and protected.",
+    "Support": "Support",
+    "SupportDescription": "We are always available to provide you with 24/7 support.",
+    "Prices": "Prices",
+    "PricesDescription": "The best value for money on the market.",
+    "Security": "Security",
+    "SecurityDescription": "Your personal and payment data are safe."
+  }
 }

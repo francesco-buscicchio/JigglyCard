@@ -2,14 +2,14 @@
   <PrivacyModal />
   <Newsletter />
 
-    <div class="lg:flex flex-row pt-4 justify-between mx-8">
-      <div class="w-full">
-        <CarouselHero :data="carouselData" />
-      </div>
+  <div class="lg:flex flex-row pt-4 justify-between mx-8">
+    <div class="w-full">
+      <CarouselHero :data="carouselData" />
     </div>
-    <br />
+  </div>
+  <br />
 
-<!--
+  <!--
 <Mancoliste
   :set="{
     collectionID: ['pcol_01HYARCV4QD4YP9QF5WCK1985E'],
@@ -17,19 +17,21 @@
   }"
 />
 -->
-<ServiceBanner :sections="sectionsDataService"/>
-<br>
-<Footer :sections="sectionsData" :footer="footerData" />
+  <ServiceBanner :sections="sectionsDataService" />
+  <br />
+  <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from "vue";
 import DestinoPaldea from "../../assets/img/DestinoPaldea.jpg";
 import EvoluzioniPaldea from "../../assets/img/EvoluzioniPaldea.jpg";
 import Ossidiana from "../../assets/img/Ossidiana.jpg";
 import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 useHead({
   title: "Jigglycard",
@@ -63,56 +65,38 @@ const imageDiv = ref(null);
 
 onMounted(() => {
   nextTick(() => {
-  const parentHeight = imageDiv.value.parentElement.clientHeight;
-  let otherButtonsHeight = 0;
-  imageDiv.value.parentElement
-    .querySelectorAll('button:not([ref="ciaoButton"])')
-    .forEach((button) => {
-      otherButtonsHeight += button.clientHeight;
-    });
-  const remainingHeight = parentHeight - otherButtonsHeight - 48;
-  imageDiv.value.style.height = `${remainingHeight}px`;
-  })
+    const parentHeight = imageDiv.value.parentElement.clientHeight;
+    let otherButtonsHeight = 0;
+    imageDiv.value.parentElement
+      .querySelectorAll('button:not([ref="ciaoButton"])')
+      .forEach((button) => {
+        otherButtonsHeight += button.clientHeight;
+      });
+    const remainingHeight = parentHeight - otherButtonsHeight - 48;
+    imageDiv.value.style.height = `${remainingHeight}px`;
+  });
 });
 
 const sectionsDataService = [
   {
-    title: "Section 1",
-    sections: [
-      { value: "Item 1", link: "#" },
-      { value: "Item 2", link: "#" },
-      { value: "Item 3", link: "#" },
-    ],
-    imgUrl: facebookLogo,
+    title: t("serviceHomepage.FastShipping"),
+    sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
+    imgUrl: "material-symbols:local-shipping",
   },
   {
-    title: "Section 2",
-    sections: [
-      "Lorem ipsum dolor sit amet",
-      "consectetur adipiscing elit",
-      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    ],
-    imgUrl: facebookLogo,
+    title: t("serviceHomepage.Support"),
+    sections: [t("serviceHomepage.SupportDescription")],
+    imgUrl: "material-symbols:support-agent-sharp",
   },
   {
-    title: "Section 3",
-    sections: [
-      { value: "Item Link", link: "#" },
-      "consectetur adipiscing elit",
-      { value: "Item Link", link: "#" },
-      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    ],
-    imgUrl: facebookLogo,
+    title: t("serviceHomepage.Prices"),
+    sections: [t("serviceHomepage.PricesDescription")],
+    imgUrl: "solar:tag-price-bold-duotone",
   },
   {
-    title: "Section 4",
-    sections: [
-      { value: "Item Link", link: "#" },
-      "consectetur adipiscing elit fvfvfvfv",
-      { value: "Item Link", link: "#" },
-      "sed do eiusmod tempor incididunt ut labore et dolore chi legge e scemo senza accento aliqua",
-    ],
-    imgUrl: facebookLogo,
+    title: t("serviceHomepage.Security"),
+    sections: [t("serviceHomepage.SecurityDescription")],
+    imgUrl: "solar:tag-price-bold-duotone",
   },
 ];
 
