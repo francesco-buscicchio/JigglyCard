@@ -25,6 +25,7 @@
 </template>
 
 <script setup lang="ts">
+//import mancolisteData from "~/data/mancolisteData";
 type MancolistePropsType = {
   collectionID: string[];
   typeID: string[];
@@ -37,7 +38,9 @@ const { products } = await client.products.list({
   collection_id: props.set.collectionID,
   type_id: props.set.typeID,
 });
+
 const productsToDisplay: any[] = filterArrayMultiplesOfFour(products);
+
 for (let product of productsToDisplay) {
   let maxPrice = 0;
   for (const variant of product.variants) {

@@ -11,6 +11,7 @@ export default {
     "./app.vue",
     "./formkit.theme.ts",
     "./error.vue",
+    'docs/content/**/*.md'
   ],
   theme: {
     extend: {

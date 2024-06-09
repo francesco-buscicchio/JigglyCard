@@ -36,9 +36,4 @@ export default defineNuxtConfig({
     "@formkit/nuxt",
     "nuxt-primevue"
   ],
-  primevue: {
-    options: {
-      unstyled: false
-    }
-  }
 });
