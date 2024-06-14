@@ -28,10 +28,21 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const api = "https://server.serverjigglycards.com/store/products";
 
-const test = fetch(api).then((val) => {
-  console.log(val);
-  console.log(val);
-});
+const test = fetch(api, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: "testBuscicchio@gmail.com",
+})
+  .then((response) => response.json())
+  .then(() => {
+    alert("Subscribed successfully!");
+  })
+  .catch((e) => {
+    console.error(e);
+    alert("An error occurred");
+  });
 
 const prestoOnline = t("prestoOnline");
 
