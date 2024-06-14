@@ -30,6 +30,7 @@ const api = "https://server.serverjigglycards.com/store/products";
 
 const test = fetch(api).then((val) => {
   console.log(val);
+  console.log(val);
 });
 
 const prestoOnline = t("prestoOnline");
