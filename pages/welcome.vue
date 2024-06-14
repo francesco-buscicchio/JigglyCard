@@ -30,9 +30,6 @@ const api = "https://server.serverjigglycards.com/store/mailchimp/subscribe";
 
 const test = fetch(api, {
   method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
   body: "testBuscicchio@gmail.com",
 })
   .then((response) => response.json())
