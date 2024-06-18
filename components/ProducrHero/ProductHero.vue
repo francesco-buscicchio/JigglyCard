@@ -33,7 +33,7 @@
           </div>
           <button class="mt-2 h-10 w-full bg-mediumPink">Acquista con PayPal</button>
         </div>
-        <button @click="toggleDescription">{{ showDescription ? 'Mostra meno' : 'Mostra di più' }}</button>
+        <button class="text-s" @click="toggleDescription">{{ showDescription ? 'Mostra meno' : 'Mostra di più' }}</button>
         <p v-if="showDescription"><strong>Descrizione:</strong> {{ firstProduct.description }}</p>
       </div>
     </div>
