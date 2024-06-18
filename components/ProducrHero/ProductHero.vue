@@ -20,7 +20,7 @@
         <div v-for="variant in firstProduct.variants" :key="variant.id">
           <p><strong>€ {{ variant.prices[0].amount }}</strong></p>
           <p class="text-xs">Tasse incluse. Spedizione calcolata al momento del pagamento</p>
-          <p class="text-xs"><strong>Lingua:</strong></p>
+          <p class="text-xs mt-2 l:mt-0"><strong>Lingua:</strong></p>
           <button class="h-10 px-2 border border-gray hover:mediumPink focus:mediumPink active:mediumPink">
             <p>{{ variant.title }}</p>
           </button>
