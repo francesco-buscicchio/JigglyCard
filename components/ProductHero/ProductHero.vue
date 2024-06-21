@@ -20,22 +20,22 @@
         <h1 class="text-xl"><strong>{{ firstProduct.title }}</strong></h1>
         <div v-for="variant in firstProduct.variants" :key="variant.id">
           <p><strong>€ {{ variant.prices[0].amount }}</strong></p>
-          <p class="text-xs">Tasse incluse. Spedizione calcolata al momento del pagamento</p>
-          <p class="text-xs mt-2 l:mt-0"><strong>Lingua:</strong></p>
+          <p class="text-xs"> {{ t("productHero.TasseESpedizione") }} </p>
+          <p class="text-xs mt-2 l:mt-0"><strong> {{ t("productHero.Lingua") }} :</strong></p>
           <button class="h-10 px-2 border border-gray hover:mediumPink focus:mediumPink active:mediumPink">
             <p>{{ variant.title }}</p>
           </button>
-          <p class="text-xs mt-2 l:mt-0"><strong>Quantità:</strong></p>
+          <p class="text-xs mt-2 l:mt-0"><strong>{{ t("productHero.Quantita") }} :</strong></p>
           <div class="flex justify-between py-2">
             <select class="h-10 px-8 border border-gray" v-model="selectedQuantity">
                 <option v-for="n in variant.inventory_quantity" :key="n" :value="n">{{ n }}</option>
             </select>
-            <button class="h-10 px-10 border border-gray">Aggiungi al carrello</button>
+            <button class="h-10 px-10 border border-gray">{{ t("productHero.AggiungiCarrello") }}</button>
           </div>
-          <button class="mt-2 h-10 w-full bg-mediumPink">Acquista con PayPal</button>
+          <button class="mt-2 h-10 w-full bg-mediumPink">{{ t("productHero.AcquistaPaypal") }}</button>
         </div>
         <button class="text-s" @click="toggleDescription">{{ showDescription ? 'Mostra meno' : 'Mostra di più' }}</button>
-        <p v-if="showDescription"><strong>Descrizione:</strong> {{ firstProduct.description }}</p>
+        <p v-if="showDescription"><strong>{{ t("productHero.Descrizione") }}:</strong> {{ firstProduct.description }}</p>
       </div>
     </div>
   </template>
@@ -43,7 +43,8 @@
   <script setup lang="ts">
   import { ref } from 'vue';
   const client = useMedusaClient();
-  
+  const { t } = useI18n();
+
   const firstProduct = ref(null);
   const selectedImage = ref(null);
   const showDescription = ref(false);
