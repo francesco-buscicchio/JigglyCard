@@ -17,6 +17,11 @@
   />
   <ServiceBanner :sections="sectionsDataService" />
   <br />
+  <h3 class="p-6 text-2xl font-bold">Prodotto in evidenza</h3>
+  <div class="pb-6">
+    <ProductHero />
+  </div>
+
   <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
