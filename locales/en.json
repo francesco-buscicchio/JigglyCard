@@ -12,5 +12,14 @@
     "PricesDescription": "The best value for money on the market.",
     "Security": "Security",
     "SecurityDescription": "Your personal and payment data are safe."
+  },
+  "productHero": {
+    "TasseESpedizione": "Taxes included. Shipping calculated at checkout",
+    "Lingua": "Language",
+    "Quantita": "Quantity",
+    "AggiungiCarrello": "Add to Cart",
+    "AcquistaPaypal": "Buy with PayPal",
+    "Descrizione": "Description"
   }
 }
+

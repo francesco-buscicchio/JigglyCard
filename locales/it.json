@@ -12,5 +12,13 @@
     "PricesDescription": "Il miglior rapporto qualità prezzo sul mercato.",
     "Security": "Sicurezza",
     "SecurityDescription": "I tuoi dati personali e di pagamento sono al sicuro."
+  },
+  "productHero": {
+    "TasseESpedizione": "Tasse incluse. Spedizione calcolata al momento del pagamento",
+    "Lingua": "Lingua",
+    "Quantita": "Quantità",
+    "AggiungiCarrello": "Aggiungi al carrello",
+    "AcquistaPaypal": "Acquista con PayPal",
+    "Descrizione": "Descrizione"
   }
 }
