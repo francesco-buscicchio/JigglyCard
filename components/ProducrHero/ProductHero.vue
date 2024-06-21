@@ -1,21 +1,22 @@
 <template>
     <div v-if="firstProduct" class="xl:flex justify-center m-4 l:m-0">
-      <div v-if="firstProduct.images && firstProduct.images.length > 0" class="images-container">
-        <div class="thumbnails vertical-align">
+      <div v-if="firstProduct.images && firstProduct.images.length > 0" class="flex">
+        <div class="thumbnails flex flex-col justify-center">
           <div v-for="(image, index) in firstProduct.images" :key="image.id">
             <img 
               :src="image.url" 
               :alt="'error'" 
               @click="showImg(image.url)"
-              :class="{ 'selected-thumbnail': selectedImage === image.url }"
+              class="cursor-pointer mb-10 max-w-[100px] border-2 border-transparent"
+              :class="{ 'border-2': selectedImage === image.url }"
             />
           </div>
         </div>
-        <div class="main-image px-10">
-          <img :src="selectedImage || firstProduct.images[0].url" :alt="'error'" />
+        <div class="px-10">
+          <img :src="selectedImage || firstProduct.images[0].url" :alt="'error'" class="max-w-[250px] md:max-w-[500px] h-auto" />
         </div>
       </div>
-      <div class="vertical-align">      
+      <div class="flex flex-col justify-center">      
         <h1 class="text-xl"><strong>{{ firstProduct.title }}</strong></h1>
         <div v-for="variant in firstProduct.variants" :key="variant.id">
           <p><strong>€ {{ variant.prices[0].amount }}</strong></p>
@@ -51,14 +52,12 @@
   const { products } = await client.products.list();
   if (products.length > 0) {
       firstProduct.value = products[0];
-      // Set initial selectedQuantity to 1 or the first variant's available quantity if necessary
       if (firstProduct.value.variants.length > 0) {
         selectedQuantity.value = Math.min(1, firstProduct.value.variants[0].inventory_quantity);
       }
   }
   
   function showImg(value) {
-      console.log("Image clicked:", value);
       selectedImage.value = value;
   }
   
@@ -68,45 +67,15 @@
   </script>
   
   <style>
-  .images-container {
-    display: flex;
-  }
-  
   .thumbnails {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
   }
-  
-  .thumbnails img {
-    cursor: pointer;
-    margin-bottom: 10px;
-    max-width: 100px; 
-    border: 2px solid transparent;
-  }
-  
-  .thumbnails img.selected-thumbnail {
-    border: 2px solid #007bff;
-  }
-  
-  .main-image img {
-    max-width: 500px;
-    height: auto;
-  }
-  
-  .vertical-align {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-  }
 
 @media (max-width: 640px) { 
   .thumbnails {
     display: none;
-  }
-  .main-image img {
-    max-width: 250px;
-    height: auto;
   }
 }
   </style>
