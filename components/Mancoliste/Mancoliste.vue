@@ -61,7 +61,7 @@ for (let product of productsToDisplay) {
 
 function filterArrayMultiplesOfFour(arr: any[]): any[] {
   let maxLen = 16;
-  if (isMobile()) {
+  if (isMobile().value) {
     maxLen = 8;
   }
   const newArr = arr.slice(0, maxLen);

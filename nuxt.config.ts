@@ -24,7 +24,8 @@ export default defineNuxtConfig({
       FB_MEASUREMENT_ID: process.env.FB_MEASUREMENT_ID,
     },
   },
-  css: ["~/assets/css/main.scss"],
+  css: ["~/assets/css/main.scss", 'primevue/resources/themes/aura-light-green/theme.css'],
+
   modules: [
     "@nuxt/image",
     "nuxt-icon",
@@ -33,5 +34,6 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-medusa",
     "@formkit/nuxt",
+    "nuxt-primevue"
   ],
 });

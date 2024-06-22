@@ -2,10 +2,10 @@
   <div
     class="px-6 py-4 max-w-sm rounded-lg border border-gray-200 shadow-md bg-white"
   >
-    <div class="flex flex-col gap-4" v-if="type === 'checkboxList'">
+    <div class="flex flex-col gap-4" v-if="data.type === 'checkboxList'">
       <h3 class="text-xl font-bold">{{ title }}</h3>
       <div
-        v-for="filter in filters"
+        v-for="filter in data.filters"
         :key="filter.name"
         class="flex items-center"
       >
@@ -36,93 +36,98 @@
       </div>
     </div>
 
-    <div class="flex flex-col gap-4 relative" v-if="type === 'rangeSelector'">
-      <h3 class="text-xl font-bold">{{ title }}</h3>
+    <div
+      class="flex flex-col gap-4 relative"
+      v-if="data.type === 'rangeSelector'"
+    >
+      <h3 class="text-xl font-bold">{{ data.title }}</h3>
       <div>
-        <span>{{ rangeLabel }}</span>
-        <input
-          type="range"
-          class="range-slider w-full h-2 rounded-lg cursor-pointer"
-          :style="{
-            'accent-color': '#fba2a9',
-            cursor: 'pointer',
-          }"
-          :min="range.min"
-          :max="range.max"
-          v-model="range.value"
-          @input="updateRange"
-          @mousemove="updateTooltipPosition($event)"
-          ref="slider"
+        <span>{{ data.rangeLabel }}</span>
+        <Slider
+          v-model="rangeValue"
+          range
+          class="w-full px-6 my-4 bg-black"
+          @change="rangeValueChanged"
         />
-        <div class="tooltip" :style="{ left: tooltipPosition + 'px' }">
-          {{ range.value + " €" }}
-        </div>
-        <div class="flex justify-between text-xs px-2">
-          <span>{{ range.min + " €" }}</span>
-          <span>{{ range.max + " €" }}</span>
+        <div class="flex justify-between text-xs">
+          <div class="max-w-20">
+            <InputNumber
+              v-model="rangeStart"
+              inputId="currency-germany"
+              mode="currency"
+              currency="EUR"
+              locale="it-IT"
+              @update:model-value="rangeInputChanged"
+            />
+          </div>
+          <InputNumber
+            v-model="rangeEnd"
+            inputId="currency-germany"
+            mode="currency"
+            currency="EUR"
+            locale="it-IT"
+            class="max-w-20"
+            @update:model-value="rangeInputChanged"
+          />
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, reactive, watch } from "vue";
+<script setup lang="ts">
+type FilterCardType = {
+  title: string;
+  filters?: any;
+  type: string;
+  rangeLabel?: string;
+  range?: number[];
+};
 
-defineProps({
-  title: String,
-  filters: Array,
-  type: String,
-  rangeLabel: String,
-});
+const props = defineProps<{ data: FilterCardType }>();
+const rangeValue = ref(props.data.range);
+const rangeStart = ref(0);
+const rangeEnd = ref(0);
 
-const range = reactive({
-  min: 0,
-  max: 100,
-  value: 50,
-});
+if (props.data.range) {
+  rangeStart.value = props.data.range[0];
+  rangeEnd.value = props.data.range[1];
+}
+
+const rangeValueChanged = () => {
+  if (rangeValue.value) {
+    rangeStart.value = rangeValue.value[0];
+    rangeEnd.value = rangeValue.value[1];
+  }
+};
+
+const rangeInputChanged = () => {
+  if (rangeValue.value) {
+    rangeValue.value[0] = rangeStart.value;
+    rangeValue.value[1] = rangeEnd.value;
+  }
+};
 
 const emit = defineEmits(["update:filters", "update:range"]);
-const slider = ref(null);
-const tooltipPosition = ref("0%");
 
-function toggleFilter(filter) {
+function toggleFilter(filter: any) {
   console.log("click");
   filter.enabled = !filter.enabled;
   emit("update:filters", filter.name);
 }
 
 function updateRange() {
-  emit("update:range", range.value);
-  updateTooltipPosition();
+  emit("update:range", props.range.value);
 }
-
-function updateTooltipPosition(event) {
-  const sliderElement = slider.value;
-  if (!sliderElement) return;
-
-  const rect = sliderElement.getBoundingClientRect();
-  const percent = ((range.value - range.min) / (range.max - range.min)) * 100;
-  tooltipPosition.value = `calc(${percent}% - ${event.clientX - rect.left}px)`;
-}
-
-watch(() => range.value, updateTooltipPosition);
 </script>
 
 <style scoped>
-.tooltip {
-  position: absolute;
-  top: -25px;
-  transform: translateX(-50%);
-  background-color: #fba2a9;
-  color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-  user-select: none;
+::v-deep .p-slider-range {
+  background: #f94451 !important;
 }
 
-.range-slider::-webkit-slider-thumb {
-  appearance: none;
-  margin-top: 0;
+::v-deep .p-inputtext {
+  max-width: 80px !important;
+  min-height: 30px !important;
 }
 </style>

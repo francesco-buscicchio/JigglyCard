@@ -23,8 +23,6 @@
 <script setup>
 import { ref } from "vue";
 import ProductCard from "../components/ProductCard/ProductCard.vue";
-import HeaderMobile from "../components/HeaderMobile/HeaderMobile.vue";
-import HeaderDesktop from "../components/HeaderDesktop/HeaderDesktop.vue";
 import productsData from "../data/products";
 
 const products = ref(productsData);
