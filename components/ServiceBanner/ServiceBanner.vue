@@ -16,7 +16,7 @@
             />
           </div>
           <div class="flex-1">
-            <h2 class="text-lightPink">{{ section.title }}</h2>
+            <h2 class="text-black font-bold">{{ section.title }}</h2>
             <div v-if="Array.isArray(section.sections)">
               <div v-for="(item, index) in section.sections" :key="index">
                 <p v-if="typeof item === 'object'">
