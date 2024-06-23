@@ -5,8 +5,8 @@
       alt="Lost in a fantasy forest"
       class="error-image"
     />
-    <h1 class="text-xl font-bold pt-10">404 - Pagina Non Trovata</h1>
-    <p class="text-lg">
+    <h1 class="pt-10">404 - Pagina Non Trovata</h1>
+    <p class="text-l">
       Sembra che tu ti sia perso nel bosco delle illusioni... cerca di ritrovare
       la strada!
     </p>

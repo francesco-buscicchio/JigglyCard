@@ -3,7 +3,7 @@
     class="px-6 py-4 max-w-sm rounded-lg border border-gray-200 shadow-md bg-white"
   >
     <div class="flex flex-col gap-4" v-if="data.type === 'checkboxList'">
-      <h3 class="text-xl font-bold">{{ title }}</h3>
+      <h5 class="font-bold">{{ title }}</h5>
       <div
         v-for="filter in data.filters"
         :key="filter.name"
@@ -40,7 +40,7 @@
       class="flex flex-col gap-4 relative"
       v-if="data.type === 'rangeSelector'"
     >
-      <h3 class="text-xl font-bold">{{ data.title }}</h3>
+      <h5>{{ data.title }}</h5>
       <div>
         <span>{{ data.rangeLabel }}</span>
         <Slider

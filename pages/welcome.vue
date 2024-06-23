@@ -12,7 +12,7 @@
         class="absolute left-0 w-22 md:w-100 cursor-pointer"
       />
       <div class="pt-8">
-        <p class="text-lightPink text-3xl md:text-8xl">JIGGLYCARD</p>
+        <h1 class="text-lightPink">JIGGLYCARD</h1>
       </div>
     </div>
     <h2>{{ prestoOnline }}</h2>

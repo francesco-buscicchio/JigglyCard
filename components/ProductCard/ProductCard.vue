@@ -7,7 +7,7 @@
     />
     <div class="px-6 py-4 flex items-center">
       <img :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
-      <p class="font-bold text-xl">{{ product.name }}</p>
+      <h5 class="font-bold">{{ product.name }}</h5>
     </div>
 
     <div class="px-4 pb-4">
