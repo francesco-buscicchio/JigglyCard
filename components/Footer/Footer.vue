@@ -9,7 +9,7 @@
       >
         <!-- Sezioni del footer -->
         <div class="px-8 py-4 md:p-8">
-          <h1 class="section-title">{{ section.title }}</h1>
+          <h5 class="section-title">{{ section.title }}</h5>
           <div v-if="Array.isArray(section.sections)">
             <div v-for="(item, index) in section.sections" :key="index">
               <p v-if="typeof item === 'object'">
@@ -31,11 +31,11 @@
       <div class="md:flex py-2 md:py-0">
         <template v-if="Array.isArray(footer.text)">
           <div v-for="(text, index) in footer.text" :key="index" class="px-8">
-            <h3 class="whitespace-normal break-words">{{ text }}</h3>
+            <h5 class="whitespace-normal break-words">{{ text }}</h5>
           </div>
         </template>
         <template v-else>
-          <h3 class="whitespace-normal break-words px-8">{{ footer.text }}</h3>
+          <h5 class="whitespace-normal break-words px-8">{{ footer.text }}</h5>
         </template>
       </div>
       <!-- Immagini del footer -->
