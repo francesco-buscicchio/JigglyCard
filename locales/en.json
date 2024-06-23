@@ -19,7 +19,9 @@
     "Quantita": "Quantity",
     "AggiungiCarrello": "Add to Cart",
     "AcquistaPaypal": "Buy with PayPal",
-    "Descrizione": "Description"
+    "Descrizione": "Description",
+    "MostraDiPiu": "Show more",
+    "MostraMeno": "Show less"    
   },
   "prestoOnline": "We're coming",
   "sconto10": "Sconto del 10%",
