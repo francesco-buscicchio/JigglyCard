@@ -42,15 +42,19 @@
       <div class="flex flex-row items-center md:px-8">
         <template v-if="Array.isArray(footer.imgs)">
           <div
-            class="footer-img py-2 px-2 md:py-0"
+            class="footer-img py-2 px-2 md:py-0 cursor-pointer"
             v-for="(img, index) in footer.imgs"
             :key="index"
+            @click="iconSocialPressed(img.url)"
           >
             <img :src="img.img" alt="Logo" class="max-h-6" />
           </div>
         </template>
         <template v-else>
-          <div class="footer-img max-h-6">
+          <div
+            class="footer-img max-h-6 cursor-pointer"
+            @click="iconSocialPressed(footer.imgs?.url ?? '')"
+          >
             <img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
           </div>
         </template>
@@ -60,11 +64,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-
 type SocialLinksType = {
   img: string;
   url: string;
+};
+
+const iconSocialPressed = (url: string) => {
+  navigateTo(url, {
+    external: true,
+    open: {
+      target: "_blank",
+    },
+  });
 };
 
 const props = defineProps({
