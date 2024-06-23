@@ -12,7 +12,7 @@
         </div>
         <div class="flex flex-col items-center justify-center text-center mt-4">
           <img src="../../assets/img/logo.png" class="w-15 py-4" />
-          <h1 class="text-lg font-bold pb-2">Sconto del 10%</h1>
+          <h4 class="pb-2">Sconto del 10%</h4>
           <p>Inserisci la tua mail e ottieni uno sconto subito</p>
           <input
             type="text"

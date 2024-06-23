@@ -6,7 +6,7 @@
 
       <div class="content-section flex-grow">
         <div class="container mx-auto p-4 bg-white-400">
-          <h1 class="text-xl font-bold mb-8">{{ $t("FeaturedProducts") }}</h1>
+          <h5 class="font-bold mb-8">{{ $t("FeaturedProducts") }}</h5>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <ProductCard
               v-for="product in products"

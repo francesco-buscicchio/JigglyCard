@@ -2,7 +2,7 @@
   <div v-if="isOpen">
     <BaseModal :isOpen="isOpen">
       <template #default>
-        <h2 class="text-lg font-bold">Per noi la tua privacy è importante</h2>
+        <h4 class="font-bold">Per noi la tua privacy è importante</h4>
         <p>
           Noi e i nostri partner utilizziamo cookies per migliorare la tua
           esperienza, misurare le prestazioni e adattare il marketing. Altre
