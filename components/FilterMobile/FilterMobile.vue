@@ -65,14 +65,14 @@
             <div class="flex-col items-center justify-between">
               <label
                 for="minPrice"
-                class="block text-sm font-medium text-gray-700"
+                class="block text-s font-medium text-gray-700"
                 >Prezzo minimo</label
               >
               <input
                 type="number"
                 id="minPrice"
                 name="minPrice"
-                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-m border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-s rounded-md"
                 placeholder="0 €"
               />
             </div>
@@ -80,14 +80,14 @@
             <div class="flex-col items-center justify-between">
               <label
                 for="maxPrice"
-                class="block text-sm font-medium text-gray-700"
+                class="block text-s font-medium text-gray-700"
                 >Prezzo massimo</label
               >
               <input
                 type="number"
                 id="maxPrice"
                 name="maxPrice"
-                class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+                class="mt-1 block w-full pl-3 pr-10 py-2 text-m border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-s rounded-md"
                 placeholder="1000 €"
               />
             </div>
