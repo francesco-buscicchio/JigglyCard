@@ -12,9 +12,17 @@
         shadowScale: 0.94,
       }"
       :pagination="true"
+      class="w-full h-full"
     >
-      <SwiperSlide v-for="photo in data" :key="photo.id">
-        <img :src="photo.image" alt="Immagine carosello" class="object-cover" />
+      <SwiperSlide v-for="photo in data" :key="photo.id" class="flex items-center justify-center">
+        <div class="relative w-full h-full">
+          <img :src="photo.image" alt="Immagine carosello" class="object-cover w-full h-full" />
+          <a :href="photo.linkUrl" 
+          class="absolute inset-0 w-[50vh] h-[10vh] bg-mediumPink text-white text-xl l:text-2xl flex items-center justify-center m-auto rounded-lg hover:bg-darkPink transition-colors duration-300"
+          >
+            {{ t("disponibileOra") }}          
+          </a>
+        </div>
       </SwiperSlide>
     </Swiper>
   </div>
@@ -26,6 +34,7 @@ import { EffectCube, Pagination } from "swiper/modules";
 import "swiper/css/effect-cube";
 import "swiper/css/pagination";
 import "swiper/css";
+const { t } = useI18n();
 
 type CarouselHeroType = {
   id: number;
@@ -47,11 +56,6 @@ const props = defineProps<{ data: CarouselHeroType[] }>();
   .swiper {
     height: 50vw;
   }
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
 }
 
 .swiper-pagination-bullet {
