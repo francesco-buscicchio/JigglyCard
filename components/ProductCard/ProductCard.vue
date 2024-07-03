@@ -7,14 +7,14 @@
     />
     <div class="px-6 py-4 flex items-center">
       <img :src="product.logo" alt="Logo espansione" class="w-6 mr-4" />
-      <p class="font-bold text-xl">{{ product.name }}</p>
+      <h5 class="font-bold">{{ product.name }}</h5>
     </div>
 
     <div class="px-4 pb-4">
       <div class="mb-2">Lingua</div>
       <select
         v-model="selectedOptionLanguage"
-        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-mediumPink focus:border-mediumPink sm:text-sm rounded-md"
+        class="block w-full pl-3 pr-10 py-2 text-m border-gray-300 focus:outline-none focus:ring-mediumPink focus:border-mediumPink sm:text-s rounded-md"
         @change="selectedOptionLanguageChanged"
       >
         <option
@@ -30,7 +30,7 @@
       <div class="mb-2">Condizioni</div>
       <select
         v-model="selectedOptionCondition"
-        class="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-mediumPink focus:border-mediumPink sm:text-sm rounded-md"
+        class="block w-full pl-3 pr-10 py-2 text-m border-gray-300 focus:outline-none focus:ring-mediumPink focus:border-mediumPink sm:text-s rounded-md"
       >
         <option
           v-for="option in selectedOptionLanguage.options"

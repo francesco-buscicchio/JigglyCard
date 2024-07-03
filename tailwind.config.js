@@ -17,6 +17,9 @@ export default {
     extend: {
       colors: colors,
       spacing: spacing,
+      fontFamily: {
+        sans: 'Roboto'
+      }
     },
   },
   plugins: [],

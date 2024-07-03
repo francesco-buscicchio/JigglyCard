@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-bold text-xl pb-6">Modulo di contatto</h1>
+  <h4 class="pb-6">Modulo di contatto</h4>
 
   <FormKit type="form" class="w-full" :actions="false">
     <div class="w-full flex flex-row gap-x-5">
