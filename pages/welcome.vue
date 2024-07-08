@@ -26,11 +26,11 @@
   <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-const api = "https://server.serverjigglycards.com/store/mailchimp/subscribe";
+const api = "https://server.serverjigglycards.com/mailchimp/subscribe";
 
 const test = fetch(api, {
   method: "POST",
-  body: "testBuscicchio@gmail.com",
+  body: "buscicchio2022@gmail.com",
 })
   .then((response) => response.json())
   .then(() => {
@@ -39,6 +39,7 @@ const test = fetch(api, {
   .catch((e) => {
     console.error(e);
     alert("An error occurred");
+    alert(JSON.stringify(e));
   });
 
 const prestoOnline = t("prestoOnline");
