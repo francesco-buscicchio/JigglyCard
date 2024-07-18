@@ -1,5 +1,11 @@
 <template>
   <div class="relative min-h-screen">
+    <p style="font-family: 'Roboto Serif'; font-size: 40; font-weight: 400">
+      Jigglycard
+    </p>
+    <p style="font-family: 'Roboto Flex'; font-size: 25; font-weight: 400">
+      testo paragrafo esempio
+    </p>
     <FilterMobile />
     <div class="flex">
       <FilterDesktop />
