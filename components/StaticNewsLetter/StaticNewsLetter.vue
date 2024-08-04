@@ -1,5 +1,5 @@
 <template>
-  <div class="border-t-2 border-lightPink mx-5"></div>
+  <div class="border-t-2 border-main-90 mx-5"></div>
   <div class="mx-5 mt-5">
     <div class="flex flex-col items-center justify-center text-center mx-5">
       <h1 class="text-lg font-bold pb-2">{{ sconto10 }}</h1>
@@ -8,11 +8,11 @@
         type="text"
         v-model="email"
         placeholder="Inserisci la tua email"
-        class="mt-4 py-2 border border-gray-300 rounded text-center px-full mx-5 focus:border-mediumPink focus:outline-none"
+        class="mt-4 py-2 border border-gray-300 rounded text-center px-full mx-5 focus:border-main-40 focus:outline-none"
       />
       <button
         @click="mailAction"
-        class="bg-lightPink text-white border-[1px] lg:px-30 py-2 mt-4 rounded min-w-40 hover:bg-mediumPink"
+        class="bg-main-50 text-white border-[1px] lg:px-30 py-2 mt-4 rounded min-w-40 hover:bg-main-40"
       >
         {{ buttonNewsLetter }}
       </button>
@@ -31,6 +31,8 @@ import { sendMail } from "../../utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
 import newsletterToCustomer from "../../mailTemplate/newsletterToCustomer";
 import newsletterToAdmin from "~/mailTemplate/newsletterToAdmin";
+
+const client = useMedusaClient();
 const { t } = useI18n();
 const email = ref("");
 
@@ -56,6 +58,21 @@ const mailAction = () => {
     subject: "Avvenuta registrazione alla newsletter di Jigglycard",
     contentValue: newsletterToAdmin(userName, email.value),
   });
+
+  //CREAZIONE DELL'UTENTE NEL DB
+  client.customers
+    .create({
+      first_name: userName,
+      last_name: userName,
+      email: email.value,
+      password: "DaCambiare24!",
+    })
+    .then((val: any) => {
+      console.log(val);
+    })
+    .catch((err: any) => {
+      console.error(err);
+    });
 };
 </script>
     
