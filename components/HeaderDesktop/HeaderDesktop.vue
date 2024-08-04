@@ -87,10 +87,10 @@ function filterResults(event: Event) {
 </script>
 
 <style scoped>
-.input {
+/* .input {
   @apply w-full px-4 py-2 border-2 border-mediumPink bg-white rounded outline-none focus:border-darkPink;
 }
 .results-container {
   @apply absolute z-10 bg-white shadow-md max-h-60 overflow-y-auto mt-1 rounded-md;
-}
+} */
 </style>

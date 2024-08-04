@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-4 mt-mid">
+  <div class="flex flex-col items-center space-y-4 mt-[10vh]">
     <img
       src="~/assets/img/logo.png"
       alt="Logo"
@@ -12,13 +12,13 @@
         class="absolute left-0 w-22 md:w-100 cursor-pointer"
       />
       <div class="pt-8">
-        <p class="text-lightPink text-3xl md:text-8xl">JIGGLYCARD</p>
+        <h1 class="text-lightPink">JIGGLYCARD</h1>
       </div>
     </div>
     <h2>{{ prestoOnline }}</h2>
   </div>
 
-  <div class="absolute mb-newsletter w-full">
+  <div class="absolute bottom-[10vh] s:bottom-[15vh] w-full">
     <StaticNewsLetter />
   </div>
 </template>

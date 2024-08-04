@@ -17,6 +17,11 @@
   />
   <ServiceBanner :sections="sectionsDataService" />
   <br />
+  <h3 class="p-6">Prodotto in evidenza</h3>
+  <div class="pb-6">
+    <ProductHero />
+  </div>
+
   <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
@@ -28,7 +33,7 @@ import Ossidiana from "../../assets/img/Ossidiana.jpg";
 import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
-import { useI18n } from "vue-i18n";
+import tiktokLogo from "~/assets/icons/tiktok.png";
 const { t } = useI18n();
 
 useHead({
@@ -139,17 +144,12 @@ const footerData = {
   text: ["Mock Footer 1", "Mock Footer 2"],
   imgs: [
     {
-      img: facebookLogo,
-      url: "/",
-    },
-
-    {
       img: instagramLogo,
-      url: "/",
+      url: "https://www.instagram.com/jigglycard/",
     },
     {
-      img: youtubeLogo,
-      url: "/",
+      img: tiktokLogo,
+      url: "https://www.tiktok.com/@jigglycard",
     },
   ],
 };

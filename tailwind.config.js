@@ -1,3 +1,4 @@
+import { color } from "@formkit/icons";
 import { colors } from "./config/tailwind/colors";
 import spacing from "./config/tailwind/spacing";
 
@@ -11,12 +12,19 @@ export default {
     "./app.vue",
     "./formkit.theme.ts",
     "./error.vue",
-    'docs/content/**/*.md'
+    "docs/content/**/*.md",
   ],
   theme: {
     extend: {
-      colors: colors,
+      colors: {
+        accent: colors.accent,
+        main: colors.primary,
+        neutrals: color.neutrals,
+      },
       spacing: spacing,
+      fontFamily: {
+        sans: "Roboto",
+      },
     },
   },
   plugins: [],

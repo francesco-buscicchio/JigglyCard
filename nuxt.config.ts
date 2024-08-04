@@ -27,14 +27,27 @@ export default defineNuxtConfig({
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME
     },
   },
-  css: ["~/assets/css/main.scss"],
+  css: [
+    "~/assets/css/main.scss",
+    "primevue/resources/themes/aura-light-green/theme.css",
+  ],
   modules: [
     "@nuxt/image",
     "nuxt-icon",
+    "@nuxtjs/google-fonts",
     "nuxt-swiper",
     "@nuxt/ui",
     "@nuxtjs/i18n",
     "nuxt-medusa",
     "@formkit/nuxt",
+    "nuxt-primevue",
   ],
+  googleFonts: {
+    families: {
+      "Roboto+Serif": true,
+      "Roboto+Flex": true,
+      download: true,
+      inject: true,
+    },
+  },
 });

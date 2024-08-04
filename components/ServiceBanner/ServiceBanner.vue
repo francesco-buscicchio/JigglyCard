@@ -16,13 +16,13 @@
             />
           </div>
           <div class="flex-1">
-            <h2 class="text-lightPink">{{ section.title }}</h2>
+            <h5 class="text-black font-bold">{{ section.title }}</h5>
             <div v-if="Array.isArray(section.sections)">
               <div v-for="(item, index) in section.sections" :key="index">
-                <p v-if="typeof item === 'object'">
+                <p v-if="typeof item === 'object'" class="line-clamp-3">
                   <a :href="item.link">{{ item.value }}</a>
                 </p>
-                <p v-else>{{ item }}</p>
+                <p v-else class="line-clamp-3">{{ item }}</p>
               </div>
             </div>
             <div v-else>
