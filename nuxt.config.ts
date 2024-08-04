@@ -22,6 +22,9 @@ export default defineNuxtConfig({
       FB_MESSAGING_SENDER_ID: process.env.FB_MESSAGING_SENDER_ID,
       FB_APP_ID: process.env.FB_APP_ID,
       FB_MEASUREMENT_ID: process.env.FB_MEASUREMENT_ID,
+      SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+      NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
+      NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME
     },
   },
   css: ["~/assets/css/main.scss"],

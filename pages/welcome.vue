@@ -26,26 +26,10 @@
   <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-const api = "https://server.serverjigglycards.com/mailchimp/subscribe";
-
-const test = fetch(api, {
-  method: "POST",
-  body: "buscicchio2022@gmail.com",
-})
-  .then((response) => response.json())
-  .then(() => {
-    alert("Subscribed successfully!");
-  })
-  .catch((e) => {
-    console.error(e);
-    alert("An error occurred");
-    alert(JSON.stringify(e));
-  });
-
 const prestoOnline = t("prestoOnline");
 
 definePageMeta({
-  layout: "",
+  layout: false,
 });
 </script>
   
