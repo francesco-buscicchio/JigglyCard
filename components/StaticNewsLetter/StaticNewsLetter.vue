@@ -60,19 +60,12 @@ const mailAction = () => {
   });
 
   //CREAZIONE DELL'UTENTE NEL DB
-  client.customers
-    .create({
-      first_name: userName,
-      last_name: userName,
-      email: email.value,
-      password: "DaCambiare24!",
-    })
-    .then((val: any) => {
-      console.log(val);
-    })
-    .catch((err: any) => {
-      console.error(err);
-    });
+  client.customers.create({
+    first_name: userName,
+    last_name: userName,
+    email: email.value,
+    password: "DaCambiare24!",
+  });
 };
 </script>
     
