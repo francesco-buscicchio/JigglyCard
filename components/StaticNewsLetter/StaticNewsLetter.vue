@@ -24,16 +24,14 @@
     </div>
   </div>
 </template>
-    
+
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { sendMail } from "../../utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
-import newsletterToCustomer from "../../mailTemplate/newsletterToCustomer";
-import newsletterToAdmin from "~/mailTemplate/newsletterToAdmin";
 
 const client = useMedusaClient();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const email = ref("");
 
 const sconto10 = t("sconto10");
@@ -41,31 +39,49 @@ const headerNewsLetter = t("headerNewsLetter");
 const buttonNewsLetter = t("buttonNewsLetter");
 const footerNewsLetter = t("footerNewsLetter");
 
-const mailAction = () => {
+const loadTemplates = async () => {
+  const customerTemplateModule =
+    locale.value === "en"
+      ? await import("../../mailTemplate/en/newsletterToCustomer")
+      : await import("../../mailTemplate/it/newsletterToCustomer");
+
+  const adminTemplateModule =
+    locale.value === "en"
+      ? await import("~/mailTemplate/en/newsletterToAdmin")
+      : await import("~/mailTemplate/it/newsletterToAdmin");
+
+  return {
+    newsletterToCustomer: customerTemplateModule.default,
+    newsletterToAdmin: adminTemplateModule.default,
+  };
+};
+
+const mailAction = async () => {
   const userName = getUsernameFromMail(email.value);
-  // MANDA MAIL A CHI SI E' ISCRITTO
+  const { newsletterToCustomer, newsletterToAdmin } = await loadTemplates();
+
+  // SEND MAIL TO SUBSCRIBER
   sendMail({
     email: email.value,
     name: email.value,
-    subject: "Avvenuta registrazione alla newsletter di Jigglycard",
+    subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToCustomer(userName),
   });
 
-  //MANDA MAIL AL BACKOFFICE
+  // SEND MAIL TO BACKOFFICE
   sendMail({
     email: useRuntimeConfig().public.NEWSLETTER_TO_MAIL,
     name: "Jigglycard Store",
-    subject: "Avvenuta registrazione alla newsletter di Jigglycard",
+    subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToAdmin(userName, email.value),
   });
 
-  //CREAZIONE DELL'UTENTE NEL DB
+  // CREATE USER IN DB
   client.customers.create({
     first_name: userName,
     last_name: userName,
     email: email.value,
-    password: "DaCambiare24!",
+    password: "ChangeMe24!",
   });
 };
 </script>
-    
