@@ -9,6 +9,10 @@
   </div>
   <br />
 
+  <!--
+  Esempio utilizzo icone
+  <Icon name="jig:heart"></Icon>
+  -->
   <Mancoliste
     :set="{
       collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],

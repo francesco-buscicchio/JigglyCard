@@ -1,18 +1,22 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
   colorMode: {
     preference: "light",
   },
+
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
   },
+
   formkit: {
     autoImport: true,
     configFile: "./formkit.config.ts",
   },
+
   runtimeConfig: {
     public: {
       FB_API_KEY: process.env.FB_API_KEY,
@@ -27,10 +31,11 @@ export default defineNuxtConfig({
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME
     },
   },
+
   css: [
-    "~/assets/css/main.scss",
-    "primevue/resources/themes/aura-light-green/theme.css",
+    "~/assets/css/main.scss"
   ],
+
   modules: [
     "@nuxt/image",
     "nuxt-icon",
@@ -40,8 +45,9 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-medusa",
     "@formkit/nuxt",
-    "nuxt-primevue",
+    "@nuxt/icon"
   ],
+
   googleFonts: {
     families: {
       "Roboto+Serif": true,
@@ -50,4 +56,15 @@ export default defineNuxtConfig({
       inject: true,
     },
   },
+
+  icon: {
+    customCollections: [
+      {
+        prefix: 'jig',
+        dir: './assets/icons'
+      },
+    ],
+  },
+
+  compatibilityDate: "2024-08-06",
 });
