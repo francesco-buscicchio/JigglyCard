@@ -1,5 +1,5 @@
 {
-  "FeaturedProducts": "Prodotti in Evidenza",
+  "FeaturedProducts": "Featured Products",
   "Conditions": "Conditions",
   "WeeklyOffers": "Weekly Offers",
   "PreOrders": "Pre-orders",
@@ -22,8 +22,8 @@
     "Descrizione": "Description"
   },
   "prestoOnline": "We're coming",
-  "sconto10": "Sconto del 10%",
-  "headerNewsLetter" : "Inserisci la tua mail e ottieni uno sconto subito",
-  "buttonNewsLetter" : "Ottieni lo sconto",
-  "footerNewsLetter" : "Inserendo la mail verrai inserito nei nostri sistemi cosi da tenerti aggiornato sulle novita e sugli sconti"
+  "sconto10": "10% Discount",
+  "headerNewsLetter": "Enter your email and get a discount immediately",
+  "buttonNewsLetter": "Get the discount",
+  "footerNewsLetter": "By entering your email, you will be added to our systems to keep you updated on news and discounts"
 }
