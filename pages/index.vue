@@ -17,7 +17,6 @@
       <Icon name="jig:heart"></Icon>
     </AtomsButtonCTA>
   </div>
-
   -->
 
   <Mancoliste

@@ -1,4 +1,3 @@
-import { color } from "@formkit/icons";
 import { colors } from "./config/tailwind/colors";
 import spacing from "./config/tailwind/spacing";
 
@@ -19,7 +18,7 @@ export default {
       colors: {
         accent: colors.accent,
         main: colors.primary,
-        neutrals: color.neutrals,
+        neutrals: colors.neutrals,
       },
       spacing: spacing,
       fontFamily: {
