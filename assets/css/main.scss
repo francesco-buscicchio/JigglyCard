@@ -6,141 +6,63 @@ html {
   background-color: white;
 }
 
-/** {
-  @apply font-sans;
-}*/
-
 h1,
 .title-l {
-  font-size: 38px;
-  line-height: 36px;
-  font-weight: 900;
+  font-family: "Roboto Serif", serif;
+  font-size: 48px;
+  line-height: 57.6px;
+  font-weight: 500;
 }
 
 h2,
 .title-m {
-  font-size: 32px;
-  line-height: 30px;
-  font-weight: 900;
+  font-family: "Roboto Serif", serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 500;
 }
 
 h3,
 .title-s {
-  font-size: 24px;
-  line-height: 22px;
-  font-weight: 900;
+  font-family: "Roboto Serif", serif;
+  font-size: 32px;
+  line-height: 38.4px;
+  font-weight: 500;
 }
 
 h4,
 .subtitle-l {
-  font-size: 22px;
-  line-height: 20px;
-  font-weight: 900;
+  font-family: "Roboto Serif", serif;
+  font-size: 28px;
+  line-height: 42px;
+  font-weight: 500;
 }
 
 h5,
 .subtitle-m {
-  font-size: 14px;
-  line-height: 18px;
-  font-weight: 900;
-}
-
-h6,
-.subtitle-s {
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 900;
-}
-
-.text-l {
+  font-family: "Roboto Serif", serif;
   font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.paragraph {
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 }
 
-.text-m {
-  font-size: 14px;
+.label {
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 12px;
   line-height: 18px;
   font-weight: 400;
 }
 
-.text-s {
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 400;
-}
-
-.callout {
-  font-size: 12px;
-  line-height: 14px;
-  font-weight: 900;
-}
-
-@screen lg {
-
-  h1,
-  .title-l {
-    font-size: 64px;
-    line-height: 70px;
-    font-weight: 900;
-  }
-
-  h2,
-  .title-m {
-    font-size: 48px;
-    line-height: 52px;
-    font-weight: 900;
-  }
-
-  h3,
-  .title-s {
-    font-size: 36px;
-    line-height: 52px;
-    font-weight: 900;
-  }
-
-  h4,
-  .subtitle-l {
-    font-size: 24px;
-    line-height: 24px;
-    font-weight: 900;
-  }
-
-  h5,
-  .subtitle-m {
-    font-size: 18px;
-    line-height: 22px;
-    font-weight: 900;
-  }
-
-  h6,
-  .subtitle-s {
-    font-size: 14px;
-    line-height: 16px;
-    font-weight: 900;
-  }
-
-  .text-l {
-    font-size: 24px;
-    line-height: 28px;
-    font-weight: 400;
-  }
-
-  .text-m {
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 400;
-  }
-
-  .text-s {
-    font-size: 14px;
-    line-height: 16px;
-    font-weight: 400;
-  }
-
-  .callout {
-    font-size: 12px;
-    line-height: 14px;
-    font-weight: 900;
-  }
+.price-tag {
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 28px;
+  line-height: 42px;
+  font-weight: 600;
 }
