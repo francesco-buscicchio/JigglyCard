@@ -10,14 +10,38 @@
   <br />
 
   <!--Esempio utilizzo bottoni
-  <div class="flex flex-row gap-x-4">
-    <AtomsButtonCTA type="primary" text="Primary Button"></AtomsButtonCTA>
-    <AtomsButtonCTA type="secondary" text="Secondary Button"></AtomsButtonCTA>
-    <AtomsButtonCTA type="disabled" text="Disabled Button">
-      <Icon name="jig:heart"></Icon>
-    </AtomsButtonCTA>
-  </div>
   -->
+  <div class="w-full px-10 flex flex-col gap-y-4">
+    <MoleculesContainerInput status="default">
+      <template #default>
+        <span class="icon">🔍</span>
+      </template>
+    </MoleculesContainerInput>
+
+    <MoleculesContainerInput status="success">
+      <template #default>
+        <span class="icon">✔️</span>
+      </template>
+    </MoleculesContainerInput>
+
+    <MoleculesContainerInput status="error">
+      <template #default>
+        <span class="icon">❌</span>
+      </template>
+    </MoleculesContainerInput>
+
+    <MoleculesContainerInput status="disabled">
+      <template #default>
+        <span class="icon">🚫</span>
+      </template>
+    </MoleculesContainerInput>
+
+    <MoleculesContainerInput status="warning">
+      <template #default>
+        <span class="icon">⚠️</span>
+      </template>
+    </MoleculesContainerInput>
+  </div>
 
   <Mancoliste
     :set="{
