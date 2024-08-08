@@ -8,11 +8,11 @@
         type="text"
         v-model="email"
         placeholder="Inserisci la tua email"
-        class="mt-4 py-2 border border-gray-300 rounded text-center px-full mx-5 focus:border-main-40 focus:outline-none"
+        class="mt-4 py-2 border border-gray-300 rounded text-center px-full mx-5 focus:border-main-600 focus:outline-none"
       />
       <button
         @click="mailAction"
-        class="bg-main-50 text-white border-[1px] lg:px-30 py-2 mt-4 rounded min-w-40 hover:bg-main-40"
+        class="bg-main-500 text-white border-[1px] lg:px-30 py-2 mt-4 rounded min-w-40 hover:bg-main-600"
       >
         {{ buttonNewsLetter }}
       </button>

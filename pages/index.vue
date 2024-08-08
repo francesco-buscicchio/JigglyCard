@@ -9,7 +9,7 @@
   </div>
   <br />
 
-  <!--Esempio utilizzo bottoni
+  <!--Esempio utilizzo bottoni-->
   <div class="flex flex-row gap-x-4">
     <AtomsButtonCTA type="primary" text="Primary Button"></AtomsButtonCTA>
     <AtomsButtonCTA type="secondary" text="Secondary Button"></AtomsButtonCTA>
@@ -17,8 +17,6 @@
       <Icon name="jig:heart"></Icon>
     </AtomsButtonCTA>
   </div>
-
-  -->
 
   <Mancoliste
     :set="{
