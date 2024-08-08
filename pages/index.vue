@@ -9,6 +9,14 @@
   </div>
   <br />
 
+  <!--Esempio utilizzo bottoni
+  <div class="flex flex-row gap-x-4">
+    <AtomsButtonCTA type="primary" text="Primary Button"></AtomsButtonCTA>
+    <AtomsButtonCTA type="secondary" text="Secondary Button"></AtomsButtonCTA>
+    <AtomsButtonCTA type="disabled" text="Disabled Button"></AtomsButtonCTA>
+  </div>
+  -->
+
   <Mancoliste
     :set="{
       collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],
@@ -154,4 +162,3 @@ const footerData = {
   ],
 };
 </script>
-
