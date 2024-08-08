@@ -13,8 +13,11 @@
   <div class="flex flex-row gap-x-4">
     <AtomsButtonCTA type="primary" text="Primary Button"></AtomsButtonCTA>
     <AtomsButtonCTA type="secondary" text="Secondary Button"></AtomsButtonCTA>
-    <AtomsButtonCTA type="disabled" text="Disabled Button"></AtomsButtonCTA>
+    <AtomsButtonCTA type="disabled" text="Disabled Button">
+      <Icon name="jig:heart"></Icon>
+    </AtomsButtonCTA>
   </div>
+
   -->
 
   <Mancoliste

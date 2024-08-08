@@ -1,5 +1,5 @@
 <template>
-  <button :class="buttonClass">
+  <button :class="buttonClass" class="flex items-center justify-center gap-2">
     <span class="subtitle-m">{{ text }}</span>
     <slot></slot>
   </button>
