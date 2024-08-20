@@ -9,40 +9,6 @@
   </div>
   <br />
 
-  <!--Esempio utilizzo bottoni
-  -->
-  <div class="w-full px-10 flex flex-col gap-y-4">
-    <MoleculesContainerInput status="default">
-      <template #default>
-        <span class="icon">🔍</span>
-      </template>
-    </MoleculesContainerInput>
-
-    <MoleculesContainerInput status="success">
-      <template #default>
-        <span class="icon">✔️</span>
-      </template>
-    </MoleculesContainerInput>
-
-    <MoleculesContainerInput status="error">
-      <template #default>
-        <span class="icon">❌</span>
-      </template>
-    </MoleculesContainerInput>
-
-    <MoleculesContainerInput status="disabled">
-      <template #default>
-        <span class="icon">🚫</span>
-      </template>
-    </MoleculesContainerInput>
-
-    <MoleculesContainerInput status="warning">
-      <template #default>
-        <span class="icon">⚠️</span>
-      </template>
-    </MoleculesContainerInput>
-  </div>
-
   <Mancoliste
     :set="{
       collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],
