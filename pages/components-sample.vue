@@ -13,6 +13,41 @@
         </AtomsButtonCTA>
       </div>
     </div>
+
+    <div>
+      <h3 class="pb-4">Molecules ContainerInput</h3>
+      <div class="w-full flex flex-col gap-y-4">
+        <MoleculesContainerInput status="default">
+          <template #default>
+            <span class="icon">🔍</span>
+          </template>
+        </MoleculesContainerInput>
+
+        <MoleculesContainerInput status="success">
+          <template #default>
+            <span class="icon">✔️</span>
+          </template>
+        </MoleculesContainerInput>
+
+        <MoleculesContainerInput status="error">
+          <template #default>
+            <span class="icon">❌</span>
+          </template>
+        </MoleculesContainerInput>
+
+        <MoleculesContainerInput status="disabled">
+          <template #default>
+            <span class="icon">🚫</span>
+          </template>
+        </MoleculesContainerInput>
+
+        <MoleculesContainerInput status="warning">
+          <template #default>
+            <span class="icon">⚠️</span>
+          </template>
+        </MoleculesContainerInput>
+      </div>
+    </div>
   </div>
 </template>
 
