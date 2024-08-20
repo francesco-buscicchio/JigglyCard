@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <input
+      type="text"
       :class="inputClass"
       v-model="inputValue"
       :disabled="status === 'disabled'"
