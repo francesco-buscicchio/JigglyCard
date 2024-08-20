@@ -32,6 +32,10 @@ input[type="radio"]:checked:before {
   background: #006482;
 }
 
+input[type="radio"]:active:before {
+  background: #003849;
+}
+
 input[type="radio"]:hover {
   box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
