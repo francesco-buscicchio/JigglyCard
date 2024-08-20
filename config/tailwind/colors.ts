@@ -1,10 +1,19 @@
 export const colors = {
   accent: {
+    5: "#FAFDFF",
+    10: "#F3FAFE",
+    20: "#F2F9FE",
+    30: "#EFF8FE",
+    40: "#EDF7FE",
     50: "#EBF6FE",
     500: "#006482",
     950: "#003849",
   },
   primary: {
+    10: "#FEFCFC",
+    20: "#FEFBFB",
+    30: "#FEF9FA",
+    40: "#FEF8F9",
     50: "#FDF4F5",
     100: "#FCEEF0",
     200: "#FBE9EC",
