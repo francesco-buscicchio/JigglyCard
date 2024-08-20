@@ -1,6 +1,11 @@
 <template>
   <div>
-    <input type="radio" :checked="isSelected" @click="handleSelection" />
+    <input
+      type="radio"
+      :checked="isSelected"
+      @click="handleSelection"
+      class="cursor-pointer"
+    />
   </div>
 </template>
 

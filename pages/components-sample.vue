@@ -59,6 +59,15 @@
         ></AtomsRadioButton>
       </div>
     </div>
+
+    <div>
+      <h1 class="text-xl pb-4">Links</h1>
+      <div class="flex flex-col gap-y-2">
+        <AtomsLink to="/link-1">Link 1</AtomsLink>
+        <AtomsLink to="/link-2">Link 2</AtomsLink>
+        <AtomsLink to="/link-3">Link 3</AtomsLink>
+      </div>
+    </div>
   </div>
 </template>
 
