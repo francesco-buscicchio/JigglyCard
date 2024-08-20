@@ -36,13 +36,16 @@ function handleClick() {
 <style scoped>
 .atoms-link {
   @apply text-neutrals-950 no-underline;
-  font-family: "Roboto Flex", sans-serif;
-  font-size: 16px;
+
+  font-family: "Roboto Serif", serif;
+  font-size: 20px;
   line-height: 24px;
+  font-weight: 500;
 }
 
 .atoms-link:hover {
   @apply text-accent-500;
+  @apply underline;
 }
 .atoms-link:active {
   @apply bg-accent-500;
