@@ -76,11 +76,22 @@
       </p>
       <AtomsCheckbox id="example-checkbox" v-model="isChecked" />
     </div>
+
+    <div>
+      <h1 class="text-xl pb-4">Hero Banner</h1>
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Ossidiana from "../assets/img/Ossidiana.jpg";
 
 const radioButtonStatus = ref(true);
 const isChecked = ref(false);
