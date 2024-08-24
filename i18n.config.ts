@@ -3,7 +3,7 @@ import it from "./locales/it.json";
 
 export default defineI18nConfig(() => ({
   legacy: false,
-  locale: "en",
+  locale: "it",
   messages: {
     en: en,
     it: it,
