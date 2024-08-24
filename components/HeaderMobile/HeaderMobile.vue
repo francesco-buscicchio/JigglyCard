@@ -1,88 +1,129 @@
 <template>
-  <div class="bg-ultralitePink">
-    <div class="relative flex justify-between items-center px-4 py-2 mt-2">
-      <div class="flex-row items-center h-full">
-        <button class="z-20" aria-label="Menu">
-          <Icon name="fluent-mdl2:list" class="w-6 h-6 mr-3"></Icon>
-        </button>
-
-        <Icon
-          name="fluent-mdl2:search"
-          class="w-5 h-5"
-          @click="toggleSearch"
-        ></Icon>
-      </div>
-      <img
-        src="~/assets/img/logo.png"
-        alt="Logo"
-        class="w-10 cursor-pointer"
-        @click="handleLogoClick"
-      />
-
-      <div class="flex flex-row items-center">
-        <Icon name="ep:user" class="w-6 h-6 mr-3"></Icon>
-        <button class="mr-4 relative" aria-label="Carrello">
-          <Icon name="clarity:shopping-cart-line" class="w-6 h-6" />
-          <span
-            class="absolute left-4 -top-4 rounded-full bg-red-500 text-white text-xs px-2 py-1"
+  <nav class="bg-white shadow-md p-4">
+    <div class="container flex justify-between items-center w-full">
+      <div class="lg:hidden">
+        <button @click="toggleMenu" class="text-gray-700 focus:outline-none">
+          <svg
+            v-if="!isMenuOpen"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            {{ header.cartCount }}
-          </span>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+          <svg
+            v-else
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
       </div>
-      <div
-        v-if="isSearchVisible"
-        class="absolute top-full right-0 left-0 shadow-md z-10 bg-ultralitePink"
-      >
-        <div class="px-4 py-2">
+
+      <h2 class="text-accent-950">Jigglycard</h2>
+
+      <div class="lg:flex items-center space-x-4">
+        <button class="focus:outline-none">
+          <Icon name="jig:cart" size="25"></Icon>
+        </button>
+
+        <button @click="toggleSearch" class="focus:outline-none">
+          <Icon name="jig:cerca" size="25"></Icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra di ricerca espandibile -->
+    <div v-if="isSearchOpen" class="mt-4">
+      <div class="container mx-auto">
+        <div class="relative">
           <input
             type="text"
+            class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
             placeholder="Cerca..."
-            class="w-full px-4 py-2 border-2 border-pink-300 bg-white rounded outline-none focus:border-pink-500"
-            @input="filterResults"
           />
+          <button class="absolute right-3 top-3 focus:outline-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-gray-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1117.5 10.5 7.5 7.5 0 0116.65 16.65z"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
-  </div>
+
+    <!-- Menu Laterale per Dispositivi Mobili -->
+    <div v-if="isMenuOpen" class="lg:hidden">
+      <ul class="mt-4 space-y-2">
+        <li>
+          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
+            >Servizi</a
+          >
+        </li>
+        <li>
+          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
+            >Contatti</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
 </template>
 
-<script lang="ts" setup>
-import { defineComponent, ref } from "vue";
-import cart from "~/assets/img/cart.png";
-import user from "~/assets/img/user.png";
-
-type HeaderPropsType = {
-  cartCount: number;
+<script>
+export default {
+  data() {
+    return {
+      isMenuOpen: false,
+      isProfileMenuOpen: false,
+      isSearchOpen: false, // stato per la barra di ricerca
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
+    toggleProfileMenu() {
+      this.isProfileMenuOpen = !this.isProfileMenuOpen;
+    },
+    toggleSearch() {
+      this.isSearchOpen = !this.isSearchOpen;
+    },
+  },
 };
-
-const props = defineProps<{ header: HeaderPropsType }>();
-
-const isSearchVisible = ref(false);
-const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
-const filteredResults = ref([] as string[]);
-const searchQuery = ref("");
-
-const handleLogoClick = () => {
-  navigateTo("/");
-};
-
-function toggleSearch() {
-  isSearchVisible.value = !isSearchVisible.value;
-}
-
-function filterResults(event: Event) {
-  const query = (event.target as HTMLInputElement).value;
-  filteredResults.value = query
-    ? searchResults.value.filter((result) =>
-        result.toLowerCase().includes(query.toLowerCase())
-      )
-    : [];
-}
-
-function highlightResult(result: string) {
-  if (!searchQuery.value) return result;
-  const re = new RegExp(searchQuery.value, "gi");
-  return result.replace(re, (match) => `<mark>${match}</mark>`);
-}
 </script>
+
+<style scoped>
+/* Aggiungi eventuali stili personalizzati qui */
+</style>
