@@ -70,15 +70,39 @@
     </div>
 
     <div>
-      <h1 class="text-xl pb-1">Checkbox</h1>
+      <h3 class="pb-1">Checkbox</h3>
       <p class="pb-4">
         La checkbox è {{ isChecked ? "selezionata" : "deselezionata" }}.
       </p>
       <AtomsCheckbox id="example-checkbox" v-model="isChecked" />
     </div>
 
+    <div>
+      <h3 class="pb-4">Accordion</h3>
+      <div class="bg-[#FE9DA4]">
+        <MoleculesAccordion class="min-w-full bg-transparent">
+          <template #header>
+            <p class="font-bold">About</p>
+          </template>
+          <div>
+            <h5 class="pb-4">Accordion</h5>
+            <p class="pb-4">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+              hendrerit, urna id eleifend sagittis, quam augue eleifend mauris,
+              vel scelerisque diam enim sed diam. Cras tellus dui, interdum eget
+              libero eget, bibendum aliquet enim. Etiam ut nisi sit amet dolor
+              elementum feugiat. Fusce sit amet gravida tortor. Cras viverra
+              maximus rhoncus. Pellentesque eu justo id ipsum finibus hendrerit.
+              Class aptent taciti sociosqu ad litora torquent per conubia
+              nostra, per inceptos himenaeos.
+            </p>
+          </div>
+        </MoleculesAccordion>
+      </div>
+    </div>
+
     <div class="w-full">
-      <h1 class="text-xl pb-b">Product Card</h1>
+      <h1 class="text-xl pb-4">Product Card</h1>
       <MoleculesProductCard
         productName="Calyrex Cavaliere Glaciale VMAX"
         code="ASR TG15"

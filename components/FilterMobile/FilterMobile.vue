@@ -38,7 +38,7 @@
       class="fixed top-0 left-0 bottom-0 w-full bg-white z-20 transition-transform duration-1000 flex flex-col items-center"
       :class="{ 'translate-x-0': !showFilter, 'translate-x-full': showFilter }"
     >
-      <Accordion class="min-w-full bg-white">
+      <MoleculesAccordion class="min-w-full bg-white">
         <template #header>
           <h3 class="font-bold">{{ $t("Conditions") }}</h3>
         </template>
@@ -55,8 +55,8 @@
             class="w-6 h-6"
           />
         </div>
-      </Accordion>
-      <Accordion class="min-w-full bg-white">
+      </MoleculesAccordion>
+      <MoleculesAccordion class="min-w-full bg-white">
         <template #header>
           <h3 class="font-bold">Prezzo</h3>
         </template>
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-      </Accordion>
+      </MoleculesAccordion>
 
       <button
         @click="toggleFilter"

@@ -1,5 +1,5 @@
 <template>
-  <div class="border rounded-lg overflow-hidden">
+  <div class="border overflow-hidden">
     <button
       @click="toggle"
       class="flex justify-between items-center w-full p-5"
@@ -10,7 +10,7 @@
         :class="{ 'transform rotate-180': isOpen }"
         class="transition-transform duration-300"
       >
-        <Icon name="gridicons:chevron-down"></Icon>
+        <Icon name="gridicons:chevron-down" size="16"></Icon>
       </span>
     </button>
     <div
