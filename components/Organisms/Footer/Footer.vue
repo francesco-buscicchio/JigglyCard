@@ -1,7 +1,7 @@
 <template>
-  <div class="gap-2 bg-accent-500 pb-8 text-accent-50 footer-fixed">
-    <div class="grid md:grid-cols-4 mb-4">
-      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" class="w-full md:w-auto">
+  <div class="gap-2 bg-accent-500 pb-8 text-accent-50 fixed bottom-0 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-4 mb-4">
+      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" class="w-full">
         <!-- Sezioni del footer -->
         <Accordion>
           <template #header>
@@ -24,17 +24,17 @@
 
     <div>
       <!-- sezione dei pagamenti -->
-      <p class="whitespace-normal break-words px-6">pagamenti con</p>
+      <p class="px-6">pagamenti con</p>
       <div class="grid grid-cols-4 mb-4 px-4">
-        <div v-for="(payment, index) in paymentMethods" :key="index" class="payment-icon">
+        <div v-for="(payment, index) in paymentMethods" :key="index" class="flex justify-center items-center">
           <a :href="payment.link" @click="iconSocialPressed(payment.link)">
-            <img :src="payment.src" :alt="payment.alt" class="payment-icon-img" />
+            <img :src="payment.src" :alt="payment.alt" class="mt-2 w-18 h-10" />
           </a>
         </div>
       </div>
     </div>
 
-    <div class="bg-mediumPink flex flex-col items-center py-2 pb-4">
+    <div class="flex flex-col items-center py-2 pb-4">
       <!-- Immagini social del footer -->
       <div class="flex flex-row items-center">
         <template v-if="Array.isArray(footer.imgs)">
@@ -50,6 +50,7 @@
         </template>
       </div>
     </div>
+
     <div>
       <!-- inserisco 12px come grandezza testo come da mock, da valutare  -->
       <p class="px-6 text-xs">
@@ -58,10 +59,9 @@
         <a href="/terms-of-use">termini di utilizzo</a>
       </p>
     </div>
+    {{ $t('prestoOnline') }}
   </div>
 </template>
-
-
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -112,23 +112,3 @@ const paymentMethods = ref<PaymentMethodType[]>([
   { src: 'https://via.placeholder.com/100x50?text=Pay4', alt: 'Pay Method 4', link: '#' }
 ]);
 </script>
-
-<style scoped>
-@media (max-width: 767px) {
-  .mobile-section-content {
-    display: block;
-  }
-
-  .payment-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .payment-icon-img {
-    margin-top: 8px;
-    width: 73px;
-    height: 40px;
-  }
-}
-</style>
