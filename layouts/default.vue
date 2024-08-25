@@ -2,9 +2,11 @@
   <!--<NewsBanner :news="newsBannerData" class="lg:pb-9"></NewsBanner>-->
   <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
   <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
+  <slot />
 
-  <OrganismsFooter :sections="sectionsData" :footer="footerData" />
-
+  <footer>
+    <OrganismsFooter :sections="sectionsData" :footer="footerData" />
+  </footer>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +31,7 @@ const sectionsData = [
       "consectetur adipiscing elit",
       "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
     ],
-  }
+  },
 ];
 
 const footerData = {
