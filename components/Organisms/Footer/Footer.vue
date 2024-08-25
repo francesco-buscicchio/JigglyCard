@@ -1,5 +1,5 @@
 <template>
-  <div class="gap-2 bg-accent-500 pb-8 text-accent-50 fixed bottom-0 w-full">
+  <div class="gap-2 bg-accent-500 pb-8 text-accent-50 w-full">
     <div class="grid grid-cols-1 md:grid-cols-4 mb-4">
       <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" class="w-full">
         <!-- Sezioni del footer -->
@@ -59,7 +59,6 @@
         <a href="/terms-of-use">termini di utilizzo</a>
       </p>
     </div>
-    {{ $t('prestoOnline') }}
   </div>
 </template>
 
