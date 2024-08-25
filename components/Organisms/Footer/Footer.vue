@@ -1,8 +1,7 @@
 <template>
   <div class="gap-2 bg-accent-500 pb-8 text-accent-50 footer-fixed">
     <div class="grid md:grid-cols-4 mb-4">
-      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" class="w-full md:w-auto"
-        :style="{ fontSize: sectionFontSize }">
+      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" class="w-full md:w-auto">
         <!-- Sezioni del footer -->
         <Accordion>
           <template #header>
@@ -105,8 +104,6 @@ const props = defineProps({
     default: () => ({ text: "", imgs: [] }),
   },
 });
-
-const sectionFontSize = "16px";
 
 const paymentMethods = ref<PaymentMethodType[]>([
   { src: 'https://via.placeholder.com/100x50?text=Pay1', alt: 'Pay Method 1', link: '#' },
