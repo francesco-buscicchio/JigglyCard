@@ -78,6 +78,16 @@
     </div>
 
     <div>
+      <h3 class="pb-4">Hero Banner</h3>
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
+    </div>
+
+    <div>
       <h3 class="pb-4">Accordion</h3>
       <div class="bg-[#FE9DA4]">
         <MoleculesAccordion class="min-w-full bg-transparent">
@@ -102,14 +112,26 @@
     </div>
 
     <div class="w-full">
-      <h1 class="text-xl pb-4">Product Carousel</h1>
-      <OrganismsProductCarousel :products="productList" title="Correllati" />
+      <h1 class="text-xl pb-4">Product Card</h1>
+      <MoleculesProductCard
+        productName="Calyrex Cavaliere Glaciale VMAX"
+        code="ASR TG15"
+        expansion="Regno Glaciale"
+        :price="'1.0'"
+        :imageUrl="CalyrexImage"
+      />
+    </div>
+
+    <div class="w-full">
+      <h1 class="text-xl pb-4">Carousel Card</h1>
+      <MoleculesCardCarousel :items="productList" @update:index="(e) => {}" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Ossidiana from "../assets/img/Ossidiana.jpg";
 import CalyrexImage from "~/assets/img/ASR_TG15.png";
 import ASR_TG15 from "~/assets/img/ASR_TG15.png";
 import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
