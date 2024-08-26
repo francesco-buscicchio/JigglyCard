@@ -15,7 +15,7 @@
       typeID: [],
     }"
   />
-  <ServiceBanner :sections="sectionsDataService" />
+  <OrganismsServiceBanner :sections="sectionsDataService" />
   <br />
   <h3 class="p-6">Prodotto in evidenza</h3>
   <div class="pb-6">
