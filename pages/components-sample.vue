@@ -124,14 +124,7 @@
 
     <div class="w-full">
       <h1 class="text-xl pb-4">Carousel Card</h1>
-      <MoleculesCardCarousel
-        :items="productList"
-        @update:index="
-          (e) => {
-            console.log(e);
-          }
-        "
-      />
+      <MoleculesCardCarousel :items="productList" @update:index="(e) => {}" />
     </div>
   </div>
 </template>
