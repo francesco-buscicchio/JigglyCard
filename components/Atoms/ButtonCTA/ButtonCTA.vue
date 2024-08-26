@@ -29,11 +29,11 @@ const emit = defineEmits(["buttonClicked"]);
 
 const buttonClass = computed(() => {
   return {
-    "bg-accent-500 text-accent-50 font-bold py-3 px-4 rounded-lg active:bg-accent-950":
+    "bg-accent-500 text-accent-50 font-bold py-3 px-4 rounded-lg active:bg-accent-950 w-full":
       props.type === "primary",
-    "bg-white text-accent-500 border border-accent-500 font-bold py-3 px-4 rounded-lg active:text-accent-950 active:border-accent-950":
+    "bg-white text-accent-500 border border-accent-500 font-bold py-3 px-4 rounded-lg active:text-accent-950 active:border-accent-950 w-full":
       props.type === "secondary",
-    "bg-neutrals-200 text-neutrals-500 py-3 px-4 rounded-lg rounded-lg":
+    "bg-neutrals-200 text-neutrals-500 py-3 px-4 rounded-lg rounded-lg w-full":
       props.type === "disabled",
   };
 });
