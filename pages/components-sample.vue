@@ -111,6 +111,18 @@
         :imageUrl="CalyrexImage"
       />
     </div>
+
+    <div class="w-full">
+      <h1 class="text-xl pb-4">Carousel Card</h1>
+      <MoleculesCardCarousel
+        :items="productList"
+        @update:index="
+          (e) => {
+            console.log(e);
+          }
+        "
+      />
+    </div>
   </div>
 </template>
 
@@ -120,6 +132,14 @@ import CalyrexImage from "~/assets/img/ASR_TG15.png";
 
 const radioButtonStatus = ref(true);
 const isChecked = ref(false);
+
+const productList = ref([
+  "Prodotto 1 con descrizione e dettagli",
+  "Prodotto 2 con descrizione e dettagli",
+  "Prodotto 3 con descrizione e dettagli",
+  "Prodotto 4 con descrizione e dettagli",
+  "Prodotto 5 con descrizione e dettagli",
+]);
 
 const updateState = (newState: boolean) => {
   radioButtonStatus.value = newState;
