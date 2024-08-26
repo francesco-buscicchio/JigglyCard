@@ -5,7 +5,7 @@
   <slot />
 
   <footer>
-    <OrganismsFooter :sections="sectionsData" :footer="footerData" />
+    <OrganismsFooter :sections="sectionsData" :footer="footerData" :policyLinks="policyLinks" />
   </footer>
 </template>
 
@@ -54,6 +54,12 @@ const footerData = {
     },
   ],
 };
+
+const policyLinks = [
+  { label: "privacy", link: "/privacy-policy" },
+  { label: "cookies", link: "/cookies" },
+  { label: "termini di utilizzo", link: "/terms-of-use" },
+]
 </script>
 
 <style scoped></style>

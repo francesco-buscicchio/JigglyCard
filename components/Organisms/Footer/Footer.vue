@@ -1,10 +1,7 @@
 <template>
   <div class="gap-2 bg-accent-500 pb-8 text-accent-50 w-full">
     <div class="flex flex-col mb-4">
-      <div
-        v-for="(section, sectionIndex) in sections"
-        :key="'section-' + sectionIndex"
-      >
+      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex">
         <!-- Sezioni del footer -->
         <MoleculesAccordion>
           <template #header>
@@ -29,11 +26,7 @@
       <!-- sezione dei pagamenti -->
       <p class="px-6">pagamenti con</p>
       <div class="grid grid-cols-4 mb-4 px-4">
-        <div
-          v-for="(payment, index) in paymentMethods"
-          :key="index"
-          class="flex justify-center items-center"
-        >
+        <div v-for="(payment, index) in paymentMethods" :key="index" class="flex justify-center items-center">
           <a :href="payment.link" @click="iconSocialPressed(payment.link)">
             <img :src="payment.src" :alt="payment.alt" class="mt-2 w-18 h-10" />
           </a>
@@ -45,20 +38,13 @@
       <!-- Immagini social del footer -->
       <div class="flex flex-row items-center">
         <template v-if="Array.isArray(footer.imgs)">
-          <div
-            class="py-2 mx-3 cursor-pointer"
-            v-for="(img, index) in footer.imgs"
-            :key="index"
-            @click="iconSocialPressed(img.url)"
-          >
+          <div class="py-2 mx-3 cursor-pointer" v-for="(img, index) in footer.imgs" :key="index"
+            @click="iconSocialPressed(img.url)">
             <img :src="img.img" alt="Logo" class="max-h-6" />
           </div>
         </template>
         <template v-else>
-          <div
-            class="max-h-6 cursor-pointer"
-            @click="iconSocialPressed(footer.imgs?.url ?? '')"
-          >
+          <div class="max-h-6 cursor-pointer" @click="iconSocialPressed(footer.imgs?.url ?? '')">
             <img v-if="footer.imgs" :src="footer.imgs.img" alt="Logo" />
           </div>
         </template>
@@ -68,8 +54,10 @@
     <div>
       <!-- inserisco 12px come grandezza testo come da mock, da valutare  -->
       <p class="px-6 text-xs">
-        <a href="/privacy-policy">privacy</a> - <a href="/cookies">cookies</a> -
-        <a href="/terms-of-use">termini di utilizzo</a>
+        <template v-for="(policy, index) in policyLinks" :key="index">
+          <a :href="policy.link">{{ policy.label }}</a>
+          <span v-if="index < policyLinks.length - 1"> - </span>
+        </template>
       </p>
     </div>
   </div>
@@ -114,7 +102,13 @@ const props = defineProps({
     }>,
     default: () => ({ text: "", imgs: [] }),
   },
+  policyLinks: {
+    type: Array as PropType<
+      Array<{ label: string; link: string }>
+    >,
+  },
 });
+
 
 const paymentMethods = ref<PaymentMethodType[]>([
   {
