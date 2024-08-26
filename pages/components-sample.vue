@@ -78,6 +78,16 @@
     </div>
 
     <div>
+      <h3 class="pb-4">Hero Banner</h3>
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
+    </div>
+
+    <div>
       <h3 class="pb-4">Accordion</h3>
       <div class="bg-[#FE9DA4]">
         <MoleculesAccordion class="min-w-full bg-transparent">
@@ -114,20 +124,14 @@
 
     <div class="w-full">
       <h1 class="text-xl pb-4">Carousel Card</h1>
-      <MoleculesCardCarousel
-        :items="productList"
-        @update:index="
-          (e) => {
-            console.log(e);
-          }
-        "
-      />
+      <MoleculesCardCarousel :items="productList" @update:index="(e) => {}" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Ossidiana from "../assets/img/Ossidiana.jpg";
 import CalyrexImage from "~/assets/img/ASR_TG15.png";
 
 const radioButtonStatus = ref(true);
