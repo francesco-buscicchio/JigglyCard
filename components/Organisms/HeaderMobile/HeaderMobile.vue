@@ -9,7 +9,9 @@
       </div>
 
       <div class="relative w-[70%]">
-        <h2 class="text-accent-950 text-center">Jigglycard</h2>
+        <h2 class="text-accent-950 text-center" @click="navigateTo('/')">
+          Jigglycard
+        </h2>
       </div>
 
       <div class="items-center space-x-4">
