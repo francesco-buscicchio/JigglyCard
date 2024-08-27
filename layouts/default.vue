@@ -14,6 +14,9 @@ import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
 import tiktokLogo from "~/assets/icons/tiktok.png";
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const sectionsData = [
   {
@@ -56,9 +59,9 @@ const footerData = {
 };
 
 const policyLinks = [
-  { label: "privacy", link: "/privacy-policy" },
-  { label: "cookies", link: "/cookies" },
-  { label: "termini di utilizzo", link: "/terms-of-use" },
+  { label: t('privacy'), link: "/privacy-policy" },
+  { label: t('cookies'), link: "/cookies" },
+  { label: t('terminiDiUtilizzo'), link: "/terms-of-use" },
 ]
 </script>
 
