@@ -1,40 +1,67 @@
 <template>
-  <PrivacyModal />
-  <Newsletter />
+  <div class="p-4 flex flex-col gap-y-6">
+    <MoleculesHeroBanner
+      :backgroundImage="Ossidiana"
+      :navigateTo="'/listing/ossidiana-infuocata'"
+      title="Ossidiana Infuocata"
+      ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+    />
 
-  <div class="lg:flex flex-row pt-4 justify-between mx-8">
-    <div class="w-full">
-      <CarouselHero :data="carouselData" />
-    </div>
+    <OrganismsProductCarousel
+      :title="$t('highlights')"
+      :products="productSamples"
+    />
+
+    <OrganismsProductCarousel
+      :title="$t('whatsnew')"
+      :products="productSamples"
+    />
+
+    <OrganismsProductCarousel :title="$t('deals')" :products="productSamples" />
+
+    <OrganismsServiceBanner :sections="sectionsDataService" />
   </div>
-  <br />
-
-  <Mancoliste
-    :set="{
-      collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],
-      typeID: [],
-    }"
-  />
-  <OrganismsServiceBanner :sections="sectionsDataService" />
-  <br />
-  <h3 class="p-6">Prodotto in evidenza</h3>
-  <div class="pb-6">
-    <ProductHero />
-  </div>
-
-  <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import DestinoPaldea from "../../assets/img/DestinoPaldea.jpg";
-import EvoluzioniPaldea from "../../assets/img/EvoluzioniPaldea.jpg";
-import Ossidiana from "../../assets/img/Ossidiana.jpg";
-import facebookLogo from "~/assets/icons/facebook.svg";
-import instagramLogo from "~/assets/icons/instagram.svg";
-import youtubeLogo from "~/assets/icons/youtube.svg";
-import tiktokLogo from "~/assets/icons/tiktok.png";
+import Ossidiana from "~/assets/img/Ossidiana.jpg";
+import ASR_TG15 from "~/assets/img/ASR_TG15.png";
+import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
+import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
+import ASR_TG08 from "~/assets/img/ASR_TG08.jpg";
+
 const { t } = useI18n();
+
+const productSamples = [
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "(ASR TG15)",
+    expansion: "Lucentezza Siderale",
+    price: "9.94",
+    imageUrl: ASR_TG15,
+  },
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "(ASR TG29)",
+    expansion: "Lucentezza Siderale",
+    price: "2.99",
+    imageUrl: ASR_TG29,
+  },
+  {
+    productName: "Kingdra",
+    code: "(ASR TG03)",
+    expansion: "Lucentezza Siderale",
+    price: "2.99",
+    imageUrl: ASR_TG03,
+  },
+  {
+    productName: "Kleavor",
+    code: "(ASR TG08)",
+    expansion: "Lucentezza Siderale",
+    price: "1.00",
+    imageUrl: ASR_TG08,
+  },
+];
 
 useHead({
   title: "Jigglycard",
@@ -45,39 +72,6 @@ useHead({
         "Entra nel magico mondo Pokemon, carte singole, prodotti sealed, permuta collezioni...",
     },
   ],
-});
-const carouselData = [
-  {
-    id: 0,
-    image: DestinoPaldea,
-    linkUrl: "/",
-  },
-  {
-    id: 1,
-    image: EvoluzioniPaldea,
-    linkUrl: "/",
-  },
-  {
-    id: 2,
-    image: Ossidiana,
-    linkUrl: "/",
-  },
-];
-
-const imageDiv = ref(null);
-
-onMounted(() => {
-  nextTick(() => {
-    const parentHeight = imageDiv.value.parentElement.clientHeight;
-    let otherButtonsHeight = 0;
-    imageDiv.value.parentElement
-      .querySelectorAll('button:not([ref="ciaoButton"])')
-      .forEach((button) => {
-        otherButtonsHeight += button.clientHeight;
-      });
-    const remainingHeight = parentHeight - otherButtonsHeight - 48;
-    imageDiv.value.style.height = `${remainingHeight}px`;
-  });
 });
 
 const sectionsDataService = [
@@ -102,55 +96,4 @@ const sectionsDataService = [
     imgUrl: "solar:tag-price-bold-duotone",
   },
 ];
-
-const sectionsData = [
-  {
-    title: "Section 1",
-    sections: [
-      { value: "Item 1", link: "#" },
-      { value: "Item 2", link: "#" },
-      { value: "Item 3", link: "#" },
-    ],
-  },
-  {
-    title: "Section 2",
-    sections: [
-      "Lorem ipsum dolor sit amet",
-      "consectetur adipiscing elit",
-      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    ],
-  },
-  {
-    title: "Section 3",
-    sections: [
-      { value: "Item Link", link: "#" },
-      "consectetur adipiscing elit",
-      { value: "Item Link", link: "#" },
-      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    ],
-  },
-  {
-    title: "Section 4",
-    sections: [
-      { value: "Item Link", link: "#" },
-      "consectetur adipiscing elit fvfvfvfv",
-      { value: "Item Link", link: "#" },
-      "sed do eiusmod tempor incididunt ut labore et dolore chi legge e scemo senza accento aliqua",
-    ],
-  },
-];
-
-const footerData = {
-  text: ["Mock Footer 1", "Mock Footer 2"],
-  imgs: [
-    {
-      img: instagramLogo,
-      url: "https://www.instagram.com/jigglycard/",
-    },
-    {
-      img: tiktokLogo,
-      url: "https://www.tiktok.com/@jigglycard",
-    },
-  ],
-};
 </script>

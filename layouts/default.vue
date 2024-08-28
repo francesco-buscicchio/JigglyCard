@@ -1,9 +1,14 @@
 <template>
-  <OrganismsHeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
-  <OrganismsHeaderDesktop
-    class="hidden w-full lg:block"
-    :header="{ cartCount: 9 }"
-  />
+  <div class="w-full lg:hidden sticky-header">
+    <OrganismsHeaderMobile
+      class="w-full lg:hidden"
+      :header="{ cartCount: 9 }"
+    />
+    <OrganismsHeaderDesktop
+      class="hidden w-full lg:block"
+      :header="{ cartCount: 9 }"
+    />
+  </div>
   <slot />
 
   <footer>
@@ -71,4 +76,10 @@ const policyLinks = [
 ];
 </script>
 
-<style scoped></style>
+<style scoped>
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+}
+</style>

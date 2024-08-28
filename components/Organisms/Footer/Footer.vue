@@ -1,5 +1,5 @@
 <template>
-  <div class="gap-2 bg-accent-500 pb-8 text-accent-50 w-full">
+  <div class="gap-2 bg-main-400 pb-8 w-full">
     <div class="flex flex-col mb-4">
       <div
         v-for="(section, sectionIndex) in sections"
