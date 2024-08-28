@@ -1,28 +1,24 @@
 <template>
-  <PrivacyModal />
-  <Newsletter />
+  <div class="p-4">
+    <MoleculesHeroBanner
+      :backgroundImage="Ossidiana"
+      :navigateTo="'/listing/ossidiana-infuocata'"
+      title="Ossidiana Infuocata"
+      ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+    />
 
-  <div class="lg:flex flex-row pt-4 justify-between mx-8">
-    <div class="w-full">
-      <CarouselHero :data="carouselData" />
-    </div>
+    <OrganismsProductCarousel
+      :title="$t('highlights')"
+      :products="productSamples"
+    />
+
+    <OrganismsProductCarousel
+      :title="$t('whatsnew')"
+      :products="productSamples"
+    />
+
+    <OrganismsProductCarousel :title="$t('deals')" :products="productSamples" />
   </div>
-  <br />
-
-  <Mancoliste
-    :set="{
-      collectionID: ['pcol_01HZYF8VMVVYG8N1F5H6S6D670'],
-      typeID: [],
-    }"
-  />
-  <ServiceBanner :sections="sectionsDataService" />
-  <br />
-  <h3 class="p-6">Prodotto in evidenza</h3>
-  <div class="pb-6">
-    <ProductHero />
-  </div>
-
-  <Footer :sections="sectionsData" :footer="footerData" />
 </template>
 
 <script setup lang="ts">
@@ -34,7 +30,45 @@ import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
 import tiktokLogo from "~/assets/icons/tiktok.png";
+
+import ASR_TG15 from "~/assets/img/ASR_TG15.png";
+import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
+import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
+import ASR_TG08 from "~/assets/img/ASR_TG08.jpg";
+import ASR_TG17 from "~/assets/img/ASR_TG17.jpg";
+
 const { t } = useI18n();
+
+const productSamples = [
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "(ASR TG15)",
+    expansion: "Lucentezza Siderale",
+    price: "9.94",
+    imageUrl: ASR_TG15,
+  },
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "(ASR TG29)",
+    expansion: "Lucentezza Siderale",
+    price: "2.99",
+    imageUrl: ASR_TG29,
+  },
+  {
+    productName: "Kingdra",
+    code: "(ASR TG03)",
+    expansion: "Lucentezza Siderale",
+    price: "2.99",
+    imageUrl: ASR_TG03,
+  },
+  {
+    productName: "Kleavor",
+    code: "(ASR TG08)",
+    expansion: "Lucentezza Siderale",
+    price: "1.00",
+    imageUrl: ASR_TG08,
+  },
+];
 
 useHead({
   title: "Jigglycard",
