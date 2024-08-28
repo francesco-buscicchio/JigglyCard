@@ -112,7 +112,7 @@
     </div>
 
     <div class="w-full">
-      <h1 class="text-xl pb-4">Product Card</h1>
+      <h3 class="pb-4">Product Card</h3>
       <MoleculesProductCard
         productName="Calyrex Cavaliere Glaciale VMAX"
         code="ASR TG15"
@@ -123,8 +123,13 @@
     </div>
 
     <div class="w-full">
-      <h1 class="text-xl pb-4">Carousel Card</h1>
-      <MoleculesCardCarousel :items="productList" @update:index="(e) => {}" />
+      <h3 class="pb-4">Product Carousel</h3>
+      <OrganismsProductCarousel :products="productList" title="Correlati" />
+    </div>
+
+    <div class="w-full">
+      <h3 class="pb-4">Service Banner</h3>
+      <OrganismsServiceBanner :sections="sectionsDataService" />
     </div>
   </div>
 </template>
@@ -137,7 +142,30 @@ import ASR_TG15 from "~/assets/img/ASR_TG15.png";
 import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
 import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
 import ASR_TG08 from "~/assets/img/ASR_TG08.jpg";
-import ASR_TG17 from "~/assets/img/ASR_TG17.jpg";
+const { t } = useI18n();
+
+const sectionsDataService = [
+  {
+    title: t("serviceHomepage.FastShipping"),
+    sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
+    imgUrl: "jig:truck",
+  },
+  {
+    title: t("serviceHomepage.Support"),
+    sections: [t("serviceHomepage.SupportDescription")],
+    imgUrl: "jig:support",
+  },
+  {
+    title: t("serviceHomepage.Prices"),
+    sections: [t("serviceHomepage.PricesDescription")],
+    imgUrl: "jig:prices",
+  },
+  {
+    title: t("serviceHomepage.Security"),
+    sections: [t("serviceHomepage.SecurityDescription")],
+    imgUrl: "jig:security",
+  },
+];
 
 const radioButtonStatus = ref(true);
 const isChecked = ref(false);

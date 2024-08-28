@@ -4,14 +4,14 @@
   "WeeklyOffers": "Offerte Settimanali",
   "PreOrders": "Preordini",
   "serviceHomepage": {
-    "FastShipping": "Spedizioni Veloci",
-    "FastShippingDescription": "Gli ordini vengono consegnati al corriere entro 2 giorni lavorativi, sono sempre assicurati e protetti.",
-    "Support": "Supporto",
-    "SupportDescription": "Siamo sempre disponibili a fornirti supporto 24/7.",
-    "Prices": "Prezzi",
-    "PricesDescription": "Il miglior rapporto qualità prezzo sul mercato.",
-    "Security": "Sicurezza",
-    "SecurityDescription": "I tuoi dati personali e di pagamento sono al sicuro."
+    "FastShipping": "Spedizioni veloci e protette",
+    "FastShippingDescription": "Gli ordini sono spediti in due giorni lavorativi e le spedizioni sono sempre protette.",
+    "Support": "Supporto 24/7",
+    "SupportDescription": "Siamo sempre disponibili quando hai bisogno di aiuto.",
+    "Prices": "Miglior prezzo sul mercato",
+    "PricesDescription": "...",
+    "Security": "Dati protetti",
+    "SecurityDescription": "I tuoi dati personali e di pagamento sono protetti con..."
   },
   "productHero": {
     "TasseESpedizione": "Tasse incluse. Spedizione calcolata al momento del pagamento",
