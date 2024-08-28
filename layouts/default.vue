@@ -1,11 +1,17 @@
 <template>
-  <!--<NewsBanner :news="newsBannerData" class="lg:pb-9"></NewsBanner>-->
-  <HeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
-  <HeaderDesktop class="hidden w-full lg:block" :header="{ cartCount: 9 }" />
+  <OrganismsHeaderMobile class="w-full lg:hidden" :header="{ cartCount: 9 }" />
+  <OrganismsHeaderDesktop
+    class="hidden w-full lg:block"
+    :header="{ cartCount: 9 }"
+  />
   <slot />
 
   <footer>
-    <OrganismsFooter :sections="sectionsData" :footer="footerData" :policyLinks="policyLinks" />
+    <OrganismsFooter
+      :sections="sectionsData"
+      :footer="footerData"
+      :policyLinks="policyLinks"
+    />
   </footer>
 </template>
 
@@ -14,7 +20,7 @@ import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
 import tiktokLogo from "~/assets/icons/tiktok.png";
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
@@ -59,10 +65,10 @@ const footerData = {
 };
 
 const policyLinks = [
-  { label: t('privacy'), link: "/privacy-policy" },
-  { label: t('cookies'), link: "/cookies" },
-  { label: t('terminiDiUtilizzo'), link: "/terms-of-use" },
-]
+  { label: t("privacy"), link: "/privacy-policy" },
+  { label: t("cookies"), link: "/cookies" },
+  { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
+];
 </script>
 
 <style scoped></style>

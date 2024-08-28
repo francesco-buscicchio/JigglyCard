@@ -78,6 +78,16 @@
     </div>
 
     <div>
+      <h3 class="pb-4">Hero Banner</h3>
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
+    </div>
+
+    <div>
       <h3 class="pb-4">Accordion</h3>
       <div class="bg-[#FE9DA4]">
         <MoleculesAccordion class="min-w-full bg-transparent">
@@ -107,19 +117,61 @@
         productName="Calyrex Cavaliere Glaciale VMAX"
         code="ASR TG15"
         expansion="Regno Glaciale"
-        :price="1.0"
+        :price="'1.0'"
         :imageUrl="CalyrexImage"
       />
+    </div>
+
+    <div class="w-full">
+      <h1 class="text-xl pb-4">Carousel Card</h1>
+      <MoleculesCardCarousel :items="productList" @update:index="(e) => {}" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import Ossidiana from "../assets/img/Ossidiana.jpg";
 import CalyrexImage from "~/assets/img/ASR_TG15.png";
+import ASR_TG15 from "~/assets/img/ASR_TG15.png";
+import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
+import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
+import ASR_TG08 from "~/assets/img/ASR_TG08.jpg";
+import ASR_TG17 from "~/assets/img/ASR_TG17.jpg";
 
 const radioButtonStatus = ref(true);
 const isChecked = ref(false);
+
+const productList = ref([
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "ASR TG15",
+    expansion: "Lucentezza Siderale",
+    price: "9.94",
+    imageUrl: ASR_TG15,
+  },
+  {
+    productName: "Calyrex Cavaliere Glaciale VMAX",
+    code: "ASR TG29",
+    expansion: "Lucentezza Siderale",
+    price: "3.00",
+    imageUrl: ASR_TG29,
+  },
+  {
+    productName: "Kingdra",
+    code: "ASR TG03",
+    expansion: "Lucentezza Siderale",
+    price: "2.99",
+    imageUrl: ASR_TG03,
+  },
+  {
+    productName: "Kleavor",
+    code: "ASR TG08",
+    expansion: "Lucentezza Siderale",
+    price: "1.49",
+    imageUrl: ASR_TG08,
+  },
+]);
 
 const updateState = (newState: boolean) => {
   radioButtonStatus.value = newState;
