@@ -1,8 +1,10 @@
 <template>
   <div class="gap-2 bg-accent-500 pb-8 text-accent-50 w-full">
     <div class="flex flex-col mb-4">
-      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex">
-        <!-- Sezioni del footer -->
+      <div
+        v-for="(section, sectionIndex) in sections"
+        :key="'section-' + sectionIndex"
+      >
         <MoleculesAccordion>
           <template #header>
             <p>{{ section.title }}</p>
@@ -22,25 +24,23 @@
       </div>
     </div>
 
-    <!-- Sezione dei pagamenti -->
     <MoleculesPaymentMethods />
 
-    <!-- Immagini social del footer -->
     <MoleculesSocialLinks :imgs="footer.imgs" />
 
     <div>
-      <!-- Inserisco 12px come grandezza testo come da mock, da valutare  -->
-      <p class="px-6 text-xs">
+      <label class="px-6">
         <template v-for="(policy, index) in policyLinks" :key="index">
           <a :href="policy.link">{{ policy.label }}</a>
-          <span v-if="index < policyLinks.length - 1"> - </span>
+          <span v-if="index < policyLinks!.length - 1"> - </span>
         </template>
-      </p>
+      </label>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { type SocialLinksType } from "~/components/Molecules/SocialLinks/SocialLinks.vue";
 
 const props = defineProps({
   sections: {
@@ -59,9 +59,7 @@ const props = defineProps({
     default: () => ({ text: "", imgs: [] }),
   },
   policyLinks: {
-    type: Array as PropType<
-      Array<{ label: string; link: string }>
-    >,
+    type: Array as PropType<Array<{ label: string; link: string }>>,
   },
 });
 </script>
