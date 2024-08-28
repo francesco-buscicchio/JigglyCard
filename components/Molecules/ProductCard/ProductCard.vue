@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white rounded-lg shadowCard overflow-hidden w-full">
     <div class="p-4 bg-accent-50">
-      <h5>{{ productName }}</h5>
+      <h5 class="pb-4">{{ productName }}</h5>
       <div class="flex mt-2">
         <img
           :src="imageUrl"
