@@ -78,22 +78,22 @@ const sectionsDataService = [
   {
     title: t("serviceHomepage.FastShipping"),
     sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
-    imgUrl: "material-symbols:local-shipping",
+    imgUrl: "jig:truck",
   },
   {
     title: t("serviceHomepage.Support"),
     sections: [t("serviceHomepage.SupportDescription")],
-    imgUrl: "material-symbols:support-agent-sharp",
+    imgUrl: "jig:support",
   },
   {
     title: t("serviceHomepage.Prices"),
     sections: [t("serviceHomepage.PricesDescription")],
-    imgUrl: "solar:tag-price-bold-duotone",
+    imgUrl: "jig:prices",
   },
   {
     title: t("serviceHomepage.Security"),
     sections: [t("serviceHomepage.SecurityDescription")],
-    imgUrl: "solar:tag-price-bold-duotone",
+    imgUrl: "jig:security",
   },
 ];
 </script>
