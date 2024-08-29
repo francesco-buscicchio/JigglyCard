@@ -7,11 +7,7 @@
     :price="productList[currentIndex].price"
     :imageUrl="productList[currentIndex].imageUrl"
   />
-  <MoleculesCardCarousel
-    :items="productList"
-    @update:index="updateIndex"
-    class="pt-6"
-  />
+  <MoleculesCardCarousel :items="productList" @update:index="updateIndex" />
 </template>
 
 <script setup lang="ts">
