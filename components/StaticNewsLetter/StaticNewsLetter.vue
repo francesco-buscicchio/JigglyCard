@@ -77,11 +77,6 @@ const mailAction = async () => {
   });
 
   // CREATE USER IN DB
-  // client.customers.create({
-  //   first_name: userName,
-  //   last_name: userName,
-  //   email: email.value,
-  //   password: "ChangeMe24!",
-  // });
+  subscribeSendgrid(email.value);
 };
 </script>

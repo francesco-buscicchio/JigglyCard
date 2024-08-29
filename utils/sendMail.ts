@@ -8,14 +8,13 @@ export type sendMailProps = {
 };
 
 export async function sendMail(mailData: sendMailProps) {
-  console.log(mailData);
   let msg = {
     personalizations: [
       {
         to: [
           {
             email: mailData.email,
-            name: mailData.name,
+            name: getUsernameFromMail(mailData.email),
           },
         ],
       },
