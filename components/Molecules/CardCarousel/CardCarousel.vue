@@ -27,13 +27,26 @@ const props = defineProps({
     type: Array as PropType<ProductType[]>,
     required: true,
   },
+  activeIndex: {
+    type: Number,
+    required: true,
+  },
 });
 
 const emit = defineEmits<{
   (e: "update:index", index: number): void;
 }>();
 
-const activeIndex = ref(0);
+const activeIndex = ref(props.activeIndex);
+
+watch(
+  () => props.activeIndex,
+  (newIndex) => {
+    console.log(newIndex);
+    activeIndex.value = newIndex;
+    resetTimer();
+  }
+);
 
 function setActive(index: number) {
   activeIndex.value = index;
@@ -50,7 +63,7 @@ let interval: ReturnType<typeof setInterval>;
 
 function resetTimer() {
   clearInterval(interval);
-  interval = setInterval(nextSlide, 5000);
+  // interval = setInterval(nextSlide, 5000);
 }
 
 onMounted(() => {

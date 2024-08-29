@@ -1,13 +1,29 @@
 <template>
   <h3 class="text-accent-500 text-center w-full pb-4">{{ title }}</h3>
-  <MoleculesProductCard
-    :productName="productList[currentIndex].productName"
-    :code="productList[currentIndex].code"
-    :expansion="productList[currentIndex].expansion"
-    :price="productList[currentIndex].price"
-    :imageUrl="productList[currentIndex].imageUrl"
+  <div class="max-w-full">
+    <Swiper
+      ref="swiperRef"
+      :grab-cursor="true"
+      @swiper="setControlledSwiper"
+      @slideChange="onSlideChange"
+    >
+      <SwiperSlide v-for="product in productList" :key="product.code">
+        <MoleculesProductCard
+          :productName="product.productName"
+          :code="product.code"
+          :expansion="product.expansion"
+          :price="product.price"
+          :imageUrl="product.imageUrl"
+        />
+      </SwiperSlide>
+    </Swiper>
+  </div>
+
+  <MoleculesCardCarousel
+    :items="productList"
+    @update:index="updateIndex"
+    :activeIndex="currentIndex"
   />
-  <MoleculesCardCarousel :items="productList" @update:index="updateIndex" />
 </template>
 
 <script setup lang="ts">
@@ -34,12 +50,23 @@ const props = defineProps({
 
 const currentIndex = ref(0);
 const productList = ref(props.products);
+const controlledSwiper = ref(null);
+
+const setControlledSwiper = (swiper: any) => {
+  controlledSwiper.value = swiper;
+};
+
+const onSlideChange = () => {
+  if (controlledSwiper.value) {
+    console.log(controlledSwiper.value.activeIndex);
+    //@ts-ignore
+    currentIndex.value = controlledSwiper.value.activeIndex;
+  }
+};
 
 function updateIndex(index: number) {
   currentIndex.value = index;
+  //@ts-ignore
+  controlledSwiper.value.slideTo(index);
 }
 </script>
-
-<style scoped>
-/* Aggiungi stili specifici qui se necessario */
-</style>
