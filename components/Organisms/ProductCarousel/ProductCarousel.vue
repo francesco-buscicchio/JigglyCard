@@ -58,7 +58,6 @@ const setControlledSwiper = (swiper: any) => {
 
 const onSlideChange = () => {
   if (controlledSwiper.value) {
-    console.log(controlledSwiper.value.activeIndex);
     //@ts-ignore
     currentIndex.value = controlledSwiper.value.activeIndex;
   }

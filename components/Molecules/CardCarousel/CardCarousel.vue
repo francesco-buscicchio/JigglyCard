@@ -42,7 +42,6 @@ const activeIndex = ref(props.activeIndex);
 watch(
   () => props.activeIndex,
   (newIndex) => {
-    console.log(newIndex);
     activeIndex.value = newIndex;
     resetTimer();
   }
@@ -63,7 +62,7 @@ let interval: ReturnType<typeof setInterval>;
 
 function resetTimer() {
   clearInterval(interval);
-  // interval = setInterval(nextSlide, 5000);
+  interval = setInterval(nextSlide, 5000);
 }
 
 onMounted(() => {
