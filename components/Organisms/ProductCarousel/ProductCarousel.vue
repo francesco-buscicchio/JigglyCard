@@ -7,7 +7,11 @@
       @swiper="setControlledSwiper"
       @slideChange="onSlideChange"
     >
-      <SwiperSlide v-for="product in productList" :key="product.code">
+      <SwiperSlide
+        v-for="product in productList"
+        :key="product.code"
+        class="pb-4"
+      >
         <MoleculesProductCard
           :productName="product.productName"
           :code="product.code"
@@ -17,13 +21,13 @@
         />
       </SwiperSlide>
     </Swiper>
-  </div>
 
-  <MoleculesCardCarousel
-    :items="productList"
-    @update:index="updateIndex"
-    :activeIndex="currentIndex"
-  />
+    <MoleculesCardCarousel
+      :items="productList"
+      @update:index="updateIndex"
+      :activeIndex="currentIndex"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
