@@ -27,13 +27,25 @@ const props = defineProps({
     type: Array as PropType<ProductType[]>,
     required: true,
   },
+  activeIndex: {
+    type: Number,
+    required: true,
+  },
 });
 
 const emit = defineEmits<{
   (e: "update:index", index: number): void;
 }>();
 
-const activeIndex = ref(0);
+const activeIndex = ref(props.activeIndex);
+
+watch(
+  () => props.activeIndex,
+  (newIndex) => {
+    activeIndex.value = newIndex;
+    resetTimer();
+  }
+);
 
 function setActive(index: number) {
   activeIndex.value = index;

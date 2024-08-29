@@ -1,23 +1,23 @@
 <template>
-  <div class="bg-white rounded-lg shadowCard overflow-hidden w-full">
-    <div class="p-4 bg-accent-50">
-      <h5 class="pb-4">{{ productName }}</h5>
-      <div class="flex mt-2">
-        <img
-          :src="imageUrl"
-          :alt="productName"
-          class="w-28 h-38 object-cover mr-4"
-        />
-        <div class="flex flex-col gap-y-2">
-          <p>{{ code }}</p>
-          <p>{{ expansion }}</p>
-          <label>{{ $t("startingFrom") }}</label>
-          <p class="text-2xl font-bold">{{ price }} €</p>
-        </div>
+  <div
+    class="bg-accent-50 rounded-lg shadowCard overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4"
+  >
+    <h5>{{ productName }}</h5>
+    <div class="flex">
+      <img
+        :src="imageUrl"
+        :alt="productName"
+        class="max-h-38 object-cover mr-4"
+      />
+      <div class="flex flex-col gap-y-2">
+        <p>{{ code }}</p>
+        <p>{{ expansion }}</p>
+        <label>{{ $t("startingFrom") }}</label>
+        <p class="text-2xl font-bold">{{ price }} €</p>
       </div>
-      <div class="pt-4 w-full">
-        <AtomsButtonCTA type="primary" text="vedi dettagli" />
-      </div>
+    </div>
+    <div class="w-full">
+      <AtomsButtonCTA type="primary" text="vedi dettagli" />
     </div>
   </div>
 </template>
