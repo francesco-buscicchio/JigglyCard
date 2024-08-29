@@ -70,18 +70,18 @@ const mailAction = async () => {
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: useRuntimeConfig().public.NEWSLETTER_TO_MAIL,
+    email: "jigglycard@gmail.com",
     name: "Jigglycard Store",
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToAdmin(userName, email.value),
   });
 
   // CREATE USER IN DB
-  client.customers.create({
-    first_name: userName,
-    last_name: userName,
-    email: email.value,
-    password: "ChangeMe24!",
-  });
+  // client.customers.create({
+  //   first_name: userName,
+  //   last_name: userName,
+  //   email: email.value,
+  //   password: "ChangeMe24!",
+  // });
 };
 </script>
