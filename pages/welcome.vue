@@ -1,16 +1,6 @@
 <template>
   <div class="flex flex-col items-center space-y-4 mt-[10vh]">
-    <img
-      src="~/assets/img/logo.png"
-      alt="Logo"
-      class="w-10 md:w-40 cursor-pointer"
-    />
     <div class="w-full flex items-center justify-center relative">
-      <img
-        src="~/assets/gif/pokeball.gif"
-        alt="Animated GIF"
-        class="absolute left-0 w-22 md:w-100 cursor-pointer"
-      />
       <div class="pt-8">
         <h1 class="text-lightPink">JIGGLYCARD</h1>
       </div>
@@ -22,8 +12,8 @@
     <StaticNewsLetter />
   </div>
 </template>
-  
-  <script setup lang="ts">
+
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const prestoOnline = t("prestoOnline");
@@ -32,8 +22,8 @@ definePageMeta({
   layout: false,
 });
 </script>
-  
-  <style scoped>
+
+<style scoped>
 .mt-mid {
   margin-top: 10vh;
 }
@@ -52,4 +42,3 @@ definePageMeta({
   }
 }
 </style>
-  
