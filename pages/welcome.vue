@@ -1,22 +1,27 @@
 <template>
-  <div class="flex flex-col items-center space-y-4 mt-4">
-    <div class="w-full flex items-center justify-center relative">
-      <div>
-        <h1 class="text-lightPink">JIGGLYCARD</h1>
+  <div class="flex flex-col min-h-screen">
+    <div class="flex-grow flex flex-col items-center space-y-4 mt-4">
+      <div class="w-full flex items-center justify-center relative">
+        <div>
+          <h1 class="text-lightPink">JIGGLYCARD</h1>
+        </div>
+      </div>
+      <h2>{{ prestoOnline }}</h2>
+    </div>
+
+    <div
+      class="my-5 md:my-20 w-full flex flex-col md:flex-row justify-center items-center md:items-center md:space-x-4 space-y-4 md:space-y-0 md:flex-grow md:min-h-[50vh]">
+      <StaticNewsLetter class="order-2 md:order-1 w-full md:w-1/3 md:px-10 mt-4 md:mt-none" />
+      <div class="px-5 md:pr-20 order-1 md:order-2 w-full md:w-2/3">
+        <img :src="Mainimg" alt="Main Image" class="w-full h-auto object-contain" />
       </div>
     </div>
-    <h2>{{ prestoOnline }}</h2>
-  </div>
 
-  <!-- Container for the newsletter and image -->
-  <div
-    class="md:my-20 main-content-container my-5 bottom-[10vh] s:bottom-[15vh] w-full flex flex-col s:flex-row justify-center items-center space-y-4 s:space-y-0 s:space-x-4">
-    <StaticNewsLetter class="order-2 md:order-1 w-full s:w-1/2" />
-    <img :src="Mainimg" alt="Main Image" class="order-1 md:order-2 w-full s:w-1/2" />
+    <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" :hidePayments="true" :showInformationSite="true"
+      class="mt-auto" />
   </div>
-
-  <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" :hidePayments="true" :showInformationSite="true" />
 </template>
+
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
@@ -62,28 +67,3 @@ const policyLinks = [
   { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
 ];
 </script>
-
-<style scoped>
-.mt-mid {
-  margin-top: 10vh;
-}
-
-.w-title {
-  width: 10vh;
-}
-
-.mb-newsletter {
-  bottom: 15vh;
-}
-
-@media screen and (min-width: 700px) {
-  .main-content-container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .mb-newsletter {
-    bottom: 10vh;
-  }
-}
-</style>
