@@ -8,10 +8,11 @@
     <h2>{{ prestoOnline }}</h2>
   </div>
 
-  <img :src="Mainimg" alt="" class="my-2">
-
-  <div class="my-5 bottom-[10vh] s:bottom-[15vh] w-full">
-    <StaticNewsLetter />
+  <!-- Container for the newsletter and image -->
+  <div
+    class="md:my-20 main-content-container my-5 bottom-[10vh] s:bottom-[15vh] w-full flex flex-col s:flex-row justify-center items-center space-y-4 s:space-y-0 s:space-x-4">
+    <StaticNewsLetter class="order-2 md:order-1 w-full s:w-1/2" />
+    <img :src="Mainimg" alt="Main Image" class="order-1 md:order-2 w-full s:w-1/2" />
   </div>
 
   <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" :hidePayments="true" :showInformationSite="true" />
@@ -25,7 +26,7 @@ import youtubeLogo from "~/assets/icons/youtube.svg";
 import tiktokLogo from "~/assets/icons/tiktok.png";
 import Ossidiana from "~/assets/img/Ossidiana.jpg";
 
-const Mainimg: string = Ossidiana
+const Mainimg: string = Ossidiana;
 
 const { t } = useI18n();
 const prestoOnline = t("prestoOnline");
@@ -60,7 +61,6 @@ const policyLinks = [
   { label: t("cookies"), link: "/cookies" },
   { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
 ];
-
 </script>
 
 <style scoped>
@@ -77,6 +77,11 @@ const policyLinks = [
 }
 
 @media screen and (min-width: 700px) {
+  .main-content-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
   .mb-newsletter {
     bottom: 10vh;
   }
