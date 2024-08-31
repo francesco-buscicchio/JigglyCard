@@ -4,7 +4,7 @@
       <h1 class="text-lg font-bold pb-2 w-full " style="font-size: 28px;">{{ titleNewsLetter }}</h1>
       <p>{{ headerNewsLetter }}</p>
       <p class="mt-6">{{ headerNewsLetter }}</p>
-      <input type="text" v-model="email" placeholder="e-mail"
+      <input type="text " v-model="email" placeholder="e-mail"
         class="mt-2 py-2 border border-gray-300 rounded text-center px-full mx-5 focus:border-main-600 focus:outline-none w-full" />
       <button @click="mailAction"
         class="bg-main-500 text-white border-[1px] lg:px-30 py-2 mt-4 rounded min-w-40 hover:bg-main-600 w-full">
