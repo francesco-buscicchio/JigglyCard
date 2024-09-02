@@ -1,10 +1,7 @@
 <template>
   <div class="gap-2 bg-main-400 pb-8 w-full">
     <div class="flex flex-col mb-4">
-      <div
-        v-for="(section, sectionIndex) in sections"
-        :key="'section-' + sectionIndex"
-      >
+      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex">
         <MoleculesAccordion>
           <template #header>
             <p>{{ section.title }}</p>
@@ -24,11 +21,15 @@
       </div>
     </div>
 
-    <MoleculesPaymentMethods />
+    <MoleculesPaymentMethods v-if="!hidePayments" />
+
+    <div v-if="showInformationSite" class="w-full text-center">
+      <p>jigglycard@gmail.com</p>
+    </div>
 
     <MoleculesSocialLinks :imgs="footer.imgs" />
 
-    <div>
+    <div class="w-full text-center">
       <label class="px-6">
         <template v-for="(policy, index) in policyLinks" :key="index">
           <a :href="policy.link">{{ policy.label }}</a>
@@ -60,6 +61,14 @@ const props = defineProps({
   },
   policyLinks: {
     type: Array as PropType<Array<{ label: string; link: string }>>,
+  },
+  hidePayments: {
+    type: Boolean,
+    default: false,
+  },
+  showInformationSite: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
