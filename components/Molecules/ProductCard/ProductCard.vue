@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-accent-50 rounded-lg shadowCard overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4"
+    class="bg-accent-50 rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4"
   >
     <h5>{{ productName }}</h5>
     <div class="flex">
@@ -46,10 +46,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<style scoped>
-.shadowCard {
-  box-shadow: 0 4px 6px -1px rgba(129, 23, 40, 0.3),
-    0 2px 4px -2px rgba(129, 23, 40, 0.3);
-}
-</style>
