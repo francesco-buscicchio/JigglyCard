@@ -4,6 +4,7 @@
     <Swiper
       ref="swiperRef"
       :grab-cursor="true"
+      :space-between="50"
       @swiper="setControlledSwiper"
       @slideChange="onSlideChange"
     >
