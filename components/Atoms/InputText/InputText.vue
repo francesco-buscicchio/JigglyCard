@@ -16,8 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, ref, defineEmits } from "vue";
 
+const emits = defineEmits(["updateValue"]);
 const props = defineProps({
   status: {
     type: String,
@@ -43,7 +44,11 @@ const inputClass = computed(() => {
     case "disabled":
       return "form-input w-full pl-3 pr-10 py-2 border border-neutrals-500 bg-neutrals-200 rounded-lg focus:border-neutrals-500 focus:ring-0";
     default:
-      return "form-input w-full pl-3 pr-10 py-2 border border-accent-950 rounded-lg border-main-950 focus:border-main-950 focus:ring-0  active:border-2";
+      return "form-input w-full pl-3 pr-10 py-2 border-2 border-accent-950 rounded-lg focus:border-accent-950 focus:ring-0 active:border-2";
   }
+});
+
+watch(inputValue, (newValue) => {
+  emits("updateValue", newValue);
 });
 </script>

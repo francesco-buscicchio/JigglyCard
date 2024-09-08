@@ -28,13 +28,11 @@ export default defineNuxtConfig({
       FB_MEASUREMENT_ID: process.env.FB_MEASUREMENT_ID,
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
-      NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME
+      NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME,
     },
   },
 
-  css: [
-    "~/assets/css/main.scss"
-  ],
+  css: ["~/assets/css/main.scss"],
 
   modules: [
     "@nuxt/image",
@@ -45,13 +43,13 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "nuxt-medusa",
     "@formkit/nuxt",
-    "@nuxt/icon"
+    "@nuxt/icon",
   ],
 
   googleFonts: {
     families: {
-      "Roboto+Serif": true,
-      "Roboto+Flex": true,
+      "Roboto+Serif": [500],
+      "Roboto+Flex": [400],
       download: true,
       inject: true,
     },
@@ -60,8 +58,8 @@ export default defineNuxtConfig({
   icon: {
     customCollections: [
       {
-        prefix: 'jig',
-        dir: './assets/icons'
+        prefix: "jig",
+        dir: "./assets/icons",
       },
     ],
   },

@@ -1,7 +1,11 @@
 <template>
   <div>
     <AtomsLabel>{{ label }}</AtomsLabel>
-    <AtomsInputText :status="status">
+    <AtomsInputText
+      :status="status"
+      :placeholder="placeholder"
+      @updateValue="handleInput"
+    >
       <slot />
     </AtomsInputText>
   </div>
@@ -12,5 +16,11 @@
 const props = defineProps({
   status: String,
   label: String,
+  placeholder: String,
 });
+
+const emit = defineEmits(["inputUpdate"]);
+const handleInput = (value: String) => {
+  emit("inputUpdate", value);
+};
 </script>
