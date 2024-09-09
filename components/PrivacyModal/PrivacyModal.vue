@@ -7,7 +7,6 @@
           Noi e i nostri partner utilizziamo cookies per migliorare la tua
           esperienza, misurare le prestazioni e adattare il marketing. Altre
           informazioni le trovi nella nostra
-          <!--Todo aggiungi url informativa privacy-->
           <NuxtLink to="/">informativa sulla privacy</NuxtLink>.
         </p>
       </template>
@@ -30,8 +29,8 @@
     </BaseModal>
   </div>
 </template>
-      
-  <script setup lang="ts">
+
+<script setup lang="ts">
 const isOpen = ref(true);
 
 const handleButtonClick = () => {

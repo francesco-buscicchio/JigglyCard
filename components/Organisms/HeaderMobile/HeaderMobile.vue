@@ -18,72 +18,59 @@
         <button class="focus:outline-none">
           <Icon name="jig:cart-accent" size="25"></Icon>
         </button>
-
         <button @click="toggleSearch" class="focus:outline-none">
           <Icon name="jig:cerca-accent" size="25" />
         </button>
       </div>
     </div>
 
-    <!-- Separare questa parte in un altro componente quando si integra algolia per la ricerca-->
     <div v-if="isSearchOpen" class="mt-4">
-      <div class="container mx-auto">
-        <div class="relative">
-          <input
-            type="text"
-            class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-            placeholder="Cerca..."
-          />
-          <button class="absolute right-3 top-3 focus:outline-none">
-            <Icon name="jig:cerca-accent" size="18" />
-          </button>
-        </div>
-      </div>
+      <input
+        type="text"
+        class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
+        placeholder="Cerca..."
+      />
+      <button class="absolute right-3 top-3 focus:outline-none">
+        <Icon name="jig:cerca-accent" size="18" />
+      </button>
     </div>
 
-    <!-- Separare questa parte in un altro componente quando si fa la lista degli items nel menu -->
     <div v-if="isMenuOpen" class="lg:hidden">
-      <ul class="mt-4 space-y-2">
-        <li>
-          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
-            >Home</a
-          >
-        </li>
-        <li>
-          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
-            >Servizi</a
-          >
-        </li>
-        <li>
-          <a href="#" class="block text-gray-700 px-4 py-2 hover:bg-gray-100"
-            >Contatti</a
-          >
-        </li>
-      </ul>
+      <MoleculesMobileMenu />
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useHead } from "#app";
 
 const isMenuOpen = ref(false);
-const isProfileMenuOpen = ref(false);
 const isSearchOpen = ref(false);
+const emit = defineEmits(["toggle-menu"]);
+
+watch(isMenuOpen, (newValue) => {
+  useHead({
+    bodyAttrs: {
+      class: newValue ? "hide" : "",
+    },
+  });
+});
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
-};
-
-const toggleProfileMenu = () => {
-  isProfileMenuOpen.value = !isProfileMenuOpen.value;
+  emit("toggle-menu");
 };
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
 };
+
+const navigateTo = (path: String) => {
+  navigateTo(path);
+};
 </script>
 
 <style scoped>
-/* Aggiungi eventuali stili personalizzati qui */
+/* Si suppone che gli stili 'hide' siano definiti globalmente */
 </style>

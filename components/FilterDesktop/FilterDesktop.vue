@@ -2,10 +2,6 @@
   <div
     class="filters-section sticky top-0 h-screen bg-gray-100 p-4 w-full max-w-[30vw] overflow-auto hidden lg:block"
   >
-    <!-- 
-  :filters="checkboxFilters"
-      title="Condizioni"
-      type="checkboxList" -->
     <FilterCardDesktop
       class="w-full mb-8 mt-20"
       :data="{
