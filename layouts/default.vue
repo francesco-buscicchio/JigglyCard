@@ -1,5 +1,8 @@
 <template>
-  <div :class="{ 'fixed-header': !isMenuOpen, 'overlay-header': isMenuOpen }">
+  <div
+    :class="{ 'fixed-header': !isMenuOpen, 'overlay-header': isMenuOpen }"
+    class="lg:hidden"
+  >
     <OrganismsHeaderMobile
       class="w-full"
       :header="{ cartCount: 9 }"
