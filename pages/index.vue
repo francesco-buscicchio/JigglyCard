@@ -1,25 +1,35 @@
 <template>
-  <div class="p-4 flex flex-col gap-y-6">
-    <MoleculesHeroBanner
-      :backgroundImage="Ossidiana"
-      :navigateTo="'/listing/ossidiana-infuocata'"
-      title="Ossidiana Infuocata"
-      ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
-    />
+  <div class="flex flex-col gap-y-6">
+    <div class="px-4 pt-4">
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
+    </div>
 
     <OrganismsProductCarousel
       :title="$t('highlights')"
       :products="productSamples"
+      colorScheme="lightHome"
     />
 
     <OrganismsProductCarousel
       :title="$t('whatsnew')"
       :products="productSamples"
+      colorScheme="primaryHome"
     />
 
-    <OrganismsProductCarousel :title="$t('deals')" :products="productSamples" />
+    <OrganismsProductCarousel
+      :title="$t('deals')"
+      :products="productSamples"
+      colorScheme="lightHome"
+    />
 
-    <OrganismsServiceBanner :sections="sectionsDataService" />
+    <div class="px-4 pb-4">
+      <OrganismsServiceBanner :sections="sectionsDataService" />
+    </div>
   </div>
 </template>
 

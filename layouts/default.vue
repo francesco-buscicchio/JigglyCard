@@ -1,13 +1,15 @@
 <template>
-  <div class="w-full lg:hidden sticky-header">
+  <div :class="{ 'fixed-header': !isMenuOpen, 'overlay-header': isMenuOpen }">
     <OrganismsHeaderMobile
-      class="w-full lg:hidden"
+      class="w-full"
       :header="{ cartCount: 9 }"
+      :isMenuOpen="isMenuOpen"
+      @toggle-menu="toggleMenu"
     />
-    <OrganismsHeaderDesktop
-      class="hidden w-full lg:block"
-      :header="{ cartCount: 9 }"
-    />
+  </div>
+
+  <div class="hidden w-full lg:block sticky-header">
+    <OrganismsHeaderDesktop class="w-full" :header="{ cartCount: 9 }" />
   </div>
   <slot />
 
@@ -28,6 +30,12 @@ import tiktokLogo from "~/assets/icons/tiktok.png";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
+
+const isMenuOpen = ref(false);
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
 
 const sectionsData = [
   {
@@ -77,9 +85,25 @@ const policyLinks = [
 </script>
 
 <style scoped>
-.sticky-header {
+.fixed-header {
   position: sticky;
   top: 0;
-  z-index: 1000; /* Ensure it stays on top of other content */
+  z-index: 1000;
+  width: 100%;
+}
+
+.overlay-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Copre l'intera altezza dello schermo */
+  width: 100%; /* Copre tutta la larghezza */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* Sfondo semitrasparente per l'effetto overlay */
+  z-index: 1050; /* Più alto per stare sopra tutto */
 }
 </style>

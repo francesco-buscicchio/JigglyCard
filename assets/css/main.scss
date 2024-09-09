@@ -71,3 +71,8 @@ label {
 input[type="text"] {
   font-family: "Roboto Flex", sans-serif;
 }
+
+.hide {
+  overflow: hidden;
+  height: 100vh; // Questo può essere omesso se non necessario
+}
