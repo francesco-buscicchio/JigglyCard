@@ -25,14 +25,75 @@
     </div>
 
     <div v-if="isSearchOpen" class="mt-4">
-      <input
-        type="text"
-        class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-        placeholder="Cerca..."
-      />
-      <button class="absolute right-3 top-3 focus:outline-none">
-        <Icon name="jig:cerca-accent" size="18" />
-      </button>
+      <AisInstantSearch index-name="ecommerce" :search-client="algolia">
+        <AisConfigure :hits-per-page.camel="4" />
+
+        <AisSearchBox>
+          <template #default="{ currentRefinement, refine }">
+            <div class="flex justify-center">
+              <div class="w-full xl:w-1/2 relative">
+                <input
+                  type="text"
+                  class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
+                  :placeholder="$t('search') + '...'"
+                  @input="
+                    ($event) => {
+                      //@ts-ignore
+                      searchValue = $event.data;
+                      refine(searchValue);
+                    }
+                  "
+                />
+
+                <span
+                  class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+                >
+                  <Icon name="jig:cerca-accent"></Icon>
+                </span>
+              </div>
+            </div>
+          </template>
+        </AisSearchBox>
+
+        <div v-if="searchValue">
+          <AisIndex indexName="ecommerce">
+            <AisInfiniteHits>
+              <template #default="{ items }">
+                <span class="hidden">{{
+                  (productsHasResults = !!items.length)
+                }}</span>
+
+                <div v-if="productsHasResults" class="flex flex-col gap-4 pt-4">
+                  <div class="flex flex-col gap-4 xl:gap-6 w-full">
+                    <div v-for="item of items">
+                      <div
+                        class="w-full py-2 border-b-[1px] flex-row flex px-6 gap-x-10"
+                      >
+                        <NuxtImg
+                          :src="item.thumbnailImage"
+                          class="min-w-10 max-w-10 object-cover"
+                        />
+                        <div>
+                          <p>{{ item.name }}</p>
+                          <p>{{ item.objectID }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </AisInfiniteHits>
+          </AisIndex>
+
+          <div v-if="noResults" class="w-full py-6 flex flex-col items-center">
+            <p
+              class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
+            >
+              {{ $t("no_results") }}
+            </p>
+          </div>
+        </div>
+      </AisInstantSearch>
     </div>
 
     <div v-if="isMenuOpen" class="lg:hidden">
@@ -44,10 +105,24 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useHead } from "#app";
+import algoliasearch from "algoliasearch";
+import { createFetchRequester } from "@algolia/requester-fetch";
+import {
+  AisInstantSearch,
+  AisInfiniteHits,
+  AisIndex,
+  AisSearchBox,
+  AisConfigure,
+} from "vue-instantsearch/vue3/es";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 const emit = defineEmits(["toggle-menu"]);
+const runtimeConfig = useRuntimeConfig();
+const searchValue = ref("");
+const productsHasResults = ref(true);
+const noResults = computed(() => !productsHasResults.value);
+const algolia = useAlgoliaRef();
 
 watch(isMenuOpen, (newValue) => {
   useHead({
@@ -64,13 +139,18 @@ const toggleMenu = () => {
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
+  emit("toggle-menu");
 };
 
 const navigateTo = (path: String) => {
   navigateTo(path);
 };
-</script>
 
-<style scoped>
-/* Si suppone che gli stili 'hide' siano definiti globalmente */
-</style>
+const client = algoliasearch(
+  runtimeConfig.public.algolia.applicationId,
+  runtimeConfig.public.algolia.apiKey,
+  {
+    requester: createFetchRequester(),
+  }
+);
+</script>
