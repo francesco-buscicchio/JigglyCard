@@ -111,7 +111,6 @@ const rangeInputChanged = () => {
 const emit = defineEmits(["update:filters", "update:range"]);
 
 function toggleFilter(filter: any) {
-  console.log("click");
   filter.enabled = !filter.enabled;
   emit("update:filters", filter.name);
 }

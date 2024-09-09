@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-accent-50 rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4"
-  >
+  <div :class="containerClass">
     <h5>{{ productName }}</h5>
     <div class="flex">
       <img
@@ -17,13 +15,18 @@
       </div>
     </div>
     <div class="w-full">
-      <AtomsButtonCTA type="primary" text="vedi dettagli" />
+      <AtomsButtonCTA :type="buttonCtaType" text="vedi dettagli" />
     </div>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
+import type { PropType } from "vue";
+
 const props = defineProps({
+  colorScheme: {
+    type: String,
+  },
   productName: {
     type: String,
     required: true,
@@ -44,5 +47,27 @@ const props = defineProps({
     type: String,
     required: true,
   },
+});
+
+const containerClass = computed(() => {
+  switch (props.colorScheme) {
+    case "primaryHome":
+      return "bg-accent-500 text-white border-white border-[1px] mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4 rounded-lg";
+    case "lightHome":
+      return "bg-white text-neutrals-950 border-[1px] mx-4 border-accent-950 min-h-80 max-h-80 flex flex-col justify-between p-4  rounded-lg";
+    default:
+      return "rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4";
+  }
+});
+
+const buttonCtaType = computed(() => {
+  switch (props.colorScheme) {
+    case "primaryHome":
+      return "secondary";
+    case "lightHome":
+      return "primary";
+    default:
+      return "primary";
+  }
 });
 </script>
