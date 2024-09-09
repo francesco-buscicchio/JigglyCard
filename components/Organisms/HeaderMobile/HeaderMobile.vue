@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white shadow-md p-4">
+  <nav class="bg-white shadow-md p-4" :class="isMenuOpen ? 'min-h-screen' : ''">
     <div class="container mx-auto flex justify-between items-center">
       <div class="lg:hidden">
         <button @click="toggleMenu" class="text-gray-700 focus:outline-none">
