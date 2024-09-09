@@ -66,18 +66,11 @@
                 <div v-if="productsHasResults" class="flex flex-col gap-4 pt-4">
                   <div class="flex flex-col gap-4 xl:gap-6 w-full">
                     <div v-for="item of items">
-                      <div
-                        class="w-full py-2 border-b-[1px] flex-row flex px-6 gap-x-10"
-                      >
-                        <NuxtImg
-                          :src="item.thumbnailImage"
-                          class="min-w-10 max-w-10 object-cover"
-                        />
-                        <div>
-                          <p>{{ item.name }}</p>
-                          <p>{{ item.objectID }}</p>
-                        </div>
-                      </div>
+                      <MoleculesSearchItemResult
+                        :thumbnailImage="item.thumbnailImage"
+                        :name="item.name"
+                        :objectID="item.objectID"
+                      />
                     </div>
                   </div>
                 </div>
