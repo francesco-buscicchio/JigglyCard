@@ -37,6 +37,12 @@
 import Ossidiana from "~/assets/img/Ossidiana.jpg";
 import algoliasearch from "algoliasearch";
 import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import {
+  PRODUCTS_COLLECTION,
+  HIGHLIGHTS_TAG,
+  WHATSNEW_TAG,
+  DEALS_TAG,
+} from "~/data/const";
 
 const { t } = useI18n();
 
@@ -51,9 +57,21 @@ const client = algoliasearch(
 
 onMounted(async () => {
   const queries = [
-    { indexName: "ecommerce", query: "EVIDENZA", params: { hitsPerPage: 10 } },
-    { indexName: "ecommerce", query: "OFFERTA", params: { hitsPerPage: 10 } },
-    { indexName: "ecommerce", query: "NOVITA", params: { hitsPerPage: 10 } },
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: HIGHLIGHTS_TAG,
+      params: { hitsPerPage: 4 },
+    },
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: DEALS_TAG,
+      params: { hitsPerPage: 4 },
+    },
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: WHATSNEW_TAG,
+      params: { hitsPerPage: 4 },
+    },
   ];
 
   const { results } = await client.multipleQueries(queries);
@@ -74,9 +92,9 @@ function setProducts(queryResults: any) {
       };
 
       for (let tag of hit.tags) {
-        if (tag === "EVIDENZA") evidenza.value.push(obj);
-        else if (tag === "NOVITA") novita.value.push(obj);
-        else if (tag === "OFFERTA") offerte.value.push(obj);
+        if (tag === HIGHLIGHTS_TAG) evidenza.value.push(obj);
+        else if (tag === WHATSNEW_TAG) novita.value.push(obj);
+        else if (tag === DEALS_TAG) offerte.value.push(obj);
       }
     }
   }
