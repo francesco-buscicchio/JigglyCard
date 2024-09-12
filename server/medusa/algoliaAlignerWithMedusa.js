@@ -28,6 +28,9 @@ fetch(url, settings)
             return image.url;
           }),
           expansion: item.collection ? item.collection.title : "N.A.",
+          tags: item.tags.map((tag) => {
+            return tag.value;
+          }),
         };
         array.push(obj);
       }
