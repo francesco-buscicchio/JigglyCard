@@ -36,13 +36,14 @@
 <script setup lang="ts">
 import Ossidiana from "~/assets/img/Ossidiana.jpg";
 import algoliasearch from "algoliasearch";
+import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 
 const { t } = useI18n();
 
 const config = useRuntimeConfig();
-const offerte: any = ref([]);
-const novita: any = ref([]);
-const evidenza: any = ref([]);
+const offerte: Ref<ProductType[]> = ref([]);
+const novita: Ref<ProductType[]> = ref([]);
+const evidenza: Ref<ProductType[]> = ref([]);
 const client = algoliasearch(
   config.public.ALGOLIA_APPLICATION_ID,
   config.public.ALGOLIA_API_KEY
@@ -64,7 +65,7 @@ function setProducts(queryResults: any) {
     for (let hit of queryResult.hits) {
       const obj = {
         productName: hit.name,
-        code: hit.code ? `(${hit.code})` : null,
+        code: hit.code ? `(${hit.code})` : "",
         expansion: hit.expansion || "N.A.",
         price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
         imageUrl:
