@@ -7,12 +7,14 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "sync-algolia": "node server/medusa/algoliaAlignerWithMedusa.js"
   },
   "dependencies": {
     "@formkit/icons": "^1.6.3",
     "@formkit/nuxt": "^1.6.3",
     "@nuxt/ui": "^2.16.0",
+    "@nuxtjs/algolia": "^1.10.2",
     "@nuxtjs/google-fonts": "^3.2.0",
     "@nuxtjs/i18n": "^8.3.1",
     "@sendgrid/client": "^8.1.3",
