@@ -1,15 +1,18 @@
 <template>
-  <div
-    class="flex flex-row items-start flex-wrap max-w-[95%] gap-2 py-4"
-    v-if="filterList.length"
-  >
-    <AtomsFilterTag
-      v-for="item of filterList"
-      :text="item"
-      @remove-filter="removeFilter"
-    />
-
+  <div class="py-4 flex flex-col gap-y-4">
+    <AtomsButtonCTA type="secondary" :text="$t('filters')" />
+    <div
+      class="flex flex-row items-start flex-wrap gap-2"
+      v-if="filterList.length"
+    >
+      <AtomsFilterTag
+        v-for="item of filterList"
+        :text="item"
+        @remove-filter="removeFilter"
+      />
+    </div>
     <AtomsButtonCTA
+      v-if="filterList.length"
       type="text"
       :text="$t('clearFilters')"
       @button-clicked="removeAllFilter"

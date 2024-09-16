@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mx-8">
+  <div class="mx-8">
     <OrganismsListingFilters></OrganismsListingFilters>
   </div>
 </template>
