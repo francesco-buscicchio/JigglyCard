@@ -28,7 +28,6 @@ export default defineNuxtConfig({
   },
 
   css: ["~/assets/css/main.scss"],
-
   modules: [
     "@nuxt/image",
     "nuxt-icon",
@@ -41,7 +40,13 @@ export default defineNuxtConfig({
     "@nuxt/icon",
     "@nuxtjs/algolia",
   ],
-
+  algolia: {
+    apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
+    applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    instantSearch: {
+      theme: "algolia",
+    },
+  },
   googleFonts: {
     families: {
       "Roboto+Serif": [500],
