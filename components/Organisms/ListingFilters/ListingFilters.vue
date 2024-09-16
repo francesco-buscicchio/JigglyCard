@@ -11,7 +11,7 @@
 
     <AtomsButtonCTA
       type="text"
-      text="Cancella tutti i filtri"
+      :text="$t('clearFilters')"
       @button-clicked="removeAllFilter"
     />
   </div>
