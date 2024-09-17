@@ -18,9 +18,7 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { defineProps } from "vue";
 
-// Definisci le props
 const props = defineProps({
   backgroundImage: {
     type: String,
