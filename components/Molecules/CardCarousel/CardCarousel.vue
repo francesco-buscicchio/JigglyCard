@@ -1,5 +1,8 @@
 <template>
-  <div class="carousel relative max-w-lg mx-auto overflow-hidden">
+  <div
+    ref="carouselContainer"
+    class="carousel relative max-w-lg mx-auto overflow-hidden"
+  >
     <div class="carousel-indicators bottom-2 w-full text-center">
       <span
         v-for="(item, index) in items"
@@ -37,20 +40,22 @@ const emit = defineEmits<{
   (e: "update:index", index: number): void;
 }>();
 
+const carouselContainer = ref<HTMLElement | null>(null);
 const activeIndex = ref(props.activeIndex);
+const observer = ref<IntersectionObserver | null>(null);
 
 watch(
   () => props.activeIndex,
   (newIndex) => {
     activeIndex.value = newIndex;
-    resetTimer();
+    resetTimer(true);
   }
 );
 
 function setActive(index: number) {
   activeIndex.value = index;
   emit("update:index", index);
-  resetTimer();
+  resetTimer(true);
 }
 
 function nextSlide() {
@@ -60,16 +65,37 @@ function nextSlide() {
 
 let interval: ReturnType<typeof setInterval>;
 
-function resetTimer() {
+function resetTimer(shouldRestart: boolean = false) {
   clearInterval(interval);
-  interval = setInterval(nextSlide, 5000);
+  if (shouldRestart && carouselContainer.value && observer.value) {
+    interval = setInterval(nextSlide, 5000);
+  }
+}
+
+function handleIntersection(entries: IntersectionObserverEntry[]) {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      resetTimer(true);
+    } else {
+      resetTimer();
+    }
+  });
 }
 
 onMounted(() => {
-  resetTimer();
+  observer.value = new IntersectionObserver(handleIntersection, {
+    root: null,
+    threshold: 0.1,
+  });
+  if (carouselContainer.value) {
+    observer.value.observe(carouselContainer.value);
+  }
 });
 
 onUnmounted(() => {
+  if (carouselContainer.value && observer.value) {
+    observer.value.unobserve(carouselContainer.value);
+  }
   clearInterval(interval);
 });
 
@@ -78,7 +104,7 @@ watch(
   () => {
     activeIndex.value = 0;
     emit("update:index", activeIndex.value);
-    resetTimer();
+    resetTimer(true);
   },
   { deep: true }
 );
