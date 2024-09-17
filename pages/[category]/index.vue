@@ -1,20 +1,11 @@
 <template>
-  <div class="w-full mx-8">
-    <OrganismsListingFilters></OrganismsListingFilters>
+  <div class="gap-y-4 flex flex-col">
+    <div class="w-full mx-8">
+      <OrganismsListingFilters />
+    </div>
+
+    <OrganismsListingProducts />
   </div>
 </template>
 
-<script setup lang="ts">
-import { useRoute } from "vue-router";
-
-const route = useRoute();
-
-const data = [
-  { name: "Singole", url: `/${route.params.category}` },
-  {
-    name: "Zenith Regale",
-    url: `/${route.params.category}/${route.params.subcategory}`,
-  },
-  { name: "Pikachu (CRZ 160)" },
-];
-</script>
+<script setup lang="ts"></script>

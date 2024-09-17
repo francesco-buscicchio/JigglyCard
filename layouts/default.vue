@@ -17,6 +17,7 @@
   <slot />
 
   <footer>
+    <OrganismsPreFooter />
     <OrganismsFooter
       :sections="sectionsData"
       :footer="footerData"

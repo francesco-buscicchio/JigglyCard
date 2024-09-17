@@ -11,19 +11,19 @@
 
     <OrganismsProductCarousel
       :title="$t('highlights')"
-      :products="productSamples"
+      :products="evidenza"
       colorScheme="lightHome"
     />
 
     <OrganismsProductCarousel
       :title="$t('whatsnew')"
-      :products="productSamples"
+      :products="novita"
       colorScheme="primaryHome"
     />
 
     <OrganismsProductCarousel
       :title="$t('deals')"
-      :products="productSamples"
+      :products="offerte"
       colorScheme="lightHome"
     />
 
@@ -35,43 +35,70 @@
 
 <script setup lang="ts">
 import Ossidiana from "~/assets/img/Ossidiana.jpg";
-import ASR_TG15 from "~/assets/img/ASR_TG15.png";
-import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
-import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
-import ASR_TG08 from "~/assets/img/ASR_TG08.jpg";
+import algoliasearch from "algoliasearch";
+import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import {
+  PRODUCTS_COLLECTION,
+  HIGHLIGHTS_TAG,
+  WHATSNEW_TAG,
+  DEALS_TAG,
+} from "~/data/const";
 
 const { t } = useI18n();
 
-const productSamples = [
-  {
-    productName: "Calyrex Cavaliere Glaciale VMAX",
-    code: "(ASR TG15)",
-    expansion: "Lucentezza Siderale",
-    price: "9.94",
-    imageUrl: ASR_TG15,
-  },
-  {
-    productName: "Calyrex Cavaliere Glaciale VMAX",
-    code: "(ASR TG29)",
-    expansion: "Lucentezza Siderale",
-    price: "2.99",
-    imageUrl: ASR_TG29,
-  },
-  {
-    productName: "Kingdra",
-    code: "(ASR TG03)",
-    expansion: "Lucentezza Siderale",
-    price: "2.99",
-    imageUrl: ASR_TG03,
-  },
-  {
-    productName: "Kleavor",
-    code: "(ASR TG08)",
-    expansion: "Lucentezza Siderale",
-    price: "1.00",
-    imageUrl: ASR_TG08,
-  },
-];
+const config = useRuntimeConfig();
+const offerte: Ref<ProductType[]> = ref([]);
+const novita: Ref<ProductType[]> = ref([]);
+const evidenza: Ref<ProductType[]> = ref([]);
+const client = algoliasearch(
+  config.public.ALGOLIA_APPLICATION_ID,
+  config.public.ALGOLIA_API_KEY
+);
+
+onMounted(async () => {
+  const queries = [
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: HIGHLIGHTS_TAG,
+      params: { hitsPerPage: 4 },
+    },
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: DEALS_TAG,
+      params: { hitsPerPage: 4 },
+    },
+    {
+      indexName: PRODUCTS_COLLECTION,
+      query: WHATSNEW_TAG,
+      params: { hitsPerPage: 4 },
+    },
+  ];
+
+  const { results } = await client.multipleQueries(queries);
+  setProducts(results);
+});
+
+function setProducts(queryResults: any) {
+  for (let queryResult of queryResults) {
+    for (let hit of queryResult.hits) {
+      const obj = {
+        productName: hit.name,
+        code: hit.code ? `(${hit.code})` : "",
+        expansion: hit.expansion || "N.A.",
+        price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
+        imageUrl:
+          hit.thumbnailImage ||
+          (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+      };
+
+      for (let tag of hit.tags) {
+        if (tag === HIGHLIGHTS_TAG) evidenza.value.push(obj);
+        else if (tag === WHATSNEW_TAG) novita.value.push(obj);
+        else if (tag === DEALS_TAG) offerte.value.push(obj);
+      }
+    }
+  }
+}
 
 useHead({
   title: "Jigglycard",

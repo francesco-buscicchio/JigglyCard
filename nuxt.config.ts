@@ -19,21 +19,15 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      FB_API_KEY: process.env.FB_API_KEY,
-      FB_AUTH_DOMAIN: process.env.FB_AUTH_DOMAIN,
-      FB_PROJECT_ID: process.env.FB_PROJECT_ID,
-      FB_STORAGE_BUCKET: process.env.FB_STORAGE_BUCKET,
-      FB_MESSAGING_SENDER_ID: process.env.FB_MESSAGING_SENDER_ID,
-      FB_APP_ID: process.env.FB_APP_ID,
-      FB_MEASUREMENT_ID: process.env.FB_MEASUREMENT_ID,
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME,
+      ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
+      ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
     },
   },
 
   css: ["~/assets/css/main.scss"],
-
   modules: [
     "@nuxt/image",
     "nuxt-icon",
@@ -44,8 +38,15 @@ export default defineNuxtConfig({
     "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
+    "@nuxtjs/algolia",
   ],
-
+  algolia: {
+    apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
+    applicationId: process.env.ALGOLIA_APPLICATION_ID,
+    instantSearch: {
+      theme: "algolia",
+    },
+  },
   googleFonts: {
     families: {
       "Roboto+Serif": [500],
