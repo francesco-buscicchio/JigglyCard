@@ -26,6 +26,7 @@
     "nuxt-swiper": "^1.2.2",
     "swiper": "^11.1.4",
     "vue": "^3.4.19",
+    "vue-instantsearch": "^4.19.3",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
