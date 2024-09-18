@@ -1,6 +1,6 @@
 <template>
   <div class="gap-y-4 flex flex-col">
-    <div class="w-full mx-8">
+    <div class="mx-8">
       <OrganismsListingFilters />
     </div>
 
