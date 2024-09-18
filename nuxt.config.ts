@@ -1,6 +1,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
   colorMode: {
     preference: "light",
   },
@@ -38,15 +37,7 @@ export default defineNuxtConfig({
     "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
-    "@nuxtjs/algolia",
   ],
-  algolia: {
-    apiKey: process.env.ALGOLIA_SEARCH_API_KEY,
-    applicationId: process.env.ALGOLIA_APPLICATION_ID,
-    instantSearch: {
-      theme: "algolia",
-    },
-  },
   googleFonts: {
     families: {
       "Roboto+Serif": [500],

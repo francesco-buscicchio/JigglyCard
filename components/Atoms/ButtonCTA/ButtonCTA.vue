@@ -19,7 +19,7 @@ const props = defineProps({
     type: String,
     default: "primary",
     validator: (value: string) =>
-      ["primary", "secondary", "disabled"].includes(value),
+      ["primary", "secondary", "disabled", "text"].includes(value),
   },
   text: {
     type: String,
