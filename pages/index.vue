@@ -35,8 +35,8 @@
 
 <script setup lang="ts">
 import Ossidiana from "~/assets/img/Ossidiana.jpg";
-import algoliasearch from "algoliasearch";
 import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import { algoliasearch } from "algoliasearch";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
@@ -56,46 +56,39 @@ const client = algoliasearch(
 );
 
 onMounted(async () => {
-  const queries = [
-    {
-      indexName: PRODUCTS_COLLECTION,
-      query: HIGHLIGHTS_TAG,
-      params: { hitsPerPage: 4 },
-    },
-    {
-      indexName: PRODUCTS_COLLECTION,
-      query: DEALS_TAG,
-      params: { hitsPerPage: 4 },
-    },
-    {
-      indexName: PRODUCTS_COLLECTION,
-      query: WHATSNEW_TAG,
-      params: { hitsPerPage: 4 },
-    },
-  ];
-
-  const { results } = await client.multipleQueries(queries);
+  let results = await client.searchSingleIndex({
+    indexName: PRODUCTS_COLLECTION,
+    searchParams: { query: HIGHLIGHTS_TAG },
+  });
+  setProducts(results);
+  results = await client.searchSingleIndex({
+    indexName: "ecommerce",
+    searchParams: { query: WHATSNEW_TAG },
+  });
+  setProducts(results);
+  results = await client.searchSingleIndex({
+    indexName: "ecommerce",
+    searchParams: { query: DEALS_TAG },
+  });
   setProducts(results);
 });
 
-function setProducts(queryResults: any) {
-  for (let queryResult of queryResults) {
-    for (let hit of queryResult.hits) {
-      const obj = {
-        productName: hit.name,
-        code: hit.code ? `(${hit.code})` : "",
-        expansion: hit.expansion || "N.A.",
-        price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-        imageUrl:
-          hit.thumbnailImage ||
-          (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      };
+function setProducts(queryResult: any) {
+  for (let hit of queryResult.hits) {
+    const obj = {
+      productName: hit.name,
+      code: hit.code ? `(${hit.code})` : "",
+      expansion: hit.expansion || "N.A.",
+      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
+      imageUrl:
+        hit.thumbnailImage ||
+        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+    };
 
-      for (let tag of hit.tags) {
-        if (tag === HIGHLIGHTS_TAG) evidenza.value.push(obj);
-        else if (tag === WHATSNEW_TAG) novita.value.push(obj);
-        else if (tag === DEALS_TAG) offerte.value.push(obj);
-      }
+    for (let tag of hit.tags) {
+      if (tag === HIGHLIGHTS_TAG) evidenza.value.push(obj);
+      else if (tag === WHATSNEW_TAG) novita.value.push(obj);
+      else if (tag === DEALS_TAG) offerte.value.push(obj);
     }
   }
 }

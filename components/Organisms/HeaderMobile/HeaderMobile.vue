@@ -25,7 +25,7 @@
     </div>
 
     <div v-if="isSearchOpen" class="mt-4">
-      <AisInstantSearch index-name="ecommerce" :search-client="algolia">
+      <!-- <AisInstantSearch index-name="ecommerce" :search-client="algolia">
         <AisConfigure :hits-per-page.camel="4" />
 
         <AisSearchBox>
@@ -86,7 +86,7 @@
             </p>
           </div>
         </div>
-      </AisInstantSearch>
+      </AisInstantSearch> -->
     </div>
 
     <div v-if="isMenuOpen" class="lg:hidden">
@@ -98,24 +98,14 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useHead } from "#app";
-import algoliasearch from "algoliasearch";
-import { createFetchRequester } from "@algolia/requester-fetch";
-import {
-  AisInstantSearch,
-  AisInfiniteHits,
-  AisIndex,
-  AisSearchBox,
-  AisConfigure,
-} from "vue-instantsearch/vue3/es";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 const emit = defineEmits(["toggle-menu"]);
-const runtimeConfig = useRuntimeConfig();
 const searchValue = ref("");
 const productsHasResults = ref(true);
 const noResults = computed(() => !productsHasResults.value);
-const algolia = useAlgoliaRef();
+//const algolia = useAlgoliaRef();
 
 watch(isMenuOpen, (newValue) => {
   useHead({
@@ -138,12 +128,4 @@ const toggleSearch = () => {
 const navigateTo = (path: String) => {
   navigateTo(path);
 };
-
-const client = algoliasearch(
-  runtimeConfig.public.algolia.applicationId,
-  runtimeConfig.public.algolia.apiKey,
-  {
-    requester: createFetchRequester(),
-  }
-);
 </script>
