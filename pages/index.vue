@@ -78,16 +78,22 @@ function setProducts(queryResult: any) {
     };
 
     for (let tag of hit.tags) {
-      if (tag === HIGHLIGHTS_TAG) {
-        evidenza.value.push(obj);
-      } else if (tag === WHATSNEW_TAG) {
-        novita.value.push(obj);
-      } else if (tag === DEALS_TAG) {
-        offerte.value.push(obj);
-      } else if (tag === HEROBANNER_TAG) {
-        heroBannerTemp.push(obj);
+      switch (tag) {
+        case HIGHLIGHTS_TAG:
+          evidenza.value.push(obj);
+          break;
+        case WHATSNEW_TAG:
+          novita.value.push(obj);
+          break;
+        case DEALS_TAG:
+          offerte.value.push(obj);
+          break;
+        case HEROBANNER_TAG:
+          heroBannerTemp.push(obj);
+          break;
       }
     }
+
   }
   setHeroBanner.value = heroBannerTemp.slice(-3);
 }

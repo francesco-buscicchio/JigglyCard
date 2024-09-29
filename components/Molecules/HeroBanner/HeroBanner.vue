@@ -3,7 +3,7 @@
     @slideChange="onSlideChange">
     <swiper-slide v-for="(slide, index) in slides">
       <div
-        class="relative bg-cover bg-center h-[300px] md:h-[500px] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+        class="relative bg-cover bg-center h-75 md:h-125 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
         :style="{ backgroundImage: `url(${slide.imageUrl})` }" @click="navigateToListing(slide.navigateTo)" role="img">
       </div>
     </swiper-slide>
@@ -52,10 +52,3 @@ const onSlideChange = () => {
   }
 };
 </script>
-
-<style scoped>
-.mySwiper {
-  width: 100%;
-  height: 100%;
-}
-</style>
