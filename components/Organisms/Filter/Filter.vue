@@ -14,7 +14,8 @@
                     <div v-for="(item, index) in category.filters" :key="item.id" class="mb-2">
                         <div class="flex items-center">
                             <AtomsCheckbox :id="item.id" :modelValue="item.checked"
-                                @update:modelValue="updateCheckboxValue(catIndex, index, $event)" class="mr-6">
+                                @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
+                                class="mr-6 bg-white ">
                                 {{ item.name }}
                             </AtomsCheckbox>
                             <p class="text-left"> {{ item.name }}</p>
@@ -24,10 +25,12 @@
             </div>
         </div>
 
-        <div class="flex mt-4">
-            <AtomsButtonCTA type="text" @click="resetAllFilters"> Cancella tutti i filtri
+        <div class="flex mt-4 space-x-8 mb-6">
+            <AtomsButtonCTA class=" text-underlined" type="text" @click="resetAllFilters">
+                Cancella tutti i filtri
             </AtomsButtonCTA>
-            <AtomsButtonCTA @click="applyFilters"> APPLICA
+            <AtomsButtonCTA @click="applyFilters">
+                <h5>Applica</h5>
             </AtomsButtonCTA>
         </div>
     </div>
@@ -127,3 +130,9 @@ function resetAllFilters() {
 }
 
 </script>
+<style scoped>
+.text-underlined {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+}
+</style>
