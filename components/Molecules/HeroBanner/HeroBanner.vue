@@ -1,17 +1,16 @@
 <template>
-  <swiper :modules="[Navigation, Pagination]" pagination>
-    <swiper-slide v-for="(slide, index) in slides" :key="index">
+  <swiper ref="swiperRef" :grab-cursor="true" :space-between="50" @swiper="setControlledSwiper"
+    @slideChange="onSlideChange">
+    <swiper-slide v-for="(slide, index) in slides">
       <div
         class="relative bg-cover bg-center h-[300px] md:h-[500px] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
         :style="{ backgroundImage: `url(${slide.imageUrl})` }" @click="navigateToListing(slide.navigateTo)" role="img">
-        <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <h1 class="text-white text-3xl md:text-5xl font-bold text-center">
-            {{ slide.productName }}
-          </h1>
-        </div>
       </div>
     </swiper-slide>
   </swiper>
+
+  <MoleculesCardCarousel :items="slides" @update:index="updateIndex" :activeIndex="currentIndex" />
+
 </template>
 
 <script setup>
@@ -29,9 +28,28 @@ const props = defineProps({
 });
 
 const router = useRouter();
+const currentIndex = ref(0);
+const controlledSwiper = ref(null);
 
 const navigateToListing = (route) => {
   router.push(route);
+};
+
+function updateIndex(index) {
+  currentIndex.value = index;
+  //@ts-ignore
+  controlledSwiper.value.slideTo(index);
+}
+
+const setControlledSwiper = (swiper) => {
+  controlledSwiper.value = swiper;
+};
+
+const onSlideChange = () => {
+  if (controlledSwiper.value) {
+    //@ts-ignore
+    currentIndex.value = controlledSwiper.value.activeIndex;
+  }
 };
 </script>
 
