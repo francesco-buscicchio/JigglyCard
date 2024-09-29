@@ -1,12 +1,16 @@
 import fetch from "node-fetch";
-import algoliasearch from "algoliasearch";
+
+import { algoliasearch } from "algoliasearch";
 import { config } from "dotenv";
 
 config();
 let url = "https://server.serverjigglycards.com/store/products";
 let settings = { method: "Get" };
-const applicationId = process.env.ALGOLIA_APPLICATION_ID;
-const apiKey = process.env.ALGOLIA_API_KEY;
+
+const client = algoliasearch(
+  process.env.ALGOLIA_APPLICATION_ID,
+  process.env.ALGOLIA_API_KEY
+);
 const indexName = "ecommerce";
 
 fetch(url, settings)
@@ -34,10 +38,14 @@ fetch(url, settings)
         };
         array.push(obj);
       }
-
-      const client = algoliasearch(applicationId, apiKey);
-      const index = client.initIndex(indexName);
-      await index.saveObjects(array).then();
+      client
+        .saveObjects({
+          indexName: "ecommerce",
+          objects: array,
+        })
+        .then((val) => {
+          console.log(val);
+        });
     } catch (error) {
       console.log(error);
     }
