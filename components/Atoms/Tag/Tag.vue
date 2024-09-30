@@ -1,5 +1,5 @@
 <template>
-    <button :class="typeClass" class="rounded-lg px-4 py-3" @click="emitClick">
+    <button :class="typeClass" class="rounded-lg px-4 py-2" @click="emitClick">
         <p>{{ text }}</p>
     </button>
 </template>
