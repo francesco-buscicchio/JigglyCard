@@ -7,8 +7,7 @@ export default defineEventHandler(async (event) => {
   const sgRequest = await $fetch("https://api.sendgrid.com/v3/mail/send", {
     method: "POST",
     headers: {
-      Authorization:
-        "Bearer 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",
+      Authorization: `Bearer ${config.public.SENDGRID_API_TOKEN}`,
       "Content-Type": "application/json",
       Accept: "application/json",
     },
