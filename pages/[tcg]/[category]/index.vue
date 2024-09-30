@@ -66,6 +66,9 @@ function setProducts(queryResult: any) {
       imageUrl:
         hit.thumbnailImage ||
         (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+      tcg: hit.tcg,
+      category: hit.type,
+      id: hit.objectID,
     };
 
     products.value.push(obj);

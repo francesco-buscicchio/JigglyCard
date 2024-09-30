@@ -6,6 +6,9 @@
       :expansion="product.expansion"
       :price="product.price"
       :imageUrl="product.imageUrl"
+      :tcg="product.tcg"
+      :category="product.category"
+      :id="product.id"
       color-scheme="noBorder"
     />
   </div>

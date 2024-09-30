@@ -68,6 +68,7 @@ function setProducts(queryResult: any) {
 
   for (let hit of queryResult.hits) {
     const obj = {
+      id: hit.objectID,
       productName: hit.name,
       code: hit.code ? `(${hit.code})` : "",
       expansion: hit.expansion || "N.A.",
@@ -75,6 +76,8 @@ function setProducts(queryResult: any) {
       imageUrl:
         hit.thumbnailImage ||
         (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+      tcg: hit.tcg,
+      category: hit.type,
     };
 
     for (let tag of hit.tags) {

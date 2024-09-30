@@ -15,7 +15,11 @@
       </div>
     </div>
     <div class="w-full">
-      <AtomsButtonCTA :type="buttonCtaType" text="vedi dettagli" />
+      <AtomsButtonCTA
+        :type="buttonCtaType"
+        :text="$t('showDetails')"
+        v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+      />
     </div>
   </div>
 </template>
@@ -25,6 +29,15 @@ import type { PropType } from "vue";
 
 const props = defineProps({
   colorScheme: {
+    type: String,
+  },
+  id: {
+    type: String,
+  },
+  tcg: {
+    type: String,
+  },
+  category: {
     type: String,
   },
   productName: {
