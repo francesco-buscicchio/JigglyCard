@@ -1,8 +1,6 @@
 <template>
-    <button :class="tagClass" @click="emitClick">
+    <button :class="typeClass" class="rounded-lg px-4 py-3" @click="emitClick">
         <p>{{ text }}</p>
-
-
     </button>
 </template>
 
@@ -23,13 +21,13 @@ const props = defineProps({
 
 const emit = defineEmits(["tagClicked"]);
 
-const tagClass = computed(() => {
+const typeClass = computed(() => {
     return {
-        "bg-accent-500 text-accent-50 font-bold py-3 px-4 rounded-lg active:bg-accent-950 w-full":
+        "bg-accent-500 text-accent-50 font-bold active:bg-accent-950":
             props.type === TagType.ACTIVE,
-        "bg-white text-accent-500 border-[2px] border-accent-500 font-bold py-3 px-4 rounded-lg active:text-accent-950 active:border-accent-950 w-full":
+        "bg-sky-100 text-primary-950 font-bold active:text-accent-950 active:border-accent-950":
             props.type === TagType.INACTIVE,
-        "bg-neutrals-200 text-neutrals-500 py-3 px-4 rounded-lg rounded-lg w-full":
+        "bg-white text-neutrals-400 border-[1px] border-neutrals-500":
             props.type === TagType.DISABLED,
     }
 })
