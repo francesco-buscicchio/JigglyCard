@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
+    "@pinia/nuxt",
   ],
   googleFonts: {
     families: {

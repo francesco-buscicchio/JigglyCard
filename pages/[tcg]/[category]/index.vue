@@ -1,5 +1,8 @@
 <template>
-  <div class="gap-y-4 flex flex-col">
+  <div class="px-4">
+    <Breadcrumb></Breadcrumb>
+  </div>
+  <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
       <OrganismsListingFilters />
     </div>
