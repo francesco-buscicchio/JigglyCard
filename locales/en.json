@@ -40,5 +40,16 @@
   "clearFilters": "Clear all filters",
   "filters": "filters",
   "search": "Search",
-  "showDetails": "show details"
+  "showDetails": "show details",
+  "of": "of",
+  "pageSorting": {
+    "sortBy": "Sort by",
+    "mostPopular": "Most popular",
+    "priceCheapest": "Price (cheapest first)",
+    "priceExpensive": "Price (more expensive first)",
+    "nameAtoZ": "Name (A - Z)",
+    "nameZtoA": "Name (Z - A)",
+    "collecorsNumberLowest": "Collector's Number (lowest first)",
+    "collecorsNumberHighest": "Collector's Number (highest first)"
+  }
 }

@@ -78,5 +78,16 @@
   "/lorcana/all": "Lorcana - Tutti i Prodotti",
   "/servizi": "Servizi",
   "/contatti": "Contatti",
-  "/": "Homepage"
+  "/": "Homepage",
+  "of": "di",
+  "pageSorting": {
+    "sortBy": "Ordina per",
+    "mostPopular": "Più popolare",
+    "priceCheapest": "Più economico",
+    "priceExpensive": "Più caro",
+    "nameAtoZ": "Nome (A - Z)",
+    "nameZtoA": "Nome (Z - A)",
+    "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
+    "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
+  }
 }
