@@ -1,5 +1,7 @@
 <template>
   <div class="relative max-w-40">
+    <!-- TODO: SE NECESSARIO FARE UN COMPONENTE PIU' GENERICO PER LA SELECT, 
+     AL MOMENTO NON MI SEMBRA CHE VENGA UTILIZZATO DA ALTER PARTI -->
     <select
       @change="handleSortingValue"
       class="bg-white border-[1px] border-accent-950 rounded-md shadow-sm w-full py-3 pl-4 pr-8 appearance-none"
