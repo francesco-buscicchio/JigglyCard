@@ -15,6 +15,10 @@ export default defineNuxtConfig({
     autoImport: true,
     configFile: "./formkit.config.ts",
   },
+  devServer: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
 
   runtimeConfig: {
     public: {
