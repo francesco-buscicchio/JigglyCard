@@ -1,8 +1,8 @@
 <template>
     <div class="bg-accent-50 p-2">
         <div class="flex items-center justify-between">
-            <h1 class="flex-grow text-left">X</h1>
-            <h5 class="text-center w-full">filtri</h5>
+            <Icon name="jig:close-accent ml-6" size="40"></Icon>
+            <h5 class="text-center w-full mr-12">filtri</h5>
         </div>
 
         <div>
