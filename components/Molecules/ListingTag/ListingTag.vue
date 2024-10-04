@@ -1,6 +1,5 @@
-//TODO mettere flexboxe
 <template>
-    <div class="flex gap-3 flex-wrap">
+    <div class="flex gap-3 flex-wrap my-8">
         <AtomsTag v-if="tags.length" v-for="(tag, index) in tags" 
         :text="tag.text"  :type="getTagType(index)" 
         @tagClicked="handleTagClick"  />
@@ -33,11 +32,8 @@ const getTagType = (index: number) => {
     return index === activeTagIndex.value ? TagType.ACTIVE : TagType.INACTIVE; 
 };
 
-const handleTagClick = (text: string) => {
-    emit("handleTagClick",text )
-    // if (props.tags[index].type !== TagType.DISABLED) {
-    //     activeTagIndex.value = index;
-    // }
+const handleTagClick = (text: string ) => {
+    emit("handleTagClick",text)
 };
 const initializeActiveTag = () => {
     const firstActiveIndex = props.tags.findIndex(tag => tag.type === TagType.ACTIVE);
