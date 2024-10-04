@@ -21,6 +21,9 @@
             :price="product.price"
             :imageUrl="product.imageUrl"
             :color-scheme="colorScheme"
+            :tcg="product.tcg"
+            :category="product.category"
+            :id="product.id"
           />
         </SwiperSlide>
       </Swiper>
@@ -38,11 +41,14 @@
 import { ref } from "vue";
 
 export type ProductType = {
+  id: string;
   productName: string;
   code: string;
   expansion: string;
   price: string;
   imageUrl: string;
+  tcg: string;
+  category: string;
 };
 
 const props = defineProps({
