@@ -1,5 +1,5 @@
 <template>
-    <button :class="typeClass" class="rounded-lg px-4 py-2" @click="emitClick">
+    <button :class="typeClass" class="rounded-lg px-4 py-2 min-w-25" @click="emitClick">
         <p>{{ text }}</p>
     </button>
 </template>
@@ -33,6 +33,6 @@ const typeClass = computed(() => {
 })
 
 const emitClick = () => {
-    emit("tagClicked");
+    emit("tagClicked", props.text);
 };
 </script>
