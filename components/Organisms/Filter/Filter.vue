@@ -1,43 +1,65 @@
 <template>
-    <div class="bg-accent-50 p-2">
-        <div class="flex items-center justify-between">
-            <Icon name="jig:close-accent ml-6" size="40"></Icon>
-            <h5 class="text-center w-full mr-12">filtri</h5>
-        </div>
+    <div>
+        <AtomsButtonCTA @click="togglePanel">
+            <h5>Apri Filtri</h5>
+        </AtomsButtonCTA>
 
-        <div>
-            <div v-for="(category, catIndex) in filterCategories" :key="category.id">
-                <MoleculesAccordion>
-                    <template #header>
-                        <p>{{ category.name }}</p>
-                    </template>
-                    <div v-for="(item, index) in category.filters" :key="item.id" class="mb-2">
-                        <div class="flex items-center">
-                            <AtomsCheckbox :id="item.id" :modelValue="item.checked"
-                                @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
-                                class="mr-6 bg-white ">
-                                {{ item.name }}
-                            </AtomsCheckbox>
-                            <p class="text-left"> {{ item.name }}</p>
+        <transition name="fade">
+            <div v-if="isOpen" class="overlay" @click.self="togglePanel"></div>
+        </transition>
+
+        <transition name="slide-right">
+            <div v-show="isOpen" class="filter-panel bg-accent-50">
+                <div class="flex items-center justify-between">
+                    <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
+                    <h5 class="text-center w-full mr-18">filtri</h5>
+                </div>
+
+                <div>
+                    <div v-for="(category, catIndex) in filterCategories" :key="category.id">
+                        <MoleculesAccordion>
+                            <template #header>
+                                <p>{{ category.name }}</p>
+                            </template>
+                            <div v-for="(item, index) in category.filters" :key="item.id" class="mb-2">
+                                <div class="flex items-center">
+                                    <AtomsCheckbox :id="item.id" :modelValue="item.checked"
+                                        @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
+                                        class="mr-6 bg-white ">
+                                        {{ item.name }}
+                                    </AtomsCheckbox>
+                                    <p class="text-left">{{ item.name }}</p>
+                                </div>
+                            </div>
+                        </MoleculesAccordion>
+                    </div>
+                    <div>
+                        prezzo
+                        <div class="px-4 my-4">
+                            <Slider :min="0" :max="2000" :initialMinPrice="selectedMinPrice"
+                                :initialMaxPrice="selectedMaxPrice" @update:minPrice="selectedMinPrice = $event"
+                                @update:maxPrice="selectedMaxPrice = $event" />
                         </div>
                     </div>
-                </MoleculesAccordion>
-            </div>
-        </div>
+                </div>
 
-        <div class="flex mt-4 space-x-8 mb-6">
-            <AtomsButtonCTA class=" text-underlined" type="text" @click="resetAllFilters">
-                Cancella tutti i filtri
-            </AtomsButtonCTA>
-            <AtomsButtonCTA @click="applyFilters">
-                <h5>Applica</h5>
-            </AtomsButtonCTA>
-        </div>
+                <div class="flex mt-4 mb-6 mr-6">
+                    <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
+                        Cancella tutti i filtri
+                    </AtomsButtonCTA>
+                    <AtomsButtonCTA @click="applyFilters">
+                        <h5>Applica</h5>
+                    </AtomsButtonCTA>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, watch } from "vue";
+
+const isOpen = ref(false);
 
 const filterCategories = ref([
     {
@@ -116,6 +138,7 @@ function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: 
 
 function applyFilters() {
     console.log("Filtri applicati:", selectedFilters);
+    isOpen.value = !isOpen.value;
 }
 
 function resetAllFilters() {
@@ -129,10 +152,64 @@ function resetAllFilters() {
     });
 }
 
+function togglePanel() {
+    isOpen.value = !isOpen.value;
+}
+
+watch(isOpen, (newValue) => {
+    if (newValue) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+});
 </script>
+
 <style scoped>
 .text-underlined {
     text-decoration: underline;
-    text-decoration-thickness: 1px;
+}
+
+.slide-right-enter-active,
+.slide-right-leave-active {
+    transition: transform 0.3s ease;
+}
+
+.slide-right-enter,
+.slide-right-leave-to {
+    transform: translateX(100%);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.filter-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    z-index: 1000;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
 </style>
