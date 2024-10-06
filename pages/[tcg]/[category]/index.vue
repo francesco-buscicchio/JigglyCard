@@ -1,6 +1,6 @@
 <template>
   <div class="px-4">
-    <Breadcrumb></Breadcrumb>
+    <MoleculesBreadcrumb />
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
