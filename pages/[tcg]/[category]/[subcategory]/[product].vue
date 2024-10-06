@@ -54,9 +54,9 @@ function setProduct(queryResult: any) {
       tcg: item.tcg,
       category: item.type,
       id: item.objectID,
+      variants: item.variantsDetails,
     };
   }
-  console.log(product.value);
 }
 
 function extractCardCode(input: string): string | undefined {
