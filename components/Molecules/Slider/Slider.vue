@@ -1,12 +1,12 @@
 <template>
     <div class="flex flex-col items-start w-full">
         <div class="relative w-full mb-2">
-            <!-- Slider per Minimo -->
-            <input type="range" :min="min" :max="max" v-model="minPrice" @input="updateMinPrice" class="slider-range"
-                @mousedown="startDragging('min')" @touchstart="startDragging('min')" />
-            <!-- Slider per Massimo -->
-            <input type="range" :min="min" :max="max" v-model="maxPrice" @input="updateMaxPrice" class="slider-range"
-                @mousedown="startDragging('max')" @touchstart="startDragging('max')" />
+            <!-- Slider per il puntino 1 -->
+            <input type="range" :min="min" :max="max" v-model="price1" @input="updatePrices" class="slider-range"
+                @mousedown="startDragging('price1')" @touchstart="startDragging('price1')" />
+            <!-- Slider per il puntino 2 -->
+            <input type="range" :min="min" :max="max" v-model="price2" @input="updatePrices" class="slider-range"
+                @mousedown="startDragging('price2')" @touchstart="startDragging('price2')" />
         </div>
     </div>
 </template>
@@ -35,70 +35,28 @@ const props = defineProps({
 
 const emit = defineEmits(['update:minPrice', 'update:maxPrice']);
 
-const minPrice = ref(props.initialMinPrice);
-const maxPrice = ref(props.initialMaxPrice);
+const price1 = ref(props.initialMinPrice);
+const price2 = ref(props.initialMaxPrice);
 const dragging = ref(null);
 
-// Stile del track
-const sliderStyle = computed(() => {
-    const percentageMin = ((minPrice.value - props.min) / (props.max - props.min)) * 100;
-    const percentageMax = ((maxPrice.value - props.min) / (props.max - props.min)) * 100;
-    return {
-        left: `${percentageMin}%`,
-        width: `${percentageMax - percentageMin}%`,
-        background: '#003849',
-    };
-});
+const minPrice = computed(() => Math.min(price1.value, price2.value));
+const maxPrice = computed(() => Math.max(price1.value, price2.value));
 
-// Funzione per iniziare il dragging
+const updatePrices = () => {
+    emit('update:minPrice', minPrice.value);
+    emit('update:maxPrice', maxPrice.value);
+};
+
 const startDragging = (type) => {
     dragging.value = type;
-    window.addEventListener('mousemove', onSliderMove);
     window.addEventListener('mouseup', stopDragging);
-    window.addEventListener('touchmove', onSliderMove);
     window.addEventListener('touchend', stopDragging);
 };
 
-// Funzione per fermare il dragging
 const stopDragging = () => {
     dragging.value = null;
-    window.removeEventListener('mousemove', onSliderMove);
     window.removeEventListener('mouseup', stopDragging);
-    window.removeEventListener('touchmove', onSliderMove);
     window.removeEventListener('touchend', stopDragging);
-};
-
-// Funzione per gestire il movimento dello slider
-const onSliderMove = (event) => {
-    const sliderBounds = event.target.parentElement.getBoundingClientRect();
-    const sliderWidth = sliderBounds.width;
-    const offsetX = event.clientX - sliderBounds.left;
-    const value = Math.round(((offsetX / sliderWidth) * (props.max - props.min)) + props.min);
-
-    // Impedire sovrapposizione e bloccare i valori
-    if (dragging.value === 'min' && value < maxPrice.value) {
-        minPrice.value = Math.min(value, maxPrice.value - 1);
-        emit('update:minPrice', minPrice.value);
-    } else if (dragging.value === 'max' && value > minPrice.value) {
-        maxPrice.value = Math.max(value, minPrice.value + 1);
-        emit('update:maxPrice', maxPrice.value);
-    }
-};
-
-// Gestione input del MinPrice: impedisce sovrapposizione con MaxPrice
-const updateMinPrice = () => {
-    if (minPrice.value >= maxPrice.value) {
-        minPrice.value = maxPrice.value - 1;
-    }
-    emit('update:minPrice', minPrice.value);
-};
-
-// Gestione input del MaxPrice: impedisce sovrapposizione con MinPrice
-const updateMaxPrice = () => {
-    if (maxPrice.value <= minPrice.value) {
-        maxPrice.value = minPrice.value + 1;
-    }
-    emit('update:maxPrice', maxPrice.value);
 };
 </script>
 
