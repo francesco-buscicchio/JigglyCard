@@ -19,6 +19,17 @@ fetch(url, settings)
     try {
       const array = [];
       for (let item of json.products) {
+        const languageOptionId = getOptionId(item.options, "Lingua");
+        const conditionOptionId = getOptionId(item.options, "Condizioni");
+
+        const variantsDetails = item.variants.map(variant => {
+          return {
+            language: getOptionValue(variant.options, languageOptionId),
+            condition: getOptionValue(variant.options, conditionOptionId),
+            price: getLowestPrice(variant.prices) / 100
+          };
+        });
+
         const obj = {
           objectID: item.id,
           name: item.title,
@@ -35,6 +46,7 @@ fetch(url, settings)
           tags: item.tags.map((tag) => {
             return tag.value;
           }),
+          variantsDetails: variantsDetails
         };
         array.push(obj);
       }
@@ -50,6 +62,16 @@ fetch(url, settings)
       console.log(error);
     }
   });
+
+function getOptionId(options, title) {
+  const option = options.find(opt => opt.title.toLowerCase() === title.toLowerCase());
+  return option ? option.id : null;
+}
+
+function getOptionValue(options, optionId) {
+  const option = options.find(opt => opt.option_id === optionId);
+  return option ? option.value : null;
+}
 
 function processVariants(variants) {
   if (!variants) return 0;
