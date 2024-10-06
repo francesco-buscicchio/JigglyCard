@@ -12,7 +12,7 @@
             <div v-show="isOpen" class="filter-panel bg-accent-50">
                 <div class="flex items-center justify-between">
                     <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
-                    <h5 class="text-center w-full mr-18">filtri</h5>
+                    <h5 class="text-center w-full mr-18">Filtri</h5>
                 </div>
 
                 <div>
@@ -25,7 +25,7 @@
                                 <div class="flex items-center">
                                     <AtomsCheckbox :id="item.id" :modelValue="item.checked"
                                         @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
-                                        class="mr-6 bg-white ">
+                                        class="mr-6 bg-white">
                                         {{ item.name }}
                                     </AtomsCheckbox>
                                     <p class="text-left">{{ item.name }}</p>
@@ -33,12 +33,15 @@
                             </div>
                         </MoleculesAccordion>
                     </div>
-                    <div>
-                        prezzo
-                        <div class="px-4 my-4">
-                            <Slider :min="0" :max="2000" :initialMinPrice="selectedMinPrice"
-                                :initialMaxPrice="selectedMaxPrice" @update:minPrice="selectedMinPrice = $event"
-                                @update:maxPrice="selectedMaxPrice = $event" />
+
+                    <div class="mx-6">
+                        <p>Prezzo</p>
+                        <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
+                            :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
+                            @update:maxPrice="updateMaxPrice($event)" />
+                        <div class="price-labels">
+                            <span>Min: {{ selectedMinPrice }}</span>
+                            <span>Max: {{ selectedMaxPrice }}</span>
                         </div>
                     </div>
                 </div>
@@ -60,6 +63,8 @@
 import { ref, reactive, watch } from "vue";
 
 const isOpen = ref(false);
+const selectedMinPrice = ref(0);
+const selectedMaxPrice = ref(5000);
 
 const filterCategories = ref([
     {
@@ -136,9 +141,25 @@ function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: 
     }
 }
 
+function updateMinPrice(value: number) {
+    selectedMinPrice.value = value;
+    if (selectedMaxPrice.value < value) {
+        selectedMaxPrice.value = value;
+    }
+}
+
+function updateMaxPrice(value: number) {
+    selectedMaxPrice.value = Math.min(value, 5000);
+}
+
 function applyFilters() {
+    selectedFilters['Prezzo'] = {
+        min: selectedMinPrice.value,
+        max: selectedMaxPrice.value
+    };
+
     console.log("Filtri applicati:", selectedFilters);
-    isOpen.value = !isOpen.value;
+    isOpen.value = false;
 }
 
 function resetAllFilters() {
@@ -150,6 +171,9 @@ function resetAllFilters() {
     Object.keys(selectedFilters).forEach(key => {
         delete selectedFilters[key];
     });
+    selectedMinPrice.value = 0;
+    selectedMaxPrice.value = 5000;
+    selectedFilters['Prezzo'] = { min: 0, max: 5000 };
 }
 
 function togglePanel() {
@@ -157,11 +181,7 @@ function togglePanel() {
 }
 
 watch(isOpen, (newValue) => {
-    if (newValue) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
+    document.body.style.overflow = newValue ? 'hidden' : '';
 });
 </script>
 
@@ -200,7 +220,6 @@ watch(isOpen, (newValue) => {
     z-index: 1000;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-
 }
 
 .overlay {
