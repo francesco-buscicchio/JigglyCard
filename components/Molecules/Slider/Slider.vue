@@ -67,7 +67,7 @@ const stopDragging = () => {
     pointer-events: auto;
     -webkit-appearance: none;
     background: #003849;
-    height: 8px;
+    height: 4px;
 }
 
 .slider-range::-webkit-slider-thumb {

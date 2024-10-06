@@ -11,8 +11,10 @@
         <transition name="slide-right">
             <div v-show="isOpen" class="filter-panel bg-accent-50">
                 <div class="flex items-center justify-between">
-                    <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
-                    <h5 class="text-center w-full mr-18">Filtri</h5>
+                    <Icon name="jig:close-accent" class="ml-6" size="80" @click="togglePanel"></Icon>
+                    <h5 class="text-center w-full mr-18">
+                        filtri
+                    </h5>
                 </div>
 
                 <div>
@@ -21,8 +23,8 @@
                             <template #header>
                                 <p>{{ category.name }}</p>
                             </template>
-                            <div v-for="(item, index) in category.filters" :key="item.id" class="mb-2">
-                                <div class="flex items-center">
+                            <div v-for="(item, index) in category.filters" :key="item.id" class="mb-4">
+                                <div class="flex items-center ml-6">
                                     <AtomsCheckbox :id="item.id" :modelValue="item.checked"
                                         @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
                                         class="mr-6 bg-white">
@@ -34,14 +36,14 @@
                         </MoleculesAccordion>
                     </div>
 
-                    <div class="mx-6">
+                    <div class="mx-6 mt-4">
                         <p>Prezzo</p>
-                        <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
-                            :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
-                            @update:maxPrice="updateMaxPrice($event)" />
-                        <div class="price-labels">
-                            <span>Min: {{ selectedMinPrice }}</span>
-                            <span>Max: {{ selectedMaxPrice }}</span>
+                        <div class="flex items-center justify-center whitespace-nowrap mt-2">
+                            <span class="mr-2 w-20">da {{ selectedMinPrice }}</span>
+                            <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
+                                :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
+                                @update:maxPrice="updateMaxPrice($event)" />
+                            <span class="ml-2 w-20">a {{ selectedMaxPrice }}</span>
                         </div>
                     </div>
                 </div>
