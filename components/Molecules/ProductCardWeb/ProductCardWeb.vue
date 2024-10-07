@@ -7,7 +7,7 @@
 
             <div class="w-50 h-73 px-3 pt-32 mt-8 absolute layer">
                 <div class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2">
-                    <p class="overflow-hidden whitespace-nowrap text-ellipsis text-xl w-full text-center">{{ productName }}</p>
+                    <h5 class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center">{{ productName }}</h5>
                     <p class="text-lg">{{ code }}</p>
                     <p class="text-lg">{{ expansion }}</p>
                     <label class="text-xs">{{ $t("startingFrom") }} <p class="ml-5 font-bold inline text-2xl"> {{ price }} €</p></label>
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-
+// TODO: separare le props in un file separato
 const props = defineProps({
     colorScheme: {
         type: String,
