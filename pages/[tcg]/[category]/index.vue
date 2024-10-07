@@ -1,7 +1,9 @@
 <template>
-  <div class="px-4">
-    <Breadcrumb />
-    <div class="gap-b-4 flex flex-col">
+  <div class="gap-b-4 flex flex-col">
+    <MoleculesBreadcrumb />
+  </div>
+  <div class="gap-b-4 flex flex-col">
+    <div class="mx-8">
       <OrganismsListingFilters />
 
       <div class="pb-6 flex flex-row justify-between items-center">
