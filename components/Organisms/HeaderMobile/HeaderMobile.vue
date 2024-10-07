@@ -94,7 +94,7 @@ const client = algoliasearch(
 watch(isMenuOpen, (newValue) => {
   useHead({
     bodyAttrs: {
-      class: newValue ? "hide" : "",
+      class: newValue ? "hide" : "scrollable",
     },
   });
 });
