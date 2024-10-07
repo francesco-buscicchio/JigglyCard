@@ -5,12 +5,12 @@
             <img :src="imageUrl" :alt="productName" class="max-h-75 max-w-50 object-cover" />
 
 
-            <div class="w-50 h-75 px-3 pt-32 mt-8 absolute layer">
+            <div class="w-50 h-73 px-3 pt-32 mt-8 absolute layer">
                 <div class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2">
                     <p class="overflow-hidden whitespace-nowrap text-ellipsis text-xl w-full text-center">{{ productName }}</p>
-                    <p>{{ code }}</p>
-                    <p>{{ expansion }}</p>
-                    <label>{{ $t("startingFrom") }} <p class="font-bold inline"> {{ price }} €</p></label>
+                    <p class="text-lg">{{ code }}</p>
+                    <p class="text-lg">{{ expansion }}</p>
+                    <label class="text-xs">{{ $t("startingFrom") }} <p class="ml-5 font-bold inline text-2xl"> {{ price }} €</p></label>
                     <div
                         class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap">
                         {{ productName }}
@@ -19,7 +19,7 @@
             </div>
 
 
-            <div class="mt-18">
+            <div class="mt-12">
                 <AtomsButtonCTA :type="buttonCtaType" :text="$t('showDetails')"
                     v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)" />
             </div>
@@ -28,7 +28,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from "vue";
 
 const props = defineProps({
     colorScheme: {
