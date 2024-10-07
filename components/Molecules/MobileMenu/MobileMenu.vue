@@ -1,5 +1,5 @@
 <template>
-  <ul class="mt-4 space-y-2">
+  <ul class="mt-4 space-y-2 h-screen">
     <li v-for="(item, index) in menuItems" :key="index">
       <h5
         href="#"
