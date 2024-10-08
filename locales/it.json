@@ -39,5 +39,10 @@
   "deals": "Offerte",
   "clearFilters": "Cancella tutti i filtri",
   "filters": "filtri",
-  "search": "Cerca"
+  "search": "Cerca",
+  "da": "da",
+  "a": "a",
+  "prezzo": "Prezzo",
+  "cancellaTuttiIFiltri": "Cancella tutti i filtri",
+  "applica": "Applica"
 }

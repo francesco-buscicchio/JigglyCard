@@ -39,5 +39,10 @@
   "deals": "Deals",
   "clearFilters": "Clear all filters",
   "filters": "filters",
-  "search": "Search"
+  "search": "Search",
+  "da": "from",
+  "a": "to",
+  "prezzo": "Price",
+  "cancellaTuttiIFiltri": "Delete all filters",
+  "applica": "Apply"
 }

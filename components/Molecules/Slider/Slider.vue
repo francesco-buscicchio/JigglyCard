@@ -67,6 +67,7 @@ const stopDragging = () => {
     pointer-events: auto;
     -webkit-appearance: none;
     background: #003849;
+    appearance: none;
     height: 4px;
 }
 
@@ -88,13 +89,5 @@ const stopDragging = () => {
     background: #003849;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.slider-track {
-    position: absolute;
-    height: 8px;
-    background: #003849;
-    border-radius: 4px;
-    z-index: 1;
 }
 </style>

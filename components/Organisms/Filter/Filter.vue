@@ -1,7 +1,8 @@
 <template>
     <div>
-        <AtomsButtonCTA @click="togglePanel">
-            <h5>Apri Filtri</h5>
+        <AtomsButtonCTA @click="togglePanel" type="secondary">
+            <h5> {{ $t('filters') }}
+            </h5>
         </AtomsButtonCTA>
 
         <transition name="fade">
@@ -10,10 +11,10 @@
 
         <transition name="slide-right">
             <div v-show="isOpen" class="filter-panel bg-accent-50">
-                <div class="flex items-center justify-between">
-                    <Icon name="jig:close-accent" class="ml-6" size="80" @click="togglePanel"></Icon>
+                <div class="flex items-center justify-between mt-4">
+                    <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
                     <h5 class="text-center w-full mr-18">
-                        filtri
+                        {{ $t('filters') }}
                     </h5>
                 </div>
 
@@ -25,9 +26,9 @@
                             </template>
                             <div v-for="(item, index) in category.filters" :key="item.id" class="mb-4">
                                 <div class="flex items-center ml-6">
-                                    <AtomsCheckbox :id="item.id" :modelValue="item.checked"
+                                    <AtomsCheckbox :id="item.id.toString" :modelValue="item.checked"
                                         @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
-                                        class="mr-6 bg-white">
+                                        class="mr-6 bg-white custom-checkbox">
                                         {{ item.name }}
                                     </AtomsCheckbox>
                                     <p class="text-left">{{ item.name }}</p>
@@ -37,23 +38,23 @@
                     </div>
 
                     <div class="mx-6 mt-4">
-                        <p>Prezzo</p>
+                        <p>{{ $t('prezzo') }}</p>
                         <div class="flex items-center justify-center whitespace-nowrap mt-2">
-                            <span class="mr-2 w-20">da {{ selectedMinPrice }}</span>
+                            <span class="mr-2 w-20">{{ $t('da') }} {{ selectedMinPrice }}</span>
                             <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
                                 :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
                                 @update:maxPrice="updateMaxPrice($event)" />
-                            <span class="ml-2 w-20">a {{ selectedMaxPrice }}</span>
+                            <span class="ml-2 w-20">{{ $t('a') }} {{ selectedMaxPrice }}</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex mt-4 mb-6 mr-6">
                     <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-                        Cancella tutti i filtri
+                        <p>{{ $t('cancellaTuttiIFiltri') }}</p>
                     </AtomsButtonCTA>
                     <AtomsButtonCTA @click="applyFilters">
-                        <h5>Applica</h5>
+                        <h5>{{ $t('applica') }}</h5>
                     </AtomsButtonCTA>
                 </div>
             </div>
@@ -63,61 +64,12 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
+import { filterCategories } from "../../utils/filterData.ts";
 
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 
-const filterCategories = ref([
-    {
-        id: 1,
-        name: "Disponibilità",
-        filters: [
-            { id: 1, name: "Disponibile subito", checked: false },
-            { id: 2, name: "Prenotabile", checked: false },
-        ]
-    },
-    {
-        id: 2,
-        name: "Lingua",
-        filters: [
-            { id: 3, name: "Italiano", checked: false },
-            { id: 4, name: "Inglese", checked: false },
-        ]
-    },
-    {
-        id: 3,
-        name: "Condizione",
-        filters: [
-            { id: 5, name: "Nuovo", checked: false },
-            { id: 6, name: "Usato", checked: false },
-        ]
-    },
-    {
-        id: 4,
-        name: "Tipologia",
-        filters: [
-            { id: 7, name: "Elettronica", checked: false },
-            { id: 8, name: "Abbigliamento", checked: false },
-        ]
-    },
-    {
-        id: 5,
-        name: "Brand",
-        filters: [
-            { id: 9, name: "Brand A", checked: false },
-            { id: 10, name: "Brand B", checked: false },
-        ]
-    },
-    {
-        id: 6,
-        name: "Extra",
-        filters: [
-            { id: 11, name: "Eco-Friendly", checked: false },
-            { id: 12, name: "Spedizione Gratuita", checked: false },
-        ]
-    }
-]);
 
 const selectedFilters = reactive<{ [key: string]: any }>({});
 
@@ -222,6 +174,7 @@ watch(isOpen, (newValue) => {
     z-index: 1000;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    overflow-y: auto;
 }
 
 .overlay {
@@ -232,5 +185,9 @@ watch(isOpen, (newValue) => {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+}
+
+.custom-checkbox {
+    border: 1px solid #003849;
 }
 </style>
