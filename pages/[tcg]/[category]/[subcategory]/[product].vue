@@ -13,10 +13,10 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { algoliasearch, type SearchResult } from "algoliasearch";
-import { availableConditions, availableLanguages, PRODUCTS_COLLECTION } from "~/data/const";
+import { algoliasearch } from "algoliasearch";
+import { availableConditions, availableLanguages, preferredLanguageOrder, PRODUCTS_COLLECTION } from "~/data/const";
 import type { ListingTagProps } from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "~/components/Atoms/Tag/tag.types";
+import { TagCondition, TagType, type TagStructure, type VariantDetail } from "~/components/Atoms/Tag/tag.types";
 
 const product = ref();
 const config = useRuntimeConfig();
@@ -29,23 +29,10 @@ const client = algoliasearch(
 onMounted(async () => {
   fetchData();
 });
-const tagLanguage = ref<ListingTagProps[]>(
-  [
-    // { type: TagType.ACTIVE, text: "italiano" },
-    // { type: TagType.INACTIVE, text: "inglese" },
-    // { type: TagType.DISABLED, text: "giapponese" },
-  ]
-);
-const tagsCondition = ref<ListingTagProps[]>(
-  [
-    // { type: TagType.ACTIVE, text: "near mint" },
-    // { type: TagType.INACTIVE, text: "excellent" },
-    // { type: TagType.DISABLED, text: "good" },
-    // { type: TagType.DISABLED, text: "played" },
-    // { type: TagType.DISABLED, text: "poor" },
-  ]
-);
 
+const tagLanguage = ref<ListingTagProps[]>([]);
+const tagsCondition = ref<ListingTagProps[]>([]);
+let tagsStructure: TagStructure[]
 async function fetchData() {
   let results = await client.search({
     requests: [
@@ -55,62 +42,90 @@ async function fetchData() {
       },
     ],
   });
-  setTags(results.results[0])
+  tagsStructure = setTagsStructure(results.results[0])
+  console.log(tagsStructure)
+  setTags(tagsStructure)
   setProduct(results.results[0]);
 }
 
-const setTags = (query: any) => {
-  const variantsDetails: { language: string; condition: string; price: number }[] =
+const setTagsStructure = (query: any): TagStructure[] => {
+  const variantsDetails: VariantDetail[] =
     query.hits[0].variantsDetails;
+  const grouped: { [key in TagStructure["language"]]?: Set<VariantDetail["condition"]> } = {};
 
-  const variantLanguages = Array.from(new Set(variantsDetails.map((v) => v.language)));
+  variantsDetails.forEach(variant => {
+    const { language, condition } = variant
 
-  const activeLanguageCode = variantLanguages[0];
+    if (!grouped[language]) {
+      grouped[language] = new Set();
+    }
 
-  tagLanguage.value = availableLanguages
-    .filter((lang) => variantLanguages.includes(lang.code))
-    .map((lang) => ({
-      type: lang.code === activeLanguageCode ? TagType.ACTIVE : TagType.INACTIVE,
-      text: lang.name,
+    grouped[language]?.add(condition);
+  })
+
+  const tagStructures: TagStructure[] = Object.entries(grouped).map(([lang, conditionsSet]) => ({
+    language: lang as TagStructure["language"],
+    conditions: Array.from(conditionsSet!) as TagStructure["conditions"],
+  }));
+
+  return tagStructures;
+
+}
+
+
+const setTags = (tagsStructure: TagStructure[]) => {
+  const languageMap = new Map<string, string>(
+    availableLanguages.map(lang => [lang.code, lang.name])
+  );
+
+  const conditionMap = new Map<string, string>(
+    availableConditions.map(cond => [cond.code, cond.name])
+  );
+  const sortedLanguages = preferredLanguageOrder
+    .filter(lang => tagsStructure.some(item => item.language === lang))
+    .map(lang => ({
+      code: lang,
+      name: languageMap.get(lang) || lang,
+      conditions: tagsStructure.find(item => item.language === lang)?.conditions || []
     }));
 
-  // Estrazione delle condizioni per la lingua attiva
-  const activeLanguageConditions = new Set(
-    variantsDetails
-      .filter((v) => v.language === activeLanguageCode)
-      .map((v) => v.condition)
+  // Mappa i linguaggi con i tipi appropriati
+  tagLanguage.value = sortedLanguages.map((lang, index) => ({
+    type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
+    text: lang.name
+  }));
+
+  const allConditionsSet = new Set<TagCondition>();
+  tagsStructure.forEach(item => {
+    item.conditions.forEach(cond => allConditionsSet.add(cond));
+  });
+  const allConditions = Array.from(allConditionsSet);
+
+  // Identificazione del linguaggio attivo
+  const activeLanguageCode = preferredLanguageOrder.find(lang =>
+    tagLanguage.value.find(tag => tag.text === languageMap.get(lang))
   );
 
-  // Estrazione delle condizioni per le lingue inattive
-  const inactiveLanguageConditions = new Set(
-    variantsDetails
-      .filter((v) => v.language !== activeLanguageCode)
-      .map((v) => v.condition)
-  );
+  const activeLanguage = tagsStructure.find(item => item.language === activeLanguageCode);
+  const activeConditions = activeLanguage ? activeLanguage.conditions : [];
 
-  // Determinazione della prima condizione attiva
-  const firstActiveCondition = [...activeLanguageConditions][0];
+  // Mappatura delle condizioni con i tipi appropriati
+  tagsCondition.value = allConditions.map(cond => {
+    if (activeConditions.includes(cond)) {
+      const index = activeConditions.indexOf(cond);
+      return {
+        type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
+        text: conditionMap.get(cond) || cond
+      };
+    } else {
+      return {
+        type: TagType.DISABLED,
+        text: conditionMap.get(cond) || cond
+      };
+    }
+  });
 
-  // Creazione dei tag per le condizioni disponibili
-  tagsCondition.value = availableConditions
-    .filter(
-      (cond) =>
-        activeLanguageConditions.has(cond.code) || inactiveLanguageConditions.has(cond.code)
-    )
-    .map((cond) => {
-      let type: TagType;
-
-      if (activeLanguageConditions.has(cond.code)) {
-        type = cond.code === firstActiveCondition ? TagType.ACTIVE : TagType.INACTIVE;
-      } else {
-        type = TagType.DISABLED;
-      }
-
-      return { type, text: cond.name };
-    });
 };
-
-
 
 function setProduct(queryResult: any) {
   if (queryResult.hits) {
