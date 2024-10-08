@@ -1,5 +1,5 @@
 <template>
-  <ul class="mt-4 space-y-2">
+  <ul class="mt-4 space-y-2 h-screen">
     <li v-for="(item, index) in menuItems" :key="index">
       <h5
         href="#"
@@ -8,14 +8,14 @@
       >
         {{ item.name }}
       </h5>
-      <!-- TODO IMPLEMENTA NAVIGAZIONE -->
       <ul v-if="item.subMenu && item.isSubMenuOpen" class="pl-4">
         <p
           v-for="(subItem, index) in item.subMenu"
           :key="index"
           class="text-gray-500 py-2 hover:text-gray-700"
+          @click="navigateTo(subItem.url)"
         >
-          {{ subItem }}
+          {{ subItem.name }}
         </p>
       </ul>
     </li>
@@ -23,81 +23,7 @@
 </template>
 
 <script setup lang="ts">
-type MenuItemType = {
-  name: String;
-  subMenu: String[] | null;
-  isSubMenuOpen?: Boolean;
-};
-
-const menuItems = ref<MenuItemType[]>([
-  {
-    name: "Pokémon",
-    subMenu: [
-      "Booster Box",
-      "Box Set",
-      "Bundle",
-      "Carte Singole",
-      "Mazzi Precostruiti",
-      "Tins",
-      "Tutti i Prodotti",
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "One Piece",
-    subMenu: [
-      "Booster Box",
-      "Box Set",
-      "Bundle",
-      "Carte Singole",
-      "Mazzi Precostruiti",
-      "Tins",
-      "Tutti i Prodotti",
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Final Fantasy",
-    subMenu: [
-      "Booster Box",
-      "Box Set",
-      "Bundle",
-      "Carte Singole",
-      "Mazzi Precostruiti",
-      "Tins",
-      "Tutti i Prodotti",
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Dragon Ball",
-    subMenu: [
-      "Booster Box",
-      "Box Set",
-      "Bundle",
-      "Carte Singole",
-      "Mazzi Precostruiti",
-      "Tins",
-      "Tutti i Prodotti",
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Lorcana",
-    subMenu: [
-      "Booster Box",
-      "Box Set",
-      "Bundle",
-      "Carte Singole",
-      "Mazzi Precostruiti",
-      "Tins",
-      "Tutti i Prodotti",
-    ],
-    isSubMenuOpen: false,
-  },
-  { name: "Servizi", subMenu: null },
-  { name: "Contatti", subMenu: null },
-]);
+import menuItems, { type MenuItemType } from "~/data/menu";
 
 const toggleSubMenu = (item: MenuItemType) => {
   item.isSubMenuOpen = !item.isSubMenuOpen;

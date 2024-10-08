@@ -15,6 +15,10 @@ export default defineNuxtConfig({
     autoImport: true,
     configFile: "./formkit.config.ts",
   },
+  devServer: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
 
   runtimeConfig: {
     public: {
@@ -23,6 +27,7 @@ export default defineNuxtConfig({
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME,
       ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
       ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
+      SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
     },
   },
 
@@ -37,6 +42,7 @@ export default defineNuxtConfig({
     "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
+    "@pinia/nuxt",
   ],
   googleFonts: {
     families: {

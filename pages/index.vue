@@ -1,31 +1,15 @@
 <template>
   <div class="flex flex-col gap-y-6">
     <div class="px-4 pt-4">
-      <MoleculesHeroBanner
-        :backgroundImage="Ossidiana"
-        :navigateTo="'/listing/ossidiana-infuocata'"
-        title="Ossidiana Infuocata"
-        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
-      />
+      <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
-    <OrganismsProductCarousel
-      :title="$t('highlights')"
-      :products="evidenza"
-      colorScheme="lightHome"
-    />
+    <OrganismsProductCarouselWeb v-if="isDesktopView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
+    <OrganismsProductCarousel v-if="isMobileView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
 
-    <OrganismsProductCarousel
-      :title="$t('whatsnew')"
-      :products="novita"
-      colorScheme="primaryHome"
-    />
+    <OrganismsProductCarousel :title="$t('whatsnew')" :products="novita" colorScheme="primaryHome" />
 
-    <OrganismsProductCarousel
-      :title="$t('deals')"
-      :products="offerte"
-      colorScheme="lightHome"
-    />
+    <OrganismsProductCarousel :title="$t('deals')" :products="offerte" colorScheme="lightHome" />
 
     <div class="px-4 pb-4">
       <OrganismsServiceBanner :sections="sectionsDataService" />
@@ -42,18 +26,21 @@ import {
   HIGHLIGHTS_TAG,
   WHATSNEW_TAG,
   DEALS_TAG,
+  HEROBANNER_TAG
 } from "~/data/const";
-
 const { t } = useI18n();
 
 const config = useRuntimeConfig();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
+const setHeroBanner: Ref<ProductType[]> = ref([]);
 const client = algoliasearch(
   config.public.ALGOLIA_APPLICATION_ID,
   config.public.ALGOLIA_API_KEY
 );
+const isMobileView = isMobile()
+const isDesktopView = isDesktop()
 
 onMounted(async () => {
   let results = await client.searchSingleIndex({
@@ -71,11 +58,19 @@ onMounted(async () => {
     searchParams: { query: DEALS_TAG },
   });
   setProducts(results);
+  results = await client.searchSingleIndex({
+    indexName: "ecommerce",
+    searchParams: { query: HEROBANNER_TAG },
+  });
+  setProducts(results);
 });
 
 function setProducts(queryResult: any) {
+  const heroBannerTemp: ProductType[] = [];
+
   for (let hit of queryResult.hits) {
     const obj = {
+      id: hit.objectID,
       productName: hit.name,
       code: hit.code ? `(${hit.code})` : "",
       expansion: hit.expansion || "N.A.",
@@ -83,15 +78,31 @@ function setProducts(queryResult: any) {
       imageUrl:
         hit.thumbnailImage ||
         (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+      tcg: hit.tcg,
+      category: hit.type,
     };
 
     for (let tag of hit.tags) {
-      if (tag === HIGHLIGHTS_TAG) evidenza.value.push(obj);
-      else if (tag === WHATSNEW_TAG) novita.value.push(obj);
-      else if (tag === DEALS_TAG) offerte.value.push(obj);
+      switch (tag) {
+        case HIGHLIGHTS_TAG:
+          evidenza.value.push(obj);
+          break;
+        case WHATSNEW_TAG:
+          novita.value.push(obj);
+          break;
+        case DEALS_TAG:
+          offerte.value.push(obj);
+          break;
+        case HEROBANNER_TAG:
+          heroBannerTemp.push(obj);
+          break;
+      }
     }
+
   }
+  setHeroBanner.value = heroBannerTemp.slice(-3);
 }
+
 
 useHead({
   title: "Jigglycard",
