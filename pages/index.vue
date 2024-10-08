@@ -4,7 +4,8 @@
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
-    <OrganismsProductCarousel :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
+    <OrganismsProductCarouselWeb v-if="isDesktopView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
+    <OrganismsProductCarousel v-if="isMobileView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
 
     <OrganismsProductCarousel :title="$t('whatsnew')" :products="novita" colorScheme="primaryHome" />
 
@@ -27,7 +28,6 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG
 } from "~/data/const";
-
 const { t } = useI18n();
 
 const config = useRuntimeConfig();
@@ -39,6 +39,8 @@ const client = algoliasearch(
   config.public.ALGOLIA_APPLICATION_ID,
   config.public.ALGOLIA_API_KEY
 );
+const isMobileView = isMobile()
+const isDesktopView = isDesktop()
 
 onMounted(async () => {
   let results = await client.searchSingleIndex({
