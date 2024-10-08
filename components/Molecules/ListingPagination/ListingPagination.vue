@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex pb-10 items-center justify-center gap-x-6">
+  <nav class="flex items-center justify-center gap-x-6">
     <button
       :disabled="currentPage <= 1"
       @click="changePage(currentPage - 1)"
@@ -69,17 +69,15 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { ITEMS_FOR_PAGE } from "~/data/const";
 
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
   totalItems: Number,
-  itemsPerPage: Number,
   currentPage: Number,
 });
 
-const totalPages = computed(() =>
-  Math.ceil(props.totalItems / props.itemsPerPage)
-);
+const totalPages = computed(() => Math.ceil(props.totalItems / ITEMS_FOR_PAGE));
 
 function changePage(page) {
   if (page < 1 || page > totalPages.value) return;
