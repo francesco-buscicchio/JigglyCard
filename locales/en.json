@@ -40,6 +40,11 @@
   "clearFilters": "Clear all filters",
   "filters": "filters",
   "search": "Search",
+  "da": "from",
+  "a": "to",
+  "prezzo": "Price",
+  "cancellaTuttiIFiltri": "Delete all filters",
+  "applica": "Apply",
   "showDetails": "show details",
   "of": "of",
   "pageSorting": {
