@@ -37,7 +37,7 @@ const emit = defineEmits(['update:minPrice', 'update:maxPrice']);
 
 const price1 = ref(props.initialMinPrice);
 const price2 = ref(props.initialMaxPrice);
-const dragging = ref(null);
+const dragging = ref<string | null>(null);
 
 const minPrice = computed(() => Math.min(price1.value, price2.value));
 const maxPrice = computed(() => Math.max(price1.value, price2.value));
@@ -47,7 +47,7 @@ const updatePrices = () => {
     emit('update:maxPrice', maxPrice.value);
 };
 
-const startDragging = (type) => {
+const startDragging = (type: 'price1' | 'price2') => {
     dragging.value = type;
     window.addEventListener('mouseup', stopDragging);
     window.addEventListener('touchend', stopDragging);
@@ -59,6 +59,7 @@ const stopDragging = () => {
     window.removeEventListener('touchend', stopDragging);
 };
 </script>
+
 
 <style scoped>
 .slider-range {
