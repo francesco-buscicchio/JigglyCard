@@ -14,5 +14,6 @@ export const availableConditions = [
   { code: "EX", name: "excellent" },
   { code: "GD", name: "good" },
   { code: "PL", name: "played" },
-  { code: "PR", name: "poor" },
+  { code: "PO", name: "poor" },
 ];
+export const preferredLanguageOrder = ["IT", "EN", "JP"];
