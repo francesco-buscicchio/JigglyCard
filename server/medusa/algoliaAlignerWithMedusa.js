@@ -21,14 +21,26 @@ fetch(url, settings)
       for (let item of json.products) {
         const languageOptionId = getOptionId(item.options, "Lingua");
         const conditionOptionId = getOptionId(item.options, "Condizioni");
+        let quantity = 0;
 
-        const variantsDetails = item.variants.map(variant => {
+        const variantsDetails = item.variants.map((variant) => {
+          quantity += variant.inventory_quantity;
           return {
             language: getOptionValue(variant.options, languageOptionId),
             condition: getOptionValue(variant.options, conditionOptionId),
-            price: getLowestPrice(variant.prices) / 100
+            price: getLowestPrice(variant.prices) / 100,
           };
         });
+
+        let languages = item.variants.map((variant) =>
+          getOptionValue(variant.options, languageOptionId)
+        );
+        languages = languages.filter((item, i, ar) => ar.indexOf(item) === i);
+
+        let conditions = item.variants.map((variant) =>
+          getOptionValue(variant.options, conditionOptionId)
+        );
+        conditions = conditions.filter((item, i, ar) => ar.indexOf(item) === i);
 
         const obj = {
           objectID: item.id,
@@ -46,7 +58,11 @@ fetch(url, settings)
           tags: item.tags.map((tag) => {
             return tag.value;
           }),
-          variantsDetails: variantsDetails
+          variantsDetails: variantsDetails,
+          languages: languages,
+          conditions: conditions,
+          quantity: quantity,
+          available: quantity > 0,
         };
         array.push(obj);
       }
@@ -64,12 +80,14 @@ fetch(url, settings)
   });
 
 function getOptionId(options, title) {
-  const option = options.find(opt => opt.title.toLowerCase() === title.toLowerCase());
+  const option = options.find(
+    (opt) => opt.title.toLowerCase() === title.toLowerCase()
+  );
   return option ? option.id : null;
 }
 
 function getOptionValue(options, optionId) {
-  const option = options.find(opt => opt.option_id === optionId);
+  const option = options.find((opt) => opt.option_id === optionId);
   return option ? option.value : null;
 }
 
