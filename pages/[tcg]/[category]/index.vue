@@ -1,10 +1,10 @@
 <template>
-  <div class="gap-b-4 flex flex-col">
+  <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <OrganismsListingFilters />
+      <OrganismsFilter />
 
       <div class="pb-6 flex flex-row justify-between items-center">
         <MoleculesItemsCounter
