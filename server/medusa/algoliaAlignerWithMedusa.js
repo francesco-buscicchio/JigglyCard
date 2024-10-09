@@ -18,10 +18,21 @@ fetch(url, settings)
   .then(async (json) => {
     try {
       const array = [];
+
+      //ARRAY PER FILTRI
+      let allLanguages = [];
+      let allConditions = [];
+      let allTypes = [];
+      let allTcg = [];
+
       for (let item of json.products) {
         const languageOptionId = getOptionId(item.options, "Lingua");
         const conditionOptionId = getOptionId(item.options, "Condizioni");
+
         let quantity = 0;
+
+        allTypes.push(item.material);
+        allTcg.push(item.type ? item.type.value : "N.A.");
 
         const variantsDetails = item.variants.map((variant) => {
           quantity += variant.inventory_quantity;
@@ -36,11 +47,13 @@ fetch(url, settings)
           getOptionValue(variant.options, languageOptionId)
         );
         languages = languages.filter((item, i, ar) => ar.indexOf(item) === i);
+        allLanguages = allLanguages.concat(languages);
 
         let conditions = item.variants.map((variant) =>
           getOptionValue(variant.options, conditionOptionId)
         );
         conditions = conditions.filter((item, i, ar) => ar.indexOf(item) === i);
+        allConditions = allConditions.concat(conditions);
 
         const obj = {
           objectID: item.id,
@@ -66,18 +79,63 @@ fetch(url, settings)
         };
         array.push(obj);
       }
+
+      const filtersArray = createFilterIndexObjects(
+        allLanguages,
+        allConditions,
+        allTypes,
+        allTcg
+      );
+
       client
         .saveObjects({
           indexName: "ecommerce",
           objects: array,
         })
         .then((val) => {
-          console.log(val);
+          console.log("Prodotti Salvati");
+        });
+
+      client
+        .saveObjects({
+          indexName: "filters",
+          objects: filtersArray,
+        })
+        .then((val) => {
+          console.log("Filtri Salvati");
         });
     } catch (error) {
       console.log(error);
     }
   });
+
+function createFilterIndexObjects(
+  allLanguages,
+  allConditions,
+  allTypes,
+  allTcg
+) {
+  allLanguages = allLanguages.filter(
+    (item, i, ar) => ar.indexOf(item) === i && item != null
+  );
+  allConditions = allConditions.filter(
+    (item, i, ar) => ar.indexOf(item) === i && item != null
+  );
+  allTypes = allTypes.filter(
+    (item, i, ar) => ar.indexOf(item) === i && item != null
+  );
+  allTcg = allTcg.filter(
+    (item, i, ar) => ar.indexOf(item) === i && item != null
+  );
+
+  return [
+    { name: "language", value: allLanguages, objectID: "languageFilter" },
+    { name: "condition", value: allConditions, objectID: "conditionFilter" },
+    { name: "type", value: allConditions, objectID: "conditionFilter" },
+    { name: "brand", value: allConditions, objectID: "brandFilter" },
+    { name: "available", value: [true, false], objectID: "availableFilter" },
+  ];
+}
 
 function getOptionId(options, title) {
   const option = options.find(
