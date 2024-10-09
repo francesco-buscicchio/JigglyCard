@@ -1,19 +1,33 @@
 <template>
-  <div class="px-4">
+  <div class="gap-b-4 flex flex-col">
     <MoleculesBreadcrumb />
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
       <OrganismsListingFilters />
-    </div>
 
-    <OrganismsListingProducts :products="products" />
-    <MoleculesListingPagination
-      :total-items="totalItems"
-      :items-per-page="itemsPerPage"
-      :current-page="currentPage"
-      @current-page="($e) => changePage($e)"
-    />
+      <div class="pb-6 flex flex-row justify-between items-center">
+        <MoleculesItemsCounter
+          :totalItems="totalItems"
+          :itemForPage="itemsPerPage"
+          :page="currentPage"
+        />
+
+        <div class="flex flex-row items-center gap-x-2">
+          <p>{{ $t("pageSorting.sortBy") }}</p>
+          <div class="max-w-40">
+            <MoleculesPageSorter @handle-sorting="handleSorting" />
+          </div>
+        </div>
+      </div>
+      <OrganismsListingProducts :products="products" />
+      <MoleculesListingPagination
+        :total-items="totalItems"
+        :items-per-page="itemsPerPage"
+        :current-page="currentPage"
+        @current-page="($e) => changePage($e)"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,6 +47,7 @@ const route = useRoute();
 const totalItems = ref(0);
 const itemsPerPage = ref(9);
 const currentPage = ref(1);
+const currentSorting = ref("");
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -44,11 +59,20 @@ function changePage(event: number) {
   fetchData();
 }
 
+function handleSorting(event: string) {
+  currentSorting.value = event;
+  fetchData();
+}
+
+function calculateCollection() {
+  return `${PRODUCTS_COLLECTION}${currentSorting.value}`;
+}
+
 async function fetchData() {
   let results = await client.search({
     requests: [
       {
-        indexName: PRODUCTS_COLLECTION,
+        indexName: calculateCollection(),
         filters: `type:"${route.params.category}"`,
         hitsPerPage: itemsPerPage.value,
         page: currentPage.value - 1,

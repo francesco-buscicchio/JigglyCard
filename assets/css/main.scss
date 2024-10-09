@@ -46,6 +46,8 @@ h5,
   font-weight: 500;
 }
 
+select,
+option,
 p,
 .paragraph {
   font-family: "Roboto Flex", sans-serif;
@@ -78,5 +80,10 @@ input[type="text"] {
 
 .hide {
   overflow: hidden;
-  height: 100vh; // Questo può essere omesso se non necessario
+  max-height: 100vh;
+}
+
+.scrollable {
+  overflow: auto;
+  height: auto;
 }

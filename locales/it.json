@@ -40,6 +40,11 @@
   "clearFilters": "Cancella tutti i filtri",
   "filters": "filtri",
   "search": "Cerca",
+  "da": "da",
+  "a": "a",
+  "prezzo": "Prezzo",
+  "cancellaTuttiIFiltri": "Cancella tutti i filtri",
+  "applica": "Applica",
   "showDetails": "vedi dettagli",
   "/pokemon/booster-box": "Pokemon - Booster Box",
   "/pokemon/box-set": "Pokemon - Box Set",
@@ -78,5 +83,16 @@
   "/lorcana/all": "Lorcana - Tutti i Prodotti",
   "/servizi": "Servizi",
   "/contatti": "Contatti",
-  "/": "Homepage"
+  "/": "Homepage",
+  "of": "di",
+  "pageSorting": {
+    "sortBy": "Ordina per",
+    "mostPopular": "Più popolare",
+    "priceCheapest": "Più economico",
+    "priceExpensive": "Più caro",
+    "nameAtoZ": "Nome (A - Z)",
+    "nameZtoA": "Nome (Z - A)",
+    "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
+    "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
+  }
 }
