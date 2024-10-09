@@ -32,7 +32,7 @@ fetch(url, settings)
         let quantity = 0;
 
         allTypes.push(item.material);
-        allTcg.push(item.type ? item.type.value : "N.A.");
+        allTcg.push(item.type ? item.type.value : "NA");
 
         const variantsDetails = item.variants.map((variant) => {
           quantity += variant.inventory_quantity;
@@ -131,8 +131,7 @@ function createFilterIndexObjects(
   return [
     { name: "language", value: allLanguages, objectID: "languageFilter" },
     { name: "condition", value: allConditions, objectID: "conditionFilter" },
-    { name: "type", value: allConditions, objectID: "conditionFilter" },
-    { name: "brand", value: allConditions, objectID: "brandFilter" },
+    { name: "brand", value: allTcg, objectID: "brandFilter" },
     { name: "available", value: [true, false], objectID: "availableFilter" },
   ];
 }

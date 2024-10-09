@@ -4,7 +4,11 @@
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <OrganismsFilter />
+      <div class="pb-6">
+        <OrganismsFilter @filterUpdate="filterUpdate" />
+      </div>
+
+      <OrganismsListingFilters />
 
       <div class="pb-6 flex flex-row justify-between items-center">
         <MoleculesItemsCounter
@@ -53,6 +57,10 @@ onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   fetchData();
 });
+
+function filterUpdate(e: any) {
+  console.log(e);
+}
 
 function changePage(event: number) {
   currentPage.value = event;

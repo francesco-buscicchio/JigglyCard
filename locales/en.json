@@ -56,5 +56,22 @@
     "nameZtoA": "Name (Z - A)",
     "collecorsNumberLowest": "Collector's Number (lowest first)",
     "collecorsNumberHighest": "Collector's Number (highest first)"
+  },
+  "filter": {
+    "language": "Language",
+    "condition": "Conditions",
+    "brand": "Brand",
+    "available": "Available",
+    "IT": "italian",
+    "EN": "english",
+    "NM": "near mint",
+    "EX": "excellent",
+    "PL": "played",
+    "PO": "poor",
+    "GD": "good",
+    "true": "available",
+    "false": "not available",
+    "NA": "other",
+    "pokemon": "pokemon"
   }
 }

@@ -1,4 +1,6 @@
 export const PRODUCTS_COLLECTION = "ecommerce";
+export const FILTERS_COLLECTION = "filters";
+
 export const HIGHLIGHTS_TAG = "EVIDENZA";
 export const WHATSNEW_TAG = "NOVITA";
 export const DEALS_TAG = "OFFERTA";

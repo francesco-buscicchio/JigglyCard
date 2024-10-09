@@ -10,11 +10,11 @@
 
     <transition name="slide-right">
       <div v-show="isOpen" class="filter-panel bg-accent-50">
-        <div class="flex items-center justify-between mt-4">
+        <div class="flex items-center justify-between mt-4 mb-4">
           <Icon
             name="jig:close-accent"
             class="ml-6"
-            size="40"
+            size="20"
             @click="togglePanel"
           ></Icon>
           <h5 class="text-center w-full mr-18">
@@ -29,25 +29,25 @@
           >
             <MoleculesAccordion>
               <template #header>
-                <p>{{ category.name }}</p>
+                <p>{{ $t(`filter.${category.name}`) }}</p>
               </template>
               <div
-                v-for="(item, index) in category.filters"
+                v-for="(item, index) in category.value"
                 :key="item.id"
                 class="mb-4"
               >
                 <div class="flex items-center ml-6">
                   <AtomsCheckbox
-                    :id="item.id.toString"
+                    :id="index.toString()"
                     :modelValue="item.checked"
                     @update:modelValue="
                       updateCheckboxValue(catIndex, index, $event)
                     "
                     class="mr-6 bg-white custom-checkbox"
                   >
-                    {{ item.name }}
+                    {{ item }}
                   </AtomsCheckbox>
-                  <p class="text-left">{{ item.name }}</p>
+                  <p class="text-left">{{ $t(`filter.${item}`) }}</p>
                 </div>
               </div>
             </MoleculesAccordion>
@@ -95,13 +95,29 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
-import { filterCategories } from "~/utils/filterData";
+import { algoliasearch } from "algoliasearch";
+import { FILTERS_COLLECTION } from "~/data/const";
 
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
-
 const selectedFilters = reactive<{ [key: string]: any }>({});
+const config = useRuntimeConfig();
+
+const filterCategories = ref();
+const client = algoliasearch(
+  config.public.ALGOLIA_APPLICATION_ID,
+  config.public.ALGOLIA_API_KEY
+);
+
+onMounted(async () => {
+  let results = await client.searchSingleIndex({
+    indexName: FILTERS_COLLECTION,
+  });
+  filterCategories.value = results.hits;
+});
+
+const emit = defineEmits(["filterUpdate"]);
 
 function updateCheckboxValue(
   categoryIndex: number,
@@ -146,7 +162,7 @@ function applyFilters() {
     max: selectedMaxPrice.value,
   };
 
-  console.log("Filtri applicati:", selectedFilters);
+  emit("filterUpdate", toRaw(selectedFilters));
   isOpen.value = false;
 }
 
