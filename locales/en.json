@@ -56,5 +56,10 @@
     "nameZtoA": "Name (Z - A)",
     "collecorsNumberLowest": "Collector's Number (lowest first)",
     "collecorsNumberHighest": "Collector's Number (highest first)"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Viewing",
+    "of": "of",
+    "products": "products"
   }
 }

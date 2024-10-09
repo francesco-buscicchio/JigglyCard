@@ -94,5 +94,10 @@
     "nameZtoA": "Nome (Z - A)",
     "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
     "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Hai visualizzato",
+    "of": "di",
+    "products": "prodotti"
   }
 }
