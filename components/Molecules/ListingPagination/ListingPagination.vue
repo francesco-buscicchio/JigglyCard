@@ -28,7 +28,9 @@
       <button
         class="border-[0.5px] border-accent-950 bg-accent-50 w-10 h-10"
         :class="
-          currentPage === totalPages
+          totalPages === 0
+            ? ''
+            : currentPage === totalPages
             ? totalPages === 1
               ? ''
               : 'border-l-0'
