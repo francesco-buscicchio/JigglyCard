@@ -14,9 +14,10 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
-import { availableConditions, availableLanguages, preferredLanguageOrder, PRODUCTS_COLLECTION } from "~/data/const";
+import { availableLanguages, PRODUCTS_COLLECTION } from "~/data/const";
 import type { ListingTagProps } from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagCondition, TagType, type TagStructure, type VariantDetail } from "~/components/Atoms/Tag/tag.types";
+import { TagType, type TagStructure, type VariantDetail } from "~/components/Atoms/Tag/tag.types";
+import { activateLanguage, createTagCondition, createTagLanguage, findActiveLanguage } from "./product.utils";
 
 const product = ref();
 const config = useRuntimeConfig();
@@ -42,13 +43,12 @@ async function fetchData() {
       },
     ],
   });
-  tagsStructure = setTagsStructure(results.results[0])
-  console.log(tagsStructure)
+  tagsStructure = createTagsStructure(results.results[0])
   setTags(tagsStructure)
   setProduct(results.results[0]);
 }
 
-const setTagsStructure = (query: any): TagStructure[] => {
+const createTagsStructure = (query: any): TagStructure[] => {
   const variantsDetails: VariantDetail[] =
     query.hits[0].variantsDetails;
   const grouped: { [key in TagStructure["language"]]?: Set<VariantDetail["condition"]> } = {};
@@ -74,58 +74,13 @@ const setTagsStructure = (query: any): TagStructure[] => {
 
 
 const setTags = (tagsStructure: TagStructure[]) => {
-  const languageMap = new Map<string, string>(
-    availableLanguages.map(lang => [lang.code, lang.name])
-  );
 
-  const conditionMap = new Map<string, string>(
-    availableConditions.map(cond => [cond.code, cond.name])
-  );
-  const sortedLanguages = preferredLanguageOrder
-    .filter(lang => tagsStructure.some(item => item.language === lang))
-    .map(lang => ({
-      code: lang,
-      name: languageMap.get(lang) || lang,
-      conditions: tagsStructure.find(item => item.language === lang)?.conditions || []
-    }));
-
-  // Mappa i linguaggi con i tipi appropriati
-  tagLanguage.value = sortedLanguages.map((lang, index) => ({
-    type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
-    text: lang.name
-  }));
-
-  const allConditionsSet = new Set<TagCondition>();
-  tagsStructure.forEach(item => {
-    item.conditions.forEach(cond => allConditionsSet.add(cond));
-  });
-  const allConditions = Array.from(allConditionsSet);
-
-  // Identificazione del linguaggio attivo
-  const activeLanguageCode = preferredLanguageOrder.find(lang =>
-    tagLanguage.value.find(tag => tag.text === languageMap.get(lang))
-  );
-
-  const activeLanguage = tagsStructure.find(item => item.language === activeLanguageCode);
+  tagLanguage.value = createTagLanguage(tagsStructure)
+  const activeLanguage = findActiveLanguage(tagLanguage.value, tagsStructure)
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
-
-  // Mappatura delle condizioni con i tipi appropriati
-  tagsCondition.value = allConditions.map(cond => {
-    if (activeConditions.includes(cond)) {
-      const index = activeConditions.indexOf(cond);
-      return {
-        type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
-        text: conditionMap.get(cond) || cond
-      };
-    } else {
-      return {
-        type: TagType.DISABLED,
-        text: conditionMap.get(cond) || cond
-      };
-    }
-  });
-
+  tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
 };
+
 
 function setProduct(queryResult: any) {
   if (queryResult.hits) {
@@ -156,11 +111,16 @@ function formatTitle(title: string): string {
 }
 
 const handleTagClickLanguage = (text: string) => {
-  tagLanguage.value = updateTagState(tagLanguage.value, text);
+  const codeLanguage = (availableLanguages.find(lang => lang.name === text))?.code
+  const activeConditions = (tagsStructure.find(tag => tag.language === codeLanguage))?.conditions
+  if (activeConditions) {
+    tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
+  }
+  tagLanguage.value = activateLanguage(tagLanguage.value, text)
+
 };
 
 const handleTagClickCondition = (text: string) => {
-  tagsCondition.value = updateTagState(tagsCondition.value, text);
 };
 
 const updateTagState = (tags: ListingTagProps[], text: string): ListingTagProps[] => {

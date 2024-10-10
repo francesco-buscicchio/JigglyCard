@@ -3,7 +3,7 @@
         <p>{{ text }}</p>
     </button>
 </template>
-
+<!-- TODO mettere traduzioni per le lingue -->
 <script setup lang="ts">
 import { TagType } from './tag.types';
 
