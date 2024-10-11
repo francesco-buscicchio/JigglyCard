@@ -1,7 +1,7 @@
 <template>
     <div class="flex gap-3 flex-wrap my-8">
         <AtomsTag v-if="tags.length" v-for="(tag, index) in tags" 
-        :text="tag.text"  :type="getTagType(index)" 
+        :text="tag.text"  :type="getTagType(index)" :code="tag.code"
         @tagClicked="handleTagClick"  />
     </div>
 </template>
@@ -32,8 +32,8 @@ const getTagType = (index: number) => {
     return index === activeTagIndex.value ? TagType.ACTIVE : TagType.INACTIVE; 
 };
 
-const handleTagClick = (text: string ) => {
-    emit("handleTagClick",text)
+const handleTagClick = (code: string ) => {
+    emit("handleTagClick",code)
 };
 const initializeActiveTag = () => {
     const firstActiveIndex = props.tags.findIndex(tag => tag.type === TagType.ACTIVE);

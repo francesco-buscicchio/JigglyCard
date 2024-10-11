@@ -1,9 +1,10 @@
-import {
+import { TagType } from "~/components/Atoms/Tag/tag.types";
+import type {
+  Language,
+  ListingTagProps,
   TagCondition,
-  TagType,
-  type TagStructure,
-} from "~/components/Atoms/Tag/tag.types";
-import type { ListingTagProps } from "~/components/Molecules/ListingTag/ListingTag.types";
+  TagStructure,
+} from "~/components/Molecules/ListingTag/ListingTag.types";
 import {
   availableConditions,
   availableLanguages,
@@ -25,6 +26,7 @@ export const createTagLanguage = (tagsStructure: TagStructure[]) => {
   return sortedLanguages.map((lang, index) => ({
     type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
     text: lang.name,
+    code: findCodeByText(lang.name) as Language,
   }));
 };
 
@@ -46,11 +48,13 @@ export const createTagCondition = (
       return {
         type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
         text: conditionMap.get(cond) || cond,
+        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
       };
     } else {
       return {
         type: TagType.DISABLED,
         text: conditionMap.get(cond) || cond,
+        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
       };
     }
   });
@@ -72,6 +76,17 @@ export const findActiveLanguage = (
   return activeLanguage;
 };
 
+export const activateLanguage = (
+  tagLanguage: ListingTagProps[],
+  code: string
+) => {
+  const text = findTextByCode(code);
+  return tagLanguage.map((tag) => ({
+    ...tag,
+    type: tag.text === text ? TagType.ACTIVE : TagType.INACTIVE,
+  }));
+};
+
 const createLanguageMap = () => {
   return new Map<string, string>(
     availableLanguages.map((lang) => [lang.code, lang.name])
@@ -84,12 +99,14 @@ const createConditionMap = () => {
   );
 };
 
-export const activateLanguage = (
-  tagLanguage: ListingTagProps[],
-  text: string
-) => {
-  return tagLanguage.map((tag) => ({
-    ...tag,
-    type: tag.text === text ? TagType.ACTIVE : TagType.INACTIVE,
-  }));
+const findCodeByText = (text: string) => {
+  const allAvailable = [...availableConditions, ...availableLanguages];
+  const code = allAvailable.find((item) => item.name === text)?.code;
+  return code;
+};
+
+const findTextByCode = (code: string) => {
+  const allAvailable = [...availableConditions, ...availableLanguages];
+  const text = allAvailable.find((item) => item.code === code)?.name;
+  return text;
 };

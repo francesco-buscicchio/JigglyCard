@@ -17,6 +17,9 @@ const props = defineProps({
         type: String,
         default: "",
     },
+    code: {
+        type: String
+    }
 });
 
 const emit = defineEmits(["tagClicked"]);
@@ -33,6 +36,6 @@ const typeClass = computed(() => {
 })
 
 const emitClick = () => {
-    emit("tagClicked", props.text);
+    emit("tagClicked", props.code);
 };
 </script>

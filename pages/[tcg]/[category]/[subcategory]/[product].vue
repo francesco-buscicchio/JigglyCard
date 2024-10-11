@@ -14,9 +14,9 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
-import { availableLanguages, PRODUCTS_COLLECTION } from "~/data/const";
-import type { ListingTagProps } from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType, type TagStructure, type VariantDetail } from "~/components/Atoms/Tag/tag.types";
+import { availableConditions, availableLanguages, PRODUCTS_COLLECTION } from "~/data/const";
+import type { ListingTagProps, TagStructure, VariantDetail } from "~/components/Molecules/ListingTag/ListingTag.types";
+import { TagType } from "~/components/Atoms/Tag/tag.types";
 import { activateLanguage, createTagCondition, createTagLanguage, findActiveLanguage } from "./product.utils";
 
 const product = ref();
@@ -74,7 +74,6 @@ const createTagsStructure = (query: any): TagStructure[] => {
 
 
 const setTags = (tagsStructure: TagStructure[]) => {
-
   tagLanguage.value = createTagLanguage(tagsStructure)
   const activeLanguage = findActiveLanguage(tagLanguage.value, tagsStructure)
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
@@ -110,31 +109,25 @@ function formatTitle(title: string): string {
   return title.replace(/\s*\([^)]*\)/, "");
 }
 
-const handleTagClickLanguage = (text: string) => {
-  const codeLanguage = (availableLanguages.find(lang => lang.name === text))?.code
-  const activeConditions = (tagsStructure.find(tag => tag.language === codeLanguage))?.conditions
+const handleTagClickLanguage = (code: string) => {
+  console.log(code, tagsStructure)
+  const activeConditions = (tagsStructure.find(tag => tag.language === code))?.conditions
   if (activeConditions) {
     tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
   }
-  tagLanguage.value = activateLanguage(tagLanguage.value, text)
-
+  tagLanguage.value = activateLanguage(tagLanguage.value, code)
 };
 
-const handleTagClickCondition = (text: string) => {
+const handleTagClickCondition = (code: string) => {
+  const conditionSelected = tagsCondition.value.find(tag => tag.code === code)
+  if (conditionSelected?.type === TagType.DISABLED) {
+    const tagContainThisCondition = tagsStructure.find(tag => tag.conditions.some(cond => cond === conditionSelected?.code))
+    handleTagClickLanguage(tagContainThisCondition?.language as string)
+  }
+  tagsCondition.value = tagsCondition.value.map(tag => ({
+    ...tag,
+    type: tag.type === TagType.DISABLED ? TagType.DISABLED : tag.code === code ? TagType.ACTIVE : TagType.INACTIVE
+  }))
 };
 
-const updateTagState = (tags: ListingTagProps[], text: string): ListingTagProps[] => {
-  return tags.map(tag => {
-    if (tag.type === TagType.DISABLED) {
-      // TODO gestire il clcik dei disabled
-      return tag; // I tag disabilitati non vengono aggiornati
-    }
-
-    if (tag.text === text) {
-      return { ...tag, type: TagType.ACTIVE };
-    }
-
-    return { ...tag, type: TagType.INACTIVE };
-  });
-};
 </script>
