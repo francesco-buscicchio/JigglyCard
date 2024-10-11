@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { TagType } from '~/components/Atoms/Tag/tag.types';
-import type { ListingTagProps } from './ListingTag.types';
+import type { ListingTagProps, TagCode } from './ListingTag.types';
 const activeTagIndex = ref(-1);
 const emit = defineEmits(["handleTagClick"]);
 
@@ -31,7 +31,7 @@ const getTagType = (index: number) => {
     return index === activeTagIndex.value ? TagType.ACTIVE : TagType.INACTIVE;
 };
 
-const handleTagClick = (code: string) => {
+const handleTagClick = (code: TagCode) => {
     emit("handleTagClick", code)
 };
 const initializeActiveTag = () => {

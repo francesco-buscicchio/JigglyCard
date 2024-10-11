@@ -15,7 +15,7 @@
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
 import { PRODUCTS_COLLECTION } from "~/data/const";
-import type { ListingTagProps, TagStructure } from "~/components/Molecules/ListingTag/ListingTag.types";
+import type { ListingTagProps, TagCode, TagStructure } from "~/components/Molecules/ListingTag/ListingTag.types";
 import { TagType } from "~/components/Atoms/Tag/tag.types";
 import { activateLanguage, createTagCondition, createTagLanguage, createTagsStructure, findActiveLanguage } from "./product.utils";
 
@@ -84,7 +84,7 @@ function formatTitle(title: string): string {
   return title.replace(/\s*\([^)]*\)/, "");
 }
 
-const handleTagClickLanguage = (code: string): void => {
+const handleTagClickLanguage = (code: TagCode): void => {
   const activeConditions = (tagsStructure.find(tag => tag.language === code))?.conditions
   if (activeConditions) {
     tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
@@ -92,11 +92,11 @@ const handleTagClickLanguage = (code: string): void => {
   tagLanguage.value = activateLanguage(tagLanguage.value, code)
 };
 
-const handleTagClickCondition = (code: string): void => {
+const handleTagClickCondition = (code: TagCode): void => {
   const conditionSelected = tagsCondition.value.find(tag => tag.code === code)
   if (conditionSelected?.type === TagType.DISABLED) {
     const tagContainThisCondition = tagsStructure.find(tag => tag.conditions.some(cond => cond === conditionSelected?.code))
-    handleTagClickLanguage(tagContainThisCondition?.language as string)
+    handleTagClickLanguage(tagContainThisCondition?.language as TagCode)
   }
   tagsCondition.value = tagsCondition.value.map(tag => ({
     ...tag,

@@ -5,6 +5,7 @@
 </template>
 <!-- TODO mettere traduzioni per le lingue -->
 <script setup lang="ts">
+import type { TagCode } from '~/components/Molecules/ListingTag/ListingTag.types';
 import { TagType } from './tag.types';
 
 const props = defineProps({
@@ -18,7 +19,8 @@ const props = defineProps({
         default: "",
     },
     code: {
-        type: String
+        type: String as () => TagCode,
+        required: true
     }
 });
 

@@ -19,6 +19,8 @@ export enum Language {
     PO = "PO"
   }
 
+export type TagCode = TagCondition | Language
+
 export type TagStructure = {
     language: Language.IT | Language.EN | Language.JP,
     conditions: (TagCondition.NM| TagCondition.EX | TagCondition.GD | TagCondition.PL | TagCondition.PO) []

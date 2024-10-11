@@ -2,6 +2,7 @@ import { TagType } from "~/components/Atoms/Tag/tag.types";
 import type {
   Language,
   ListingTagProps,
+  TagCode,
   TagCondition,
   TagStructure,
   VariantDetail,
@@ -82,7 +83,7 @@ export const findActiveLanguage = (
 
 export const activateLanguage = (
   tagLanguage: ListingTagProps[],
-  code: string
+  code: TagCode
 ): ListingTagProps[] => {
   const text = findTextByCode(code);
   return tagLanguage.map((tag) => ({
@@ -135,7 +136,7 @@ const findCodeByText = (text: string): string | undefined => {
   return code;
 };
 
-const findTextByCode = (code: string): string | undefined => {
+const findTextByCode = (code: TagCode): string | undefined => {
   const allAvailable = [...availableConditions, ...availableLanguages];
   const text = allAvailable.find((item) => item.code === code)?.name;
   return text;
