@@ -97,5 +97,10 @@
   },
   "italiano": "italiano",
   "inglese": "inglese",
-  "giapponese": "giapponese"
+  "giapponese": "giapponese",
+  "listingCounter": {
+    "youHaveViewed": "Hai visualizzato",
+    "of": "di",
+    "products": "prodotti"
+  }
 }

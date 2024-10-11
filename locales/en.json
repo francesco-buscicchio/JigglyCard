@@ -59,5 +59,10 @@
   },
   "italiano": "italian",
   "inglese": "english",
-  "giapponese": "japan"
+  "giapponese": "japan",
+  "listingCounter": {
+    "youHaveViewed": "Viewing",
+    "of": "of",
+    "products": "products"
+  }
 }

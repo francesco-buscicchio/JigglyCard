@@ -17,3 +17,4 @@ export const availableConditions = [
   { code: "PO", name: "poor" },
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
+export const ITEMS_FOR_PAGE = 9;
