@@ -94,5 +94,8 @@
     "nameZtoA": "Nome (Z - A)",
     "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
     "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
-  }
+  },
+  "italiano": "italiano",
+  "inglese": "inglese",
+  "giapponese": "giapponese"
 }

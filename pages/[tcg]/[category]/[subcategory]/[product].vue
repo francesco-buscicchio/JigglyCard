@@ -15,7 +15,7 @@
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
 import { PRODUCTS_COLLECTION } from "~/data/const";
-import type { ListingTagProps, TagStructure, VariantDetail } from "~/components/Molecules/ListingTag/ListingTag.types";
+import type { ListingTagProps, TagStructure } from "~/components/Molecules/ListingTag/ListingTag.types";
 import { TagType } from "~/components/Atoms/Tag/tag.types";
 import { activateLanguage, createTagCondition, createTagLanguage, createTagsStructure, findActiveLanguage } from "./product.utils";
 

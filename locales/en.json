@@ -56,5 +56,8 @@
     "nameZtoA": "Name (Z - A)",
     "collecorsNumberLowest": "Collector's Number (lowest first)",
     "collecorsNumberHighest": "Collector's Number (highest first)"
-  }
+  },
+  "italiano": "italian",
+  "inglese": "english",
+  "giapponese": "japan"
 }
