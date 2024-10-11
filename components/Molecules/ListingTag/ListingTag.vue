@@ -1,8 +1,7 @@
 <template>
     <div class="flex gap-3 flex-wrap my-8">
-        <AtomsTag v-if="tags.length" v-for="(tag, index) in tags" 
-        :text="tag.text"  :type="getTagType(index)" :code="tag.code"
-        @tagClicked="handleTagClick"  />
+        <AtomsTag v-if="tags.length" v-for="(tag, index) in tags" :text="tag.text" :type="getTagType(index)"
+            :code="tag.code" @tagClicked="handleTagClick" />
     </div>
 </template>
 
@@ -27,19 +26,19 @@ watch(() => props.tags, (newTags) => {
 
 const getTagType = (index: number) => {
     if (props.tags[index].type === TagType.DISABLED) {
-        return TagType.DISABLED; 
+        return TagType.DISABLED;
     }
-    return index === activeTagIndex.value ? TagType.ACTIVE : TagType.INACTIVE; 
+    return index === activeTagIndex.value ? TagType.ACTIVE : TagType.INACTIVE;
 };
 
-const handleTagClick = (code: string ) => {
-    emit("handleTagClick",code)
+const handleTagClick = (code: string) => {
+    emit("handleTagClick", code)
 };
 const initializeActiveTag = () => {
     const firstActiveIndex = props.tags.findIndex(tag => tag.type === TagType.ACTIVE);
-    
+
     if (firstActiveIndex !== -1) {
-        activeTagIndex.value = firstActiveIndex; 
+        activeTagIndex.value = firstActiveIndex;
     } else {
         const firstNonDisabledIndex = props.tags.findIndex(tag => tag.type !== TagType.DISABLED);
         activeTagIndex.value = firstNonDisabledIndex !== -1 ? firstNonDisabledIndex : 0;
@@ -49,7 +48,5 @@ const initializeActiveTag = () => {
 onMounted(() => {
     initializeActiveTag();
 });
-
-
 
 </script>

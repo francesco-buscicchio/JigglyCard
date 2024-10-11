@@ -14,10 +14,10 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
-import { availableConditions, availableLanguages, PRODUCTS_COLLECTION } from "~/data/const";
+import { PRODUCTS_COLLECTION } from "~/data/const";
 import type { ListingTagProps, TagStructure, VariantDetail } from "~/components/Molecules/ListingTag/ListingTag.types";
 import { TagType } from "~/components/Atoms/Tag/tag.types";
-import { activateLanguage, createTagCondition, createTagLanguage, findActiveLanguage } from "./product.utils";
+import { activateLanguage, createTagCondition, createTagLanguage, createTagsStructure, findActiveLanguage } from "./product.utils";
 
 const product = ref();
 const config = useRuntimeConfig();
@@ -34,6 +34,7 @@ onMounted(async () => {
 const tagLanguage = ref<ListingTagProps[]>([]);
 const tagsCondition = ref<ListingTagProps[]>([]);
 let tagsStructure: TagStructure[]
+
 async function fetchData() {
   let results = await client.search({
     requests: [
@@ -48,40 +49,14 @@ async function fetchData() {
   setProduct(results.results[0]);
 }
 
-const createTagsStructure = (query: any): TagStructure[] => {
-  const variantsDetails: VariantDetail[] =
-    query.hits[0].variantsDetails;
-  const grouped: { [key in TagStructure["language"]]?: Set<VariantDetail["condition"]> } = {};
-
-  variantsDetails.forEach(variant => {
-    const { language, condition } = variant
-
-    if (!grouped[language]) {
-      grouped[language] = new Set();
-    }
-
-    grouped[language]?.add(condition);
-  })
-
-  const tagStructures: TagStructure[] = Object.entries(grouped).map(([lang, conditionsSet]) => ({
-    language: lang as TagStructure["language"],
-    conditions: Array.from(conditionsSet!) as TagStructure["conditions"],
-  }));
-
-  return tagStructures;
-
-}
-
-
-const setTags = (tagsStructure: TagStructure[]) => {
+const setTags = (tagsStructure: TagStructure[]): void => {
   tagLanguage.value = createTagLanguage(tagsStructure)
   const activeLanguage = findActiveLanguage(tagLanguage.value, tagsStructure)
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
   tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
 };
 
-
-function setProduct(queryResult: any) {
+const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
     const item = queryResult.hits[0];
     product.value = {
@@ -109,8 +84,7 @@ function formatTitle(title: string): string {
   return title.replace(/\s*\([^)]*\)/, "");
 }
 
-const handleTagClickLanguage = (code: string) => {
-  console.log(code, tagsStructure)
+const handleTagClickLanguage = (code: string): void => {
   const activeConditions = (tagsStructure.find(tag => tag.language === code))?.conditions
   if (activeConditions) {
     tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
@@ -118,7 +92,7 @@ const handleTagClickLanguage = (code: string) => {
   tagLanguage.value = activateLanguage(tagLanguage.value, code)
 };
 
-const handleTagClickCondition = (code: string) => {
+const handleTagClickCondition = (code: string): void => {
   const conditionSelected = tagsCondition.value.find(tag => tag.code === code)
   if (conditionSelected?.type === TagType.DISABLED) {
     const tagContainThisCondition = tagsStructure.find(tag => tag.conditions.some(cond => cond === conditionSelected?.code))
