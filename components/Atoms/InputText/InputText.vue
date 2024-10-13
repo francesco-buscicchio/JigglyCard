@@ -1,15 +1,8 @@
 <template>
   <div class="relative">
-    <input
-      type="text"
-      :class="inputClass"
-      v-model="inputValue"
-      :disabled="status === 'disabled'"
-      :placeholder="placeholder"
-    />
-    <span
-      class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-    >
+    <input type="text" :class="inputClass" v-model="inputValue" :disabled="status === 'disabled'"
+      :placeholder="placeholder" />
+    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
       <slot />
     </span>
   </div>
@@ -44,7 +37,7 @@ const inputClass = computed(() => {
     case "disabled":
       return "form-input w-full pl-3 pr-10 py-2 border border-neutrals-500 bg-neutrals-200 rounded-lg focus:border-neutrals-500 focus:ring-0";
     default:
-      return "form-input w-full pl-3 pr-10 py-2 border-2 border-accent-950 rounded-lg focus:border-accent-950 focus:ring-0 active:border-2";
+      return "form-input w-full pl-3 pr-10 py-2 border-2 border-accent-950 rounded-lg focus:border-accent-950 focus:ring-0 active:border-2 bg-transparent";
   }
 });
 

@@ -1,8 +1,7 @@
 <template>
     <div>
         <AtomsButtonCTA @click="togglePanel" type="secondary">
-            <h5> {{ $t('filters') }}
-            </h5>
+            <h5> {{ $t('filters') }} </h5>
         </AtomsButtonCTA>
 
         <transition name="fade">
@@ -19,6 +18,7 @@
                 </div>
 
                 <div>
+                    <!-- Categoria Filtri -->
                     <div v-for="(category, catIndex) in filterCategories" :key="category.id">
                         <MoleculesAccordion>
                             <template #header>
@@ -37,6 +37,7 @@
                         </MoleculesAccordion>
                     </div>
 
+                    <!-- Slider Prezzo -->
                     <div class="mx-6 mt-4">
                         <p>{{ $t('prezzo') }}</p>
                         <div class="flex items-center justify-center whitespace-nowrap mt-2">
@@ -47,8 +48,21 @@
                             <span class="ml-2 w-20">{{ $t('a') }} {{ selectedMaxPrice }}</span>
                         </div>
                     </div>
+
+                    <!-- Input Prezzo -->
+                    <div class="flex items-center my-6">
+                        <p class="ml-12 mr-6">Min</p>
+                        <AtomsInputText class="w-20" v-model="selectedMinPrice" :placeholder="''"
+                            @keydown="validateNumberInput($event)" @input="validatePriceInput('min', $event)" />
+                    </div>
+                    <div class="flex items-center">
+                        <p class="ml-12 mr-6">Max</p>
+                        <AtomsInputText class="w-20" v-model="selectedMaxPrice" :placeholder="''"
+                            @keydown="validateNumberInput($event)" @input="validatePriceInput('max', $event)" />
+                    </div>
                 </div>
 
+                <!-- Pulsanti -->
                 <div class="flex mt-4 mb-6 mr-6">
                     <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
                         <p>{{ $t('cancellaTuttiIFiltri') }}</p>
@@ -69,8 +83,6 @@ import { filterCategories } from "../../utils/filterData.ts";
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
-
-
 const selectedFilters = reactive<{ [key: string]: any }>({});
 
 function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: boolean) {
@@ -104,6 +116,27 @@ function updateMinPrice(value: number) {
 
 function updateMaxPrice(value: number) {
     selectedMaxPrice.value = Math.min(value, 5000);
+}
+
+function validateNumberInput(event: KeyboardEvent) {
+    // Blocca tutto tranne numeri e tasti di controllo (backspace, frecce, tab)
+    const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+    if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
+        event.preventDefault();
+    }
+}
+
+function validatePriceInput(type: 'min' | 'max', event: Event) {
+    const input = (event.target as HTMLInputElement).value;
+    const numericValue = parseInt(input, 10);
+
+    if (!isNaN(numericValue)) {
+        if (type === 'min') {
+            selectedMinPrice.value = Math.max(0, Math.min(numericValue, selectedMaxPrice.value));
+        } else {
+            selectedMaxPrice.value = Math.min(Math.max(numericValue, selectedMinPrice.value), 5000);
+        }
+    }
 }
 
 function applyFilters() {
@@ -169,7 +202,7 @@ watch(isOpen, (newValue) => {
     top: 0;
     right: 0;
     width: 100%;
-    max-width: 400px;
+    max-width: calc(100vw - 20px);
     height: 100%;
     z-index: 1000;
     border-top-left-radius: 8px;
@@ -184,7 +217,7 @@ watch(isOpen, (newValue) => {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1000;
 }
 
 .custom-checkbox {
