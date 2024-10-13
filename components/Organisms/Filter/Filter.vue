@@ -63,14 +63,17 @@
                 </div>
 
                 <!-- Pulsanti -->
-                <div class="flex mt-4 mb-6 mr-6">
-                    <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-                        <p>{{ $t('cancellaTuttiIFiltri') }}</p>
-                    </AtomsButtonCTA>
-                    <AtomsButtonCTA @click="applyFilters">
-                        <h5>{{ $t('applica') }}</h5>
-                    </AtomsButtonCTA>
+                <div class="bottom-container">
+                    <div class="flex mt-4 mb-6 mr-6">
+                        <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
+                            <p>{{ $t('cancellaTuttiIFiltri') }}</p>
+                        </AtomsButtonCTA>
+                        <AtomsButtonCTA @click="applyFilters">
+                            <h5>{{ $t('applica') }}</h5>
+                        </AtomsButtonCTA>
+                    </div>
                 </div>
+
             </div>
         </transition>
     </div>
@@ -222,5 +225,9 @@ watch(isOpen, (newValue) => {
 
 .custom-checkbox {
     border: 1px solid #003849;
+}
+
+.bottom-container {
+    margin-top: calc(100vw - 20vh);
 }
 </style>
