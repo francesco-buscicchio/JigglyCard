@@ -99,5 +99,10 @@
     "youHaveViewed": "Hai visualizzato",
     "of": "di",
     "products": "prodotti"
+  },
+  "footerLinks": {
+    "about": "About",
+    "spedizioni-resi-rimborsi": "Spedizioni, resi e rimborsi",
+    "assistenza": "Assistenza"
   }
 }

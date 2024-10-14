@@ -61,5 +61,10 @@
     "youHaveViewed": "Viewing",
     "of": "of",
     "products": "products"
+  },
+  "footerLinks": {
+    "about": "About",
+    "spedizioni-resi-rimborsi": "Shipping, returns, and refunds",
+    "assistenza": "Support"
   }
 }
