@@ -37,7 +37,6 @@
 
 <script setup lang="ts">
 import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
-import { algoliasearch } from "algoliasearch";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
@@ -52,10 +51,7 @@ const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
 const setHeroBanner: Ref<ProductType[]> = ref([]);
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 

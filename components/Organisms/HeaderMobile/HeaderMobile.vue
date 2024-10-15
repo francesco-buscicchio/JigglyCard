@@ -74,7 +74,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useHead } from "#app";
-import { algoliasearch } from "algoliasearch";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
@@ -86,10 +85,7 @@ const noResults = computed(
 );
 
 const config = useRuntimeConfig();
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 
 watch(isMenuOpen, (newValue) => {
   useHead({

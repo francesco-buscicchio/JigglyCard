@@ -95,7 +95,6 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
-import { algoliasearch } from "algoliasearch";
 import { FILTERS_COLLECTION } from "~/data/const";
 
 const isOpen = ref(false);
@@ -105,10 +104,7 @@ const selectedFilters = reactive<{ [key: string]: any }>({});
 const config = useRuntimeConfig();
 
 const filterCategories = ref();
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 
 onMounted(async () => {
   let results = await client.searchSingleIndex({
