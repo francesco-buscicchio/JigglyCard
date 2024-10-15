@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 const { t, locale } = useI18n();
+const config = useRuntimeConfig();
 
 const email = ref("");
 const buttonNewsLetter = t("buttonNewsLetter");
@@ -52,7 +53,7 @@ const mailAction = async (email: string) => {
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: "jigglycard@gmail.com",
+    email: config.public.ADMIN_MAIL,
     name: "Jigglycard Store",
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToAdmin(userName, email),

@@ -1,7 +1,10 @@
 <template>
   <div class="gap-2 bg-main-400 pb-8 w-full">
     <div class="flex flex-col mb-4">
-      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex">
+      <div
+        v-for="(section, sectionIndex) in sections"
+        :key="'section-' + sectionIndex"
+      >
         <MoleculesAccordion>
           <template #header>
             <p>{{ section.title }}</p>
@@ -24,7 +27,7 @@
     <MoleculesPaymentMethods v-if="!hidePayments" />
 
     <div v-if="showInformationSite" class="w-full text-center">
-      <p>jigglycard@gmail.com</p>
+      <p>{{ config.public.MAIL_ADMIN }}</p>
     </div>
 
     <MoleculesSocialLinks :imgs="footer.imgs" />
@@ -43,6 +46,7 @@
 <script setup lang="ts">
 import { type SocialLinksType } from "~/components/Molecules/SocialLinks/SocialLinks.vue";
 
+const config = useRuntimeConfig();
 const props = defineProps({
   sections: {
     type: Array as PropType<
