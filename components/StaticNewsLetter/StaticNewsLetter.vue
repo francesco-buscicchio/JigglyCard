@@ -29,6 +29,7 @@ import { sendMail } from "../../utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
 
 const client = useMedusaClient();
+const config = useRuntimeConfig();
 const { t, locale } = useI18n();
 const email = ref("");
 
@@ -68,7 +69,7 @@ const mailAction = async () => {
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: "jigglycard@gmail.com",
+    email: config.public.useRuntimeConfig,
     name: "Jigglycard Store",
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToAdmin(userName, email.value),
