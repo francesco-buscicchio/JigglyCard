@@ -22,7 +22,6 @@
     "algoliasearch": "5.4.3",
     "axios": "^1.7.2",
     "consola": "^3.2.3",
-    "firebase": "^10.8.1",
     "nuxt": "^3.10.3",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.3",
