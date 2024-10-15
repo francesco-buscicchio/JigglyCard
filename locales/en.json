@@ -73,5 +73,10 @@
     "false": "not available",
     "NA": "other",
     "pokemon": "pokemon"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Viewing",
+    "of": "of",
+    "products": "products"
   }
 }
