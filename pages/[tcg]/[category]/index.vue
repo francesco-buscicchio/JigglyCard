@@ -5,10 +5,16 @@
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
       <div class="pb-6">
-        <OrganismsFilter @filterUpdate="filterUpdate" />
+        <OrganismsFilter
+          @filterUpdate="filterUpdate"
+          :filters="filtersAppliedOrganismFilter"
+        />
       </div>
 
-      <OrganismsListingFilters />
+      <OrganismsListingFilters
+        :filters="filtersAppliedOrganismsListingFilters"
+        @update-filters="updateFiltersApplied"
+      />
 
       <div class="pb-6 flex flex-row justify-between items-center">
         <MoleculesItemsCounter
@@ -52,6 +58,8 @@ const totalItems = ref(0);
 const itemsPerPage = ref(9);
 const currentPage = ref(1);
 const currentSorting = ref("");
+const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
+const filtersAppliedOrganismFilter = ref<string[]>([]);
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -59,7 +67,15 @@ onMounted(async () => {
 });
 
 function filterUpdate(e: any) {
-  console.log(e);
+  let allValues: string[] = [];
+
+  for (const key in e) {
+    if (Array.isArray(e[key])) {
+      allValues.push(...e[key]);
+    }
+  }
+
+  filtersAppliedOrganismsListingFilters.value = allValues;
 }
 
 function changePage(event: number) {
@@ -75,6 +91,10 @@ function handleSorting(event: string) {
 function calculateCollection() {
   return `${PRODUCTS_COLLECTION}${currentSorting.value}`;
 }
+
+const updateFiltersApplied = (newFilters: any) => {
+  filtersAppliedOrganismFilter.value = newFilters;
+};
 
 async function fetchData() {
   let results = await client.search({

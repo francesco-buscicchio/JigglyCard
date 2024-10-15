@@ -6,8 +6,8 @@
     >
       <AtomsFilterTag
         v-for="item of filterList"
-        :text="item"
-        @remove-filter="removeFilter"
+        :text="t(`filter.${item}`)"
+        @remove-filter="removeFilter(item)"
       />
     </div>
     <AtomsButtonCTA
@@ -22,17 +22,25 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const { t } = useI18n();
+const emit = defineEmits(["update-filters"]);
+
+const filterList = ref<String[]>([]);
 const props = defineProps({
   filters: Array<String>,
 });
 
-const filterList = ref(props.filters ?? []);
+watch(props, () => {
+  filterList.value = props.filters ?? [];
+});
 
 const removeAllFilter = () => {
   filterList.value = [];
+  emit("update-filters", filterList.value);
 };
 
-const removeFilter = (item: string) => {
+const removeFilter = (item: String) => {
   filterList.value = filterList.value.filter((val) => val !== item);
+  emit("update-filters", filterList.value);
 };
 </script>
