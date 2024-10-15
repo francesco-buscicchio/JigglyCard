@@ -44,10 +44,8 @@
                       updateCheckboxValue(catIndex, index, $event)
                     "
                     class="mr-6 bg-white custom-checkbox"
-                  >
-                    {{ item }}
-                  </AtomsCheckbox>
-                  <p class="text-left">{{ $t(`filter.${item}`) }}</p>
+                  />
+                  <p class="text-left">{{ $t(`filter.${item.name}`) }}</p>
                 </div>
               </div>
             </MoleculesAccordion>
@@ -97,20 +95,50 @@
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
 
+const props = defineProps({
+  filters: Array<String>,
+});
+
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 const selectedFilters = reactive<{ [key: string]: any }>({});
 const config = useRuntimeConfig();
+const filterList = ref<String[]>([]);
 
 const filterCategories = ref();
 const client = useAlgolia();
+
+watch(props, () => {
+  filterList.value = props.filters ?? [];
+  updateSelectedFilters();
+});
+
+function updateSelectedFilters() {
+  resetAllFilters();
+  if (filterList.value.length) {
+    for (let filter of filterCategories.value) {
+      for (let value of filter.value) {
+        if (filterList.value.includes(value.name)) {
+          value.checked = true;
+        }
+      }
+    }
+  }
+}
 
 onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-  filterCategories.value = results.hits;
+
+  filterCategories.value = results.hits.map((filter: any) => ({
+    ...filter,
+    value: filter.value.map((language: any) => ({
+      name: language,
+      checked: false,
+    })),
+  }));
 });
 
 const emit = defineEmits(["filterUpdate"]);
@@ -121,7 +149,7 @@ function updateCheckboxValue(
   value: boolean
 ) {
   const category = filterCategories.value[categoryIndex];
-  const filter = category.filters[filterIndex];
+  const filter = category.value[filterIndex];
 
   filter.checked = value;
 
@@ -158,13 +186,20 @@ function applyFilters() {
     max: selectedMaxPrice.value,
   };
 
-  emit("filterUpdate", toRaw(selectedFilters));
+  const result = filterCategories.value.reduce((acc: any, item: any) => {
+    acc[item.name] = item.value
+      .filter((val: any) => val.checked)
+      .map((val: any) => val.name);
+    return acc;
+  }, {});
+
+  emit("filterUpdate", result);
   isOpen.value = false;
 }
 
 function resetAllFilters() {
-  filterCategories.value.forEach((category) => {
-    category.filters.forEach((filter) => {
+  filterCategories.value.forEach((category: any) => {
+    category.value.forEach((filter: any) => {
       filter.checked = false;
     });
   });
