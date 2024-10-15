@@ -4,7 +4,7 @@ import { algoliasearch } from "algoliasearch";
 import { config } from "dotenv";
 
 config();
-let url = "https://server.serverjigglycards.com/store/products";
+let url = process.env.SERVER_PRODUCTS;
 let settings = { method: "Get" };
 
 const client = algoliasearch(
