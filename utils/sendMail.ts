@@ -1,5 +1,3 @@
-import { email } from "@formkit/icons";
-
 export type sendMailProps = {
   email: string;
   name: string;
@@ -8,6 +6,7 @@ export type sendMailProps = {
 };
 
 export async function sendMail(mailData: sendMailProps) {
+  const config = useRuntimeConfig();
   let msg = {
     personalizations: [
       {
@@ -20,7 +19,7 @@ export async function sendMail(mailData: sendMailProps) {
       },
     ],
     from: {
-      email: "jigglycard@gmail.com",
+      email: config.public.ADMIN_MAIL,
       name: "Jigglycard",
     },
     subject: mailData.subject,

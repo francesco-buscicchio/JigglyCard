@@ -1,7 +1,7 @@
 <template>
   <div>
     <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5> {{ $t('filters') }} </h5>
+      <h5>{{ $t("filters") }}</h5>
     </AtomsButtonCTA>
 
     <transition name="fade">
@@ -10,70 +10,50 @@
 
     <transition name="slide-right">
       <div v-show="isOpen" class="filter-panel bg-accent-50">
-        <div class="flex items-center justify-between mt-4">
-          <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
+        <div class="flex items-center justify-between mt-4 mb-4">
+          <Icon name="jig:close-accent" class="ml-6" size="20" @click="togglePanel"></Icon>
           <h5 class="text-center w-full mr-18">
-            {{ $t('filters') }}
+            {{ $t("filters") }}
           </h5>
         </div>
 
         <div>
-          <!-- Categoria Filtri -->
           <div v-for="(category, catIndex) in filterCategories" :key="category.id">
             <MoleculesAccordion>
               <template #header>
-                <p>{{ category.name }}</p>
+                <p>{{ $t(`filter.${category.name}`) }}</p>
               </template>
-              <div v-for="(item, index) in category.filters" :key="item.id" class="mb-4">
+              <div v-for="(item, index) in category.value" :key="item.id" class="mb-4">
                 <div class="flex items-center ml-6">
-                  <AtomsCheckbox :id="item.id.toString" :modelValue="item.checked"
-                    @update:modelValue="updateCheckboxValue(catIndex, index, $event)"
-                    class="mr-6 bg-white custom-checkbox">
-                    {{ item.name }}
-                  </AtomsCheckbox>
-                  <p class="text-left">{{ item.name }}</p>
+                  <AtomsCheckbox :id="index.toString()" :modelValue="item.checked" @update:modelValue="
+                    updateCheckboxValue(catIndex, index, $event)
+                    " class="mr-6 bg-white custom-checkbox" />
+                  <p class="text-left">{{ $t(`filter.${item.name}`) }}</p>
                 </div>
               </div>
             </MoleculesAccordion>
           </div>
 
-          <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t('prezzo') }}</p>
+            <p>{{ $t("prezzo") }}</p>
             <div class="flex items-center justify-center whitespace-nowrap mt-2">
-              <span class="mr-2 w-20">{{ $t('da') }} {{ selectedMinPrice }}</span>
+              <span class="mr-2 w-20">{{ $t("da") }} {{ selectedMinPrice }}</span>
               <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
                 :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
                 @update:maxPrice="updateMaxPrice($event)" />
-              <span class="ml-2 w-20">{{ $t('a') }} {{ selectedMaxPrice }}</span>
+              <span class="ml-2 w-20">{{ $t("a") }} {{ selectedMaxPrice }}</span>
             </div>
           </div>
-
-          <!-- Input Prezzo -->
-          <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">Min</p>
-            <AtomsInputText class="w-20" v-model="selectedMinPrice" :placeholder="''"
-              @keydown="validateNumberInput($event)" @input="validatePriceInput('min', $event)" />
-          </div>
-          <div class="flex items-center">
-            <p class="ml-12 mr-6">Max</p>
-            <AtomsInputText class="w-20" v-model="selectedMaxPrice" :placeholder="''"
-              @keydown="validateNumberInput($event)" @input="validatePriceInput('max', $event)" />
-          </div>
         </div>
 
-        <!-- Pulsanti -->
-        <div class="bottom-container">
-          <div class="flex mt-4 mb-6 mr-6">
-            <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-              <p>{{ $t('cancellaTuttiIFiltri') }}</p>
-            </AtomsButtonCTA>
-            <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ $t('applica') }}</h5>
-            </AtomsButtonCTA>
-          </div>
+        <div class="flex mt-4 mb-6 mr-6">
+          <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
+            <p>{{ $t("cancellaTuttiIFiltri") }}</p>
+          </AtomsButtonCTA>
+          <AtomsButtonCTA @click="applyFilters">
+            <h5>{{ $t("applica") }}</h5>
+          </AtomsButtonCTA>
         </div>
-
       </div>
     </transition>
   </div>
@@ -81,16 +61,63 @@
 
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
-import { filterCategories } from "../../../utils/filterData";
+import { FILTERS_COLLECTION } from "~/data/const";
+
+const props = defineProps({
+  filters: Array<String>,
+});
 
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 const selectedFilters = reactive<{ [key: string]: any }>({});
+const config = useRuntimeConfig();
+const filterList = ref<String[]>([]);
 
-function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: boolean) {
+const filterCategories = ref();
+const client = useAlgolia();
+
+watch(props, () => {
+  filterList.value = props.filters ?? [];
+  updateSelectedFilters();
+});
+
+function updateSelectedFilters() {
+  resetAllFilters();
+  if (filterList.value.length) {
+    for (let filter of filterCategories.value) {
+      for (let value of filter.value) {
+        if (filterList.value.includes(value.name)) {
+          value.checked = true;
+        }
+      }
+    }
+  }
+}
+
+onMounted(async () => {
+  let results = await client.searchSingleIndex({
+    indexName: FILTERS_COLLECTION,
+  });
+
+  filterCategories.value = results.hits.map((filter: any) => ({
+    ...filter,
+    value: filter.value.map((language: any) => ({
+      name: language,
+      checked: false,
+    })),
+  }));
+});
+
+const emit = defineEmits(["filterUpdate"]);
+
+function updateCheckboxValue(
+  categoryIndex: number,
+  filterIndex: number,
+  value: boolean
+) {
   const category = filterCategories.value[categoryIndex];
-  const filter = category.filters[filterIndex];
+  const filter = category.value[filterIndex];
 
   filter.checked = value;
 
@@ -121,49 +148,35 @@ function updateMaxPrice(value: number) {
   selectedMaxPrice.value = Math.min(value, 5000);
 }
 
-function validateNumberInput(event: KeyboardEvent) {
-  // Blocca tutto tranne numeri e tasti di controllo (backspace, frecce, tab)
-  const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
-  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
-    event.preventDefault();
-  }
-}
-
-function validatePriceInput(type: 'min' | 'max', event: Event) {
-  const input = (event.target as HTMLInputElement).value;
-  const numericValue = parseInt(input, 10);
-
-  if (!isNaN(numericValue)) {
-    if (type === 'min') {
-      selectedMinPrice.value = Math.max(0, Math.min(numericValue, selectedMaxPrice.value));
-    } else {
-      selectedMaxPrice.value = Math.min(Math.max(numericValue, selectedMinPrice.value), 5000);
-    }
-  }
-}
-
 function applyFilters() {
-  selectedFilters['Prezzo'] = {
+  selectedFilters["Prezzo"] = {
     min: selectedMinPrice.value,
-    max: selectedMaxPrice.value
+    max: selectedMaxPrice.value,
   };
 
-  console.log("Filtri applicati:", selectedFilters);
+  const result = filterCategories.value.reduce((acc: any, item: any) => {
+    acc[item.name] = item.value
+      .filter((val: any) => val.checked)
+      .map((val: any) => val.name);
+    return acc;
+  }, {});
+
+  emit("filterUpdate", result);
   isOpen.value = false;
 }
 
 function resetAllFilters() {
-  filterCategories.value.forEach(category => {
-    category.filters.forEach(filter => {
+  filterCategories.value.forEach((category: any) => {
+    category.value.forEach((filter: any) => {
       filter.checked = false;
     });
   });
-  Object.keys(selectedFilters).forEach(key => {
+  Object.keys(selectedFilters).forEach((key) => {
     delete selectedFilters[key];
   });
   selectedMinPrice.value = 0;
   selectedMaxPrice.value = 5000;
-  selectedFilters['Prezzo'] = { min: 0, max: 5000 };
+  selectedFilters["Prezzo"] = { min: 0, max: 5000 };
 }
 
 function togglePanel() {
@@ -171,7 +184,7 @@ function togglePanel() {
 }
 
 watch(isOpen, (newValue) => {
-  document.body.style.overflow = newValue ? 'hidden' : '';
+  document.body.style.overflow = newValue ? "hidden" : "";
 });
 </script>
 
@@ -206,6 +219,7 @@ watch(isOpen, (newValue) => {
   right: 0;
   width: 100%;
   max-width: calc(100vw - 20px);
+  max-width: 400px;
   height: 100%;
   z-index: 1000;
   border-top-left-radius: 8px;
@@ -221,6 +235,8 @@ watch(isOpen, (newValue) => {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+  z-index: 999;
+
 }
 
 .custom-checkbox {

@@ -4,12 +4,30 @@
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
-    <OrganismsProductCarouselWeb v-if="isDesktopView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
-    <OrganismsProductCarousel v-if="isMobileView" :title="$t('highlights')" :products="evidenza" colorScheme="lightHome" />
+    <OrganismsProductCarouselWeb
+      v-if="isDesktopView"
+      :title="$t('highlights')"
+      :products="evidenza"
+      colorScheme="lightHome"
+    />
+    <OrganismsProductCarousel
+      v-if="isMobileView"
+      :title="$t('highlights')"
+      :products="evidenza"
+      colorScheme="lightHome"
+    />
 
-    <OrganismsProductCarousel :title="$t('whatsnew')" :products="novita" colorScheme="primaryHome" />
+    <OrganismsProductCarousel
+      :title="$t('whatsnew')"
+      :products="novita"
+      colorScheme="primaryHome"
+    />
 
-    <OrganismsProductCarousel :title="$t('deals')" :products="offerte" colorScheme="lightHome" />
+    <OrganismsProductCarousel
+      :title="$t('deals')"
+      :products="offerte"
+      colorScheme="lightHome"
+    />
 
     <div class="px-4 pb-4">
       <OrganismsServiceBanner :sections="sectionsDataService" />
@@ -18,15 +36,13 @@
 </template>
 
 <script setup lang="ts">
-import Ossidiana from "~/assets/img/Ossidiana.jpg";
 import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
-import { algoliasearch } from "algoliasearch";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
   WHATSNEW_TAG,
   DEALS_TAG,
-  HEROBANNER_TAG
+  HEROBANNER_TAG,
 } from "~/data/const";
 const { t } = useI18n();
 
@@ -35,12 +51,9 @@ const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
 const setHeroBanner: Ref<ProductType[]> = ref([]);
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
-const isMobileView = isMobile()
-const isDesktopView = isDesktop()
+const client = useAlgolia();
+const isMobileView = isMobile();
+const isDesktopView = isDesktop();
 
 onMounted(async () => {
   let results = await client.searchSingleIndex({
@@ -98,11 +111,9 @@ function setProducts(queryResult: any) {
           break;
       }
     }
-
   }
   setHeroBanner.value = heroBannerTemp.slice(-3);
 }
-
 
 useHead({
   title: "Jigglycard",
