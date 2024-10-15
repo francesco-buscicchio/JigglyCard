@@ -37,17 +37,13 @@
 </template>
 
 <script setup lang="ts">
-import { algoliasearch } from "algoliasearch";
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 const products: Ref<ProductType[]> = ref([]);
 
 const config = useRuntimeConfig();
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 const route = useRoute();
 const totalItems = ref(0);
 const currentPage = ref(1);
