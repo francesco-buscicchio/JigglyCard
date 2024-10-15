@@ -1,7 +1,7 @@
 <template>
   <div>
     <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5>{{ $t("filters") }}</h5>
+      <h5> {{ $t('filters') }} </h5>
     </AtomsButtonCTA>
 
     <transition name="fade">
@@ -10,14 +10,15 @@
 
     <transition name="slide-right">
       <div v-show="isOpen" class="filter-panel bg-accent-50">
-        <div class="flex items-center justify-between mt-4 mb-4">
-          <Icon name="jig:close-accent" class="ml-6" size="20" @click="togglePanel"></Icon>
+        <div class="flex items-center justify-between mt-4">
+          <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
           <h5 class="text-center w-full mr-18">
-            {{ $t("filters") }}
+            {{ $t('filters') }}
           </h5>
         </div>
 
         <div>
+          <!-- Categoria Filtri -->
           <div v-for="(category, catIndex) in filterCategories" :key="category.id">
             <MoleculesAccordion>
               <template #header>
@@ -34,26 +35,43 @@
             </MoleculesAccordion>
           </div>
 
+          <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t("prezzo") }}</p>
+            <p>{{ $t('prezzo') }}</p>
             <div class="flex items-center justify-center whitespace-nowrap mt-2">
-              <span class="mr-2 w-20">{{ $t("da") }} {{ selectedMinPrice }}</span>
+              <span class="mr-2 w-20">{{ $t('da') }} {{ selectedMinPrice }}</span>
               <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
                 :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
                 @update:maxPrice="updateMaxPrice($event)" />
-              <span class="ml-2 w-20">{{ $t("a") }} {{ selectedMaxPrice }}</span>
+              <span class="ml-2 w-20">{{ $t('a') }} {{ selectedMaxPrice }}</span>
             </div>
+          </div>
+
+          <!-- Input Prezzo -->
+          <div class="flex items-center my-6">
+            <p class="ml-12 mr-6">Min</p>
+            <AtomsInputText class="w-20" v-model="selectedMinPrice" :placeholder="''"
+              @keydown="validateNumberInput($event)" @input="validatePriceInput('min', $event)" />
+          </div>
+          <div class="flex items-center">
+            <p class="ml-12 mr-6">Max</p>
+            <AtomsInputText class="w-20" v-model="selectedMaxPrice" :placeholder="''"
+              @keydown="validateNumberInput($event)" @input="validatePriceInput('max', $event)" />
           </div>
         </div>
 
-        <div class="flex mt-4 mb-6 mr-6">
-          <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-            <p>{{ $t("cancellaTuttiIFiltri") }}</p>
-          </AtomsButtonCTA>
-          <AtomsButtonCTA @click="applyFilters">
-            <h5>{{ $t("applica") }}</h5>
-          </AtomsButtonCTA>
+        <!-- Pulsanti -->
+        <div class="bottom-container">
+          <div class="flex mt-4 mb-6 mr-6">
+            <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
+              <p>{{ $t('cancellaTuttiIFiltri') }}</p>
+            </AtomsButtonCTA>
+            <AtomsButtonCTA @click="applyFilters">
+              <h5>{{ $t('applica') }}</h5>
+            </AtomsButtonCTA>
+          </div>
         </div>
+
       </div>
     </transition>
   </div>
@@ -62,26 +80,17 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
-
 const props = defineProps({
   filters: Array<String>,
 });
-
-const isOpen = ref(false);
-const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(5000);
-const selectedFilters = reactive<{ [key: string]: any }>({});
 const config = useRuntimeConfig();
 const filterList = ref<String[]>([]);
-
 const filterCategories = ref();
 const client = useAlgolia();
-
 watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
 });
-
 function updateSelectedFilters() {
   resetAllFilters();
   if (filterList.value.length) {
@@ -99,7 +108,6 @@ onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-
   filterCategories.value = results.hits.map((filter: any) => ({
     ...filter,
     value: filter.value.map((language: any) => ({
@@ -111,11 +119,12 @@ onMounted(async () => {
 
 const emit = defineEmits(["filterUpdate"]);
 
-function updateCheckboxValue(
-  categoryIndex: number,
-  filterIndex: number,
-  value: boolean
-) {
+const isOpen = ref(false);
+const selectedMinPrice = ref(0);
+const selectedMaxPrice = ref(5000);
+const selectedFilters = reactive<{ [key: string]: any }>({});
+
+function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: boolean) {
   const category = filterCategories.value[categoryIndex];
   const filter = category.value[filterIndex];
 
@@ -148,19 +157,37 @@ function updateMaxPrice(value: number) {
   selectedMaxPrice.value = Math.min(value, 5000);
 }
 
+function validateNumberInput(event: KeyboardEvent) {
+  const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
+    event.preventDefault();
+  }
+}
+
+function validatePriceInput(type: 'min' | 'max', event: Event) {
+  const input = (event.target as HTMLInputElement).value;
+  const numericValue = parseInt(input, 10);
+
+  if (!isNaN(numericValue)) {
+    if (type === 'min') {
+      selectedMinPrice.value = Math.max(0, Math.min(numericValue, selectedMaxPrice.value));
+    } else {
+      selectedMaxPrice.value = Math.min(Math.max(numericValue, selectedMinPrice.value), 5000);
+    }
+  }
+}
+
 function applyFilters() {
   selectedFilters["Prezzo"] = {
     min: selectedMinPrice.value,
     max: selectedMaxPrice.value,
   };
-
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
       .map((val: any) => val.name);
     return acc;
   }, {});
-
   emit("filterUpdate", result);
   isOpen.value = false;
 }
@@ -184,7 +211,7 @@ function togglePanel() {
 }
 
 watch(isOpen, (newValue) => {
-  document.body.style.overflow = newValue ? "hidden" : "";
+  document.body.style.overflow = newValue ? 'hidden' : '';
 });
 </script>
 
@@ -219,7 +246,6 @@ watch(isOpen, (newValue) => {
   right: 0;
   width: 100%;
   max-width: calc(100vw - 20px);
-  max-width: 400px;
   height: 100%;
   z-index: 1000;
   border-top-left-radius: 8px;
@@ -235,8 +261,6 @@ watch(isOpen, (newValue) => {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  z-index: 999;
-
 }
 
 .custom-checkbox {
@@ -244,6 +268,6 @@ watch(isOpen, (newValue) => {
 }
 
 .bottom-container {
-  margin-top: calc(100vw - 20vh);
+  margin-top: 20vh;
 }
 </style>
