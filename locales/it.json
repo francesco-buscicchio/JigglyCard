@@ -95,6 +95,23 @@
     "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
     "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
   },
+  "filter": {
+    "language": "Lingua",
+    "condition": "Condizioni",
+    "brand": "Brand",
+    "available": "Disponibile",
+    "IT": "italiano",
+    "EN": "inglese",
+    "NM": "near mint",
+    "EX": "excellent",
+    "PL": "played",
+    "PO": "poor",
+    "GD": "good",
+    "true": "disponibile",
+    "false": "non disponibile",
+    "NA": "altro",
+    "pokemon": "pokemon"
+  },
   "listingCounter": {
     "youHaveViewed": "Hai visualizzato",
     "of": "di",

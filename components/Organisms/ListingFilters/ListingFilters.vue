@@ -1,6 +1,5 @@
 <template>
-  <div class="py-4 flex flex-col gap-y-4">
-    <AtomsButtonCTA type="secondary" :text="$t('filters')" />
+  <div class="flex flex-col gap-y-4">
     <div
       class="flex flex-row items-start flex-wrap gap-2"
       v-if="filterList.length"
