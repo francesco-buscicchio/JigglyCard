@@ -1,12 +1,15 @@
 <template>
     <div>
-        <p class="px-6">{{ $t('pagamentiCon') }}</p>
-        <div class="grid grid-cols-4 mb-4 px-4">
-            <div v-for="(payment, index) in paymentMethods" :key="index" class="flex justify-center items-center">
-                <a :href="payment.link" @click="iconSocialPressed(payment.link)">
-                    <img :src="payment.src" :alt="payment.alt" class="mt-2 w-18 h-10" />
-                </a>
+        <p class="px-6 lg:text-center">{{ $t('pagamentiCon') }}</p>
+        <div class="flex justify-center w-full">
+            <div class="grid grid-cols-4 m-4 px-4 max-w-[450px] gap-5">
+                <div v-for="(payment, index) in paymentMethods" :key="index" class="flex justify-center items-center">
+                    <a :href="payment.link" @click="iconSocialPressed(payment.link)">
+                        <img :src="payment.src" :alt="payment.alt" class="mt-2 w-18 h-10" />
+                    </a>
+                </div>
             </div>
+
         </div>
     </div>
 </template>
