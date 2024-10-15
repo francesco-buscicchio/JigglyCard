@@ -56,6 +56,7 @@ const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 
 onMounted(async () => {
+  //todo: cercare una soluzione per un'unica query
   let results = await client.searchSingleIndex({
     indexName: PRODUCTS_COLLECTION,
     searchParams: { query: HIGHLIGHTS_TAG },
