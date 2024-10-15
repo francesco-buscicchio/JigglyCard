@@ -7,6 +7,6 @@ export const ITEMS_FOR_PAGE = 9;
 // TODO: controllare se le route sono corrette
 export const FOOTER_MENU_ITEMS = [
     { link: "about", route: "/about" },
-    { link: "spedizioni-resi-rimborsi", route: "/spedizioni" },
-    { link: "assistenza", route: "/assistenza" }
+    { link: "shipping", route: "/spedizioni" },
+    { link: "support", route: "/assistenza" }
   ];

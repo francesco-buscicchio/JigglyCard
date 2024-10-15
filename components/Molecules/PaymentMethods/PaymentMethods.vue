@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="px-6 lg:text-center">{{ $t('pagamentiCon') }}</p>
+        <p class="px-6 lg:text-center">{{ $t('payments.terms') }}</p>
         <div class="flex justify-center w-full">
             <div class="grid grid-cols-4 m-4 px-4 max-w-[450px] gap-5">
                 <div v-for="(payment, index) in paymentMethods" :key="index" class="flex justify-center items-center">

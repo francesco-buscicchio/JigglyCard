@@ -30,7 +30,6 @@
   "captionNewsletterShort": "Stay up-to-date with a click without filling your inbox. Sign up for 15% off your first purchase of non-promotion items!",
   "footerNewsLetter": "Join our community and take advantage of special offers, straight to your email inbox!",
   "startingFrom": "starting from",
-  "pagamentiCon": "payments with",
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "terms of use",
@@ -64,7 +63,10 @@
   },
   "footerLinks": {
     "about": "About",
-    "spedizioni-resi-rimborsi": "Shipping, returns, and refunds",
-    "assistenza": "Support"
+    "shipping": "Shipping, returns, and refunds",
+    "support": "Support"
+  },
+  "payments": {
+  "terms": "payments with"
   }
 }
