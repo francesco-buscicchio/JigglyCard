@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import paypal from "../../../assets/img/paypal.png";
 
 type PaymentMethodType = {
     src: string;
@@ -23,10 +23,10 @@ type PaymentMethodType = {
     link: string;
 };
 
-const paymentMethods = ref<PaymentMethodType[]>([
+const paymentMethods: PaymentMethodType[] = [
     {
-        src: "https://via.placeholder.com/100x50?text=Pay1",
-        alt: "Pay Method 1",
+        src: paypal,
+        alt: "paypal",
         link: "#",
     },
     {
@@ -44,7 +44,7 @@ const paymentMethods = ref<PaymentMethodType[]>([
         alt: "Pay Method 4",
         link: "#",
     },
-]);
+];
 
 const iconSocialPressed = (url: string) => {
     navigateTo(url, {
