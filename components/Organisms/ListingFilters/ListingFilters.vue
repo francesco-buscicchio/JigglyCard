@@ -22,12 +22,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const filterList = ref([
-  "inglese",
-  "disponibile",
-  "carte singole",
-  "prima edizione",
-]);
+const props = defineProps({
+  filters: Array<String>,
+});
+
+const filterList = ref(props.filters ?? []);
 
 const removeAllFilter = () => {
   filterList.value = [];
