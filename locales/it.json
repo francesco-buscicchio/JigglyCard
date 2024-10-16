@@ -30,7 +30,6 @@
   "buttonNewsLetter": "Iscriviti",
   "footerNewsLetter": "Inserendo la mail verrai inserito nei nostri sistemi cosi da tenerti aggiornato sulle novita e sugli sconti",
   "startingFrom": "a partire da",
-  "pagamentiCon": "pagamenti con",
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "termini di utilizzo",
@@ -118,5 +117,14 @@
     "youHaveViewed": "Hai visualizzato",
     "of": "di",
     "products": "prodotti"
+  },
+  "footerLinks": {
+    "about": "About",
+    "shipping": "Spedizioni, resi e rimborsi",
+    "support": "Assistenza"
+  },
+  "payments": {
+  "terms": "pagamenti con"
   }
+
 }
