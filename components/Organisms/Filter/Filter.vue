@@ -246,6 +246,8 @@ watch(isOpen, (newValue) => {
   right: 0;
   width: 100%;
   max-width: calc(100vw - 20px);
+  display: flex;
+  flex-direction: column;
   height: 100%;
   z-index: 1000;
   border-top-left-radius: 8px;
@@ -268,6 +270,7 @@ watch(isOpen, (newValue) => {
 }
 
 .bottom-container {
-  margin-top: 20vh;
+  margin-top: auto;
+  padding: 16px;
 }
 </style>
