@@ -1,11 +1,11 @@
 <template>
     <div class="p-2">
-        <div class="title">
+        <div>
             <h5>
                 <slot name="title"></slot>
             </h5>
         </div>
-        <div class="content">
+        <div>
             <p>
                 <slot name="content"></slot>
             </p>
