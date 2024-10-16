@@ -2,12 +2,18 @@
   <div class="w-full mx-4" v-if="product">
     <MoleculesBreadcrumb />
 
-    <MoleculesProductPageHero
-      :image="product.imageUrl"
-      :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)"
-      :expansion="product.expansion"
-    />
+    <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
+      :code="extractCardCode(product.productName)" :expansion="product.expansion" />
+
+    <MoleculesTextViewer>
+      <template v-slot:title>
+        Il titolo del tuo testo
+      </template>
+      <template v-slot:content>
+        Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello
+        schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.
+      </template>
+    </MoleculesTextViewer>
   </div>
 </template>
 
