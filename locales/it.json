@@ -42,9 +42,9 @@
   "search": "Cerca",
   "da": "da",
   "a": "a",
-  "prezzo": "Prezzo",
-  "cancellaTuttiIFiltri": "Cancella tutti i filtri",
-  "applica": "Applica",
+  "price": "Prezzo",
+  "deleteAllFilters": "Cancella tutti i filtri",
+  "apply": "Applica",
   "showDetails": "vedi dettagli",
   "/pokemon/booster-box": "Pokemon - Booster Box",
   "/pokemon/box-set": "Pokemon - Box Set",
@@ -116,5 +116,7 @@
     "youHaveViewed": "Hai visualizzato",
     "of": "di",
     "products": "prodotti"
-  }
+  },
+  "min": "Min",
+  "max": "Max"
 }

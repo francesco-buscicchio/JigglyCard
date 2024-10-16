@@ -42,9 +42,9 @@
   "search": "Search",
   "da": "from",
   "a": "to",
-  "prezzo": "Price",
-  "cancellaTuttiIFiltri": "Delete all filters",
-  "applica": "Apply",
+  "price": "Price",
+  "deleteAllFilters": "Delete all filters",
+  "apply": "Apply",
   "showDetails": "show details",
   "of": "of",
   "pageSorting": {
@@ -78,5 +78,7 @@
     "youHaveViewed": "Viewing",
     "of": "of",
     "products": "products"
-  }
+  },
+  "min": "Min",
+  "max": "Max"
 }

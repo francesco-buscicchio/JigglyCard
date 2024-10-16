@@ -37,7 +37,7 @@
 
           <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t('prezzo') }}</p>
+            <p>{{ $t('price') }}</p>
             <div class="flex items-center justify-center whitespace-nowrap mt-2">
               <span class="mr-2 w-20">{{ $t('da') }} {{ selectedMinPrice }}</span>
               <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
@@ -49,12 +49,12 @@
 
           <!-- Input Prezzo -->
           <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">Min</p>
+            <p class="ml-12 mr-6">{{ $t('min') }}</p>
             <AtomsInputText class="w-20" v-model="selectedMinPrice" :placeholder="''"
               @keydown="validateNumberInput($event)" @input="validatePriceInput('min', $event)" />
           </div>
           <div class="flex items-center">
-            <p class="ml-12 mr-6">Max</p>
+            <p class="ml-12 mr-6">{{ $t('max') }}</p>
             <AtomsInputText class="w-20" v-model="selectedMaxPrice" :placeholder="''"
               @keydown="validateNumberInput($event)" @input="validatePriceInput('max', $event)" />
           </div>
@@ -64,10 +64,10 @@
         <div class="bottom-container">
           <div class="flex mt-4 mb-6 mr-6">
             <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-              <p>{{ $t('cancellaTuttiIFiltri') }}</p>
+              <p>{{ $t('deleteAllFilters') }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ $t('applica') }}</h5>
+              <h5>{{ $t('apply') }}</h5>
             </AtomsButtonCTA>
           </div>
         </div>
