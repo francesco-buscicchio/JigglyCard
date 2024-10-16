@@ -1,10 +1,20 @@
 <template>
-  <div class="gap-b-4 flex flex-col">
+  <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <OrganismsListingFilters />
+      <div class="pb-6">
+        <OrganismsFilter
+          @filterUpdate="filterUpdate"
+          :filters="filtersAppliedOrganismFilter"
+        />
+      </div>
+
+      <OrganismsListingFilters
+        :filters="filtersAppliedOrganismsListingFilters"
+        @update-filters="updateFiltersApplied"
+      />
 
       <div class="pb-6 flex flex-row justify-between items-center">
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
@@ -33,26 +43,36 @@
 </template>
 
 <script setup lang="ts">
-import { algoliasearch } from "algoliasearch";
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 const products: Ref<ProductType[]> = ref([]);
 
 const config = useRuntimeConfig();
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 const route = useRoute();
 const totalItems = ref(0);
 const currentPage = ref(1);
 const currentSorting = ref("");
+const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
+const filtersAppliedOrganismFilter = ref<string[]>([]);
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   fetchData();
 });
+
+function filterUpdate(e: any) {
+  let allValues: string[] = [];
+
+  for (const key in e) {
+    if (Array.isArray(e[key])) {
+      allValues.push(...e[key]);
+    }
+  }
+
+  filtersAppliedOrganismsListingFilters.value = allValues;
+}
 
 function changePage(event: number) {
   currentPage.value = event;
@@ -67,6 +87,10 @@ function handleSorting(event: string) {
 function calculateCollection() {
   return `${PRODUCTS_COLLECTION}${currentSorting.value}`;
 }
+
+const updateFiltersApplied = (newFilters: any) => {
+  filtersAppliedOrganismFilter.value = newFilters;
+};
 
 async function fetchData() {
   let results = await client.search({

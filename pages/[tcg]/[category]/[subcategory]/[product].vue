@@ -22,10 +22,7 @@ import { activateLanguage, createTagCondition, createTagLanguage, createTagsStru
 const product = ref();
 const config = useRuntimeConfig();
 const route = useRoute();
-const client = algoliasearch(
-  config.public.ALGOLIA_APPLICATION_ID,
-  config.public.ALGOLIA_API_KEY
-);
+const client = useAlgolia();
 
 onMounted(async () => {
   fetchData();

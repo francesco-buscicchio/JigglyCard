@@ -28,6 +28,7 @@ export default defineNuxtConfig({
       ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
       ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
       SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
+      ADMIN_MAIL: process.env.ADMIN_MAIL
     },
   },
 
