@@ -87,6 +87,12 @@ const config = useRuntimeConfig();
 const filterList = ref<String[]>([]);
 const filterCategories = ref();
 const client = useAlgolia();
+
+const isOpen = ref(false);
+const selectedMinPrice = ref(0);
+const selectedMaxPrice = ref(5000);
+const selectedFilters = reactive<{ [key: string]: any }>({});
+
 watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
@@ -118,11 +124,6 @@ onMounted(async () => {
 });
 
 const emit = defineEmits(["filterUpdate"]);
-
-const isOpen = ref(false);
-const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(5000);
-const selectedFilters = reactive<{ [key: string]: any }>({});
 
 function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: boolean) {
   const category = filterCategories.value[categoryIndex];
