@@ -1,7 +1,6 @@
 <template>
     <div class="flex gap-3 flex-wrap my-8">
         <div v-if="tags.length" v-for="(tag, index) in tags">
-{{ tag }}
             <AtomsTag  :text="tag.text" :type="getTagType(index)"
                 :code="tag.code" @tagClicked="handleTagClick" />
         </div>
