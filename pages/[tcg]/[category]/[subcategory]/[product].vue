@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mx-4" v-if="product">
+  <div class="w-full px-4" v-if="product">
     <MoleculesBreadcrumb />
 
     <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
@@ -15,6 +15,7 @@
       </template>
     </MoleculesTextViewer>
   </div>
+
 </template>
 
 <script setup lang="ts">
