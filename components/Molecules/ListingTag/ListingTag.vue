@@ -1,8 +1,12 @@
 <template>
     <div class="flex gap-3 flex-wrap my-8">
-        <AtomsTag v-if="tags.length" v-for="(tag, index) in tags" :text="tag.text" :type="getTagType(index)"
-            :code="tag.code" @tagClicked="handleTagClick" />
+        <div v-if="tags.length" v-for="(tag, index) in tags">
+{{ tag }}
+            <AtomsTag  :text="tag.text" :type="getTagType(index)"
+                :code="tag.code" @tagClicked="handleTagClick" />
+        </div>
     </div>
+    
 </template>
 
 <script setup lang="ts">

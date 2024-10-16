@@ -95,9 +95,16 @@
     "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
     "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
   },
-  "italiano": "italiano",
-  "inglese": "inglese",
-  "giapponese": "giapponese",
+  "tag": {
+    "italian": "italianoTTTT",
+    "english": "inglese",
+    "japanese": "giapponese",
+    "near_mint": "near mint",
+    "excellent":"excellent",
+    "good" : "good",
+    "played": "played",
+    "poor": "poor"
+    },
   "listingCounter": {
     "youHaveViewed": "Hai visualizzato",
     "of": "di",

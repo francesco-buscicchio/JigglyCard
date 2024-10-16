@@ -1,6 +1,6 @@
 <template>
     <button :class="typeClass" class="rounded-lg px-4 py-2 min-w-25" @click="emitClick">
-        <p>{{ $t(text) }}</p>
+        <p>{{ $t(`tag.${text}`) }}</p>
     </button>
 </template>
 <!-- TODO mettere traduzioni per le lingue -->

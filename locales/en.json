@@ -57,9 +57,16 @@
     "collecorsNumberLowest": "Collector's Number (lowest first)",
     "collecorsNumberHighest": "Collector's Number (highest first)"
   },
-  "italiano": "italian",
-  "inglese": "english",
-  "giapponese": "japan",
+  "tag": {
+    "italian": "italian",
+    "english": "english",
+    "japanese": "japanese",
+    "near_mint": "near mint",
+    "excellent":"excellent",
+    "good" : "good",
+    "played": "played",
+    "poor": "poor"
+    },
   "listingCounter": {
     "youHaveViewed": "Viewing",
     "of": "of",
