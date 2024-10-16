@@ -114,8 +114,13 @@
     "NA": "altro",
     "pokemon": "pokemon"
   },
+  "listingCounter": {
+    "youHaveViewed": "Hai visualizzato",
+    "of": "di",
+    "products": "prodotti"
+  },
   "tag": {
-    "italian": "italianoTTTT",
+    "italian": "italiano",
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
@@ -123,10 +128,5 @@
     "good" : "good",
     "played": "played",
     "poor": "poor"
-    },
-  "listingCounter": {
-    "youHaveViewed": "Hai visualizzato",
-    "of": "di",
-    "products": "prodotti"
-  }
+    }
 }

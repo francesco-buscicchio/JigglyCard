@@ -114,19 +114,19 @@
     "NA": "other",
     "pokemon": "pokemon"
   },
+  "listingCounter": {
+    "youHaveViewed": "Viewing",
+    "of": "of",
+    "products": "products"
+  },
   "tag": {
-    "italian": "italian",
-    "english": "english",
-    "japanese": "japanese",
+    "italian": "italiano",
+    "english": "inglese",
+    "japanese": "giapponese",
     "near_mint": "near mint",
     "excellent":"excellent",
     "good" : "good",
     "played": "played",
     "poor": "poor"
-    },
-  "listingCounter": {
-    "youHaveViewed": "Viewing",
-    "of": "of",
-    "products": "products"
-  }
+    }
 }
