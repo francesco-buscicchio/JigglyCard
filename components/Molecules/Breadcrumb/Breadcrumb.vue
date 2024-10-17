@@ -6,7 +6,7 @@
       @click="navigateToPage(routeHistory.getHistory() as string)"
     >
       <Icon name="jig:previous-page" size="10" />
-      <p>{{ $t(routeHistory.getHistory() as string) }}</p>
+      <p>{{ $t(`routes.${routeHistory.getHistory()}`) }}</p>
     </div>
 
     <div
