@@ -7,7 +7,7 @@
     <MoleculesPaymentMethods v-if="!hidePayments" />
 
     <div v-if="showInformationSite" class="w-full text-center">
-      <p>jigglycard@gmail.com</p>
+      <p>{{ config.public.MAIL_ADMIN }}</p>
     </div>
 
     <MoleculesSocialLinks :imgs="footer.imgs" />
@@ -27,6 +27,7 @@
 import { type SocialLinksType } from "~/components/Molecules/SocialLinks/SocialLinks.vue";
 import { FOOTER_MENU_ITEMS } from "~/data/const";
 
+const config = useRuntimeConfig();
 const props = defineProps({
   footer: {
     type: Object as PropType<{
