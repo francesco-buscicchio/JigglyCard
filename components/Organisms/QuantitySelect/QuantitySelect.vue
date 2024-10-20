@@ -2,7 +2,7 @@
     <div>
         <div class="flex items-center justify-between">
             <div class="flex mr-6 items-center">
-                <p class="mr-6">Quantità: {{ quantity }}</p>
+                <p class="mr-6">Quantità: </p>
                 <MoleculesPageSorter :sortingItems="quantityOptions" :selected="quantity"
                     @handleSorting="updateQuantity" />
             </div>
