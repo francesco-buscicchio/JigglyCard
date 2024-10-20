@@ -5,16 +5,11 @@
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
       <div class="pb-6">
-        <OrganismsFilter
-          @filterUpdate="filterUpdate"
-          :filters="filtersAppliedOrganismFilter"
-        />
+        <OrganismsFilter @filterUpdate="filterUpdate" :filters="filtersAppliedOrganismFilter" />
       </div>
 
-      <OrganismsListingFilters
-        :filters="filtersAppliedOrganismsListingFilters"
-        @update-filters="updateFiltersApplied"
-      />
+      <OrganismsListingFilters :filters="filtersAppliedOrganismsListingFilters"
+        @update-filters="updateFiltersApplied" />
 
       <div class="pb-6 flex flex-row justify-between items-center">
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
@@ -22,21 +17,15 @@
         <div class="flex flex-row items-center gap-x-2">
           <p>{{ $t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
-            <MoleculesPageSorter @handle-sorting="handleSorting" />
+            <MoleculesPageSorter :sortingItems="sortingItems" :@handle-sorting="handleSorting" />
           </div>
         </div>
       </div>
       <OrganismsListingProducts :products="products" />
-      <MoleculesListingPagination
-        :total-items="totalItems"
-        :current-page="currentPage"
-        @current-page="($e) => changePage($e)"
-      />
+      <MoleculesListingPagination :total-items="totalItems" :current-page="currentPage"
+        @current-page="($e) => changePage($e)" />
       <div class="pt-2 pb-10">
-        <MoleculesListingCounter
-          :totalItems="totalItems"
-          :currentPage="currentPage"
-        />
+        <MoleculesListingCounter :totalItems="totalItems" :currentPage="currentPage" />
       </div>
     </div>
   </div>
@@ -44,6 +33,7 @@
 
 <script setup lang="ts">
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
+import sortingItems from "~/data/sorting";
 
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 const products: Ref<ProductType[]> = ref([]);
