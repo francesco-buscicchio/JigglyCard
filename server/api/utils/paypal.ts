@@ -41,19 +41,17 @@ class PayPal {
       body: "grant_type=client_credentials",
     });
 
-    console.log(result.access_token);
     return result.access_token;
   }
 
   async initialize() {
     const accessToken = await this.getAccessToken();
-    console.log("ACCESS TOKEN initialize", accessToken);
     this.fetch = ofetch.create({
       baseURL: this.api,
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
-        "PayPal-Request-Id": "7b92603e-77ed-4896-8e78-5dea2050476b",
+        "PayPal-Request-Id": "7b92603e-77ed-4896-8e78-5dea2050476c",
       },
     });
   }

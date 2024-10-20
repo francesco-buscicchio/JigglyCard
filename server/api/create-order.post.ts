@@ -2,7 +2,6 @@ import { stripe } from "@formkit/icons";
 import { createPayPalClient } from "./utils/paypal";
 
 export default defineEventHandler(async (event) => {
-  console.log("test");
   const runtimeConfig = useRuntimeConfig();
   const body = await readBody(event);
 
@@ -18,7 +17,7 @@ export default defineEventHandler(async (event) => {
             purchase_units: [
               {
                 amount: {
-                  currency_code: "USD",
+                  currency_code: "EUR",
                   value: "00.01",
                 },
               },
