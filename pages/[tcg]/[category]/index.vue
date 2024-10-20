@@ -27,16 +27,21 @@
         </div>
       </div>
       <OrganismsListingProducts :products="products" />
-      <MoleculesListingPagination
-        :total-items="totalItems"
-        :current-page="currentPage"
-        @current-page="($e) => changePage($e)"
-      />
-      <div class="pt-2 pb-10">
-        <MoleculesListingCounter
-          :totalItems="totalItems"
-          :currentPage="currentPage"
+      <div class="pt-10">
+        <MoleculesListingPagination
+          :total-items="totalItems"
+          :current-page="currentPage"
+          @current-page="($e) => changePage($e)"
         />
+        <div class="pt-2 pb-10">
+          <MoleculesListingCounter
+            :totalItems="totalItems"
+            :currentPage="currentPage"
+          />
+        </div>
+      </div>
+      <div class="pb-10">
+        <OrganismsServiceBanner />
       </div>
     </div>
   </div>
