@@ -51,7 +51,6 @@ class PayPal {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
-        "PayPal-Request-Id": "7b92603e-77ed-4896-8e78-5dea2050476c",
       },
     });
   }
