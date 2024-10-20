@@ -26,7 +26,10 @@ export default defineEventHandler(async (event) => {
                 experience_context: {
                   brand_name: "Jigglycard",
                   shipping_preference: "NO_SHIPPING",
-                  return_url: `http://localhost:3001/acquisto-completato`,
+                  return_url:
+                    runtimeConfig.env !== "production"
+                      ? "http://www.jigglycard.com/acquisto-completato"
+                      : `http://localhost:3001/acquisto-completato`,
                 },
               },
             },
