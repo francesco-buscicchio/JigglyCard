@@ -56,7 +56,7 @@ const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
-const filtersStringQuery = ref("");
+const filtersStringQuery = ref(`type:"${route.params.category}"`);
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -64,7 +64,6 @@ onMounted(async () => {
 });
 
 function calculateFilterString(e: any) {
-  console.log(e);
   let languageFilters = e.language
     ? e.language.map((lang: string) => `languages:"${lang}"`).join(" or ")
     : "";
@@ -77,7 +76,6 @@ function calculateFilterString(e: any) {
   if (conditionFilters.length > 0) filter += ` AND (${conditionFilters})`;
 
   filtersStringQuery.value = filter;
-  console.log(filtersStringQuery.value);
   fetchData();
 }
 
@@ -101,7 +99,14 @@ function calculateCollection() {
 }
 
 const updateFiltersApplied = (newFilters: any) => {
-  filtersAppliedOrganismFilter.value = newFilters;
+  let allValues: string[] = [];
+
+  for (const key in newFilters) {
+    if (Array.isArray(newFilters[key])) {
+      allValues.push(...newFilters[key]);
+    }
+  }
+  filtersAppliedOrganismFilter.value = allValues;
   calculateFilterString(newFilters);
 };
 
@@ -136,7 +141,8 @@ function setProducts(queryResult: any) {
     };
 
     products.value.push(obj);
-    totalItems.value = queryResult.nbHits;
   }
+
+  totalItems.value = queryResult.nbHits;
 }
 </script>
