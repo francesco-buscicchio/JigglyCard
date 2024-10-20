@@ -5,10 +5,10 @@
     <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
       :code="extractCardCode(product.productName)" :expansion="product.expansion" />
 
-    <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
-
     <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" />
     <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" />
+
+    <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
 
   </div>
 </template>
