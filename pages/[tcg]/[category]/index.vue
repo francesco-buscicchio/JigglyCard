@@ -56,22 +56,34 @@ const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
+const filtersStringQuery = ref("");
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   fetchData();
 });
 
+function calculateFilterString(e: any) {
+  console.log(e);
+  let languageFilters = e.language
+    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" or ")
+    : "";
+  let conditionFilters = e.condition
+    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" or ")
+    : "";
+
+  let filter = `type:"${route.params.category}"`;
+  if (languageFilters.length > 0) filter += ` AND (${languageFilters})`;
+  if (conditionFilters.length > 0) filter += ` AND (${conditionFilters})`;
+
+  filtersStringQuery.value = filter;
+  console.log(filtersStringQuery.value);
+  fetchData();
+}
+
 function filterUpdate(e: any) {
-  let allValues: string[] = [];
-
-  for (const key in e) {
-    if (Array.isArray(e[key])) {
-      allValues.push(...e[key]);
-    }
-  }
-
-  filtersAppliedOrganismsListingFilters.value = allValues;
+  filtersAppliedOrganismsListingFilters.value = e;
+  calculateFilterString(e);
 }
 
 function changePage(event: number) {
@@ -90,6 +102,7 @@ function calculateCollection() {
 
 const updateFiltersApplied = (newFilters: any) => {
   filtersAppliedOrganismFilter.value = newFilters;
+  calculateFilterString(newFilters);
 };
 
 async function fetchData() {
@@ -97,7 +110,7 @@ async function fetchData() {
     requests: [
       {
         indexName: calculateCollection(),
-        filters: `type:"${route.params.category}"`,
+        filters: filtersStringQuery.value,
         hitsPerPage: ITEMS_FOR_PAGE,
         page: currentPage.value - 1,
       },
