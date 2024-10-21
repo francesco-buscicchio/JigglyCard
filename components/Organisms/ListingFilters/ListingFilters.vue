@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <div class="flex flex-row items-start flex-wrap gap-2" v-if="filters">
-      <div v-for="key in allFilters">
+    <div v-if="filters" class="flex flex-row flex-wrap gap-2">
+      <div
+        v-for="key in allFilters"
+        class="flex flex-row items-start flex-wrap gap-2"
+      >
         <AtomsFilterTag
           v-for="item of key"
           :key="item"
