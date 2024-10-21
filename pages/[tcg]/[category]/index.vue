@@ -65,10 +65,10 @@ onMounted(async () => {
 
 function calculateFilterString(e: any) {
   let languageFilters = e.language
-    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" or ")
+    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
     : "";
   let conditionFilters = e.condition
-    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" or ")
+    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
     : "";
 
   let filter = `type:"${route.params.category}"`;
