@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <div v-if="filters" class="flex flex-row flex-wrap gap-2">
+    <div v-if="allFilters" class="flex flex-row flex-wrap">
       <div
         v-for="key in allFilters"
         class="flex flex-row items-start flex-wrap gap-2"
