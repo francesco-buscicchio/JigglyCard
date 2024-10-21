@@ -1,22 +1,5 @@
 <template>
-  <div
-    ref="carouselContainer"
-    class="carousel relative max-w-lg mx-auto overflow-hidden"
-  >
-    <div class="carousel-indicators bottom-2 w-full text-center">
-      <span
-        v-for="(item, index) in items"
-        :key="index"
-        :class="[
-          'dot h-4 w-4 mx-1 rounded-full inline-block border border-accent-950',
-          {
-            'bg-accent-950': index === activeIndex,
-            'bg-accent-50': index !== activeIndex,
-          },
-        ]"
-        @click="setActive(index)"
-      ></span>
-    </div>
+  <div ref="carouselContainer" class="carousel relative max-w-lg mx-auto overflow-hidden">
   </div>
 </template>
 
@@ -51,12 +34,12 @@ watch(
     resetTimer(true);
   }
 );
-
-function setActive(index: number) {
-  activeIndex.value = index;
-  emit("update:index", index);
-  resetTimer(true);
-}
+// TODO: non credo che questa funzione serva o no?
+// function setActive(index: number) {
+//   activeIndex.value = index;
+//   emit("update:index", index);
+//   resetTimer(true);
+// }
 
 function nextSlide() {
   activeIndex.value = (activeIndex.value + 1) % props.items.length;

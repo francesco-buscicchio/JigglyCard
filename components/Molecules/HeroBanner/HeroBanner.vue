@@ -2,26 +2,27 @@
   <swiper ref="swiperRef" :grab-cursor="true" :space-between="50" @swiper="setControlledSwiper"
     @slideChange="onSlideChange">
     <swiper-slide v-for="(slide, index) in slides">
+      <!-- TODO: calcolare link di navigazione -->
       <div
-        class="relative bg-cover bg-center h-75 md:h-125 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+      class="relative bg-cover bg-center h-75 md:h-125 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
         :style="{ backgroundImage: `url(${slide.imageUrl})` }" @click="navigateToListing(slide.navigateTo)" role="img">
       </div>
     </swiper-slide>
-  </swiper>
+  </swiper>›
 
   <MoleculesCardCarousel :items="slides" @update:index="updateIndex" :activeIndex="currentIndex" />
 
 </template>
 
-<script setup>
-import { useRouter } from "vue-router";
-import { Swiper, SwiperSlide } from "swiper/vue";
+<script lang="ts" setup>
+import { useRouter, type RouteLocation } from "vue-router";
 import "swiper/swiper-bundle.css";
-import { Navigation, Pagination } from "swiper/modules";
+import type { PropType } from "vue";
+import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 
 const props = defineProps({
   slides: {
-    type: Array,
+    type: Array as PropType<ProductType[]>,
     required: true,
     default: () => []
   }
@@ -29,25 +30,23 @@ const props = defineProps({
 
 const router = useRouter();
 const currentIndex = ref(0);
-const controlledSwiper = ref(null);
+const controlledSwiper = ref();
 
-const navigateToListing = (route) => {
+const navigateToListing = (route:RouteLocation) => {
   router.push(route);
 };
 
-function updateIndex(index) {
+function updateIndex(index:number) {
   currentIndex.value = index;
-  //@ts-ignore
   controlledSwiper.value.slideTo(index);
 }
 
-const setControlledSwiper = (swiper) => {
+const setControlledSwiper = (swiper:any) => {
   controlledSwiper.value = swiper;
 };
 
 const onSlideChange = () => {
   if (controlledSwiper.value) {
-    //@ts-ignore
     currentIndex.value = controlledSwiper.value.activeIndex;
   }
 };
