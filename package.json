@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "sync-algolia": "node server/medusa/algoliaAlignerWithMedusa.js"
+    "sync-algolia": "node server/medusa/algoliaAlignerWithMedusa.js",
+    "sync-from-cardtrader": "node server/cardtrader/sync-from-cardtrader.js"
   },
   "dependencies": {
     "@formkit/icons": "^1.6.3",
