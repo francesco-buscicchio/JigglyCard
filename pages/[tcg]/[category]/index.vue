@@ -2,6 +2,11 @@
   <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
+  <div class="p-10">
+    <ListingTitle
+      :title="$t(`routes./${route.params.tcg}/${route.params.category}`)"
+    />
+  </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
       <div class="pb-6">
@@ -27,16 +32,21 @@
         </div>
       </div>
       <OrganismsListingProducts :products="products" />
-      <MoleculesListingPagination
-        :total-items="totalItems"
-        :current-page="currentPage"
-        @current-page="($e) => changePage($e)"
-      />
-      <div class="pt-2 pb-10">
-        <MoleculesListingCounter
-          :totalItems="totalItems"
-          :currentPage="currentPage"
+      <div class="pt-10">
+        <MoleculesListingPagination
+          :total-items="totalItems"
+          :current-page="currentPage"
+          @current-page="($e) => changePage($e)"
         />
+        <div class="pt-2 pb-10">
+          <MoleculesListingCounter
+            :totalItems="totalItems"
+            :currentPage="currentPage"
+          />
+        </div>
+      </div>
+      <div class="pb-10">
+        <OrganismsServiceBanner />
       </div>
     </div>
   </div>
@@ -46,6 +56,7 @@
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import ListingTitle from "~/components/Molecules/ListingTitle/ListingTitle.vue";
 const products: Ref<ProductType[]> = ref([]);
 
 const config = useRuntimeConfig();
@@ -71,10 +82,12 @@ function calculateFilterString(e: any) {
     ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
     : "";
   let brandFilter = e.brand
-    ? e.brand.map((cond: string) => `tcg:"${cond}"`).join(" OR ")
+    ? e.brand.map((brand: string) => `tcg:"${brand}"`).join(" OR ")
     : "";
   let availableFilter = e.available
-    ? e.available.map((cond: string) => `available:"${cond}"`).join(" OR ")
+    ? e.available
+        .map((available: string) => `available:"${available}"`)
+        .join(" OR ")
     : "";
 
   let filter = `type:"${route.params.category}"`;
