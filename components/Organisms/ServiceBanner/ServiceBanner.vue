@@ -9,7 +9,7 @@
       >
         <div class="flex flex-row items-center justify-between md:items-start">
           <div v-if="section.imgUrl" class="w-full flex justify-center">
-            <Icon :name="section.imgUrl" size="35" :color="colors.darkPink" />
+            <Icon :name="section.imgUrl" size="35" />
           </div>
           <div class="flex-1 max-w-[75%] min-w-[75%] px-3">
             <p class="pb-2">{{ section.title }}</p>
