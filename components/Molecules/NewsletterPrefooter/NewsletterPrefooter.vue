@@ -1,5 +1,6 @@
 <template>
-  <div class="bg-accent-50 p-4 flex flex-col gap-y-4">
+  <!-- mobile -->
+  <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-if="isMobileview">
     <h5>{{ $t("titleNewsLetter") }}</h5>
     <p>{{ $t("captionNewsletterShort") }}</p>
     <MoleculesContainerInput
@@ -13,11 +14,31 @@
       @click="mailAction(email)"
     />
   </div>
+  <!-- desktop -->
+  <div class="bg-accent-50 flex py-8 xl:px-20 lg:px-12 gap-8 items-center justify-between" v-if="!isMobileview">
+    <div class="flex-1">
+      <h3 class="mb-4">{{ $t("titleNewsLetter") }}</h3>
+      <p class="mb-4"> {{ $t("captionNewsletter") }}</p>
+      <div class="flex gap-4">
+        <div class="w-[70%]">
+
+          <MoleculesContainerInput status="newsletter" placeholder="e-mail" @inputUpdate="email = $event" />
+        </div>
+        <div class="w-[30%]">
+          <AtomsButtonCTA type="primary" :text="buttonNewsLetter" @click="mailAction(email)" />
+        </div>
+      </div>
+    </div>
+    <div class="max-w-[60%] min-h-full">
+      <img src="~/assets/img/newsletter-footer.png" alt="newsletter" class="object-cover w-full h-full" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 const { t, locale } = useI18n();
 const config = useRuntimeConfig();
+const isMobileview = isMobile()
 
 const email = ref("");
 const buttonNewsLetter = t("buttonNewsLetter");

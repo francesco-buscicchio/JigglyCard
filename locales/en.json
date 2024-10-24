@@ -125,5 +125,15 @@
   },
   "payments": {
   "terms": "payments with"
-  }
+  },
+  "tag": {
+    "italian": "italiano",
+    "english": "inglese",
+    "japanese": "giapponese",
+    "near_mint": "near mint",
+    "excellent":"excellent",
+    "good" : "good",
+    "played": "played",
+    "poor": "poor"
+    }
 }

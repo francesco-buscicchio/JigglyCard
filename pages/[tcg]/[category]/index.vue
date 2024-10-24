@@ -70,15 +70,23 @@ onMounted(async () => {
 
 function calculateFilterString(e: any) {
   let languageFilters = e.language
-    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" or ")
+    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
     : "";
   let conditionFilters = e.condition
-    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" or ")
+    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
+    : "";
+  let brandFilter = e.brand
+    ? e.brand.map((cond: string) => `tcg:"${cond}"`).join(" OR ")
+    : "";
+  let availableFilter = e.available
+    ? e.available.map((cond: string) => `available:"${cond}"`).join(" OR ")
     : "";
 
   let filter = `type:"${route.params.category}"`;
   if (languageFilters.length > 0) filter += ` AND (${languageFilters})`;
   if (conditionFilters.length > 0) filter += ` AND (${conditionFilters})`;
+  if (brandFilter.length > 0) filter += ` AND (${brandFilter})`;
+  if (availableFilter.length > 0) filter += ` AND (${availableFilter})`;
 
   filtersStringQuery.value = filter;
   fetchData();
