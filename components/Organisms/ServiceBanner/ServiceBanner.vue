@@ -42,11 +42,6 @@ const sections = [
     imgUrl: "jig:truck",
   },
   {
-    title: t("serviceHomepage.Support"),
-    sections: [t("serviceHomepage.SupportDescription")],
-    imgUrl: "jig:support",
-  },
-  {
     title: t("serviceHomepage.Prices"),
     sections: [t("serviceHomepage.PricesDescription")],
     imgUrl: "jig:prices",
@@ -55,6 +50,11 @@ const sections = [
     title: t("serviceHomepage.Security"),
     sections: [t("serviceHomepage.SecurityDescription")],
     imgUrl: "jig:security",
+  },
+  {
+    title: t("serviceHomepage.Support"),
+    sections: [t("serviceHomepage.SupportDescription")],
+    imgUrl: "jig:support",
   },
 ];
 
