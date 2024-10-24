@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen" v-if="!mailSended">
     <div class="flex-grow flex flex-col items-center space-y-4 mt-4">
       <div class="w-full flex items-center justify-center relative">
         <div>
@@ -11,8 +11,13 @@
     <div
       class="my-5 md:my-20 w-full flex flex-col md:flex-row justify-center items-center md:items-center md:space-x-4 space-y-4 md:space-y-0 md:flex-grow md:min-h-[50vh]"
     >
-      <StaticNewsLetter
+      <OrganismsStaticNewsLetter
         class="order-2 md:order-1 w-full md:w-1/3 md:px-10 mt-4 md:mt-none"
+        @mailSended="
+          () => {
+            mailSended = true;
+          }
+        "
       />
       <div class="px-5 md:pr-20 order-1 md:order-2 w-full md:w-2/3">
         <img
@@ -31,6 +36,12 @@
       class="mt-auto"
     />
   </div>
+  <div
+    v-else
+    class="flex min-w-[100vw] min-h-[100vh] justify-center align-middle"
+  >
+    <MoleculesThankYou type="order" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -42,6 +53,7 @@ import tiktokLogo from "~/assets/icons/tiktok.png";
 import WelcomeHero from "~/assets/img/welcomeHero.avif";
 
 const Mainimg: string = WelcomeHero;
+const mailSended = ref(false);
 
 const { t } = useI18n();
 

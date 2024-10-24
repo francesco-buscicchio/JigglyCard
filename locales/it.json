@@ -47,7 +47,7 @@
   "showDetails": "vedi dettagli",
   "routes": {
     "routes": {
-    "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
       "/pokemon/box-set": "Pokemon - Box Set",
       "/pokemon/bundle": "Pokemon - Bundle",
       "/pokemon/singole": "Pokemon - Singole",
@@ -85,7 +85,7 @@
       "/servizi": "Servizi",
       "/contatti": "Contatti",
       "/": "Homepage"
-  }
+    }
   },
   "of": "di",
   "pageSorting": {
@@ -125,18 +125,23 @@
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
-    "excellent":"excellent",
-    "good" : "good",
+    "excellent": "excellent",
+    "good": "good",
     "played": "played",
     "poor": "poor"
-    },
+  },
   "footerLinks": {
     "about": "About",
     "shipping": "Spedizioni, resi e rimborsi",
     "support": "Assistenza"
   },
   "payments": {
-  "terms": "pagamenti con"
-  }
+    "terms": "pagamenti con"
+  },
 
+  "thanks": {
+    "main": "Grazie!",
+    "newsletter": "Grazie per esserti iscritto alla nostra newsletter! Riceverai presto un'email con tutti i dettagli.",
+    "order": "Il tuo ordine è stato confermato con successo. Ti invieremo presto un'email con tutti i dettagli."
+  }
 }

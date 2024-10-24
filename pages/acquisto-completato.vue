@@ -1,5 +1,7 @@
 <template>
-  <div>Il tuo acquisto e' andato a buon fine</div>
+  <div>
+    <MoleculesThankYou type="newsletter"></MoleculesThankYou>
+  </div>
 </template>
 
 <script setup lang="ts"></script>

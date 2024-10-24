@@ -25,10 +25,11 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { sendMail } from "../../utils/sendMail";
+import { sendMail } from "~/utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
 
 const client = useMedusaClient();
+const emit = defineEmits(["mailSended"]);
 const config = useRuntimeConfig();
 const { t, locale } = useI18n();
 const email = ref("");
@@ -41,8 +42,8 @@ const buttonNewsLetter = t("buttonNewsLetter");
 const loadTemplates = async () => {
   const customerTemplateModule =
     locale.value === "en"
-      ? await import("../../mailTemplate/en/newsletterToCustomer")
-      : await import("../../mailTemplate/it/newsletterToCustomer");
+      ? await import("~/mailTemplate/en/newsletterToCustomer")
+      : await import("~/mailTemplate/it/newsletterToCustomer");
 
   const adminTemplateModule =
     locale.value === "en"
@@ -65,6 +66,8 @@ const mailAction = async () => {
     name: email.value,
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToCustomer(userName),
+  }).then((val) => {
+    emit("mailSended");
   });
 
   // SEND MAIL TO BACKOFFICE
