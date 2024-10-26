@@ -5,6 +5,10 @@
     <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
       :code="extractCardCode(product.productName)" :expansion="product.expansion" />
 
+      <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" :title="$t('filter.language')"/>
+      <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" :title="$t('filter.condition')"/>
+
+
     <MoleculesTextViewer>
       <template v-slot:title>
         Il titolo del tuo testo
@@ -14,8 +18,8 @@
         schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.
       </template>
     </MoleculesTextViewer>
-    <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" />
-    <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" />
+
+    <OrganismsServiceBanner/>
 
   </div>
 
