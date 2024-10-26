@@ -1,11 +1,15 @@
 import fetch from "node-fetch";
+import https from "https";
 
 import { algoliasearch } from "algoliasearch";
 import { config } from "dotenv";
 
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
+
 config();
 let url = process.env.SERVER_PRODUCTS;
-let settings = { method: "Get" };
 
 const client = algoliasearch(
   process.env.ALGOLIA_APPLICATION_ID,
@@ -13,7 +17,7 @@ const client = algoliasearch(
 );
 const indexName = "ecommerce";
 
-fetch(url, settings)
+fetch(url, { method: "Get", agent })
   .then((res) => res.json())
   .then(async (json) => {
     try {
