@@ -135,5 +135,10 @@
   },
   "payments": {
     "terms": "pagamenti con"
+  },
+  "quantitySelect": {
+    "quantity": "Quantità",
+    "availability": "Disponibilità",
+    "pieces": "pezzi"
   }
 }

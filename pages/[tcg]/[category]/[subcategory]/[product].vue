@@ -17,6 +17,8 @@
     <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" />
     <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" />
 
+    <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
+
   </div>
 
 </template>
@@ -78,6 +80,7 @@ const setProduct = (queryResult: any) => {
       category: item.type,
       id: item.objectID,
       variants: item.variantsDetails,
+      quantity: item.quantity
     };
   }
 }
