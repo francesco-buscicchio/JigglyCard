@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    paypalClientSecret: process.env.NUXT_PAYPAL_CLIENT_SECRET,
     public: {
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
@@ -31,6 +32,7 @@ export default defineNuxtConfig({
       ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
       SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
       ADMIN_MAIL: process.env.ADMIN_MAIL,
+      paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
     },
   },
 
