@@ -41,6 +41,7 @@ fetch(url, { method: "Get", agent })
         const variantsDetails = item.variants.map((variant) => {
           quantity += variant.inventory_quantity;
           return {
+            id: variant.id,
             language: getOptionValue(variant.options, languageOptionId),
             condition: getOptionValue(variant.options, conditionOptionId),
             price: getLowestPrice(variant.prices) / 100,
