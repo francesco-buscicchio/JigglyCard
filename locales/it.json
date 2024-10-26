@@ -14,12 +14,12 @@
     "SecurityDescription": "I tuoi dati personali e di pagamento sono protetti con..."
   },
   "productHero": {
-    "TasseESpedizione": "Tasse incluse. Spedizione calcolata al momento del pagamento",
-    "Lingua": "Lingua",
-    "Quantita": "Quantità",
-    "AggiungiCarrello": "Aggiungi al carrello",
-    "AcquistaPaypal": "Acquista con PayPal",
-    "Descrizione": "Descrizione"
+    "TaxesAndShipping": "Tasse incluse. Spedizione calcolata al momento del pagamento",
+    "Language": "Lingua",
+    "Quantity": "Quantità",
+    "AddToCart": "aggiungi al carrello",
+    "BuyWithPaypal": "Acquista con PayPal",
+    "Description": "Descrizione"
   },
   "prestoOnline": "We're coming",
   "sconto10": "Sconto del 10%",
@@ -98,7 +98,7 @@
   },
   "filter": {
     "language": "Lingua",
-    "condition": "Condizioni",
+    "condition": "Condizione",
     "brand": "Brand",
     "available": "Disponibile",
     "IT": "italiano",

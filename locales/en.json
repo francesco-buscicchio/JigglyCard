@@ -14,12 +14,12 @@
     "SecurityDescription": "Your personal and payment data are safe."
   },
   "productHero": {
-    "TasseESpedizione": "Taxes included. Shipping calculated at checkout",
-    "Lingua": "Language",
-    "Quantita": "Quantity",
-    "AggiungiCarrello": "Add to Cart",
-    "AcquistaPaypal": "Buy with PayPal",
-    "Descrizione": "Description"
+   "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
+    "Language": "Language",
+    "Quantity": "Quantity",
+    "AddToCart": "add to cart",
+    "BuyWithPaypal": "Buy with PayPal",
+    "Description": "Description"
   },
   "routes": {
     "/pokemon/booster-box": "Pokemon - Booster Box",
