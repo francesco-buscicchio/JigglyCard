@@ -10,11 +10,11 @@
 
     <transition name="slide-right">
       <div v-show="isOpen" class="filter-panel bg-accent-50">
-        <div class="flex items-center justify-between mt-4 mb-4">
+        <div class="flex items-center justify-between mt-4">
           <Icon
             name="jig:close-accent"
             class="ml-6"
-            size="20"
+            size="40"
             @click="togglePanel"
           ></Icon>
           <h5 class="text-center w-full mr-18">
@@ -23,25 +23,22 @@
         </div>
 
         <div>
-          <div
-            v-for="(category, catIndex) in filterCategories"
-            :key="category.id"
-          >
+          <div v-for="category of filterCategories" :key="category.objectID">
             <MoleculesAccordion>
               <template #header>
                 <p>{{ $t(`filter.${category.name}`) }}</p>
               </template>
               <div
-                v-for="(item, index) in category.value"
+                v-for="(item, index) of category.value"
                 :key="item.id"
                 class="mb-4"
               >
                 <div class="flex items-center ml-6">
                   <AtomsCheckbox
-                    :id="index.toString()"
+                    :id="`${category.objectID}-${index}`"
                     :modelValue="item.checked"
                     @update:modelValue="
-                      updateCheckboxValue(catIndex, index, $event)
+                      updateCheckboxValue(category.objectID, index, $event)
                     "
                     class="mr-6 bg-white custom-checkbox"
                   />
@@ -51,8 +48,9 @@
             </MoleculesAccordion>
           </div>
 
+          <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t("prezzo") }}</p>
+            <p>{{ $t("price") }}</p>
             <div
               class="flex items-center justify-center whitespace-nowrap mt-2"
             >
@@ -72,19 +70,44 @@
               >
             </div>
           </div>
+
+          <!-- Input Prezzo -->
+          <div class="flex items-center my-6">
+            <p class="ml-12 mr-6">{{ $t("min") }}</p>
+            <AtomsInputText
+              class="w-20"
+              v-model="selectedMinPrice"
+              :placeholder="''"
+              @keydown="validateNumberInput($event)"
+              @input="validatePriceInput('min', $event)"
+            />
+          </div>
+          <div class="flex items-center">
+            <p class="ml-12 mr-6">{{ $t("max") }}</p>
+            <AtomsInputText
+              class="w-20"
+              v-model="selectedMaxPrice"
+              :placeholder="''"
+              @keydown="validateNumberInput($event)"
+              @input="validatePriceInput('max', $event)"
+            />
+          </div>
         </div>
 
-        <div class="flex mt-4 mb-6 mr-6">
-          <AtomsButtonCTA
-            class="text-underlined"
-            type="text"
-            @click="resetAllFilters"
-          >
-            <p>{{ $t("cancellaTuttiIFiltri") }}</p>
-          </AtomsButtonCTA>
-          <AtomsButtonCTA @click="applyFilters">
-            <h5>{{ $t("applica") }}</h5>
-          </AtomsButtonCTA>
+        <!-- Pulsanti -->
+        <div class="bottom-container">
+          <div class="flex mt-4 mb-6 mr-6">
+            <AtomsButtonCTA
+              class="text-underlined"
+              type="text"
+              @click="resetAllFilters"
+            >
+              <p>{{ $t("deleteAllFilters") }}</p>
+            </AtomsButtonCTA>
+            <AtomsButtonCTA @click="applyFilters">
+              <h5>{{ $t("apply") }}</h5>
+            </AtomsButtonCTA>
+          </div>
         </div>
       </div>
     </transition>
@@ -94,26 +117,23 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
-
 const props = defineProps({
   filters: Array<String>,
 });
+const config = useRuntimeConfig();
+const filterList = ref<String[]>([]);
+const filterCategories = ref();
+const client = useAlgolia();
 
 const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 const selectedFilters = reactive<{ [key: string]: any }>({});
-const config = useRuntimeConfig();
-const filterList = ref<String[]>([]);
-
-const filterCategories = ref();
-const client = useAlgolia();
 
 watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
 });
-
 function updateSelectedFilters() {
   resetAllFilters();
   if (filterList.value.length) {
@@ -131,7 +151,6 @@ onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-
   filterCategories.value = results.hits.map((filter: any) => ({
     ...filter,
     value: filter.value.map((language: any) => ({
@@ -144,29 +163,34 @@ onMounted(async () => {
 const emit = defineEmits(["filterUpdate"]);
 
 function updateCheckboxValue(
-  categoryIndex: number,
+  categoryID: string,
   filterIndex: number,
   value: boolean
 ) {
-  const category = filterCategories.value[categoryIndex];
+  const index = filterCategories.value.findIndex((val: any) => {
+    return val.objectID === categoryID;
+  });
+
+  console.log(categoryID);
+  const category = filterCategories.value[index];
   const filter = category.value[filterIndex];
 
   filter.checked = value;
 
-  if (value) {
-    if (!selectedFilters[category.name]) {
-      selectedFilters[category.name] = [];
-    }
-    selectedFilters[category.name].push(filter.name);
-  } else {
-    const index = selectedFilters[category.name]?.indexOf(filter.name);
-    if (index > -1) {
-      selectedFilters[category.name].splice(index, 1);
-    }
-    if (selectedFilters[category.name]?.length === 0) {
-      delete selectedFilters[category.name];
-    }
-  }
+  // if (value) {
+  //   if (!selectedFilters[category.name]) {
+  //     selectedFilters[category.name] = [];
+  //   }
+  //   selectedFilters[category.name].push(filter.name);
+  // } else {
+  //   const index = selectedFilters[category.name]?.indexOf(filter.name);
+  //   if (index > -1) {
+  //     selectedFilters[category.name].splice(index, 1);
+  //   }
+  //   if (selectedFilters[category.name]?.length === 0) {
+  //     delete selectedFilters[category.name];
+  //   }
+  // }
 }
 
 function updateMinPrice(value: number) {
@@ -180,19 +204,43 @@ function updateMaxPrice(value: number) {
   selectedMaxPrice.value = Math.min(value, 5000);
 }
 
+function validateNumberInput(event: KeyboardEvent) {
+  const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
+  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
+    event.preventDefault();
+  }
+}
+
+function validatePriceInput(type: "min" | "max", event: Event) {
+  const input = (event.target as HTMLInputElement).value;
+  const numericValue = parseInt(input, 10);
+
+  if (!isNaN(numericValue)) {
+    if (type === "min") {
+      selectedMinPrice.value = Math.max(
+        0,
+        Math.min(numericValue, selectedMaxPrice.value)
+      );
+    } else {
+      selectedMaxPrice.value = Math.min(
+        Math.max(numericValue, selectedMinPrice.value),
+        5000
+      );
+    }
+  }
+}
+
 function applyFilters() {
   selectedFilters["Prezzo"] = {
     min: selectedMinPrice.value,
     max: selectedMaxPrice.value,
   };
-
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
       .map((val: any) => val.name);
     return acc;
   }, {});
-
   emit("filterUpdate", result);
   isOpen.value = false;
 }
@@ -250,7 +298,9 @@ watch(isOpen, (newValue) => {
   top: 0;
   right: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: calc(100vw - 20px);
+  display: flex;
+  flex-direction: column;
   height: 100%;
   z-index: 1000;
   border-top-left-radius: 8px;
@@ -265,10 +315,15 @@ watch(isOpen, (newValue) => {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+  z-index: 1000;
 }
 
 .custom-checkbox {
   border: 1px solid #003849;
+}
+
+.bottom-container {
+  margin-top: auto;
+  padding: 16px;
 }
 </style>

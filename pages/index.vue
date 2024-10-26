@@ -30,7 +30,7 @@
     />
 
     <div class="px-4 pb-4">
-      <OrganismsServiceBanner :sections="sectionsDataService" />
+      <OrganismsServiceBanner />
     </div>
   </div>
 </template>
@@ -126,27 +126,4 @@ useHead({
     },
   ],
 });
-
-const sectionsDataService = [
-  {
-    title: t("serviceHomepage.FastShipping"),
-    sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
-    imgUrl: "jig:truck",
-  },
-  {
-    title: t("serviceHomepage.Support"),
-    sections: [t("serviceHomepage.SupportDescription")],
-    imgUrl: "jig:support",
-  },
-  {
-    title: t("serviceHomepage.Prices"),
-    sections: [t("serviceHomepage.PricesDescription")],
-    imgUrl: "jig:prices",
-  },
-  {
-    title: t("serviceHomepage.Security"),
-    sections: [t("serviceHomepage.SecurityDescription")],
-    imgUrl: "jig:security",
-  },
-];
 </script>

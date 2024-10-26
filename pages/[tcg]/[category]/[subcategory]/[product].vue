@@ -1,14 +1,26 @@
 <template>
-  <div class="w-full mx-4" v-if="product">
+  <div class="w-full px-4" v-if="product">
     <MoleculesBreadcrumb />
 
     <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
       :code="extractCardCode(product.productName)" :expansion="product.expansion" />
 
+    <MoleculesTextViewer>
+      <template v-slot:title>
+        Il titolo del tuo testo
+      </template>
+      <template v-slot:content>
+        Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello
+        schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.
+      </template>
+    </MoleculesTextViewer>
     <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" />
     <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" />
 
+    <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
+
   </div>
+
 </template>
 
 <script setup lang="ts">
@@ -68,6 +80,7 @@ const setProduct = (queryResult: any) => {
       category: item.type,
       id: item.objectID,
       variants: item.variantsDetails,
+      quantity: item.quantity
     };
   }
 }

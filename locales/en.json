@@ -81,9 +81,9 @@
   "search": "Search",
   "da": "from",
   "a": "to",
-  "prezzo": "Price",
-  "cancellaTuttiIFiltri": "Delete all filters",
-  "applica": "Apply",
+  "price": "Price",
+  "deleteAllFilters": "Clear all filters",
+  "apply": "Apply",
   "showDetails": "show details",
   "of": "of",
   "pageSorting": {
@@ -118,22 +118,30 @@
     "of": "of",
     "products": "products"
   },
+  "min": "Min",
+  "max": "Max",
   "footerLinks": {
     "about": "About",
     "shipping": "Shipping, returns, and refunds",
     "support": "Support"
   },
   "payments": {
-  "terms": "payments with"
+    "terms": "payments with"
   },
   "tag": {
     "italian": "italiano",
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
-    "excellent":"excellent",
-    "good" : "good",
+    "excellent": "excellent",
+    "good": "good",
     "played": "played",
     "poor": "poor"
-    }
+  },
+
+  "quantitySelect": {
+    "quantity": "Quantity",
+    "availability": "Availability",
+    "pieces": "pieces"
+  }
 }

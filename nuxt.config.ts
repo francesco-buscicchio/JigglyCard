@@ -10,7 +10,9 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  gtag: {
+    id: "GTM-MP3GKJSW",
+  },
   formkit: {
     autoImport: true,
     configFile: "./formkit.config.ts",
@@ -21,6 +23,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    paypalClientSecret: process.env.NUXT_PAYPAL_CLIENT_SECRET,
     public: {
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
@@ -28,7 +31,8 @@ export default defineNuxtConfig({
       ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
       ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
       SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
-      ADMIN_MAIL: process.env.ADMIN_MAIL
+      ADMIN_MAIL: process.env.ADMIN_MAIL,
+      paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
     },
   },
 
@@ -44,6 +48,7 @@ export default defineNuxtConfig({
     "@formkit/nuxt",
     "@nuxt/icon",
     "@pinia/nuxt",
+    "nuxt-gtag",
   ],
   googleFonts: {
     families: {

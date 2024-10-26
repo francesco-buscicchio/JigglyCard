@@ -9,7 +9,7 @@
       >
         <div class="flex flex-row items-center justify-between md:items-start">
           <div v-if="section.imgUrl" class="w-full flex justify-center">
-            <Icon :name="section.imgUrl" size="35" :color="colors.darkPink" />
+            <Icon :name="section.imgUrl" size="35" />
           </div>
           <div class="flex-1 max-w-[75%] min-w-[75%] px-3">
             <p class="pb-2">{{ section.title }}</p>
@@ -33,20 +33,30 @@
 
 <script setup lang="ts">
 import { colors } from "~/config/tailwind/colors";
-import type { PropType } from "vue";
+const { t } = useI18n();
 
-const props = defineProps({
-  sections: {
-    type: Array as PropType<
-      Array<{
-        title: string;
-        sections: Array<string | { value: string; link: string }>;
-        imgUrl?: string;
-      }>
-    >,
-    default: () => [],
+const sections = [
+  {
+    title: t("serviceHomepage.FastShipping"),
+    sections: [{ value: t("serviceHomepage.FastShippingDescription") }],
+    imgUrl: "jig:truck",
   },
-});
+  {
+    title: t("serviceHomepage.Prices"),
+    sections: [t("serviceHomepage.PricesDescription")],
+    imgUrl: "jig:prices",
+  },
+  {
+    title: t("serviceHomepage.Security"),
+    sections: [t("serviceHomepage.SecurityDescription")],
+    imgUrl: "jig:security",
+  },
+  {
+    title: t("serviceHomepage.Support"),
+    sections: [t("serviceHomepage.SupportDescription")],
+    imgUrl: "jig:support",
+  },
+];
 
 const sectionFontSize = "16px";
 </script>
