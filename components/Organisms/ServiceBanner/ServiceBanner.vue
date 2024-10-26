@@ -1,12 +1,10 @@
 <template>
   <div class="gap-4">
-    <div class="grid md:grid-cols-4 md:gap-4 lg:py-8 bg-accent-50">
-      <div
-        v-for="(section, sectionIndex) in sections"
-        :key="'section-' + sectionIndex"
-        class="w-full md:w-auto mt-2 md:mb-0 pb-2 lg:pb-0 section-bar border-b-[1px] border-accent-950 lg:border-none"
-        :style="{ fontSize: sectionFontSize }"
-      >
+    <div class="grid md:grid-cols-4 md:gap-4 lg:py-8 ">
+      <div v-for="(section, sectionIndex) in sections" :key="'section-' + sectionIndex" :class="{
+        'w-full md:w-auto md:mb-0 py-4 px-2 section-bar border-b-[1px] border-accent-950 md:border-none bg-accent-50': sectionIndex !== sections.length - 1,
+        'w-full md:w-auto md:mb-0 py-4 px-2 section-bar md:border-none bg-accent-50': sectionIndex === sections.length - 1
+      }" :style="{ fontSize: sectionFontSize }">
         <div class="flex flex-row items-center justify-between md:items-start">
           <div v-if="section.imgUrl" class="w-full flex justify-center">
             <Icon :name="section.imgUrl" size="35" />
@@ -32,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { colors } from "~/config/tailwind/colors";
 const { t } = useI18n();
 
 const sections = [
