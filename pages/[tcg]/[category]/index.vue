@@ -27,7 +27,10 @@
         <div class="flex flex-row items-center gap-x-2">
           <p>{{ $t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
-            <MoleculesPageSorter @handle-sorting="handleSorting" />
+            <MoleculesPageSorter
+              :sortingItems="sortingItems"
+              :@handle-sorting="handleSorting"
+            />
           </div>
         </div>
       </div>
@@ -54,6 +57,7 @@
 
 <script setup lang="ts">
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
+import sortingItems from "~/data/sorting";
 
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 import ListingTitle from "~/components/Molecules/ListingTitle/ListingTitle.vue";
