@@ -23,6 +23,7 @@
     "axios": "^1.7.2",
     "consola": "^3.2.3",
     "nuxt": "^3.10.3",
+    "nuxt-gtag": "^3.0.1",
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.3",
     "swiper": "^11.1.4",

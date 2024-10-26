@@ -23,25 +23,22 @@
         </div>
 
         <div>
-          <div
-            v-for="(category, catIndex) in filterCategories"
-            :key="category.id"
-          >
+          <div v-for="category of filterCategories" :key="category.objectID">
             <MoleculesAccordion>
               <template #header>
                 <p>{{ $t(`filter.${category.name}`) }}</p>
               </template>
               <div
-                v-for="(item, index) in category.value"
+                v-for="(item, index) of category.value"
                 :key="item.id"
                 class="mb-4"
               >
                 <div class="flex items-center ml-6">
                   <AtomsCheckbox
-                    :id="index.toString()"
+                    :id="`${category.objectID}-${index}`"
                     :modelValue="item.checked"
                     @update:modelValue="
-                      updateCheckboxValue(catIndex, index, $event)
+                      updateCheckboxValue(category.objectID, index, $event)
                     "
                     class="mr-6 bg-white custom-checkbox"
                   />
@@ -144,29 +141,34 @@ onMounted(async () => {
 const emit = defineEmits(["filterUpdate"]);
 
 function updateCheckboxValue(
-  categoryIndex: number,
+  categoryID: string,
   filterIndex: number,
   value: boolean
 ) {
-  const category = filterCategories.value[categoryIndex];
+  const index = filterCategories.value.findIndex((val: any) => {
+    return val.objectID === categoryID;
+  });
+
+  console.log(categoryID);
+  const category = filterCategories.value[index];
   const filter = category.value[filterIndex];
 
   filter.checked = value;
 
-  if (value) {
-    if (!selectedFilters[category.name]) {
-      selectedFilters[category.name] = [];
-    }
-    selectedFilters[category.name].push(filter.name);
-  } else {
-    const index = selectedFilters[category.name]?.indexOf(filter.name);
-    if (index > -1) {
-      selectedFilters[category.name].splice(index, 1);
-    }
-    if (selectedFilters[category.name]?.length === 0) {
-      delete selectedFilters[category.name];
-    }
-  }
+  // if (value) {
+  //   if (!selectedFilters[category.name]) {
+  //     selectedFilters[category.name] = [];
+  //   }
+  //   selectedFilters[category.name].push(filter.name);
+  // } else {
+  //   const index = selectedFilters[category.name]?.indexOf(filter.name);
+  //   if (index > -1) {
+  //     selectedFilters[category.name].splice(index, 1);
+  //   }
+  //   if (selectedFilters[category.name]?.length === 0) {
+  //     delete selectedFilters[category.name];
+  //   }
+  // }
 }
 
 function updateMinPrice(value: number) {

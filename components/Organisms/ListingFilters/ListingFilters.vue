@@ -1,46 +1,56 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <div
-      class="flex flex-row items-start flex-wrap gap-2"
-      v-if="filterList.length"
-    >
-      <AtomsFilterTag
-        v-for="item of filterList"
-        :text="t(`filter.${item}`)"
-        @remove-filter="removeFilter(item)"
-      />
+    <div v-if="allFilters" class="flex flex-row flex-wrap">
+      <div
+        v-for="key in allFilters"
+        class="flex flex-row items-start flex-wrap gap-2"
+      >
+        <AtomsFilterTag
+          v-for="item of key"
+          :key="item"
+          :text="t(`filter.${item}`)"
+          @remove-filter="removeFilter(item)"
+        />
+      </div>
     </div>
     <AtomsButtonCTA
-      v-if="filterList.length"
+      v-if="filters"
       type="text"
       :text="$t('clearFilters')"
-      @button-clicked="removeAllFilter"
+      @button-clicked="removeAllFilters"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const { t } = useI18n();
 const emit = defineEmits(["update-filters"]);
 
-const filterList = ref<String[]>([]);
 const props = defineProps({
-  filters: Array<String>,
+  filters: Object as () => any,
 });
+
+const allFilters = ref();
 
 watch(props, () => {
-  filterList.value = props.filters ?? [];
+  allFilters.value = props.filters;
 });
 
-const removeAllFilter = () => {
-  filterList.value = [];
-  emit("update-filters", filterList.value);
+const removeAllFilters = () => {
+  for (let key in allFilters.value) allFilters.value[key] = [];
+
+  emit("update-filters", toRaw(allFilters.value));
 };
 
-const removeFilter = (item: String) => {
-  filterList.value = filterList.value.filter((val) => val !== item);
-  emit("update-filters", filterList.value);
+const removeFilter = (item: string) => {
+  for (let key in allFilters.value) {
+    allFilters.value[key] = allFilters.value[key].filter((val: string) => {
+      return val !== item;
+    });
+  }
+
+  emit("update-filters", toRaw(allFilters.value));
 };
 </script>
