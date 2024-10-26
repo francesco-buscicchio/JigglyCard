@@ -1,7 +1,7 @@
 <template>
   <div>
     <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5> {{ $t('filters') }} </h5>
+      <h5>{{ $t("filters") }}</h5>
     </AtomsButtonCTA>
 
     <transition name="fade">
@@ -11,24 +11,37 @@
     <transition name="slide-right">
       <div v-show="isOpen" class="filter-panel bg-accent-50">
         <div class="flex items-center justify-between mt-4">
-          <Icon name="jig:close-accent" class="ml-6" size="40" @click="togglePanel"></Icon>
+          <Icon
+            name="jig:close-accent"
+            class="ml-6"
+            size="40"
+            @click="togglePanel"
+          ></Icon>
           <h5 class="text-center w-full mr-18">
-            {{ $t('filters') }}
+            {{ $t("filters") }}
           </h5>
         </div>
 
         <div>
-          <!-- Categoria Filtri -->
-          <div v-for="(category, catIndex) in filterCategories" :key="category.id">
+          <div v-for="category of filterCategories" :key="category.objectID">
             <MoleculesAccordion>
               <template #header>
                 <p>{{ $t(`filter.${category.name}`) }}</p>
               </template>
-              <div v-for="(item, index) in category.value" :key="item.id" class="mb-4">
+              <div
+                v-for="(item, index) of category.value"
+                :key="item.id"
+                class="mb-4"
+              >
                 <div class="flex items-center ml-6">
-                  <AtomsCheckbox :id="index.toString()" :modelValue="item.checked" @update:modelValue="
-                    updateCheckboxValue(catIndex, index, $event)
-                    " class="mr-6 bg-white custom-checkbox" />
+                  <AtomsCheckbox
+                    :id="`${category.objectID}-${index}`"
+                    :modelValue="item.checked"
+                    @update:modelValue="
+                      updateCheckboxValue(category.objectID, index, $event)
+                    "
+                    class="mr-6 bg-white custom-checkbox"
+                  />
                   <p class="text-left">{{ $t(`filter.${item.name}`) }}</p>
                 </div>
               </div>
@@ -37,41 +50,65 @@
 
           <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t('price') }}</p>
-            <div class="flex items-center justify-center whitespace-nowrap mt-2">
-              <span class="mr-2 w-20">{{ $t('da') }} {{ selectedMinPrice }}</span>
-              <MoleculesSlider :min="0" :max="5000" :initialMinPrice="selectedMinPrice"
-                :initialMaxPrice="selectedMaxPrice" @update:minPrice="updateMinPrice($event)"
-                @update:maxPrice="updateMaxPrice($event)" />
-              <span class="ml-2 w-20">{{ $t('a') }} {{ selectedMaxPrice }}</span>
+            <p>{{ $t("price") }}</p>
+            <div
+              class="flex items-center justify-center whitespace-nowrap mt-2"
+            >
+              <span class="mr-2 w-20"
+                >{{ $t("da") }} {{ selectedMinPrice }}</span
+              >
+              <MoleculesSlider
+                :min="0"
+                :max="5000"
+                :initialMinPrice="selectedMinPrice"
+                :initialMaxPrice="selectedMaxPrice"
+                @update:minPrice="updateMinPrice($event)"
+                @update:maxPrice="updateMaxPrice($event)"
+              />
+              <span class="ml-2 w-20"
+                >{{ $t("a") }} {{ selectedMaxPrice }}</span
+              >
             </div>
           </div>
 
           <!-- Input Prezzo -->
           <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">{{ $t('min') }}</p>
-            <AtomsInputText class="w-20" v-model="selectedMinPrice" :placeholder="''"
-              @keydown="validateNumberInput($event)" @input="validatePriceInput('min', $event)" />
+            <p class="ml-12 mr-6">{{ $t("min") }}</p>
+            <AtomsInputText
+              class="w-20"
+              v-model="selectedMinPrice"
+              :placeholder="''"
+              @keydown="validateNumberInput($event)"
+              @input="validatePriceInput('min', $event)"
+            />
           </div>
           <div class="flex items-center">
-            <p class="ml-12 mr-6">{{ $t('max') }}</p>
-            <AtomsInputText class="w-20" v-model="selectedMaxPrice" :placeholder="''"
-              @keydown="validateNumberInput($event)" @input="validatePriceInput('max', $event)" />
+            <p class="ml-12 mr-6">{{ $t("max") }}</p>
+            <AtomsInputText
+              class="w-20"
+              v-model="selectedMaxPrice"
+              :placeholder="''"
+              @keydown="validateNumberInput($event)"
+              @input="validatePriceInput('max', $event)"
+            />
           </div>
         </div>
 
         <!-- Pulsanti -->
         <div class="bottom-container">
           <div class="flex mt-4 mb-6 mr-6">
-            <AtomsButtonCTA class="text-underlined" type="text" @click="resetAllFilters">
-              <p>{{ $t('deleteAllFilters') }}</p>
+            <AtomsButtonCTA
+              class="text-underlined"
+              type="text"
+              @click="resetAllFilters"
+            >
+              <p>{{ $t("deleteAllFilters") }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ $t('apply') }}</h5>
+              <h5>{{ $t("apply") }}</h5>
             </AtomsButtonCTA>
           </div>
         </div>
-
       </div>
     </transition>
   </div>
@@ -125,26 +162,35 @@ onMounted(async () => {
 
 const emit = defineEmits(["filterUpdate"]);
 
-function updateCheckboxValue(categoryIndex: number, filterIndex: number, value: boolean) {
-  const category = filterCategories.value[categoryIndex];
+function updateCheckboxValue(
+  categoryID: string,
+  filterIndex: number,
+  value: boolean
+) {
+  const index = filterCategories.value.findIndex((val: any) => {
+    return val.objectID === categoryID;
+  });
+
+  console.log(categoryID);
+  const category = filterCategories.value[index];
   const filter = category.value[filterIndex];
 
   filter.checked = value;
 
-  if (value) {
-    if (!selectedFilters[category.name]) {
-      selectedFilters[category.name] = [];
-    }
-    selectedFilters[category.name].push(filter.name);
-  } else {
-    const index = selectedFilters[category.name]?.indexOf(filter.name);
-    if (index > -1) {
-      selectedFilters[category.name].splice(index, 1);
-    }
-    if (selectedFilters[category.name]?.length === 0) {
-      delete selectedFilters[category.name];
-    }
-  }
+  // if (value) {
+  //   if (!selectedFilters[category.name]) {
+  //     selectedFilters[category.name] = [];
+  //   }
+  //   selectedFilters[category.name].push(filter.name);
+  // } else {
+  //   const index = selectedFilters[category.name]?.indexOf(filter.name);
+  //   if (index > -1) {
+  //     selectedFilters[category.name].splice(index, 1);
+  //   }
+  //   if (selectedFilters[category.name]?.length === 0) {
+  //     delete selectedFilters[category.name];
+  //   }
+  // }
 }
 
 function updateMinPrice(value: number) {
@@ -159,21 +205,27 @@ function updateMaxPrice(value: number) {
 }
 
 function validateNumberInput(event: KeyboardEvent) {
-  const allowedKeys = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'];
+  const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
   if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
     event.preventDefault();
   }
 }
 
-function validatePriceInput(type: 'min' | 'max', event: Event) {
+function validatePriceInput(type: "min" | "max", event: Event) {
   const input = (event.target as HTMLInputElement).value;
   const numericValue = parseInt(input, 10);
 
   if (!isNaN(numericValue)) {
-    if (type === 'min') {
-      selectedMinPrice.value = Math.max(0, Math.min(numericValue, selectedMaxPrice.value));
+    if (type === "min") {
+      selectedMinPrice.value = Math.max(
+        0,
+        Math.min(numericValue, selectedMaxPrice.value)
+      );
     } else {
-      selectedMaxPrice.value = Math.min(Math.max(numericValue, selectedMinPrice.value), 5000);
+      selectedMaxPrice.value = Math.min(
+        Math.max(numericValue, selectedMinPrice.value),
+        5000
+      );
     }
   }
 }
@@ -212,7 +264,7 @@ function togglePanel() {
 }
 
 watch(isOpen, (newValue) => {
-  document.body.style.overflow = newValue ? 'hidden' : '';
+  document.body.style.overflow = newValue ? "hidden" : "";
 });
 </script>
 

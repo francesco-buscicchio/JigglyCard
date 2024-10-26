@@ -137,5 +137,11 @@
     "good": "good",
     "played": "played",
     "poor": "poor"
+  },
+
+  "quantitySelect": {
+    "quantity": "Quantity",
+    "availability": "Availability",
+    "pieces": "pieces"
   }
 }

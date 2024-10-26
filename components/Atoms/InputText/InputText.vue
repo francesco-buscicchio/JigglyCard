@@ -36,6 +36,8 @@ const inputClass = computed(() => {
       return "form-input w-full pl-3 pr-10 py-2 border-2 border-[#FBBF24] rounded-lg focus:border-[#FBBF24] focus:ring-0 active:border-2";
     case "disabled":
       return "form-input w-full pl-3 pr-10 py-2 border border-neutrals-500 bg-neutrals-200 rounded-lg focus:border-neutrals-500 focus:ring-0";
+    case "newsletter":
+      return "form-input w-full pl-3 pr-10 py-[10px] border-2 border-accent-950 rounded-lg focus:border-accent-950 focus:ring-0 active:border-2";
     default:
       return "form-input w-full pl-3 pr-10 py-2 border-2 border-accent-950 rounded-lg focus:border-accent-950 focus:ring-0 active:border-2 bg-transparent";
   }
