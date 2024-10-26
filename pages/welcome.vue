@@ -40,7 +40,7 @@
     v-else
     class="flex min-w-[100vw] min-h-[100vh] justify-center align-middle"
   >
-    <MoleculesThankYou type="order" />
+    <MoleculesThankYou type="newsletter" />
   </div>
 </template>
 

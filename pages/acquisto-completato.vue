@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MoleculesThankYou type="newsletter"></MoleculesThankYou>
+    <MoleculesThankYou type="order"></MoleculesThankYou>
   </div>
 </template>
 
