@@ -143,5 +143,10 @@
     "main": "Grazie!",
     "newsletter": "Grazie per esserti iscritto alla nostra newsletter! Riceverai presto un'email con tutti i dettagli.",
     "order": "Il tuo ordine è stato confermato con successo. Ti invieremo presto un'email con tutti i dettagli."
+  },
+  "quantitySelect": {
+    "quantity": "Quantità",
+    "availability": "Disponibilità",
+    "pieces": "pezzi"
   }
 }
