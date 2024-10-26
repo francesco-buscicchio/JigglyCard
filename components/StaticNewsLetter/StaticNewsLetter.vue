@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="flex flex-col items-center justify-center mx-5">
-      <h2 class="font-bold pb-2 md:pb-5 w-full">
+    <div class="flex flex-col lg:items-center lg:justify-center mx-5">
+      <h2 class="font-bold pb-2 lg:pb-5 w-full">
         {{ titleNewsLetter }}
       </h2>
-      <p>{{ headerNewsLetter }}</p>
-      <p class="mt-6 md:mt-20">{{ captionNewsletter }}</p>
+      <p class="text-left">{{ headerNewsLetter }}</p>
+      <p class="mt-6 lg:mt-20">{{ captionNewsletter }}</p>
       <div class="mt-6 w-full flex flex-col gap-y-4">
         <MoleculesContainerInput
           status="default"

@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <div class="flex-grow flex flex-col items-center space-y-4 mt-4">
+
+    <div class="flex-grow flex flex-col items-center space-y-4 py-5 sticky lg:static top-0 bg-white z-10">
       <div class="w-full flex items-center justify-center relative">
         <div>
           <h1 class="text-accent-500">Jigglycard</h1>
@@ -9,27 +10,15 @@
     </div>
 
     <div
-      class="my-5 md:my-20 w-full flex flex-col md:flex-row justify-center items-center md:items-center md:space-x-4 space-y-4 md:space-y-0 md:flex-grow md:min-h-[50vh]"
-    >
-      <StaticNewsLetter
-        class="order-2 md:order-1 w-full md:w-1/3 md:px-10 mt-4 md:mt-none"
-      />
-      <div class="px-5 md:pr-20 order-1 md:order-2 w-full md:w-2/3">
-        <img
-          :src="Mainimg"
-          alt="Main Image"
-          class="w-full h-auto object-contain"
-        />
+      class="my-5 lg:my-20 w-full flex flex-col lg:flex-row justify-center items-center lg:items-center lg:space-x-4 space-y-4 lg:space-y-0 lg:flex-grow lg:min-h-[50vh]">
+      <StaticNewsLetter class="order-2 lg:order-1 w-full lg:w-1/3 lg:px-10 mt-4 lg:mt-none" />
+      <div class="px-5 lg:pr-20 order-1 lg:order-2 w-full lg:w-2/3">
+        <img :src="Mainimg" alt="Main Image" class="w-full h-auto object-contain" />
       </div>
     </div>
 
-    <OrganismsFooter
-      :footer="footerData"
-      :policyLinks="policyLinks"
-      :hidePayments="true"
-      :showInformationSite="true"
-      class="mt-auto"
-    />
+    <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" :hidePayments="true" :showInformationSite="true"
+      class="mt-auto" />
   </div>
 </template>
 
