@@ -16,6 +16,9 @@
       :products="evidenza"
       colorScheme="lightHome"
     />
+    <OrganismsHighlightsDesktop
+      :products="evidenza"
+    ></OrganismsHighlightsDesktop>
 
     <OrganismsProductCarousel
       :title="$t('whatsnew')"
@@ -43,7 +46,7 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG,
 } from "~/data/const";
-import type { ProductType } from "./[tcg]/[category]/[subcategory]/product.type";
+import type { ProductType } from "../types/product.type";
 const { t } = useI18n();
 
 const config = useRuntimeConfig();

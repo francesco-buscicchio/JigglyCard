@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from '~/pages/[tcg]/[category]/[subcategory]/product.type';
+import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   products: Array as () => ProductType[],

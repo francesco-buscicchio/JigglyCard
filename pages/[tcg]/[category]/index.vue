@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { ProductType } from "./[subcategory]/product.type";
+import type { ProductType } from "../../../types/product.type";
 import ListingTitle from "~/components/Molecules/ListingTitle/ListingTitle.vue";
 
 const products: Ref<ProductType[]> = ref([]);
