@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-6">
-    <div class="lg:mx-12 xl:mx-20 md:mx-5 mt-7">
+    <div class="mx-[4%] mt-7">
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
@@ -112,7 +112,6 @@ function setProducts(queryResult: any) {
       }
     }
   }
-  console.log(heroBannerTemp)
   setHeroBanner.value = heroBannerTemp.slice(-3);
 }
 
