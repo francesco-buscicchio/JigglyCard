@@ -8,7 +8,7 @@
         :style="{ backgroundImage: `url(${slide.imageUrl})` }" @click="navigateToListing(slide.navigateTo)" role="img">
       </div>
     </swiper-slide>
-  </swiper>›
+  </swiper>
 
   <MoleculesCardCarousel :items="slides" @update:index="updateIndex" :activeIndex="currentIndex" />
 
