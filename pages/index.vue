@@ -36,7 +36,6 @@
 </template>
 
 <script setup lang="ts">
-import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
@@ -44,6 +43,7 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG,
 } from "~/data/const";
+import type { ProductType } from "./[tcg]/[category]/[subcategory]/product.type";
 const { t } = useI18n();
 
 const config = useRuntimeConfig();

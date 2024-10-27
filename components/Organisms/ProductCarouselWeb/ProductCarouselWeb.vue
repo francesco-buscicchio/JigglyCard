@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from '../ProductCarousel/ProductCarousel.vue';
+import type { ProductType } from '~/pages/[tcg]/[category]/[subcategory]/product.type';
 
 const props = defineProps({
   products: {
