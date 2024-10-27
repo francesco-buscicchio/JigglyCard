@@ -16,11 +16,13 @@
       :products="evidenza"
       colorScheme="lightHome"
     />
-    <OrganismsHighlightsDesktop
-      :products="evidenza"
-    ></OrganismsHighlightsDesktop>
+    <OrganismsNewsCarouselDesktop
+    v-if="isDesktopView"
+      :products="novita"
+    ></OrganismsNewsCarouselDesktop>
 
     <OrganismsProductCarousel
+     v-if="isMobileView"
       :title="$t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
