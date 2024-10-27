@@ -124,16 +124,25 @@
     "support": "Support"
   },
   "payments": {
-  "terms": "payments with"
+    "terms": "payments with"
   },
   "tag": {
     "italian": "italiano",
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
-    "excellent":"excellent",
-    "good" : "good",
+    "excellent": "excellent",
+    "good": "good",
     "played": "played",
     "poor": "poor"
-    }
+  },
+  "shippingInfo": "Shipping information",
+  "name": "Name",
+  "surname": "Surname",
+  "email": "Email",
+  "nation": "Nation",
+  "cap": "CAP",
+  "city": "City",
+  "streetAndHouseNumber": "Street and house number",
+  "iWantTheInvoice": "I want the invoice"
 }

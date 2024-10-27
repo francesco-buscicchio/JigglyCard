@@ -135,5 +135,14 @@
   },
   "payments": {
     "terms": "pagamenti con"
-  }
+  },
+  "shippingInfo": "Informazioni di spedizione",
+  "name": "Nome",
+  "surname": "Cognome",
+  "email": "Email",
+  "nation": "Paese",
+  "cap": "CAP",
+  "city": "Città",
+  "streetAndHouseNumber": "Via e numero civico",
+  "iWantTheInvoice": "Voglio la fattura"
 }
