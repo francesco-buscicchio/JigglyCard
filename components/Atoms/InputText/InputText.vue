@@ -1,8 +1,15 @@
 <template>
   <div class="relative">
-    <input type="text" :class="inputClass" v-model="inputValue" :disabled="status === 'disabled'"
-      :placeholder="placeholder" />
-    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+    <input
+      type="text"
+      :class="inputClass"
+      v-model="inputValue"
+      :disabled="status === 'disabled'"
+      :placeholder="placeholder"
+    />
+    <span
+      class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+    >
       <slot />
     </span>
   </div>
