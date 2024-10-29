@@ -124,16 +124,26 @@
     "support": "Support"
   },
   "payments": {
-  "terms": "payments with"
+    "terms": "payments with"
   },
   "tag": {
     "italian": "italiano",
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
-    "excellent":"excellent",
-    "good" : "good",
+    "excellent": "excellent",
+    "good": "good",
     "played": "played",
     "poor": "poor"
-    }
+  },
+  "thanks": {
+    "main": "Thank you!",
+    "order": "Your order has been successfully confirmed. We will send you an email with all the details soon.",
+    "newsletter": "Thank you for signing up for our newsletter! You will soon receive an email with all the details."
+  },
+  "quantitySelect": {
+    "quantity": "Quantity",
+    "availability": "Availability",
+    "pieces": "pieces"
+  }
 }
