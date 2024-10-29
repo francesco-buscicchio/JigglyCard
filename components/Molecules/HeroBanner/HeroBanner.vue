@@ -1,53 +1,54 @@
 <template>
-  <div
-    class="relative bg-cover bg-center h-[300px] md:h-[500px] cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
-    :style="{ backgroundImage: `url(${backgroundImage})` }"
-    @click="navigateToListing"
-    role="img"
-    :aria-label="ariaLabel"
-  >
-    <div
-      class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-    >
-      <h1 class="text-white text-3xl md:text-5xl font-bold text-center">
-        {{ title }}
-      </h1>
-    </div>
-  </div>
+  <swiper ref="swiperRef" :grab-cursor="true" :space-between="50" @swiper="setControlledSwiper"
+    @slideChange="onSlideChange">
+    <swiper-slide v-for="(slide, index) in slides">
+      <div
+        class="relative bg-cover bg-center h-75 md:h-125 cursor-pointer transition-transform duration-300 ease-in-out transform hover:scale-105"
+        :style="{ backgroundImage: `url(${slide.imageUrl})` }" @click="navigateToListing(slide.navigateTo)" role="img">
+      </div>
+    </swiper-slide>
+  </swiper>
+
+  <MoleculesCardCarousel :items="slides" @update:index="updateIndex" :activeIndex="currentIndex" />
+
 </template>
 
 <script setup>
 import { useRouter } from "vue-router";
-import { defineProps } from "vue";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper-bundle.css";
+import { Navigation, Pagination } from "swiper/modules";
 
-// Definisci le props
 const props = defineProps({
-  backgroundImage: {
-    type: String,
+  slides: {
+    type: Array,
     required: true,
-  },
-  navigateTo: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    default: "Ossidiana Infuocata",
-  },
-  ariaLabel: {
-    type: String,
-    default: "Promotional banner for Ossidiana Infuocata expansion",
-  },
+    default: () => []
+  }
 });
 
-// Usa il router per la navigazione
 const router = useRouter();
+const currentIndex = ref(0);
+const controlledSwiper = ref(null);
 
-const navigateToListing = () => {
-  router.push(props.navigateTo);
+const navigateToListing = (route) => {
+  router.push(route);
+};
+
+function updateIndex(index) {
+  currentIndex.value = index;
+  //@ts-ignore
+  controlledSwiper.value.slideTo(index);
+}
+
+const setControlledSwiper = (swiper) => {
+  controlledSwiper.value = swiper;
+};
+
+const onSlideChange = () => {
+  if (controlledSwiper.value) {
+    //@ts-ignore
+    currentIndex.value = controlledSwiper.value.activeIndex;
+  }
 };
 </script>
-
-<style scoped>
-/* Aggiungi eventuali stili aggiuntivi qui, se necessario */
-</style>

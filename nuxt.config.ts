@@ -1,6 +1,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
   colorMode: {
     preference: "light",
   },
@@ -11,29 +10,33 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-
+  gtag: {
+    id: "GTM-MP3GKJSW",
+  },
   formkit: {
     autoImport: true,
     configFile: "./formkit.config.ts",
   },
+  devServer: {
+    host: "0.0.0.0",
+    port: 3000,
+  },
 
   runtimeConfig: {
+    paypalClientSecret: process.env.NUXT_PAYPAL_CLIENT_SECRET,
     public: {
-      FB_API_KEY: process.env.FB_API_KEY,
-      FB_AUTH_DOMAIN: process.env.FB_AUTH_DOMAIN,
-      FB_PROJECT_ID: process.env.FB_PROJECT_ID,
-      FB_STORAGE_BUCKET: process.env.FB_STORAGE_BUCKET,
-      FB_MESSAGING_SENDER_ID: process.env.FB_MESSAGING_SENDER_ID,
-      FB_APP_ID: process.env.FB_APP_ID,
-      FB_MEASUREMENT_ID: process.env.FB_MEASUREMENT_ID,
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME,
+      ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
+      ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
+      SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
+      ADMIN_MAIL: process.env.ADMIN_MAIL,
+      paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
     },
   },
 
   css: ["~/assets/css/main.scss"],
-
   modules: [
     "@nuxt/image",
     "nuxt-icon",
@@ -44,8 +47,9 @@ export default defineNuxtConfig({
     "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
+    "@pinia/nuxt",
+    "nuxt-gtag",
   ],
-
   googleFonts: {
     families: {
       "Roboto+Serif": [500],

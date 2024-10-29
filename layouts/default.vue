@@ -17,8 +17,8 @@
   <slot />
 
   <footer>
+    <OrganismsPreFooter />
     <OrganismsFooter
-      :sections="sectionsData"
       :footer="footerData"
       :policyLinks="policyLinks"
     />
@@ -39,25 +39,6 @@ const isMenuOpen = ref(false);
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
-
-const sectionsData = [
-  {
-    title: "about",
-    sections: [
-      { value: "Item 1 con link", link: "#" },
-      { value: "Item 2", link: "#" },
-      { value: "Item 3", link: "#" },
-    ],
-  },
-  {
-    title: "spedizioni e rimborsi",
-    sections: [
-      "Lorem ipsum dolor sit amet",
-      "consectetur adipiscing elit",
-      "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
-    ],
-  },
-];
 
 const footerData = {
   imgs: [

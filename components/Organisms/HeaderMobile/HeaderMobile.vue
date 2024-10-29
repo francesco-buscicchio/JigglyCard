@@ -25,14 +25,44 @@
     </div>
 
     <div v-if="isSearchOpen" class="mt-4">
-      <input
-        type="text"
-        class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-        placeholder="Cerca..."
-      />
-      <button class="absolute right-3 top-3 focus:outline-none">
-        <Icon name="jig:cerca-accent" size="18" />
-      </button>
+      <div class="relative">
+        <input
+          type="text"
+          class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
+          :placeholder="$t('search') + '...'"
+          @input="
+            ($event) => {
+              //@ts-ignore
+              searchProducts($event.target.value);
+            }
+          "
+        />
+        <span
+          class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+        >
+          <Icon name="jig:cerca-accent"></Icon>
+        </span>
+      </div>
+
+      <div v-if="productSearch.length > 0" class="flex flex-col gap-4 pt-4">
+        <div class="flex flex-col gap-4 xl:gap-6 w-full">
+          <div v-for="item of productSearch">
+            <MoleculesSearchItemResult
+              :thumbnailImage="item.thumbnailImage"
+              :name="item.name"
+              :objectID="item.objectID"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div v-if="noResults" class="w-full py-6 flex flex-col items-center">
+        <p
+          class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
+        >
+          {{ $t("no_results") }}
+        </p>
+      </div>
     </div>
 
     <div v-if="isMenuOpen" class="lg:hidden">
@@ -48,14 +78,33 @@ import { useHead } from "#app";
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 const emit = defineEmits(["toggle-menu"]);
+const searchValue = ref("");
+const productSearch = ref([]);
+const noResults = computed(
+  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
+);
+
+const config = useRuntimeConfig();
+const client = useAlgolia();
 
 watch(isMenuOpen, (newValue) => {
   useHead({
     bodyAttrs: {
-      class: newValue ? "hide" : "",
+      class: newValue ? "hide" : "scrollable",
     },
   });
 });
+
+const searchProducts = async (data: any) => {
+  searchValue.value = data;
+  if (searchValue.value.length > 2) {
+    const results = await client.searchSingleIndex({
+      indexName: "ecommerce",
+      searchParams: { query: searchValue.value, hitsPerPage: 4 },
+    });
+    productSearch.value = results.hits as any;
+  } else productSearch.value = [];
+};
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -64,13 +113,10 @@ const toggleMenu = () => {
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
+  emit("toggle-menu");
 };
 
 const navigateTo = (path: String) => {
   navigateTo(path);
 };
 </script>
-
-<style scoped>
-/* Si suppone che gli stili 'hide' siano definiti globalmente */
-</style>
