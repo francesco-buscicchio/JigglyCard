@@ -4,8 +4,18 @@
       <h2 class="font-bold pb-2 lg:pb-5 w-full">
         {{ titleNewsLetter }}
       </h2>
-      <p class="text-left">{{ headerNewsLetter }}</p>
-      <p class="mt-6 lg:mt-20">{{ captionNewsletter }}</p>
+
+      <p>
+        <span class="text-left">{{ headerNewsLetter }}</span>
+        <span class="mt-6 lg:mt-20">
+          {{ captionNewsletterFirst }}
+        </span>
+        <span class="bold">
+          {{ captionNewsletterBold }}
+        </span>
+        <span>{{ captionNewsletterSecond }}</span>
+      </p>
+
       <div class="mt-6 w-full flex flex-col gap-y-4">
         <MoleculesContainerInput
           status="default"
@@ -36,7 +46,10 @@ const email = ref("");
 
 const titleNewsLetter = t("titleNewsLetter");
 const headerNewsLetter = t("headerNewsLetter");
-const captionNewsletter = t("captionNewsletter");
+
+const captionNewsletterFirst = t("captionNewsletter.first");
+const captionNewsletterBold = t("captionNewsletter.bold");
+const captionNewsletterSecond = t("captionNewsletter.second");
 const buttonNewsLetter = t("buttonNewsLetter");
 
 const loadTemplates = async () => {
