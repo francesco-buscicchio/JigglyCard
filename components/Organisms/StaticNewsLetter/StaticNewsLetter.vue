@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="flex flex-col items-center justify-center mx-5">
-      <h2 class="font-bold pb-2 md:pb-5 w-full">
+    <div class="flex flex-col lg:items-center lg:justify-center mx-5">
+      <h2 class="font-bold pb-2 lg:pb-5 w-full">
         {{ titleNewsLetter }}
       </h2>
-      <p>{{ headerNewsLetter }}</p>
-      <p class="mt-6 md:mt-20">{{ captionNewsletter }}</p>
+      <p class="text-left">{{ headerNewsLetter }}</p>
+      <p class="mt-6 lg:mt-20">{{ captionNewsletter }}</p>
       <div class="mt-6 w-full flex flex-col gap-y-4">
         <MoleculesContainerInput
           status="default"
@@ -25,10 +25,11 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { sendMail } from "../../utils/sendMail";
+import { sendMail } from "~/utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
 
 const client = useMedusaClient();
+const emit = defineEmits(["mailSended"]);
 const config = useRuntimeConfig();
 const { t, locale } = useI18n();
 const email = ref("");
@@ -41,8 +42,8 @@ const buttonNewsLetter = t("buttonNewsLetter");
 const loadTemplates = async () => {
   const customerTemplateModule =
     locale.value === "en"
-      ? await import("../../mailTemplate/en/newsletterToCustomer")
-      : await import("../../mailTemplate/it/newsletterToCustomer");
+      ? await import("~/mailTemplate/en/newsletterToCustomer")
+      : await import("~/mailTemplate/it/newsletterToCustomer");
 
   const adminTemplateModule =
     locale.value === "en"
@@ -56,6 +57,7 @@ const loadTemplates = async () => {
 };
 
 const mailAction = async () => {
+  if (!email.value) return;
   const userName = getUsernameFromMail(email.value);
   const { newsletterToCustomer, newsletterToAdmin } = await loadTemplates();
 
@@ -65,11 +67,13 @@ const mailAction = async () => {
     name: email.value,
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToCustomer(userName),
+  }).then((val) => {
+    emit("mailSended");
   });
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: config.public.useRuntimeConfig,
+    email: "jigglycard@gmail.com",
     name: "Jigglycard Store",
     subject: "Subscription to Jigglycard newsletter successful",
     contentValue: newsletterToAdmin(userName, email.value),
