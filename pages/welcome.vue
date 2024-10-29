@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen" v-if="!mailSended">
-    <div class="flex-grow flex flex-col items-center space-y-4 mt-4">
+    <div class="flex-grow flex flex-col items-center mt-4 sticky-top py-4">
       <div class="w-full flex items-center justify-center relative">
         <div>
           <h1 class="text-accent-500">Jigglycard</h1>
