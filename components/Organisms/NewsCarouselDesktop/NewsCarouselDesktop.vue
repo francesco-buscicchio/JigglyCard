@@ -15,33 +15,17 @@
           :key="index"
           class="relative cursor-pointer"
         >
-          <img
-            :src="product.imageUrl"
-            :alt="product.productName"
-            class="w-[100%] rounded-[16px]"
+          <OrganismsNewsProductWeb :product="product" :index="index" />
+
+          <AtomsButtonCTA
+            type="secondary"
+            :text="$t('showDetails')"
+            v-on:button-clicked="
+              navigateTo(`/${product.tcg}/${product.category}/${product.id}`)
+            "
+            class="relative"
+            :class="{ hidden: index != 1 }"
           />
-          <div
-            class="absolute layer w-[100%] h-[100%] top-0 flex flex-col gap-2 justify-end items-center border-[3px] border-white rounded-[16px] group px-4 pb-2"
-          >
-            <h5
-              class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
-            >
-              {{ product.productName }}
-            </h5>
-            <p class="text-lg">{{ product.code }}</p>
-            <p class="text-lg">{{ product.expansion }}</p>
-            <label class="text-xs"
-              >{{ $t("startingFrom") }}
-              <p class="ml-5 font-bold inline text-2xl">
-                {{ product.price }} €
-              </p></label
-            >
-            <div
-              class="absolute hidden group-hover:block text-accent-500 bg-white text-[10px] rounded p-1 bottom-[50%] transform max-w-xs whitespace-no-wrap"
-            >
-              {{ product.productName }}
-            </div>
-          </div>
         </div>
       </div>
 
@@ -50,7 +34,7 @@
         class="cursor-pointer mx-10"
         :disabled="currentIndex + 3 >= props.products.length"
       >
-        <Icon name="jig:arrow-right" size="50"/>
+        <Icon name="jig:arrow-right" size="50" />
       </button>
     </div>
   </div>
@@ -65,7 +49,6 @@ const props = defineProps({
     required: true,
   },
 });
-console.log("props", props.products);
 const currentIndex = ref(0);
 const productList = computed(() => props.products.slice(0, 9));
 
@@ -85,14 +68,3 @@ const prev = () => {
   }
 };
 </script>
-
-<style scoped>
-.layer {
-  background-image: -webkit-linear-gradient(
-    0deg,
-    #006482 40%,
-    rgba(0, 0, 0, 0) 60%
-  );
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #006482 60%);
-}
-</style>
