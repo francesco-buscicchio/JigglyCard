@@ -9,6 +9,7 @@
       >
         <Icon name="jig:arrow-left" size="50" />
       </button>
+
       <div class="flex w-[80vw] justify-center">
         <Swiper
           :slidesPerView="3"
@@ -17,7 +18,9 @@
             nextEl: '.custom-button-next',
             prevEl: '.custom-button-prev',
           }"
-          :modules="[Navigation]"
+          :modules="[Navigation, Parallax]"
+          :speed="1000"
+          :parallax="true"
           ref="swiperRef"
           @swiper="setControlledSwiper"
         >
@@ -25,14 +28,17 @@
             v-for="(product, index) in props.products"
             :key="index"
             class="relative cursor-pointer"
-            :style="{ display: 'flex', alignItems: 'center', justifyContent: 'center' }"
-
+            :style="{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }"
           >
             <OrganismsNewsProductWeb
               :product="product"
               :is-middle="isMiddle(index)"
+              data-swiper-parallax="0"
             />
-           
           </SwiperSlide>
         </Swiper>
       </div>
@@ -50,7 +56,7 @@
 
 <script setup lang="ts">
 import type { ProductType } from "~/types/product.type";
-import { Navigation } from "swiper/modules";
+import { Navigation, Parallax } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import type { Swiper } from "swiper/types";
@@ -65,11 +71,9 @@ const currentIndex = ref(0);
 const productList = computed(() => props.products.slice(0, 9));
 const controlledSwiper = ref<Swiper | null>(null);
 
-
 const setControlledSwiper = (swiper: any) => {
   controlledSwiper.value = swiper;
 };
-
 
 const next = () => {
   if (currentIndex.value + 3 < productList.value.length) {
@@ -82,6 +86,7 @@ const prev = () => {
     currentIndex.value--;
   }
 };
+
 const isMiddle = (index: number) => {
   const activeIndex = controlledSwiper?.value?.activeIndex || 0;
   const slidesPerView = 3; // Number of slides visible per view

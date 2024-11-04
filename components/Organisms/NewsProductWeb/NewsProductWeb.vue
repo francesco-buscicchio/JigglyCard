@@ -6,26 +6,27 @@
     <img
       :src="product.imageUrl"
       :alt="product.productName"
-      class="rounded-[16px] w-full h-full"
+      class="rounded-[16px] w-full h-full min-w-[187px]"
     />
     <div
-      class="absolute layer w-full h-full top-0 flex flex-col gap-2 justify-end items-center border-[3px] border-white rounded-[16px] group px-4 pb-2"
+      class="absolute min-w-[187px] layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-[16px] group px-4 pb-4"
+      :class="layerClass"
     >
       <h5
         class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
       >
         {{ product.productName }}
       </h5>
-      <p class="text-lg">{{ product.code }}</p>
-      <p class="text-lg">{{ product.expansion }}</p>
-      <label class="text-xs"
+      <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
+      <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
+      <label class="lg:text-xs xl:text-sm"
         >{{ $t("startingFrom") }}
-        <p class="ml-5 font-bold inline text-2xl">
+        <p class="ml-5 font-bold inline lg:text-2xl xl:text-3xl">
           {{ product.price }} €
         </p></label
       >
       <div
-        class="absolute hidden group-hover:block text-accent-500 bg-white text-[10px] rounded p-1 bottom-[50%] transform max-w-xs whitespace-no-wrap"
+        class="absolute hidden group-hover:block text-accent-500 bg-white text-[2wv] rounded p-1 bottom-[50%] transform max-w-xs whitespace-no-wrap"
       >
         {{ product.productName }}
       </div>
@@ -62,6 +63,9 @@ const containerClass = computed(() => ({
   "w-[80%]": !props.isMiddle,
   "h-[80%]": !props.isMiddle,
   //   "mt-[20%]": !props.isMiddle,
+}));
+const layerClass = computed(() => ({
+  "pb-[20%]": props.isMiddle,
 }));
 </script>
 
