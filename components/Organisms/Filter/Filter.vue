@@ -9,7 +9,7 @@
     </transition>
 
     <transition name="slide-right">
-      <div v-show="isOpen" class="filter-panel bg-accent-50">
+      <div v-if="isOpen" class="filter-panel bg-accent-50">
         <div class="flex items-center justify-between mt-4">
           <Icon
             name="jig:close-accent"
@@ -275,12 +275,17 @@ watch(isOpen, (newValue) => {
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
-.slide-right-enter,
+.slide-right-enter-from,
 .slide-right-leave-to {
   transform: translateX(100%);
+}
+
+.slide-right-enter-to,
+.slide-right-leave-from{
+  transform: translateX(0);
 }
 
 .fade-enter-active,
