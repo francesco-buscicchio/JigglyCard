@@ -2,34 +2,56 @@
   <div class="w-full px-4" v-if="product">
     <MoleculesBreadcrumb />
 
-    <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)" :expansion="product.expansion" />
+    <MoleculesProductPageHero
+      :image="product.imageUrl"
+      :title="formatTitle(product.productName)"
+      :code="extractCardCode(product.productName)"
+      :expansion="product.expansion"
+    />
 
     <MoleculesTextViewer>
-      <template v-slot:title>
-        Il titolo del tuo testo
-      </template>
+      <template v-slot:title> Il titolo del tuo testo </template>
       <template v-slot:content>
-        Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello
-        schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.
+        Questo è un testo di esempio. Può essere lungo quanto vuoi e il
+        componente si adatterà alle dimensioni dello schermo. Il layout è stato
+        ottimizzato per essere leggibile e chiaro su dispositivi di varie
+        dimensioni.
       </template>
     </MoleculesTextViewer>
-    <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagLanguage" />
-    <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition" />
+    <MoleculesListingTag
+      @handle-tag-click="handleTagClickLanguage"
+      :tags="tagLanguage"
+    />
+    <MoleculesListingTag
+      @handle-tag-click="handleTagClickCondition"
+      :tags="tagsCondition"
+    />
 
-    <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
-
+    <OrganismsQuantitySelect
+      :price="product.price"
+      :quantity="product.quantity"
+      :isCart="false"
+    />
   </div>
-
 </template>
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { algoliasearch } from "algoliasearch";
 import { PRODUCTS_COLLECTION } from "~/data/const";
-import type { ListingTagProps, TagCode, TagStructure } from "~/components/Molecules/ListingTag/ListingTag.types";
+import type {
+  ListingTagProps,
+  TagCode,
+  TagStructure,
+} from "~/components/Molecules/ListingTag/ListingTag.types";
 import { TagType } from "~/components/Atoms/Tag/tag.types";
-import { activateLanguage, createTagCondition, createTagLanguage, createTagsStructure, findActiveLanguage } from "./product.utils";
+import {
+  activateLanguage,
+  createTagCondition,
+  createTagLanguage,
+  createTagsStructure,
+  findActiveLanguage,
+} from "./product.utils";
 
 const product = ref();
 const config = useRuntimeConfig();
@@ -42,7 +64,7 @@ onMounted(async () => {
 
 const tagLanguage = ref<ListingTagProps[]>([]);
 const tagsCondition = ref<ListingTagProps[]>([]);
-let tagsStructure: TagStructure[]
+let tagsStructure: TagStructure[];
 
 async function fetchData() {
   let results = await client.search({
@@ -53,16 +75,16 @@ async function fetchData() {
       },
     ],
   });
-  tagsStructure = createTagsStructure(results.results[0])
-  setTags(tagsStructure)
+  tagsStructure = createTagsStructure(results.results[0]);
+  setTags(tagsStructure);
   setProduct(results.results[0]);
 }
 
 const setTags = (tagsStructure: TagStructure[]): void => {
-  tagLanguage.value = createTagLanguage(tagsStructure)
-  const activeLanguage = findActiveLanguage(tagLanguage.value, tagsStructure)
+  tagLanguage.value = createTagLanguage(tagsStructure);
+  const activeLanguage = findActiveLanguage(tagLanguage.value, tagsStructure);
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
-  tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
+  tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
 };
 
 const setProduct = (queryResult: any) => {
@@ -80,10 +102,10 @@ const setProduct = (queryResult: any) => {
       category: item.type,
       id: item.objectID,
       variants: item.variantsDetails,
-      quantity: item.quantity
+      quantity: item.quantity,
     };
   }
-}
+};
 
 function extractCardCode(input: string): string | undefined {
   const match = input.match(/\(([^)]+)\)/);
@@ -95,23 +117,33 @@ function formatTitle(title: string): string {
 }
 
 const handleTagClickLanguage = (code: TagCode): void => {
-  const activeConditions = (tagsStructure.find(tag => tag.language === code))?.conditions
+  const activeConditions = tagsStructure.find(
+    (tag) => tag.language === code
+  )?.conditions;
   if (activeConditions) {
-    tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
+    tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
   }
-  tagLanguage.value = activateLanguage(tagLanguage.value, code)
+  tagLanguage.value = activateLanguage(tagLanguage.value, code);
 };
 
 const handleTagClickCondition = (code: TagCode): void => {
-  const conditionSelected = tagsCondition.value.find(tag => tag.code === code)
+  const conditionSelected = tagsCondition.value.find(
+    (tag) => tag.code === code
+  );
   if (conditionSelected?.type === TagType.DISABLED) {
-    const tagContainThisCondition = tagsStructure.find(tag => tag.conditions.some(cond => cond === conditionSelected?.code))
-    handleTagClickLanguage(tagContainThisCondition?.language as TagCode)
+    const tagContainThisCondition = tagsStructure.find((tag) =>
+      tag.conditions.some((cond) => cond === conditionSelected?.code)
+    );
+    handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
   }
-  tagsCondition.value = tagsCondition.value.map(tag => ({
+  tagsCondition.value = tagsCondition.value.map((tag) => ({
     ...tag,
-    type: tag.type === TagType.DISABLED ? TagType.DISABLED : tag.code === code ? TagType.ACTIVE : TagType.INACTIVE
-  }))
+    type:
+      tag.type === TagType.DISABLED
+        ? TagType.DISABLED
+        : tag.code === code
+        ? TagType.ACTIVE
+        : TagType.INACTIVE,
+  }));
 };
-
 </script>

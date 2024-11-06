@@ -10,10 +10,10 @@
         />
       </div>
 
-      <h2 class="mr-18">{{ totalPrice }} €</h2>
+      <h2 :class="!isCart ? 'mr-18' : ''">{{ totalPrice }} €</h2>
     </div>
 
-    <p class="my-2">
+    <p class="my-2" v-if="!isCart">
       {{ $t("quantitySelect.availability") }}: {{ quantity }}
       {{ $t("quantitySelect.pieces") }}
     </p>
@@ -21,11 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-
 const props = defineProps<{
   quantity: number;
   price: number;
+  isCart: boolean;
 }>();
 
 const quantity = ref(1);
