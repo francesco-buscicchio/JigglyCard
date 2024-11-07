@@ -4,13 +4,15 @@
     <h4 class="py-4 ml-4">{{ $t('shippingInfo') }}</h4>
 
     <OrganismsCheckoutForm @updateFormValues="updateFormData" />
-
     <OrganismsSelectOptions :shipping-options="shippingOptions" @update:selectedOption="updateSelectedOption" />
+    <OrganismsCartSummary :products="mockProducts" :shipping-cost="selectedShippingOption?.price || 0" />
 
-    <OrganismsCartSummary :products="mockProducts" :shipping-cost="selectedShippingOption?.price || 0">
-    </OrganismsCartSummary>
-    <br>
-    <button @click="logFormValues">Log Values</button>
+    <!-- TODO da rivedere  -->
+    <div class="mx-4 my-2">
+        <AtomsButtonCTA @click="validateForm" class="text-white rounded">
+            {{ $t('confirmAndPay') }}
+        </AtomsButtonCTA>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -32,9 +34,20 @@ function updateSelectedOption(option) {
     selectedShippingOption.value = option;
 }
 
-function logFormValues() {
+function validateForm() {
+    //TODO:log utili solo per carello ecc.. da eliminare
     console.log('Form Data:', formData.value);
     console.log('Selected Shipping Option:', selectedShippingOption.value);
+
+    const isFormValid = Object.values(formData.value).every(value => value !== null && value !== '');
+
+    const isShippingSelected = selectedShippingOption.value !== null;
+
+    if (isFormValid && isShippingSelected) {
+        console.log('ok');
+    } else {
+        console.log('i campi obbligatori non sono stati compilati');
+    }
 }
 
 definePageMeta({

@@ -148,5 +148,6 @@
   "shippingMethod": "Shipping method",
   "recapCart": "Recap Cart",
   "shipping": "Shipping",
-  "total": "Total"
+  "total": "Total",
+  "confirmAndPay": "Confirm and pay"
 }
