@@ -5,6 +5,11 @@
 
     <OrganismsCheckoutForm @updateFormValues="updateFormData" />
 
+    <OrganismsSelectOptions :shipping-options="shippingOptions" @update:selectedOption="updateSelectedOption" />
+
+    <OrganismsCartSummary :products="mockProducts" :shipping-cost="selectedShippingOption?.price || 0">
+    </OrganismsCartSummary>
+    <br>
     <button @click="logFormValues">Log Values</button>
 </template>
 
@@ -12,16 +17,33 @@
 import { ref } from 'vue';
 
 const formData = ref({});
+const shippingOptions = ref([
+    { name: 'Opzione 1', price: 5 },
+    { name: 'Opzione 2', price: 10 },
+    { name: 'Opzione 3', price: 15 },
+]);
+const selectedShippingOption = ref(null);
 
 function updateFormData(data) {
     formData.value = data;
 }
 
+function updateSelectedOption(option) {
+    selectedShippingOption.value = option;
+}
+
 function logFormValues() {
     console.log('Form Data:', formData.value);
+    console.log('Selected Shipping Option:', selectedShippingOption.value);
 }
 
 definePageMeta({
     layout: 'default',
 });
+
+const mockProducts = ref([
+    { nameProduct: 'Pikachu', price: 9.99, codeProduct: 'PK001' },
+    { nameProduct: 'Charmander', price: 5.99, codeProduct: 'CH002' },
+    { nameProduct: 'Bulbasaur', price: 8.99, codeProduct: 'BL003' },
+]);
 </script>

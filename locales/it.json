@@ -144,5 +144,9 @@
   "cap": "CAP",
   "city": "Città",
   "streetAndHouseNumber": "Via e numero civico",
-  "iWantTheInvoice": "Voglio la fattura"
+  "iWantTheInvoice": "Voglio la fattura",
+  "shippingMethod": "Modalità di spedizione",
+  "recapCart": "Riepilogo carrello",
+  "shipping": "Spedizione",
+  "total": "Totale"
 }

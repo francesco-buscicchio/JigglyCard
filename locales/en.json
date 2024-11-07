@@ -144,5 +144,9 @@
   "cap": "CAP",
   "city": "City",
   "streetAndHouseNumber": "Street and house number",
-  "iWantTheInvoice": "I want the invoice"
+  "iWantTheInvoice": "I want the invoice",
+  "shippingMethod": "Shipping method",
+  "recapCart": "Recap Cart",
+  "shipping": "Shipping",
+  "total": "Total"
 }
