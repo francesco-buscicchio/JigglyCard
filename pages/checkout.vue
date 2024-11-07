@@ -9,14 +9,14 @@
 
     <!-- TODO da rivedere  -->
     <div class="mx-4 my-2">
-        <AtomsButtonCTA @click="validateForm" class="text-white rounded">
+        <AtomsButtonCTA @click="validateForm" :class="['rounded', isFormValid ? '' : 'bg-gray-300 text-gray-500']">
             {{ $t('confirmAndPay') }}
         </AtomsButtonCTA>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 const formData = ref({});
 const shippingOptions = ref([
@@ -34,16 +34,18 @@ function updateSelectedOption(option) {
     selectedShippingOption.value = option;
 }
 
+const isFormValid = computed(() => {
+    const allFieldsFilled = Object.values(formData.value).every(value => value !== null && value !== '');
+    const isShippingSelected = selectedShippingOption.value !== null;
+    return allFieldsFilled && isShippingSelected;
+});
+
 function validateForm() {
     //TODO:log utili solo per carello ecc.. da eliminare
     console.log('Form Data:', formData.value);
     console.log('Selected Shipping Option:', selectedShippingOption.value);
 
-    const isFormValid = Object.values(formData.value).every(value => value !== null && value !== '');
-
-    const isShippingSelected = selectedShippingOption.value !== null;
-
-    if (isFormValid && isShippingSelected) {
+    if (isFormValid.value) {
         console.log('ok');
     } else {
         console.log('i campi obbligatori non sono stati compilati');
