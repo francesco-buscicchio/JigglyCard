@@ -34,12 +34,6 @@ watch(
     resetTimer(true);
   }
 );
-// TODO: non credo che questa funzione serva o no?
-// function setActive(index: number) {
-//   activeIndex.value = index;
-//   emit("update:index", index);
-//   resetTimer(true);
-// }
 
 function nextSlide() {
   activeIndex.value = (activeIndex.value + 1) % props.items.length;

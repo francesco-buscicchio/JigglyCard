@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-6">
-    <div class="mx-[4%] mt-7">
+    <div class="mx-[4vw] mt-7">
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
