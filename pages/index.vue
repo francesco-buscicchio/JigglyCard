@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-6">
-    <div class="px-4 pt-4">
+    <div class="mx-[4vw] mt-7">
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
@@ -81,7 +81,6 @@ onMounted(async () => {
 
 function setProducts(queryResult: any) {
   const heroBannerTemp: ProductType[] = [];
-
   for (let hit of queryResult.hits) {
     const obj = {
       id: hit.objectID,
