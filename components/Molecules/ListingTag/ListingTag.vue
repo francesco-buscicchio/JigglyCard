@@ -1,11 +1,13 @@
 <template>
-    <div class="flex gap-3 flex-wrap my-8">
-        <div v-if="tags.length" v-for="(tag, index) in tags">
-            <AtomsTag  :text="tag.text" :type="getTagType(index)"
-                :code="tag.code" @tagClicked="handleTagClick" />
+    <div>
+        <p class="mb-4">{{ title }}:</p>
+        <div class="flex gap-3 flex-wrap">
+            <div v-if="tags.length" v-for="(tag, index) in tags">
+                <AtomsTag :text="tag.text" :type="getTagType(index)" :code="tag.code" @tagClicked="handleTagClick" />
+            </div>
         </div>
     </div>
-    
+
 </template>
 
 <script setup lang="ts">
@@ -18,6 +20,9 @@ const props = defineProps({
     tags: {
         type: Array as PropType<ListingTagProps[]>,
         default: () => [],
+    },
+    title: {
+        type: String
     }
 })
 
