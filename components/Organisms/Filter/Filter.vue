@@ -14,7 +14,7 @@
           <Icon
             name="jig:close-accent"
             class="ml-6"
-            size="40"
+            size="20"
             @click="togglePanel"
           ></Icon>
           <h5 class="text-center w-full mr-18">
@@ -284,7 +284,7 @@ watch(isOpen, (newValue) => {
 }
 
 .slide-right-enter-to,
-.slide-right-leave-from{
+.slide-right-leave-from {
   transform: translateX(0);
 }
 
