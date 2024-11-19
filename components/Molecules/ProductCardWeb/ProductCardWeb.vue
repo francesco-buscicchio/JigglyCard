@@ -4,7 +4,6 @@
         <div class="flex relative flex-col">
             <img :src="imageUrl" :alt="productName" class="max-h-75 max-w-50 object-cover" />
 
-
             <div class="w-50 h-73 px-3 pt-32 mt-8 absolute layer">
                 <div class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2">
                     <h5 class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center">{{ productName }}</h5>
@@ -21,7 +20,7 @@
 
             <div class="mt-12">
                 <AtomsButtonCTA :type="buttonCtaType" :text="$t('showDetails')"
-                    v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)" />
+                    v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"/>
             </div>
         </div>
     </div>
@@ -64,18 +63,18 @@ const props = defineProps({
     },
 });
 
-const containerClass = computed(() => {
-    switch (props.colorScheme) {
-        case "primaryHome":
-            return "bg-accent-500 text-white border-white border-[1px] mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4 rounded-lg";
-        case "lightHome":
-            return "bg-white text-neutrals-950 border-[1px] mx-4 border-accent-950 min-h-80 max-h-80 flex flex-col justify-between p-4  rounded-lg";
-        case "noBorder":
-            return "bg-white text-neutrals-950 mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4";
-        default:
-            return "rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4";
-    }
-});
+// const containerClass = computed(() => {
+//     switch (props.colorScheme) {
+//         case "primaryHome":
+//             return "bg-accent-500 text-white border-white border-[1px] mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4 rounded-lg";
+//         case "lightHome":
+//             return "bg-white text-neutrals-950 border-[1px] mx-4 border-accent-950 min-h-80 max-h-80 flex flex-col justify-between p-4  rounded-lg";
+//         case "noBorder":
+//             return "bg-white text-neutrals-950 mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4";
+//         default:
+//             return "rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4";
+//     }
+// });
 
 const buttonCtaType = computed(() => {
     switch (props.colorScheme) {
