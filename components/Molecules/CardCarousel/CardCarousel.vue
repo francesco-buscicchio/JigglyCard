@@ -6,7 +6,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import type { PropType } from "vue";
-import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   items: {

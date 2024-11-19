@@ -16,8 +16,13 @@
       :products="evidenza"
       colorScheme="lightHome"
     />
+    <OrganismsNewsCarouselDesktop
+    v-if="isDesktopView"
+      :products="novita"
+    ></OrganismsNewsCarouselDesktop>
 
     <OrganismsProductCarousel
+     v-if="isMobileView"
       :title="$t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
@@ -36,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
@@ -44,6 +48,7 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG,
 } from "~/data/const";
+import type { ProductType } from "../types/product.type";
 const { t } = useI18n();
 
 const config = useRuntimeConfig();

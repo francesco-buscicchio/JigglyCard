@@ -1,27 +1,26 @@
 <template>
-<div  :class="containerClass">
+  <div :class="containerClass">
     <h3 :class="titleClass">{{ title }}</h3>
     <div class="flex flex-row m-4 justify-center gap-x-18">
-
-        <div  v-for="product in productList"  >
-            <MoleculesProductCardWeb
-                :productName="product.productName"
-                :code="product.code"
-                :expansion="product.expansion"
-                :price="product.price"
-                :imageUrl="product.imageUrl"
-                :color-scheme="colorScheme"
-                :tcg="product.tcg"
-                :category="product.category"
-                :id="product.id"
-              />
-        </div>
+      <div v-for="product in productList">
+        <MoleculesProductCardWeb
+          :productName="product.productName"
+          :code="product.code"
+          :expansion="product.expansion"
+          :price="product.price"
+          :imageUrl="product.imageUrl"
+          :color-scheme="colorScheme"
+          :tcg="product.tcg"
+          :category="product.category"
+          :id="product.id"
+        />
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from '../ProductCarousel/ProductCarousel.vue';
+import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   products: {
