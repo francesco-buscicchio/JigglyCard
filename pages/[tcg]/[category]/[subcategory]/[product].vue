@@ -3,50 +3,76 @@
     <MoleculesBreadcrumb />
 
     <!-- Product -->
-    <MoleculesProductPageHero :image="product.imageUrl" :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)" :expansion="product.expansion" class="mb-7" />
+    <MoleculesProductPageHero
+      :image="product.imageUrl"
+      :title="formatTitle(product.productName)"
+      :code="extractCardCode(product.productName)"
+      :expansion="product.expansion"
+      class="mb-7"
+    />
 
     <!-- Listing tags -->
     <div class="flex flex-col gap-8 mb-7">
-      <MoleculesListingTag @handle-tag-click="handleTagClickLanguage" :tags="tagsLanguage"
-        :title="$t('filter.language')" v-if="tagsLanguage.length" />
-      <MoleculesListingTag @handle-tag-click="handleTagClickCondition" :tags="tagsCondition"
-        :title="$t('filter.condition')" v-if="tagsCondition.length" />
+      <MoleculesListingTag
+        @handle-tag-click="handleTagClickLanguage"
+        :tags="tagsLanguage"
+        :title="$t('filter.language')"
+        v-if="tagsLanguage.length"
+      />
+      <MoleculesListingTag
+        @handle-tag-click="handleTagClickCondition"
+        :tags="tagsCondition"
+        :title="$t('filter.condition')"
+        v-if="tagsCondition.length"
+      />
     </div>
 
     <!-- Select quantity, Add to Cart CTA  and Description-->
     <div class="flex flex-col gap-12">
-      <OrganismsQuantitySelect :price="product.price" :quantity="product.quantity" />
+      <OrganismsQuantitySelect
+        :price="product.price"
+        :quantity="product.quantity"
+      />
 
       <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
         <Icon name="jig:cart-white" size="30"></Icon>
       </AtomsButtonCTA>
 
       <MoleculesTextViewer>
-        <template v-slot:title>
-          Il titolo del tuo testo
-        </template>
         <template v-slot:content>
-          Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello
-          schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.
+          descrizione: {{ $t("defaultDescription") }}
         </template>
       </MoleculesTextViewer>
     </div>
 
     <!-- Deals Carousel -->
-    <OrganismsProductCarousel :title="$t('deals')" :products="offerte" colorScheme="lightHome" class="my-14" />
+    <OrganismsProductCarousel
+      :title="$t('deals')"
+      :products="offerte"
+      colorScheme="lightHome"
+      class="my-14"
+    />
 
     <OrganismsServiceBanner class="mb-18" />
-
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
-import { type ListingTagProps, type TagCode, type TagStructure } from "~/components/Molecules/ListingTag/ListingTag.types";
+import {
+  type ListingTagProps,
+  type TagCode,
+  type TagStructure,
+} from "~/components/Molecules/ListingTag/ListingTag.types";
 import { TagType } from "~/components/Atoms/Tag/tag.types";
-import { activateLanguage, createTagCondition, createTagLanguage, createTagsStructure, findActiveLanguage } from "./product.utils";
+import {
+  activateLanguage,
+  createTagCondition,
+  createTagLanguage,
+  createTagsStructure,
+  findActiveLanguage,
+} from "./product.utils";
 import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 
 const product = ref();
@@ -61,12 +87,12 @@ onMounted(async () => {
     indexName: "ecommerce",
     searchParams: { query: DEALS_TAG },
   });
-  setDeals(results)
+  setDeals(results);
 });
 
 const tagsLanguage = ref<ListingTagProps[]>([]);
 const tagsCondition = ref<ListingTagProps[]>([]);
-let tagsStructure: TagStructure[]
+let tagsStructure: TagStructure[];
 
 async function fetchData() {
   let results = await client.search({
@@ -77,16 +103,16 @@ async function fetchData() {
       },
     ],
   });
-  tagsStructure = createTagsStructure(results.results[0])
-  setTags(tagsStructure)
+  tagsStructure = createTagsStructure(results.results[0]);
+  setTags(tagsStructure);
   setProduct(results.results[0]);
 }
 
 const setTags = (tagsStructure: TagStructure[]): void => {
-  tagsLanguage.value = createTagLanguage(tagsStructure)
-  const activeLanguage = findActiveLanguage(tagsLanguage.value, tagsStructure)
+  tagsLanguage.value = createTagLanguage(tagsStructure);
+  const activeLanguage = findActiveLanguage(tagsLanguage.value, tagsStructure);
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
-  tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
+  tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
 };
 // TODO: refactor mettere setProducts in una utils perchè usata più volte
 const setProduct = (queryResult: any) => {
@@ -104,10 +130,10 @@ const setProduct = (queryResult: any) => {
       category: item.type,
       id: item.objectID,
       variants: item.variantsDetails,
-      quantity: item.quantity
+      quantity: item.quantity,
     };
   }
-}
+};
 // TODO: refactor mettere setProducts in una utils perchè usata più volte
 const setDeals = (queryResult: any) => {
   for (let hit of queryResult.hits) {
@@ -123,9 +149,9 @@ const setDeals = (queryResult: any) => {
       tcg: hit.tcg,
       category: hit.type,
     };
-    offerte.value.push(obj)
+    offerte.value.push(obj);
   }
-}
+};
 
 function extractCardCode(input: string): string | undefined {
   const match = input.match(/\(([^)]+)\)/);
@@ -137,23 +163,33 @@ function formatTitle(title: string): string {
 }
 
 const handleTagClickLanguage = (code: TagCode): void => {
-  const activeConditions = (tagsStructure.find(tag => tag.language === code))?.conditions
+  const activeConditions = tagsStructure.find(
+    (tag) => tag.language === code
+  )?.conditions;
   if (activeConditions) {
-    tagsCondition.value = createTagCondition(tagsStructure, activeConditions)
+    tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
   }
-  tagsLanguage.value = activateLanguage(tagsLanguage.value, code)
+  tagsLanguage.value = activateLanguage(tagsLanguage.value, code);
 };
 
 const handleTagClickCondition = (code: TagCode): void => {
-  const conditionSelected = tagsCondition.value.find(tag => tag.code === code)
+  const conditionSelected = tagsCondition.value.find(
+    (tag) => tag.code === code
+  );
   if (conditionSelected?.type === TagType.DISABLED) {
-    const tagContainThisCondition = tagsStructure.find(tag => tag.conditions.some(cond => cond === conditionSelected?.code))
-    handleTagClickLanguage(tagContainThisCondition?.language as TagCode)
+    const tagContainThisCondition = tagsStructure.find((tag) =>
+      tag.conditions.some((cond) => cond === conditionSelected?.code)
+    );
+    handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
   }
-  tagsCondition.value = tagsCondition.value.map(tag => ({
+  tagsCondition.value = tagsCondition.value.map((tag) => ({
     ...tag,
-    type: tag.type === TagType.DISABLED ? TagType.DISABLED : tag.code === code ? TagType.ACTIVE : TagType.INACTIVE
-  }))
+    type:
+      tag.type === TagType.DISABLED
+        ? TagType.DISABLED
+        : tag.code === code
+        ? TagType.ACTIVE
+        : TagType.INACTIVE,
+  }));
 };
-
 </script>

@@ -14,7 +14,7 @@
     "SecurityDescription": "Your personal and payment data are safe."
   },
   "productHero": {
-   "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
+    "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
     "Language": "Language",
     "Quantity": "Quantity",
     "AddToCart": "add to cart",
@@ -136,7 +136,7 @@
     "played": "played",
     "poor": "poor"
   },
-
+  "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
   "quantitySelect": {
     "quantity": "Quantity",
     "availability": "Availability",

@@ -140,5 +140,6 @@
     "quantity": "Quantità",
     "availability": "Disponibilità",
     "pieces": "pezzi"
-  }
+  },
+  "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni."
 }
