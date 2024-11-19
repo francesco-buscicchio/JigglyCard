@@ -20,6 +20,7 @@
           }"
           :modules="[Navigation, Parallax]"
           :speed="1000"
+          :loop="true"
           :parallax="true"
           ref="swiperRef"
           @swiper="setControlledSwiper"

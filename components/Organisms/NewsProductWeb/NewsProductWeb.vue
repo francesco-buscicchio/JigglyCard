@@ -1,15 +1,15 @@
 <template>
   <div
-    class="w-[100%] h-[100%] flex justify-center flex-col items-center relative"
+    class="w-full h-full flex justify-center flex-col items-center relative"
     :class="containerClass"
   >
     <img
       :src="product.imageUrl"
       :alt="product.productName"
-      class="rounded-[16px] w-full h-full min-w-[187px]"
+      class="rounded-2xl w-full h-full min-w-47"
     />
     <div
-      class="absolute min-w-[187px] layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-[16px] group px-4 pb-4"
+      class="absolute min-w-47 layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-2xl group px-4 pb-4"
       :class="layerClass"
     >
       <h5
@@ -26,7 +26,7 @@
         </p></label
       >
       <div
-        class="absolute hidden group-hover:block text-accent-500 bg-white text-[2wv] rounded p-1 bottom-[50%] transform max-w-xs whitespace-no-wrap"
+        class="absolute hidden group-hover:block text-accent-500 bg-white text-[2wv] rounded p-1 bottom-1/2 transform max-w-xs whitespace-no-wrap"
       >
         {{ product.productName }}
       </div>
@@ -59,10 +59,9 @@ const props = defineProps({
 });
 
 const containerClass = computed(() => ({
-  "w-[100%]": props.isMiddle,
-  "w-[80%]": !props.isMiddle,
-  "h-[80%]": !props.isMiddle,
-  //   "mt-[20%]": !props.isMiddle,
+  "w-full": props.isMiddle,
+  "w-5/6": !props.isMiddle,
+  "h-5/6": !props.isMiddle,
 }));
 const layerClass = computed(() => ({
   "pb-[20%]": props.isMiddle,
