@@ -2,101 +2,170 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  background-color: white;
-}
+@layer base {
+  html {
+    background-color: white;
+  }
 
-h1,
-.title-l {
-  font-family: "Roboto Serif", serif;
-  font-size: 32px;
-  line-height: 38.4px;
-  font-weight: 500;
-}
+  h1,
+  .title-l {
+    font-family: "Roboto Serif", serif;
+    font-size: 32px;
+    line-height: 38.4px;
+    font-weight: 500;
+  }
 
-h2,
-.title-m {
-  font-family: "Roboto Serif", serif;
-  font-size: 28px;
-  line-height: 33.6px;
-  font-weight: 500;
-}
+  h2,
+  .title-m {
+    font-family: "Roboto Serif", serif;
+    font-size: 28px;
+    line-height: 33.6px;
+    font-weight: 500;
+  }
 
-h3,
-.title-s {
-  font-family: "Roboto Serif", serif;
-  font-size: 25px;
-  line-height: 30px;
-  font-weight: 500;
-}
+  h3,
+  .title-s {
+    font-family: "Roboto Serif", serif;
+    font-size: 25px;
+    line-height: 30px;
+    font-weight: 500;
+  }
 
-h4,
-.subtitle-l {
-  font-family: "Roboto Serif", serif;
-  font-size: 23px;
-  line-height: 27.6px;
-  font-weight: 500;
-}
+  h4,
+  .subtitle-l {
+    font-family: "Roboto Serif", serif;
+    font-size: 23px;
+    line-height: 27.6px;
+    font-weight: 500;
+  }
 
-h5,
-.subtitle-m {
-  font-family: "Roboto Serif", serif;
-  font-size: 20px;
-  line-height: 24px;
-  font-weight: 500;
-}
+  h5,
+  .subtitle-m {
+    font-family: "Roboto Serif", serif;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+  }
 
-select,
-option,
-p,
-.paragraph {
-  font-family: "Roboto Flex", sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-}
+  select,
+  option,
+  p,
+  .paragraph {
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
 
-label {
-  font-family: "Roboto Flex", sans-serif;
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 400;
-}
+  label {
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+  }
 
-.price-tag {
-  font-family: "Roboto Flex", sans-serif;
-  font-size: 28px;
-  line-height: 42px;
-  font-weight: 600;
-}
+  .price-tag {
+    font-family: "Roboto Flex", sans-serif;
+    font-size: 28px;
+    line-height: 42px;
+    font-weight: 600;
+  }
 
-span {
-  font-family: "Roboto Flex", sans-serif;
-}
+  span {
+    font-family: "Roboto Flex", sans-serif;
+  }
 
-input[type="text"] {
-  font-family: "Roboto Flex", sans-serif;
-}
+  input[type="text"] {
+    font-family: "Roboto Flex", sans-serif;
+  }
 
-.bold {
-  font-family: "Roboto Flex", sans-serif;
-  font-weight: 900;
-  font-size: 16px;
-}
+  .bold {
+    font-family: "Roboto Flex", sans-serif;
+    font-weight: 900;
+    font-size: 16px;
+  }
 
-.hide {
-  overflow: hidden;
-  max-height: 100vh;
-}
+  .hide {
+    overflow: hidden;
+    max-height: 100vh;
+  }
 
-.scrollable {
-  overflow: auto;
-  height: auto;
-}
+  .scrollable {
+    overflow: auto;
+    height: auto;
+  }
 
-.sticky-top {
-  position: sticky;
-  top: 0;
-  z-index: 1000; // Opzionale, assicura che il titolo rimanga sopra altri contenuti
-  background-color: white; // Assicura che il testo non sia sovrapposto da altri elementi scrollabili
+  .sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000; // Opzionale, assicura che il titolo rimanga sopra altri contenuti
+    background-color: white; // Assicura che il testo non sia sovrapposto da altri elementi scrollabili
+  }
+
+  @screen lg {
+    h1,
+    .title-l {
+      font-family: "Roboto Serif", serif;
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 500;
+    }
+
+    h2,
+    .title-l {
+      font-family: "Roboto Serif", serif;
+      font-size: 32px;
+      line-height: 38.4px;
+      font-weight: 500;
+    }
+
+    h2,
+    .title-m {
+      font-family: "Roboto Serif", serif;
+      font-size: 32px;
+      line-height: 38.4px;
+      font-weight: 500;
+    }
+
+    h3,
+    .title-s {
+      font-family: "Roboto Serif", serif;
+      font-size: 28px;
+      line-height: 33.6px;
+      font-weight: 500;
+    }
+
+    h4,
+    .subtitle-l {
+      font-family: "Roboto Serif", serif;
+      font-size: 25px;
+      line-height: 30px;
+      font-weight: 500;
+    }
+
+    h5,
+    .subtitle-m {
+      font-family: "Roboto Serif", serif;
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 500;
+    }
+
+    select,
+    option,
+    p,
+    .paragraph {
+      font-family: "Roboto Flex", sans-serif;
+      font-size: 18px;
+      line-height: 27px;
+      font-weight: 400;
+    }
+
+    label {
+      font-family: "Roboto Flex", sans-serif;
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+    }
+  }
 }
