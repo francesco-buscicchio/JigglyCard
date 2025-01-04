@@ -17,12 +17,12 @@
       colorScheme="lightHome"
     />
     <OrganismsNewsCarouselDesktop
-    v-if="isDesktopView"
+      v-if="isDesktopView"
       :products="novita"
     ></OrganismsNewsCarouselDesktop>
 
     <OrganismsProductCarousel
-     v-if="isMobileView"
+      v-if="isMobileView"
       :title="$t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
@@ -64,22 +64,22 @@ onMounted(async () => {
   //todo: cercare una soluzione per un'unica query
   let results = await client.searchSingleIndex({
     indexName: PRODUCTS_COLLECTION,
-    searchParams: { query: HIGHLIGHTS_TAG },
+    searchParams: { query: HIGHLIGHTS_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: WHATSNEW_TAG },
+    searchParams: { query: WHATSNEW_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG },
+    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: HEROBANNER_TAG },
+    searchParams: { query: HEROBANNER_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
 });
@@ -103,13 +103,13 @@ function setProducts(queryResult: any) {
     for (let tag of hit.tags) {
       switch (tag) {
         case HIGHLIGHTS_TAG:
-          evidenza.value.push(obj);
+          if (evidenza.value.length < 5) evidenza.value.push(obj);
           break;
         case WHATSNEW_TAG:
-          novita.value.push(obj);
+          if (novita.value.length < 5) novita.value.push(obj);
           break;
         case DEALS_TAG:
-          offerte.value.push(obj);
+          if (offerte.value.length < 5) offerte.value.push(obj);
           break;
         case HEROBANNER_TAG:
           heroBannerTemp.push(obj);

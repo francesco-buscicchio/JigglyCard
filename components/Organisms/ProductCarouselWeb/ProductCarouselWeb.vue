@@ -1,7 +1,7 @@
 <template>
   <div :class="containerClass">
     <h3 :class="titleClass">{{ title }}</h3>
-    <div class="flex flex-row m-4 justify-center gap-x-18">
+    <div class="flex flex-row m-4 justify-between px-20 gap-x-[4vw]">
       <div v-for="product in productList">
         <MoleculesProductCardWeb
           :productName="product.productName"
