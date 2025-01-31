@@ -14,12 +14,12 @@
     "SecurityDescription": "Your personal and payment data are safe."
   },
   "productHero": {
-    "TasseESpedizione": "Taxes included. Shipping calculated at checkout",
-    "Lingua": "Language",
-    "Quantita": "Quantity",
-    "AggiungiCarrello": "Add to Cart",
-    "AcquistaPaypal": "Buy with PayPal",
-    "Descrizione": "Description"
+    "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
+    "Language": "Language",
+    "Quantity": "Quantity",
+    "AddToCart": "add to cart",
+    "BuyWithPaypal": "Buy with PayPal",
+    "Description": "Description"
   },
   "cart": "Cart",
   "routes": {
@@ -79,7 +79,7 @@
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "terms of use",
-  "highlights": "In evidenza",
+  "highlights": "Highlights",
   "whatsnew": "What's new",
   "deals": "Deals",
   "clearFilters": "Clear all filters",
@@ -144,6 +144,7 @@
     "played": "played",
     "poor": "poor"
   },
+  "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
   "thanks": {
     "main": "Thank you!",
     "order": "Your order has been successfully confirmed. We will send you an email with all the details soon.",

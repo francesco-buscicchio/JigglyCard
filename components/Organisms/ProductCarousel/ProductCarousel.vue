@@ -39,17 +39,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-
-export type ProductType = {
-  id: string;
-  productName: string;
-  code: string;
-  expansion: string;
-  price: string;
-  imageUrl: string;
-  tcg: string;
-  category: string;
-};
+import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   products: {

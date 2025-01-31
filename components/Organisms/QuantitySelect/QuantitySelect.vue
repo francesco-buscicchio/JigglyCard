@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-between">
+    <div class="flex items-center gap-13">
       <div class="flex mr-6 items-center">
         <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
         <MoleculesPageSorter
@@ -36,9 +36,16 @@ const quantityOptions = computed(() => {
   }));
 });
 
-const totalPrice = computed(() => quantity.value * props.price);
+const totalPrice = computed(() => (quantity.value * props.price).toFixed(2));
 
 function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
 }
 </script>
+
+<style scoped>
+.price {
+  font-family: "Roboto Flex";
+  font-weight: 600;
+}
+</style>
