@@ -10,7 +10,7 @@
         />
       </div>
 
-      <h2 :class="!isCart ? 'mr-18' : ''">{{ totalPrice }} €</h2>
+      <h2 :class="!isCart ? 'mr-10' : ''">{{ totalPrice }} €</h2>
     </div>
 
     <p class="my-2" v-if="!isCart">
