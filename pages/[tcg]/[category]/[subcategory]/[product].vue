@@ -2,16 +2,12 @@
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
-    <<<<<<< HEAD =======
     <!-- Product -->
-    >>>>>>> dev
     <MoleculesProductPageHero
       :image="product.imageUrl"
       :title="formatTitle(product.productName)"
       :code="extractCardCode(product.productName)"
       :expansion="product.expansion"
-      <<<<<<<
-      HEAD
     />
 
     <MoleculesTextViewer>
@@ -23,21 +19,6 @@
         dimensioni.
       </template>
     </MoleculesTextViewer>
-    <MoleculesListingTag
-      @handle-tag-click="handleTagClickLanguage"
-      :tags="tagLanguage"
-    />
-    <MoleculesListingTag
-      @handle-tag-click="handleTagClickCondition"
-      :tags="tagsCondition"
-    />
-
-    <OrganismsQuantitySelect
-      :price="product.price"
-      :quantity="product.quantity"
-      :isCart="false"
-    />
-    ======= class="mb-7" />
 
     <!-- Listing tags -->
     <div class="flex flex-col gap-8 mb-7">
@@ -82,7 +63,6 @@
     />
 
     <OrganismsServiceBanner class="mb-18" />
-    >>>>>>> dev
   </div>
 </template>
 
