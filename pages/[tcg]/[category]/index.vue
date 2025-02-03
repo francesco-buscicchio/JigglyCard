@@ -29,7 +29,7 @@
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
-              :@handle-sorting="handleSorting"
+              :handle-sorting="handleSorting"
             />
           </div>
         </div>
@@ -95,15 +95,14 @@ function calculateFilterString(e?: any) {
           .join(" OR ")
       : "";
 
-    if (languageFilters.length > 0) filter += ` AND (${languageFilters})`;
-    if (conditionFilters.length > 0) filter += ` AND (${conditionFilters})`;
-    if (brandFilter.length > 0) filter += ` AND (${brandFilter})`;
-    if (availableFilter.length > 0) filter += ` AND (${availableFilter})`;
+    filter += languageFilters.length += ` AND (${languageFilters})`;
+    filter += conditionFilters.length += ` AND (${conditionFilters})`;
+    filter += brandFilter.length += ` AND (${brandFilter})`;
+    filter += availableFilter.length += ` AND (${availableFilter})`;
   }
 
   if (expansion) filter += ` AND (expansion:"${expansion}")`;
 
-  console.log(filter);
   filtersStringQuery.value = filter;
   fetchData();
 }
