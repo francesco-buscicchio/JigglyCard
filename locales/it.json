@@ -49,7 +49,9 @@
   "deleteAllFilters": "Cancella tutti i filtri",
   "apply": "Applica",
   "showDetails": "vedi dettagli",
+  "cart": "Carrello",
   "routes": {
+    "cart": "Carrello",
     "/pokemon/booster-box": "Pokemon - Booster Box",
     "/pokemon/box-set": "Pokemon - Box Set",
     "/pokemon/bundle": "Pokemon - Bundle",
@@ -142,6 +144,20 @@
   "payments": {
     "terms": "pagamenti con"
   },
+  "shippingInfo": "Informazioni di spedizione",
+  "name": "Nome",
+  "surname": "Cognome",
+  "email": "Email",
+  "nation": "Paese",
+  "cap": "CAP",
+  "city": "Città",
+  "streetAndHouseNumber": "Via e numero civico",
+  "iWantTheInvoice": "Voglio la fattura",
+  "shippingMethod": "Modalità di spedizione",
+  "recapCart": "Riepilogo carrello",
+  "shipping": "Spedizione",
+  "total": "Totale",
+  "confirmAndPay": "Conferma e paga",
   "thanks": {
     "main": "Grazie!",
     "newsletter": "Grazie per esserti iscritto alla nostra newsletter! Riceverai presto un'email con tutti i dettagli.",

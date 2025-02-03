@@ -8,7 +8,6 @@
       :title="formatTitle(product.productName)"
       :code="extractCardCode(product.productName)"
       :expansion="product.expansion"
-      class="mb-7"
     />
 
     <!-- Listing tags -->
@@ -59,6 +58,7 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+import { algoliasearch } from "algoliasearch";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
   type ListingTagProps,
@@ -73,7 +73,7 @@ import {
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import type { ProductType } from "~/types/product.type";
 
 const product = ref();
 const config = useRuntimeConfig();

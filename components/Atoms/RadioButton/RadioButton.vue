@@ -1,36 +1,29 @@
 <template>
-  <div>
-    <input
-      type="radio"
-      :checked="isSelected"
-      @click="handleSelection"
-      class="cursor-pointer"
-    />
-  </div>
+  <input type="radio" :value="value" :name="name" @change="handleChange" />
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
-  initialState: Boolean,
+  value: { type: Object, required: true },
+  name: { type: String, required: true },
 });
 
-const emits = defineEmits(["update:state"]);
+const emit = defineEmits(['update:modelValue']);
 
-const isSelected = ref(true);
-
-const handleSelection = () => {
-  isSelected.value = !isSelected.value;
-  emits("update:state", isSelected.value);
+const handleChange = () => {
+  emit('update:modelValue', props.value);
 };
 </script>
+
 
 <style>
 input[type="radio"] {
   width: 16px;
   height: 16px;
   border: 1px solid #003849;
+  cursor: pointer;
 }
 
 input[type="radio"]:checked:before {

@@ -1,12 +1,7 @@
 <template>
   <div class="relative flex items-center">
-    <input
-      type="checkbox"
-      :id="id"
-      :checked="modelValue"
-      @change="handleCheckboxChange"
-      class="checkbox-input w-4 h-4 border border-accent-500 relative cursor-pointer hover:shadow appearance-none"
-    />
+    <input type="checkbox" :id="id" :checked="modelValue" @change="handleCheckboxChange"
+      class="checkbox-input w-4 h-4 border border-accent-500 relative cursor-pointer hover:shadow appearance-none" />
     <label :for="id" class="absolute cursor-pointer" v-if="modelValue">
       <Icon name="jig:check-accent" style="color: white"></Icon>
     </label>
