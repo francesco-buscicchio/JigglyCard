@@ -3,7 +3,7 @@
     <MoleculesBreadcrumb />
   </div>
   <div class="p-10">
-    <ListingTitle
+    <MoleculesListingTitle
       :title="$t(`routes./${route.params.tcg}/${route.params.category}`)"
     />
   </div>

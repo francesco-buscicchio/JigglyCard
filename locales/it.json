@@ -49,7 +49,9 @@
   "deleteAllFilters": "Cancella tutti i filtri",
   "apply": "Applica",
   "showDetails": "vedi dettagli",
+  "cart": "Carrello",
   "routes": {
+    "cart": "Carrello",
     "/pokemon/booster-box": "Pokemon - Booster Box",
     "/pokemon/box-set": "Pokemon - Box Set",
     "/pokemon/bundle": "Pokemon - Bundle",
