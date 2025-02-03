@@ -29,7 +29,7 @@
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
-              :@handle-sorting="handleSorting"
+              :handle-sorting="handleSorting"
             />
           </div>
         </div>
@@ -58,12 +58,9 @@
 <script setup lang="ts">
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { ProductType } from "../../../types/product.type";
-import ListingTitle from "~/components/Molecules/ListingTitle/ListingTitle.vue";
+import type { ProductType } from "~/types/product.type";
 
 const products: Ref<ProductType[]> = ref([]);
-
-const config = useRuntimeConfig();
 const client = useAlgolia();
 const route = useRoute();
 const totalItems = ref(0);
@@ -72,33 +69,39 @@ const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
 const filtersStringQuery = ref(`type:"${route.params.category}"`);
+const expansion = route.query.expansion;
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
-  fetchData();
+  calculateFilterString();
 });
 
-function calculateFilterString(e: any) {
-  let languageFilters = e.language
-    ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
-    : "";
-  let conditionFilters = e.condition
-    ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
-    : "";
-  let brandFilter = e.brand
-    ? e.brand.map((brand: string) => `tcg:"${brand}"`).join(" OR ")
-    : "";
-  let availableFilter = e.available
-    ? e.available
-        .map((available: string) => `available:"${available}"`)
-        .join(" OR ")
-    : "";
-
+function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
-  if (languageFilters.length > 0) filter += ` AND (${languageFilters})`;
-  if (conditionFilters.length > 0) filter += ` AND (${conditionFilters})`;
-  if (brandFilter.length > 0) filter += ` AND (${brandFilter})`;
-  if (availableFilter.length > 0) filter += ` AND (${availableFilter})`;
+
+  if (e) {
+    let languageFilters = e.language
+      ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
+      : "";
+    let conditionFilters = e.condition
+      ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
+      : "";
+    let brandFilter = e.brand
+      ? e.brand.map((brand: string) => `tcg:"${brand}"`).join(" OR ")
+      : "";
+    let availableFilter = e.available
+      ? e.available
+          .map((available: string) => `available:"${available}"`)
+          .join(" OR ")
+      : "";
+
+    filter += languageFilters.length += ` AND (${languageFilters})`;
+    filter += conditionFilters.length += ` AND (${conditionFilters})`;
+    filter += brandFilter.length += ` AND (${brandFilter})`;
+    filter += availableFilter.length += ` AND (${availableFilter})`;
+  }
+
+  if (expansion) filter += ` AND (expansion:"${expansion}")`;
 
   filtersStringQuery.value = filter;
   fetchData();
