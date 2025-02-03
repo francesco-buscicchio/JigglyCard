@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-6">
-    <div class="px-4 pt-4">
+    <div class="mx-[4vw] mt-7">
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
@@ -16,8 +16,13 @@
       :products="evidenza"
       colorScheme="lightHome"
     />
+    <OrganismsNewsCarouselDesktop
+      v-if="isDesktopView"
+      :products="novita"
+    ></OrganismsNewsCarouselDesktop>
 
     <OrganismsProductCarousel
+      v-if="isMobileView"
       :title="$t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
@@ -36,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-import { type ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
 import {
   PRODUCTS_COLLECTION,
   HIGHLIGHTS_TAG,
@@ -44,6 +48,7 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG,
 } from "~/data/const";
+import type { ProductType } from "../types/product.type";
 const { t } = useI18n();
 
 const config = useRuntimeConfig();
@@ -59,29 +64,28 @@ onMounted(async () => {
   //todo: cercare una soluzione per un'unica query
   let results = await client.searchSingleIndex({
     indexName: PRODUCTS_COLLECTION,
-    searchParams: { query: HIGHLIGHTS_TAG },
+    searchParams: { query: HIGHLIGHTS_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: WHATSNEW_TAG },
+    searchParams: { query: WHATSNEW_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG },
+    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: HEROBANNER_TAG },
+    searchParams: { query: HEROBANNER_TAG, hitsPerPage: 5 },
   });
   setProducts(results);
 });
 
 function setProducts(queryResult: any) {
   const heroBannerTemp: ProductType[] = [];
-
   for (let hit of queryResult.hits) {
     const obj = {
       id: hit.objectID,
@@ -99,13 +103,13 @@ function setProducts(queryResult: any) {
     for (let tag of hit.tags) {
       switch (tag) {
         case HIGHLIGHTS_TAG:
-          evidenza.value.push(obj);
+          if (evidenza.value.length < 5) evidenza.value.push(obj);
           break;
         case WHATSNEW_TAG:
-          novita.value.push(obj);
+          if (novita.value.length < 5) novita.value.push(obj);
           break;
         case DEALS_TAG:
-          offerte.value.push(obj);
+          if (offerte.value.length < 5) offerte.value.push(obj);
           break;
         case HEROBANNER_TAG:
           heroBannerTemp.push(obj);

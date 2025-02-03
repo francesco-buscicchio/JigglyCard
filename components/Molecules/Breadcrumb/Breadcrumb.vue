@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4">
+  <div class="py-6">
     <div
       v-if="routeHistory.getHistory()"
       class="flex flex-row gap-2 items-center"
