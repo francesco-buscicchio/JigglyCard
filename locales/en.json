@@ -14,14 +14,16 @@
     "SecurityDescription": "Your personal and payment data are safe."
   },
   "productHero": {
-    "TasseESpedizione": "Taxes included. Shipping calculated at checkout",
-    "Lingua": "Language",
-    "Quantita": "Quantity",
-    "AggiungiCarrello": "Add to Cart",
-    "AcquistaPaypal": "Buy with PayPal",
-    "Descrizione": "Description"
+    "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
+    "Language": "Language",
+    "Quantity": "Quantity",
+    "AddToCart": "add to cart",
+    "BuyWithPaypal": "Buy with PayPal",
+    "Description": "Description"
   },
+  "cart": "Cart",
   "routes": {
+    "cart": "Cart",
     "/pokemon/booster-box": "Pokemon - Booster Box",
     "/pokemon/box-set": "Pokemon - Box Set",
     "/pokemon/bundle": "Pokemon - Bundle",
@@ -66,14 +68,18 @@
   "titleNewsLetter": "Gotta catch us!",
   "headerNewsLetter": "Sign up for the newsletter before launch to get a discount code on your first purchase.",
   "buttonNewsLetter": "Subscribe",
-  "captionNewsletter": "Discover all the benefits of staying up-to-date with just one click: exclusive previews, special promotions, detailed insights and personalized reminders for your purchases, all without filling up your inbox. Sign up now and take advantage of a 15% Discount Code valid on your first purchase of items not already on promotion!",
+  "captionNewsletter": {
+    "first": "Discover all the benefits of staying up-to-date with just one click: exclusive previews, special promotions, detailed insights and personalized reminders for your purchases, all without filling up your inbox. Sign up now and ",
+    "bold": " take advantage of a 15% Discount Code",
+    "second": " valid on your first purchase of items not already on promotion!"
+  },
   "captionNewsletterShort": "Stay up-to-date with a click without filling your inbox. Sign up for 15% off your first purchase of non-promotion items!",
   "footerNewsLetter": "Join our community and take advantage of special offers, straight to your email inbox!",
   "startingFrom": "starting from",
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "terms of use",
-  "highlights": "In evidenza",
+  "highlights": "Highlights",
   "whatsnew": "What's new",
   "deals": "Deals",
   "clearFilters": "Clear all filters",
@@ -138,7 +144,12 @@
     "played": "played",
     "poor": "poor"
   },
-
+  "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
+  "thanks": {
+    "main": "Thank you!",
+    "order": "Your order has been successfully confirmed. We will send you an email with all the details soon.",
+    "newsletter": "Thank you for signing up for our newsletter! You will soon receive an email with all the details."
+  },
   "quantitySelect": {
     "quantity": "Quantity",
     "availability": "Availability",

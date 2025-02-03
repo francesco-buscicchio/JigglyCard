@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       "Roboto+Serif": [500],
-      "Roboto+Flex": [400],
+      "Roboto+Flex": [400, 900],
       download: true,
       inject: true,
     },

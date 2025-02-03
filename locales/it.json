@@ -14,18 +14,22 @@
     "SecurityDescription": "I tuoi dati personali e di pagamento sono protetti con..."
   },
   "productHero": {
-    "TasseESpedizione": "Tasse incluse. Spedizione calcolata al momento del pagamento",
-    "Lingua": "Lingua",
-    "Quantita": "Quantità",
-    "AggiungiCarrello": "Aggiungi al carrello",
-    "AcquistaPaypal": "Acquista con PayPal",
-    "Descrizione": "Descrizione"
+    "TaxesAndShipping": "Tasse incluse. Spedizione calcolata al momento del pagamento",
+    "Language": "Lingua",
+    "Quantity": "Quantità",
+    "AddToCart": "aggiungi al carrello",
+    "BuyWithPaypal": "Acquista con PayPal",
+    "Description": "Descrizione"
   },
   "prestoOnline": "We're coming",
   "sconto10": "Sconto del 10%",
   "titleNewsLetter": "Gotta catch us!",
   "headerNewsLetter": "Unisciti alla nostra community e approfitta delle offerte speciali, direttamente nella tua casella email!",
-  "captionNewsletter": "Scopri tutti i vantaggi di restare aggiornato con un solo click: anteprime esclusive, promozioni speciali, approfondimenti dettagliati e reminder personalizzati per i tuoi acquisti, il tutto senza riempire la tua casella di posta. Iscriviti ora e approfitta di un Codice Sconto del 15% valido sul tuo primo acquisto di articoli non già in promozione!",
+  "captionNewsletter": {
+    "first": "Scopri tutti i vantaggi di restare aggiornato con un solo click: anteprime esclusive, promozioni speciali, approfondimenti dettagliati e reminder personalizzati per i tuoi acquisti, il tutto senza riempire la tua casella di posta. Iscriviti ora e",
+    "bold": " approfitta di un Codice Sconto del 15% ",
+    "second": " valido sul tuo primo acquisto di articoli non già in promozione!"
+  },
   "captionNewsletterShort": "Resta aggiornato con un click senza riempire la tua casella di posta. Iscriviti per un 15% di sconto sul primo acquisto di articoli non in promozione!",
   "buttonNewsLetter": "Iscriviti",
   "footerNewsLetter": "Inserendo la mail verrai inserito nei nostri sistemi cosi da tenerti aggiornato sulle novita e sugli sconti",
@@ -45,7 +49,9 @@
   "deleteAllFilters": "Cancella tutti i filtri",
   "apply": "Applica",
   "showDetails": "vedi dettagli",
+  "cart": "Carrello",
   "routes": {
+    "cart": "Carrello",
     "/pokemon/booster-box": "Pokemon - Booster Box",
     "/pokemon/box-set": "Pokemon - Box Set",
     "/pokemon/bundle": "Pokemon - Bundle",
@@ -98,7 +104,7 @@
   },
   "filter": {
     "language": "Lingua",
-    "condition": "Condizioni",
+    "condition": "Condizione",
     "brand": "Brand",
     "available": "Disponibile",
     "IT": "italiano",
@@ -138,9 +144,15 @@
   "payments": {
     "terms": "pagamenti con"
   },
+  "thanks": {
+    "main": "Grazie!",
+    "newsletter": "Grazie per esserti iscritto alla nostra newsletter! Riceverai presto un'email con tutti i dettagli.",
+    "order": "Il tuo ordine è stato confermato con successo. Ti invieremo presto un'email con tutti i dettagli."
+  },
   "quantitySelect": {
     "quantity": "Quantità",
     "availability": "Disponibilità",
     "pieces": "pezzi"
-  }
+  },
+  "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni."
 }

@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import type { ProductType } from "~/types/product.type";
 
 const products: Ref<ProductType[]> = ref([]);
 const client = useAlgolia();
