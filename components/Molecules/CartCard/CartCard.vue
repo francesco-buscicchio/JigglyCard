@@ -15,16 +15,12 @@
     />
   </div>
   <div class="pt-7 pb-5">
-    <AtomsButtonCTA type="text" text="Elimina dal carrello" />
+    <AtomsButtonCTA type="cart-drop" text="Elimina dal carrello" />
   </div>
 </template>
 
-
 <script lang="ts" setup>
-
-
 const emit = defineEmits(["buttonClicked"]);
-
 
 defineProps<{
   image: string;

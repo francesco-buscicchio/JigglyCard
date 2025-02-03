@@ -1,7 +1,13 @@
 <template>
-  <button :class="buttonClass" class="flex items-center justify-center gap-2" @click="emitClick">
-    <span class="subtitle-m" v-if="type !== 'text'">{{ text }}</span>
-    <p v-if="type === 'text'">{{ text }}</p>
+  <button
+    :class="buttonClass"
+    class="flex items-center justify-center gap-2"
+    @click="emitClick"
+  >
+    <span class="subtitle-m" v-if="type !== 'text' && type !== 'cart-drop'">{{
+      text
+    }}</span>
+    <p v-if="type === 'text' || type === 'cart-drop'">{{ text }}</p>
 
     <slot></slot>
   </button>
@@ -33,6 +39,8 @@ const buttonClass = computed(() => {
       props.type === "secondary",
     "bg-none text-accent-500 font-bold py-3 px-4 rounded-lg active:text-accent-950 w-full":
       props.type === "text",
+    "bg-none text-accent-500 font-bold py-3 px-4 rounded-lg active:text-accent-950 w-full underline":
+      props.type === "cart-drop",
     "bg-neutrals-200 text-neutrals-500 py-3 px-4 rounded-lg rounded-lg w-full":
       props.type === "disabled",
   };
