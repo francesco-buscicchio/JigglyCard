@@ -51,6 +51,7 @@
               :thumbnailImage="item.thumbnailImage"
               :name="item.name"
               :objectID="item.objectID"
+              :expansion="item.expansion"
             />
           </div>
         </div>
@@ -74,12 +75,14 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useHead } from "#app";
+import type { SearchProductResult } from "~/types/product.type";
+import type { Hit } from "algoliasearch";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
 const emit = defineEmits(["toggle-menu"]);
-const searchValue = ref("");
-const productSearch = ref([]);
+const searchValue = ref<string>("");
+const productSearch = ref<Hit[]>([]);
 const noResults = computed(
   () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
 );
@@ -95,14 +98,14 @@ watch(isMenuOpen, (newValue) => {
   });
 });
 
-const searchProducts = async (data: any) => {
+const searchProducts = async (data: string) => {
   searchValue.value = data;
   if (searchValue.value.length > 2) {
-    const results = await client.searchSingleIndex({
+    const results = await client.searchSingleIndex<SearchProductResult>({
       indexName: "ecommerce",
       searchParams: { query: searchValue.value, hitsPerPage: 4 },
     });
-    productSearch.value = results.hits as any;
+    productSearch.value = results.hits;
   } else productSearch.value = [];
 };
 

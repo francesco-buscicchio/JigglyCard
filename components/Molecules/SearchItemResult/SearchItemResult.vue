@@ -3,7 +3,7 @@
     <NuxtImg :src="thumbnailImage" class="min-w-10 max-w-10 object-cover" />
     <div>
       <p>{{ name }}</p>
-      <p>{{ objectID }}</p>
+      <p>{{ expansion }}</p>
     </div>
   </div>
 </template>
@@ -19,6 +19,10 @@ const props = defineProps({
     required: true,
   },
   objectID: {
+    type: String,
+    required: true,
+  },
+  expansion: {
     type: String,
     required: true,
   },
