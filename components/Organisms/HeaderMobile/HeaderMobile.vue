@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useHead } from "#app";
+import { useHead } from "#imports";
 import type { SearchProductResult } from "~/types/product.type";
 import type { Hit } from "algoliasearch";
 
@@ -87,7 +87,6 @@ const noResults = computed(
   () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
 );
 
-const config = useRuntimeConfig();
 const client = useAlgolia();
 
 watch(isMenuOpen, (newValue) => {
