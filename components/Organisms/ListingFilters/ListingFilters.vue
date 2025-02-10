@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-y-4">
-    <div v-if="allFilters" class="flex flex-row flex-wrap">
+    <div v-if="allFilters" class="flex flex-row flex-wrap gap-2">
       <div
         v-for="key in allFilters"
         class="flex flex-row items-start flex-wrap gap-2"
@@ -32,12 +32,7 @@ const props = defineProps({
   filters: Object as () => any,
 });
 
-const allFilters = ref();
-
-watch(props, () => {
-  allFilters.value = props.filters;
-});
-
+const allFilters = computed(() => props.filters);
 const removeAllFilters = () => {
   for (let key in allFilters.value) allFilters.value[key] = [];
 
