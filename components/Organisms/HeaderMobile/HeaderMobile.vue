@@ -9,7 +9,7 @@
       </div>
 
       <div class="relative w-[70%]">
-        <h2 class="text-accent-950 text-center" @click="navigateTo('/')">
+        <h2 class="text-accent-950 text-center cursor-pointer" @click="navigateToHome('/')">
           Jigglycard
         </h2>
       </div>
@@ -108,7 +108,6 @@ const searchProducts = async (data: any) => {
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  emit("toggle-menu");
 };
 
 const toggleSearch = () => {
@@ -116,7 +115,7 @@ const toggleSearch = () => {
   emit("toggle-menu");
 };
 
-const navigateTo = (path: String) => {
+const navigateToHome = (path: string) => {
   navigateTo(path);
 };
 </script>
