@@ -108,7 +108,6 @@ const searchProducts = async (data: any) => {
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  emit("toggle-menu");
 };
 
 const toggleSearch = () => {
