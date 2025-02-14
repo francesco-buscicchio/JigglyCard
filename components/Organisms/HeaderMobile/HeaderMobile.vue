@@ -43,9 +43,9 @@
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
             :placeholder="$t('search') + '...'"
             @input="
-              ($event) => {
-                //@ts-ignore
-                searchProducts($event.target.value);
+              ($event:Event) => {
+                const target = $event.target as HTMLInputElement;
+                searchProducts(target.value);
               }
             "
           />
