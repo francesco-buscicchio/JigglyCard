@@ -1,15 +1,8 @@
 <template>
-  <div
-    :class="{ 'fixed-header': !isMenuOpen, 'overlay-header': isMenuOpen }"
-    class="lg:hidden"
-  >
-    <OrganismsHeaderMobile
-      class="w-full"
-      :header="{ cartCount: 9 }"
-      :isMenuOpen="isMenuOpen"
-      @toggle-menu="toggleMenu"
-    />
-  </div>
+  <OrganismsHeaderMobile
+    class="w-full"
+    :header="{ cartCount: 9 }"
+  />
 
   <div class="hidden w-full lg:block sticky-header">
     <OrganismsHeaderDesktop class="w-full" :header="{ cartCount: 9 }" />
@@ -18,10 +11,7 @@
 
   <footer>
     <OrganismsPreFooter />
-    <OrganismsFooter
-      :footer="footerData"
-      :policyLinks="policyLinks"
-    />
+    <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" />
   </footer>
 </template>
 
@@ -33,12 +23,6 @@ import tiktokLogo from "~/assets/icons/tiktok.png";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
-
-const isMenuOpen = ref(false);
-
-const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
 
 const footerData = {
   imgs: [
