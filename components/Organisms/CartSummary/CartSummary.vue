@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { number } from '@formkit/icons';
 import { computed, defineProps } from 'vue';
 
 interface Product {
@@ -49,6 +50,6 @@ const finalTotal = computed(() => {
 });
 
 function formatPrice(price: number): string {
-    return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(price);
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(price);
 }
 </script>
