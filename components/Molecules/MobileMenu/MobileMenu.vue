@@ -3,7 +3,7 @@
     <li v-for="(item, index) in menuItems" :key="index">
       <h5
         href="#"
-        class="block text-gray-700 px-4 py-2 hover:bg-gray-100 w-full"
+        class="block text-gray-700 px-4 py-2 hover:bg-gray-100 w-full cursor-pointer"
         @click="toggleSubMenu(item)"
       >
         {{ item.name }}
@@ -12,7 +12,7 @@
         <p
           v-for="(subItem, index) in item.subMenu"
           :key="index"
-          class="text-gray-500 py-2 hover:text-gray-700"
+          class="text-gray-500 py-2 hover:text-gray-700 cursor-pointer"
           @click="navigate(subItem.url)"
         >
           {{ subItem.name }}
