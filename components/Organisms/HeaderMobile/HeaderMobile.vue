@@ -77,10 +77,18 @@
           </p>
         </div>
       </div>
-
-      <div v-if="isMenuOpen" class="lg:hidden">
-        <MoleculesMobileMenu @closeMenu="toggleMenu" />
-      </div>
+      <transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 transform scale-95"
+        enter-to-class="opacity-100 transform scale-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100 transform scale-100"
+        leave-to-class="opacity-0 transform scale-95"
+      >
+        <div v-if="isMenuOpen" class="lg:hidden">
+          <MoleculesMobileMenu @closeMenu="toggleMenu" />
+        </div>
+      </transition>
     </nav>
   </div>
 </template>
