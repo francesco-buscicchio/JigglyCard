@@ -31,8 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { number } from "@formkit/icons";
-import { computed, defineProps } from "vue";
+import { computed, defineProps, type PropType } from "vue";
 
 interface Product {
   nameProduct: string;
@@ -40,10 +39,22 @@ interface Product {
   codeProduct: string;
 }
 
-const props = defineProps<{
-  products: Product[];
-  shippingCost: number;
-}>();
+const props = defineProps({
+  products: {
+    type: Array as PropType<Product[]>,
+    required: true,
+    validator: (value: Product[]) => {
+      return Array.isArray(value);
+    },
+  },
+  shippingCost: {
+    type: Number,
+    required: true,
+    validator: (value: number) => {
+      return value >= 0;
+    },
+  },
+});
 
 const totalPrice = computed(() => {
   return props.products.reduce((sum, product) => sum + product.price, 0);
