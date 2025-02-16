@@ -162,6 +162,10 @@ onMounted(async () => {
 
 const emit = defineEmits(["filterUpdate"]);
 
+function togglePanel() {
+  isOpen.value = !isOpen.value;
+}
+
 function updateCheckboxValue(
   categoryID: string,
   filterIndex: number,
@@ -171,7 +175,6 @@ function updateCheckboxValue(
     return val.objectID === categoryID;
   });
 
-  console.log(categoryID);
   const category = filterCategories.value[index];
   const filter = category.value[filterIndex];
 
@@ -241,8 +244,8 @@ function applyFilters() {
       .map((val: any) => val.name);
     return acc;
   }, {});
+  togglePanel();
   emit("filterUpdate", result);
-  isOpen.value = false;
 }
 
 function resetAllFilters() {
@@ -257,10 +260,6 @@ function resetAllFilters() {
   selectedMinPrice.value = 0;
   selectedMaxPrice.value = 5000;
   selectedFilters["Prezzo"] = { min: 0, max: 5000 };
-}
-
-function togglePanel() {
-  isOpen.value = !isOpen.value;
 }
 
 watch(isOpen, (newValue) => {
