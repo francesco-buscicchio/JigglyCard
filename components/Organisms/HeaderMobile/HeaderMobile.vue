@@ -79,7 +79,7 @@
       </div>
 
       <div v-if="isMenuOpen" class="lg:hidden">
-        <MoleculesMobileMenu />
+        <MoleculesMobileMenu @closeMenu="toggleMenu" />
       </div>
     </nav>
   </div>
