@@ -23,7 +23,7 @@
         </div>
 
         <div class="items-center space-x-4">
-          <button class="focus:outline-none">
+          <button class="focus:outline-none" @click="navigateTo('/carrello')">
             <Icon name="jig:cart-accent" size="25"></Icon>
           </button>
           <button
@@ -90,6 +90,7 @@ import { ref, watch } from "vue";
 import { useHead } from "#imports";
 import type { SearchProductResult } from "~/types/product.type";
 import type { Hit } from "algoliasearch";
+import { navigateTo } from "#imports";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);

@@ -17,7 +17,7 @@
       <button class="focus:outline-none">
         <Icon name="jig:search-header-desktop" size="18" />
       </button>
-      <button class="focus:outline-none">
+      <button class="focus:outline-none" @click="navigateTo('/carrello')">
         <Icon name="jig:cart-header-desktop" size="18"></Icon>
       </button>
       <button class="focus:outline-none">
@@ -35,7 +35,7 @@ type HeaderPropsType = {
 };
 
 const props = defineProps<{ header: HeaderPropsType }>();
-
+import { navigateTo } from "#imports";
 const searchQuery = ref("");
 const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
 const headerMenu = ref([
