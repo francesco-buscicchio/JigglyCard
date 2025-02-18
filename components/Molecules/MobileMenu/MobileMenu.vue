@@ -31,8 +31,8 @@ const toggleSubMenu = (item: MenuItemType) => {
 };
 
 const navigate = (url: string) => {
-  navigateTo(url);
   emit("closeMenu");
+  navigateTo(url);
 };
 </script>
 
