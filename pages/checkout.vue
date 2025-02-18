@@ -27,6 +27,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import type { Product } from "~/types/product.type";
 
 const formData = ref({});
 const shippingOptions = ref([
@@ -68,9 +69,9 @@ definePageMeta({
   layout: "default",
 });
 
-const mockProducts = ref([
-  { nameProduct: "Pikachu", price: 9.99, codeProduct: "PK001" },
-  { nameProduct: "Charmander", price: 5.99, codeProduct: "CH002" },
-  { nameProduct: "Bulbasaur", price: 8.99, codeProduct: "BL003" },
+const mockProducts = ref<Product[]>([
+  { nameProduct: "Pikachu", price: 9.99, codeProduct: "PK001", id: "1" },
+  { nameProduct: "Charmander", price: 5.99, codeProduct: "CH002", id: "2" },
+  { nameProduct: "Bulbasaur", price: 8.99, codeProduct: "BL003", id: "3" },
 ]);
 </script>

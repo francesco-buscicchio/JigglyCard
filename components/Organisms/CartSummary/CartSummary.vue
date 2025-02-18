@@ -5,8 +5,8 @@
     </div>
 
     <div
-      v-for="(product, index) in products"
-      :key="index"
+      v-for="product in products"
+      :key="product.id"
       class="flex justify-between border-b py-2"
     >
       <div>
@@ -32,12 +32,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps, type PropType } from "vue";
-
-interface Product {
-  nameProduct: string;
-  price: number;
-  codeProduct: string;
-}
+import type { Product } from "~/types/product.type";
 
 const props = defineProps({
   products: {
