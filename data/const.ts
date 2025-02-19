@@ -22,7 +22,12 @@ export const preferredLanguageOrder = ["IT", "EN", "JP"];
 export const ITEMS_FOR_PAGE = 9;
 // TODO: controllare se le route sono corrette
 export const FOOTER_MENU_ITEMS = [
-    { link: "about", route: "/about" },
-    { link: "shipping", route: "/spedizioni" },
-    { link: "support", route: "/assistenza" }
-  ];
+  { link: "about", route: "/about" },
+  { link: "shipping", route: "/spedizioni" },
+  { link: "support", route: "/assistenza" },
+];
+
+export const PATH = {
+  HOME: "/",
+  CART: "/carrello",
+};
