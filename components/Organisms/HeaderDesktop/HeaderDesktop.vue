@@ -2,12 +2,9 @@
   <header
     class="flex justify-between items-center p-5 bg-white shadow-md px-18"
   >
-    <h2 @click="handleLogoClick()" class="text-accent-950">Jigglycard</h2>
+    <h2 @click="navigation(PATH.HOME)" class="text-accent-950">Jigglycard</h2>
     <div class="flex flex-row gap-x-4">
-      <button
-        v-for="(item, index) of headerMenu"
-        @click="handleMenuItemClick(item.to)"
-      >
+      <button v-for="(item, index) of headerMenu" @click="navigation(item.to)">
         <h5 class="text-accent-950 text-lg">
           {{ item.name }}
         </h5>
@@ -17,7 +14,7 @@
       <button class="focus:outline-none">
         <Icon name="jig:search-header-desktop" size="18" />
       </button>
-      <button class="focus:outline-none">
+      <button class="focus:outline-none" @click="navigation(PATH.CART)">
         <Icon name="jig:cart-header-desktop" size="18"></Icon>
       </button>
       <button class="focus:outline-none">
@@ -28,14 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { PATH } from "~/data/const";
 
 type HeaderPropsType = {
   cartCount: number;
 };
 
 const props = defineProps<{ header: HeaderPropsType }>();
-
 const searchQuery = ref("");
 const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
 const headerMenu = ref([
@@ -47,12 +43,8 @@ const headerMenu = ref([
 ]);
 const filteredResults = ref([] as string[]);
 
-const handleLogoClick = () => {
-  navigateTo("/");
-};
-
-const handleMenuItemClick = (item: string) => {
-  navigateTo(item);
+const navigation = (path: string) => {
+  navigateTo(path);
 };
 
 function filterResults(event: Event) {
