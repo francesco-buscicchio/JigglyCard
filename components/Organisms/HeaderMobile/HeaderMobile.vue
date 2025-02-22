@@ -16,14 +16,14 @@
         <div class="relative w-[70%]">
           <h2
             class="text-accent-950 text-center cursor-pointer"
-            @click="navigateToHome('/')"
+            @click="navigatation(PATH.HOME)"
           >
             Jigglycard
           </h2>
         </div>
 
         <div class="items-center space-x-4">
-          <button class="focus:outline-none">
+          <button class="focus:outline-none" @click="navigatation(PATH.CART)">
             <Icon name="jig:cart-accent" size="25"></Icon>
           </button>
           <button
@@ -77,19 +77,26 @@
           </p>
         </div>
       </div>
-
-      <div v-if="isMenuOpen" class="lg:hidden">
-        <MoleculesMobileMenu />
-      </div>
+      <transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 transform scale-95"
+        enter-to-class="opacity-100 transform scale-100"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100 transform scale-100"
+        leave-to-class="opacity-0 transform scale-95"
+      >
+        <div v-if="isMenuOpen" class="lg:hidden">
+          <MoleculesMobileMenu @closeMenu="toggleMenu" />
+        </div>
+      </transition>
     </nav>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useHead } from "#imports";
 import type { SearchProductResult } from "~/types/product.type";
 import type { Hit } from "algoliasearch";
+import { PATH } from "~/data/const";
 
 const isMenuOpen = ref(false);
 const isSearchOpen = ref(false);
@@ -139,7 +146,7 @@ const closeSearch = (event: MouseEvent) => {
   productSearch.value = [];
   searchValue.value = "";
 };
-const navigateToHome = (path: string) => {
+const navigatation = (path: string) => {
   navigateTo(path);
 };
 </script>
