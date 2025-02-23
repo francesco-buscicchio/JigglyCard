@@ -43,7 +43,7 @@
             @input="
               ($event:Event) => {
                 const target = $event.target as HTMLInputElement;
-                searchProducts(target.value);
+                emit('search', target.value)
               }
             "
           />
@@ -83,20 +83,20 @@
 </template>
 
 <script lang="ts" setup>
-import type { Hit } from "algoliasearch";
 import { ref } from "vue";
-import { searchHit } from "~/data/const";
-import products from "~/data/products";
-import type { SearchProductResult } from "~/types/product.type";
+import type { Hit } from "~/types/product.type";
 
 type HeaderPropsType = {
   cartCount: number;
 };
 
-const props = defineProps<{ header: HeaderPropsType }>();
+const props = defineProps<{
+  header: HeaderPropsType;
+  productSearch: Hit[];
+  isSearchOpen: boolean;
+  noResults: boolean;
+}>();
 
-const searchQuery = ref("");
-const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
 const headerMenu = ref([
   { name: "Pokemon", to: "/pokemon/all" },
   { name: "One Piece", to: "/one-piece/all" },
@@ -104,51 +104,32 @@ const headerMenu = ref([
   { name: "Dragon Ball", to: "/dragon-ball/all" },
   { name: "Lorcana", to: "/lorcana/all" },
 ]);
-const filteredResults = ref([] as string[]);
-const isSearchOpen = ref(false);
-const productSearch = ref<Hit[]>([]);
-const searchValue = ref<string>("");
-
-const noResults = computed(
-  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
-);
+const emit = defineEmits([
+  "search",
+  "toggleSearch",
+  "closeSearch",
+  "updateSearch",
+]);
 
 const handleLogoClick = () => {
   navigateTo("/");
 };
-const client = useAlgolia();
 
 const handleMenuItemClick = (item: string) => {
   navigateTo(item);
 };
 
 const toggleSearch = () => {
-  isSearchOpen.value = !isSearchOpen.value;
+  emit("toggleSearch");
 };
 
 const closeSearch = (event: MouseEvent) => {
-  if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
-  ) {
-    isSearchOpen.value = !isSearchOpen.value;
-  }
-  // Reset research
-  productSearch.value = [];
-  searchValue.value = "";
+  emit("closeSearch", event);
 };
 
-const searchProducts = async (data: string) => {
-  searchValue.value = data;
-  if (searchValue.value.length > 2) {
-    const results = await client.searchSingleIndex<SearchProductResult>({
-      indexName: "ecommerce",
-      searchParams: { query: searchValue.value, hitsPerPage: 4 },
-    });
-    productSearch.value = results.hits;
-  } else productSearch.value = [];
-};
-
+// TODO: serve?
+const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
+const filteredResults = ref([] as string[]);
 function filterResults(event: Event) {
   const query = (event.target as HTMLInputElement).value;
   if (query) {
