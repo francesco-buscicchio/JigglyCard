@@ -117,10 +117,6 @@ const navigation = (path: string) => {
   navigateTo(path);
 };
 
-const handleMenuItemClick = (item: string) => {
-  navigateTo(item);
-};
-
 const toggleSearch = () => {
   emit("toggleSearch");
 };
