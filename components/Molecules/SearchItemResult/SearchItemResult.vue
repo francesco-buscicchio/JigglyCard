@@ -2,7 +2,7 @@
   <div class="w-full py-2 border-b-[1px] flex px-6 gap-x-10">
     <NuxtImg
       :src="thumbnailImage"
-      class="min-w-10 max-w-10 lg:min-w-18 object-cover"
+      class="min-w-10 max-w-10 lg:min-w-18 lg:min-h-25 object-cover"
       :alt="name"
     />
     <div>
