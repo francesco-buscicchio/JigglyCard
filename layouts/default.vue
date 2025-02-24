@@ -97,7 +97,7 @@ const searchProducts = async (data: string) => {
       indexName: "ecommerce",
       searchParams: { query: data, hitsPerPage: 4 },
     });
-    productSearch.value = results.hits;
+    productSearch.value = results.hits as unknown as Hit[];
   } else productSearch.value = [];
 };
 </script>
