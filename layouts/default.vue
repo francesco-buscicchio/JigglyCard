@@ -1,5 +1,14 @@
 <template>
-  <OrganismsHeaderMobile class="w-full" :header="{ cartCount: 9 }" />
+  <OrganismsHeaderMobile
+    class="w-full"
+    :header="{ cartCount: 9 }"
+    :productSearch="productSearch"
+    :isSearchOpen="isSearchOpen"
+    :noResults="noResults"
+    @toggleSearch="toggleSearch"
+    @closeSearch="closeSearch"
+    @search="searchProducts"
+  />
 
   <div class="hidden w-full lg:block sticky-header">
     <OrganismsHeaderDesktop

@@ -45,7 +45,7 @@
             @input="
               ($event:Event) => {
                 const target = $event.target as HTMLInputElement;
-                searchProducts(target.value);
+                emit('search', target.value)
               }
             "
           />
@@ -94,19 +94,23 @@
 </template>
 
 <script setup lang="ts">
-import type { SearchProductResult } from "~/types/product.type";
-import type { Hit } from "algoliasearch";
 import { PATH } from "~/data/const";
+import type { Hit } from "~/types/product.type";
 
 const isMenuOpen = ref(false);
-const isSearchOpen = ref(false);
-const searchValue = ref<string>("");
-const productSearch = ref<Hit[]>([]);
-const noResults = computed(
-  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
-);
 
-const client = useAlgolia();
+const props = defineProps<{
+  productSearch: Hit[];
+  isSearchOpen: boolean;
+  noResults: boolean;
+}>();
+
+const emit = defineEmits([
+  "search",
+  "toggleSearch",
+  "closeSearch",
+  "updateSearch",
+]);
 
 watch(isMenuOpen, (newValue) => {
   useHead({
@@ -116,36 +120,18 @@ watch(isMenuOpen, (newValue) => {
   });
 });
 
-const searchProducts = async (data: string) => {
-  searchValue.value = data;
-  if (searchValue.value.length > 2) {
-    const results = await client.searchSingleIndex<SearchProductResult>({
-      indexName: "ecommerce",
-      searchParams: { query: searchValue.value, hitsPerPage: 4 },
-    });
-    productSearch.value = results.hits;
-  } else productSearch.value = [];
-};
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
 const toggleSearch = () => {
-  isSearchOpen.value = !isSearchOpen.value;
+  emit("toggleSearch");
 };
 
 const closeSearch = (event: MouseEvent) => {
-  if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
-  ) {
-    isSearchOpen.value = !isSearchOpen.value;
-  }
-  // Reset research
-  productSearch.value = [];
-  searchValue.value = "";
+  emit("closeSearch", event);
 };
+
 const navigatation = (path: string) => {
   navigateTo(path);
 };
