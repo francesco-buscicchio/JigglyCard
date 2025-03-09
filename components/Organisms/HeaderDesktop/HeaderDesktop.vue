@@ -21,16 +21,16 @@
         </div>
         <div class="flex flex-row gap-x-4">
           <button
-            class="focus:outline-none"
+            class="header-btn"
             @click="toggleSearch"
             v-show="!isSearchOpen"
           >
             <Icon name="jig:search-header-desktop" size="18" />
           </button>
-          <button class="focus:outline-none">
+          <button class="header-btn">
             <Icon name="jig:cart-header-desktop" size="18"></Icon>
           </button>
-          <button class="focus:outline-none">
+          <button class="header-btn">
             <Icon name="jig:user-accent" size="18" />
           </button>
         </div>
@@ -139,3 +139,9 @@ function filterResults(event: Event) {
   }
 }
 </script>
+
+<style scoped>
+.header-btn:focus {
+  outline: none;
+}
+</style>
