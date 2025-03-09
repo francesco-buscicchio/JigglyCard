@@ -42,12 +42,7 @@
             type="text"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
             :placeholder="$t('search') + '...'"
-            @input="
-              ($event:Event) => {
-                const target = $event.target as HTMLInputElement;
-                emit('search', target.value)
-              }
-            "
+            @input="onSearchInput($event)"
           />
           <span
             class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
@@ -125,6 +120,10 @@ const closeSearch = (event: MouseEvent) => {
   emit("closeSearch", event);
 };
 
+const onSearchInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("search", target.value);
+};
 </script>
 
 <style scoped>
