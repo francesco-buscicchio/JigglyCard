@@ -125,19 +125,6 @@ const closeSearch = (event: MouseEvent) => {
   emit("closeSearch", event);
 };
 
-// TODO: serve?
-const searchResults = ref(["Prodotto 1", "Prodotto 2", "Prodotto 3"]);
-const filteredResults = ref([] as string[]);
-function filterResults(event: Event) {
-  const query = (event.target as HTMLInputElement).value;
-  if (query) {
-    filteredResults.value = searchResults.value.filter((result) =>
-      result.toLowerCase().includes(query.toLowerCase())
-    );
-  } else {
-    filteredResults.value = [];
-  }
-}
 </script>
 
 <style scoped>
