@@ -13,6 +13,7 @@
           class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2"
         >
           <h5
+            ref="productNameRef"
             class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
           >
             {{ productName }}
@@ -24,9 +25,10 @@
             <p class="ml-5 font-bold inline text-2xl">{{ price }} €</p></label
           >
           <div
+            v-if="isProductNameOverflowing"
             class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap"
           >
-            {{ productName }}
+            {{ productName.replace(/\s*\([^)]*\)/g, "") }}
           </div>
         </div>
       </div>
@@ -79,6 +81,26 @@ const props = defineProps({
   },
 });
 
+const productNameRef = ref<HTMLElement | null>(null);
+const isProductNameOverflowing = ref(false);
+
+const checkTruncation = () => {
+  if (productNameRef.value) {
+    isProductNameOverflowing.value =
+      productNameRef.value.scrollWidth > productNameRef.value.clientWidth;
+  }
+};
+
+onMounted(() => {
+  nextTick(() => {
+    checkTruncation();
+  });
+  window.addEventListener("resize", checkTruncation);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", checkTruncation);
+});
 // const containerClass = computed(() => {
 //     switch (props.colorScheme) {
 //         case "primaryHome":
