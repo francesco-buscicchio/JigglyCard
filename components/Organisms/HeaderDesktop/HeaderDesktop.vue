@@ -23,7 +23,7 @@
           <button
             class="focus:outline-none"
             @click="toggleSearch"
-            v-if="!isSearchOpen"
+            v-show="!isSearchOpen"
           >
             <Icon name="jig:search-header-desktop" size="18" />
           </button>
@@ -36,7 +36,7 @@
         </div>
       </div>
 
-      <div v-if="isSearchOpen" class="mt-4">
+      <div v-show="isSearchOpen" class="mt-4">
         <div class="relative">
           <input
             type="text"
