@@ -15,22 +15,42 @@
     />
   </div>
   <!-- desktop -->
-  <div class="bg-accent-50 flex py-8 xl:px-20 lg:px-12 gap-8 items-center justify-between" v-if="!isMobileview">
+  <div
+    class="bg-accent-50 flex py-8 xl:px-20 lg:px-12 gap-8 items-center justify-between"
+    v-if="!isMobileview"
+  >
     <div class="flex-1">
       <h3 class="mb-4">{{ $t("titleNewsLetter") }}</h3>
-      <p class="mb-4"> {{ $t("captionNewsletter") }}</p>
+      <p class="mb-4">
+        {{ $t("captionNewsletter.first") }}
+        <span class="bold">
+          {{ $t("captionNewsletter.bold") }}
+        </span>
+        {{ $t("captionNewsletter.second") }}
+      </p>
       <div class="flex gap-4">
         <div class="w-[70%]">
-
-          <MoleculesContainerInput status="newsletter" placeholder="e-mail" @inputUpdate="email = $event" />
+          <MoleculesContainerInput
+            status="newsletter"
+            placeholder="e-mail"
+            @inputUpdate="email = $event"
+          />
         </div>
         <div class="w-[30%]">
-          <AtomsButtonCTA type="primary" :text="buttonNewsLetter" @click="mailAction(email)" />
+          <AtomsButtonCTA
+            type="primary"
+            :text="buttonNewsLetter"
+            @click="mailAction(email)"
+          />
         </div>
       </div>
     </div>
     <div class="max-w-[60%] min-h-full">
-      <img src="~/assets/img/newsletter-footer.png" alt="newsletter" class="object-cover w-full h-full" />
+      <img
+        src="~/assets/img/newsletter-footer.png"
+        alt="newsletter"
+        class="object-cover w-full h-full"
+      />
     </div>
   </div>
 </template>
@@ -38,7 +58,7 @@
 <script setup lang="ts">
 const { t, locale } = useI18n();
 const config = useRuntimeConfig();
-const isMobileview = isMobile()
+const isMobileview = isMobile();
 
 const email = ref("");
 const buttonNewsLetter = t("buttonNewsLetter");
