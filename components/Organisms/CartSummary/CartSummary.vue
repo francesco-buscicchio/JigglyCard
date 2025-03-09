@@ -7,25 +7,25 @@
     <div
       v-for="product in products"
       :key="product.id"
-      class="flex justify-between border-b py-2"
+      class="flex justify-between border-b py-2 items-end"
     >
       <div>
         <p class="mb-1">{{ product.nameProduct }}</p>
         <p>{{ product.codeProduct }}</p>
       </div>
       <div class="text-right">
-        <p>{{ formatPrice(product.price) }}</p>
+        <p>{{ product.price }} €</p>
       </div>
     </div>
 
     <div class="flex justify-between pt-2">
       <p>{{ $t("shipping") }}</p>
-      <p>{{ formatPrice(shippingCost) }}</p>
+      <p>{{ shippingCost }} €</p>
     </div>
 
     <div class="flex justify-between pt-2 font-bold border-t mt-2">
       <p>{{ $t("total") }}</p>
-      <p>{{ formatPrice(finalTotal) }}</p>
+      <p>{{ finalTotal }} €</p>
     </div>
   </div>
 </template>
@@ -58,11 +58,4 @@ const totalPrice = computed(() => {
 const finalTotal = computed(() => {
   return totalPrice.value + props.shippingCost;
 });
-
-function formatPrice(price: number): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "EUR",
-  }).format(price);
-}
 </script>

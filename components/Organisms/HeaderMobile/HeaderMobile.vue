@@ -28,7 +28,7 @@
           </button>
           <button
             @click="toggleSearch"
-            v-if="!isSearchOpen"
+            :style="{ visibility: isSearchOpen ? 'hidden' : 'visible' }"
             class="focus:outline-none"
           >
             <Icon name="jig:cerca-accent" size="25" />
@@ -133,6 +133,7 @@ const closeSearch = (event: MouseEvent) => {
 };
 
 const navigatation = (path: string) => {
+  console.log("cart", path);
   navigateTo(path);
 };
 </script>
