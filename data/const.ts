@@ -5,6 +5,7 @@ export const HIGHLIGHTS_TAG = "EVIDENZA";
 export const WHATSNEW_TAG = "NOVITA";
 export const DEALS_TAG = "OFFERTA";
 export const HEROBANNER_TAG = "HEROBANNER";
+export const SUGGESTED = "SUGGESTED";
 export const availableLanguages = [
   { code: "IT", name: "italian" },
   { code: "EN", name: "english" },
