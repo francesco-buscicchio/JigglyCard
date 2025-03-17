@@ -2,46 +2,88 @@
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
-    <!-- Product -->
-    <MoleculesProductPageHero
-      :image="product.imageUrl"
-      :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)"
-      :expansion="product.expansion"
-    />
+    <!-- Mobile -->
+    <div v-if="isMobileView">
+      <!-- Product -->
+      <MoleculesProductPageHero
+        :image="product.imageUrl"
+        :title="formatTitle(product.productName)"
+        :code="extractCardCode(product.productName)"
+        :expansion="product.expansion"
+      />
 
-    <!-- Listing tags -->
-    <div class="flex flex-col gap-8 mb-7">
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickLanguage"
-        :tags="tagsLanguage"
-        :title="$t('filter.language')"
-        v-if="tagsLanguage.length"
-      />
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickCondition"
-        :tags="tagsCondition"
-        :title="$t('filter.condition')"
-        v-if="tagsCondition.length"
-      />
+      <!-- Listing tags -->
+      <div class="flex flex-col gap-8 mb-7">
+        <MoleculesListingTag
+          @handle-tag-click="handleTagClickLanguage"
+          :tags="tagsLanguage"
+          :title="$t('filter.language')"
+          v-if="tagsLanguage.length"
+        />
+        <MoleculesListingTag
+          @handle-tag-click="handleTagClickCondition"
+          :tags="tagsCondition"
+          :title="$t('filter.condition')"
+          v-if="tagsCondition.length"
+        />
+      </div>
+      <!-- Select quantity, Add to Cart CTA  and Description-->
+      <div class="flex flex-col gap-12">
+        <OrganismsQuantitySelect
+          :price="product.price"
+          :quantity="product.quantity"
+        />
+
+        <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
+          <Icon name="jig:cart-white" size="30"></Icon>
+        </AtomsButtonCTA>
+
+        <MoleculesTextViewer>
+          <template v-slot:content>
+            descrizione: {{ $t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
+    <!-- Desktop -->
+    <div
+      v-if="isDesktopView"
+      class="flex w-full items-center justify-center gap-20"
+    >
+      <div class="flex-1 flex items-center justify-center">
+        <img :src="product.imageUrl" class="w-full max-w-[360px] shadow-xl" />
+      </div>
+      <div class="flex-1 flex flex-col">
+        <!-- Listing tags -->
+        <div class="flex flex-col gap-8 mb-7 w-full">
+          <div>
+            <h1 class="pt-4 text-accent-500">
+              {{ formatTitle(product.productName) }}
+            </h1>
+            <p v-if="product.productName" class="pt-2">
+              {{ extractCardCode(product.productName) }}
+            </p>
+            <p class="pt-2">{{ product.expansion }}</p>
+          </div>
+          <MoleculesListingTag
+            @handle-tag-click="handleTagClickLanguage"
+            :tags="tagsLanguage"
+            :title="$t('filter.language')"
+            v-if="tagsLanguage.length"
+          />
+          <MoleculesListingTag
+            @handle-tag-click="handleTagClickCondition"
+            :tags="tagsCondition"
+            :title="$t('filter.condition')"
+            v-if="tagsCondition.length"
+          />
+        </div>
 
-    <!-- Select quantity, Add to Cart CTA  and Description-->
-    <div class="flex flex-col gap-12">
-      <OrganismsQuantitySelect
-        :price="product.price"
-        :quantity="product.quantity"
-      />
-
-      <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
-        <Icon name="jig:cart-white" size="30"></Icon>
-      </AtomsButtonCTA>
-
-      <MoleculesTextViewer>
-        <template v-slot:content>
-          descrizione: {{ $t("defaultDescription") }}
-        </template>
-      </MoleculesTextViewer>
+        <OrganismsQuantitySelect
+          :price="product.price"
+          :quantity="product.quantity"
+        />
+      </div>
     </div>
 
     <!-- Deals Carousel -->
@@ -80,6 +122,8 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
+const isMobileView = isMobile();
+const isDesktopView = isDesktop();
 
 onMounted(async () => {
   fetchData();

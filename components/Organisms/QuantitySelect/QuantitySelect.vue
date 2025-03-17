@@ -10,17 +10,31 @@
         />
       </div>
 
-      <h2 :class="!isCart ? 'mr-10' : ''">{{ totalPrice }} €</h2>
+      <h2 v-if="!isDesktopView" :class="!isCart ? 'mr-10' : ''">
+        {{ totalPrice }} €
+      </h2>
     </div>
 
     <p class="my-2" v-if="!isCart">
       {{ $t("quantitySelect.availability") }}: {{ quantity }}
       {{ $t("quantitySelect.pieces") }}
     </p>
+    <div v-if="isDesktopView" class="flex gap-5">
+      <h2 class="whitespace-nowrap">{{ totalPrice }} €</h2>
+
+      <AtomsButtonCTA
+        type="primary"
+        :text="$t('productHero.AddToCart')"
+        class="max-w-[30rem]"
+      >
+        <Icon name="jig:cart-white" size="30"></Icon>
+      </AtomsButtonCTA>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+const isDesktopView = isDesktop();
 const props = defineProps<{
   quantity: number;
   price: number;
