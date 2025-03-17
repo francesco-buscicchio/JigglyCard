@@ -29,6 +29,14 @@
     />
 
     <OrganismsProductCarousel
+      v-if="isMobileView"
+      :title="$t('deals')"
+      :products="offerte"
+      colorScheme="lightHome"
+    />
+
+    <OrganismsProductCarouselWeb
+      v-if="isDesktopView"
       :title="$t('deals')"
       :products="offerte"
       colorScheme="lightHome"
