@@ -42,12 +42,7 @@
             type="text"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
             :placeholder="$t('search') + '...'"
-            @input="
-              ($event:Event) => {
-                const target = $event.target as HTMLInputElement;
-                searchProducts(target.value);
-              }
-            "
+            @input="onSearchInput($event)"
           />
           <span
             class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
@@ -94,19 +89,23 @@
 </template>
 
 <script setup lang="ts">
-import type { SearchProductResult } from "~/types/product.type";
-import type { Hit } from "algoliasearch";
 import { PATH } from "~/data/const";
+import type { Hit } from "~/types/product.type";
 
 const isMenuOpen = ref(false);
-const isSearchOpen = ref(false);
-const searchValue = ref<string>("");
-const productSearch = ref<Hit[]>([]);
-const noResults = computed(
-  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
-);
 
-const client = useAlgolia();
+const props = defineProps<{
+  productSearch: Hit[];
+  isSearchOpen: boolean;
+  noResults: boolean;
+}>();
+
+const emit = defineEmits([
+  "search",
+  "toggleSearch",
+  "closeSearch",
+  "updateSearch",
+]);
 
 watch(isMenuOpen, (newValue) => {
   useHead({
@@ -116,38 +115,25 @@ watch(isMenuOpen, (newValue) => {
   });
 });
 
-const searchProducts = async (data: string) => {
-  searchValue.value = data;
-  if (searchValue.value.length > 2) {
-    const results = await client.searchSingleIndex<SearchProductResult>({
-      indexName: "ecommerce",
-      searchParams: { query: searchValue.value, hitsPerPage: 4 },
-    });
-    productSearch.value = results.hits;
-  } else productSearch.value = [];
-};
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
 const toggleSearch = () => {
-  isSearchOpen.value = !isSearchOpen.value;
+  emit("toggleSearch");
 };
 
 const closeSearch = (event: MouseEvent) => {
-  if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
-  ) {
-    isSearchOpen.value = !isSearchOpen.value;
-  }
-  // Reset research
-  productSearch.value = [];
-  searchValue.value = "";
+  emit("closeSearch", event);
 };
+
 const navigatation = (path: string) => {
   console.log("cart", path);
   navigateTo(path);
+};
+
+const onSearchInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("search", target.value);
 };
 </script>
