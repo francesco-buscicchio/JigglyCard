@@ -21,7 +21,11 @@
           <p class="text-lg">{{ expansion }}</p>
           <label class="text-xs"
             >{{ $t("startingFrom") }}
-            <p class="ml-5 font-bold inline text-2xl">{{ price }} €</p></label
+            <p
+              class="ml-1 xl:ml-4 lg:ml-2 font-bold inline text-base xl:text-2xl"
+            >
+              {{ price }} €
+            </p></label
           >
           <div
             class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap"

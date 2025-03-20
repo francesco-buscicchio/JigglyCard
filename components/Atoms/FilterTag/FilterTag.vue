@@ -3,12 +3,14 @@
     <div class="bg-accent-50 rounded-xl p-4 pr-12">
       <p>{{ text }}</p>
     </div>
-    <span
+    <button
       class="absolute inset-y-0 right-0 flex items-center pr-4"
       @click="emitClick"
+      aria-label="Remove filter"
+      role="button"
     >
       <Icon name="jig:close-filter" size="10" />
-    </span>
+    </button>
   </div>
 </template>
 

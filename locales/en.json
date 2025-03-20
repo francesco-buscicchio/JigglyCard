@@ -169,5 +169,6 @@
     "quantity": "Quantity",
     "availability": "Availability",
     "pieces": "pieces"
-  }
+  },
+  "suggested": "Did you see this?"
 }
