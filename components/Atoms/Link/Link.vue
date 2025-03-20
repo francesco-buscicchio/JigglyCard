@@ -19,24 +19,36 @@ const props = defineProps({
   },
 });
 
-const isVisited = ref(false);
+const isVisited = ref(checkVisited(props.to));
+
+function checkVisited(url: string): boolean {
+  if (import.meta.client) {
+    const visitedLinks = JSON.parse(
+      localStorage.getItem("visitedLinks") || "{}"
+    );
+    return !!visitedLinks[url];
+  } else return false;
+}
 
 onMounted(() => {
-  if (localStorage.getItem(props.to)) {
-    isVisited.value = true;
-  }
+  isVisited.value = checkVisited(props.to);
 });
 
 function handleClick() {
-  localStorage.setItem(props.to, "visited");
-  isVisited.value = true;
+  if (import.meta.client) {
+    const visitedLinks = JSON.parse(
+      localStorage.getItem("visitedLinks") || "{}"
+    );
+    visitedLinks[props.to] = true;
+    localStorage.setItem("visitedLinks", JSON.stringify(visitedLinks));
+    isVisited.value = true;
+  }
 }
 </script>
 
 <style scoped>
 .atoms-link {
   @apply text-neutrals-950 no-underline;
-
   font-family: "Roboto Serif", serif;
   font-size: 20px;
   line-height: 24px;
