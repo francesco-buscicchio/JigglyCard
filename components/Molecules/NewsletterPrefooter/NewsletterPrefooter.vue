@@ -84,23 +84,28 @@ const mailAction = async (email: string) => {
   const userName = getUsernameFromMail(email);
   const { newsletterToCustomer, newsletterToAdmin } = await loadTemplates();
 
-  // SEND MAIL TO SUBSCRIBER
+  sendEmailToSubscriber(email, newsletterToCustomer(userName));
+
+  sendEmailToBackOffice(email, newsletterToAdmin(userName, email));
+  // CREATE USER IN DB
+  subscribeSendgrid(email);
+};
+
+const sendEmailToSubscriber = (email: string, value: string) => {
   sendMail({
     email: email,
     name: email,
     subject: "Subscription to Jigglycard newsletter successful",
-    contentValue: newsletterToCustomer(userName),
+    contentValue: value,
   });
+};
 
-  // SEND MAIL TO BACKOFFICE
+const sendEmailToBackOffice = (email: string, value: string) => {
   sendMail({
     email: config.public.ADMIN_MAIL,
     name: "Jigglycard Store",
     subject: "Subscription to Jigglycard newsletter successful",
-    contentValue: newsletterToAdmin(userName, email),
+    contentValue: value,
   });
-
-  // CREATE USER IN DB
-  subscribeSendgrid(email);
 };
 </script>
