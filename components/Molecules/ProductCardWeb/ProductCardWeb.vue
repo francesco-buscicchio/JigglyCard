@@ -32,7 +32,7 @@
             v-if="isProductNameOverflowing"
             class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap"
           >
-            {{ productName.replace(/\s*\([^)]*\)/g, "") }}
+            {{ formatProductName(productName) }}
           </div>
         </div>
       </div>
@@ -49,6 +49,7 @@
 </template>
 
 <script lang="ts" setup>
+import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
 const props = defineProps({
   colorScheme: {
