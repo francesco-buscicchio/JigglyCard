@@ -1,6 +1,6 @@
 <template>
   <!-- mobile -->
-  <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-if="isMobileview">
+  <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-show="isMobileview">
     <h5>{{ $t("titleNewsLetter") }}</h5>
     <p>{{ $t("captionNewsletterShort") }}</p>
     <MoleculesContainerInput
@@ -17,7 +17,7 @@
   <!-- desktop -->
   <div
     class="bg-accent-50 flex py-8 xl:px-20 lg:px-12 gap-8 items-center justify-between"
-    v-if="!isMobileview"
+    v-show="!isMobileview"
   >
     <div class="flex-1">
       <h3 class="mb-4">{{ $t("titleNewsLetter") }}</h3>
