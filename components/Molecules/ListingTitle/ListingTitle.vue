@@ -1,7 +1,7 @@
 <template>
-  <h1 class="text-accent-500 text-center">{{ title?.split(" - ")[0] }}</h1>
+  <h1 class="text-accent-500 text-center">{{ $t(title).split(" - ")[0] }}</h1>
   <h5 class="text-accent-500 text-center pt-2">
-    {{ title?.split(" - ")[1].toLocaleLowerCase() }}
+    {{ $t(title).split(" - ")[1].toLocaleLowerCase() }}
   </h5>
 </template>
 

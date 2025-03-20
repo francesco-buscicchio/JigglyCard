@@ -39,27 +39,22 @@ const hasSlotContent = computed(() => {
 });
 
 const inputClass = computed(() => {
-  let baseClass =
+  const baseClass =
     "form-input w-full pl-3 py-2 border-2 rounded-lg focus:ring-0 active:border-2";
+  const statusClasses = {
+    success: "border-[#84CC16] focus:border-[#84CC16]",
+    error: "border-[#DC2626] focus:border-[#DC2626]",
+    warning: "border-[#FBBF24] focus:border-[#FBBF24]",
+    newsletter: "border-accent-950 focus:border-accent-950",
+    default: "border-accent-950 focus:border-accent-950 bg-transparent",
+    disabled:
+      "border border-neutrals-500 bg-neutrals-200 focus:border-neutrals-500",
+  };
 
-  if (hasSlotContent.value) {
-    baseClass += " pr-10";
-  }
-
-  switch (props.status) {
-    case "success":
-      return `${baseClass} border-[#84CC16] focus:border-[#84CC16]`;
-    case "error":
-      return `${baseClass} border-[#DC2626] focus:border-[#DC2626]`;
-    case "warning":
-      return `${baseClass} border-[#FBBF24] focus:border-[#FBBF24]`;
-    case "disabled":
-      return `form-input w-full pl-3 pr-10 py-2 border border-neutrals-500 bg-neutrals-200 rounded-lg focus:border-neutrals-500`;
-    case "newsletter":
-      return `${baseClass} border-accent-950 focus:border-accent-950`;
-    default:
-      return `${baseClass} border-accent-950 focus:border-accent-950 bg-transparent`;
-  }
+  return `${baseClass} ${
+    statusClasses[props.status as keyof typeof statusClasses] ||
+    statusClasses.default
+  } ${hasSlotContent.value ? "pr-10" : ""}`;
 });
 
 watch(inputValue, (newValue) => {
