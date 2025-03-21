@@ -6,6 +6,7 @@
       v-model="inputValue"
       :disabled="status === 'disabled'"
       :placeholder="placeholder"
+      @blur="handleBlur"
     />
     <span
       v-if="hasSlotContent"
@@ -19,7 +20,7 @@
 <script setup lang="ts">
 import { computed, ref, defineEmits, useSlots } from "vue";
 
-const emits = defineEmits(["updateValue"]);
+const emits = defineEmits(["updateValue", "blur"]);
 const props = defineProps({
   status: {
     type: String,
@@ -60,4 +61,8 @@ const inputClass = computed(() => {
 watch(inputValue, (newValue) => {
   emits("updateValue", newValue);
 });
+
+const handleBlur = () => {
+  emits("blur");
+};
 </script>
