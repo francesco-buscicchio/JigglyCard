@@ -34,6 +34,9 @@
             status="newsletter"
             placeholder="e-mail"
             @inputUpdate="email = $event"
+            :notValidMessage="$t('newsletterEmailValidation')"
+            :isValid="isValidEmail"
+            @inputBlur="validateEmail"
           />
         </div>
         <div class="w-[30%]">
@@ -59,7 +62,7 @@
 const { t, locale } = useI18n();
 const config = useRuntimeConfig();
 const isMobileview = isMobile();
-
+const isValidEmail = ref(true);
 const email = ref("");
 const buttonNewsLetter = t("buttonNewsLetter");
 
@@ -86,7 +89,7 @@ const mailAction = async (email: string) => {
 
   sendEmailToSubscriber(email, newsletterToCustomer(userName));
 
-  sendEmailToBackOffice(email, newsletterToAdmin(userName, email));
+  sendEmailToBackOffice(newsletterToAdmin(userName, email));
   // CREATE USER IN DB
   subscribeSendgrid(email);
 };
@@ -100,7 +103,7 @@ const sendEmailToSubscriber = (email: string, value: string) => {
   });
 };
 
-const sendEmailToBackOffice = (email: string, value: string) => {
+const sendEmailToBackOffice = (value: string) => {
   sendMail({
     email: config.public.ADMIN_MAIL,
     name: "Jigglycard Store",
@@ -108,4 +111,15 @@ const sendEmailToBackOffice = (email: string, value: string) => {
     contentValue: value,
   });
 };
+
+const validateEmail = () => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  isValidEmail.value = regex.test(email.value) || email.value === "";
+};
+
+watch(email, (newVal) => {
+  if (newVal === "") {
+    isValidEmail.value = true;
+  }
+});
 </script>
