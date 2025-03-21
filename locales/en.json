@@ -73,6 +73,7 @@
     "bold": "15% Discount Code",
     "second": " valid on your first purchase of items not already on promotion!"
   },
+  "newsletterEmailValidation": "Please enter a valid email address.",
   "captionNewsletterShort": "Stay up-to-date with a click without filling your inbox. Sign up for 15% off your first purchase of non-promotion items!",
   "footerNewsLetter": "Join our community and take advantage of special offers, straight to your email inbox!",
   "startingFrom": "starting from",
