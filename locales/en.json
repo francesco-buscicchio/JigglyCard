@@ -9,7 +9,7 @@
     "Support": "Support",
     "SupportDescription": "We are always available to provide you with 24/7 support.",
     "Prices": "Prices",
-    "PricesDescription": "The best value for money on the market.",
+    "PricesDescription": "Take advantage of our unbeatable offers: the most competitive price, guaranteed for high-quality products.",
     "Security": "Security",
     "SecurityDescription": "Your personal and payment data are safe."
   },
@@ -69,10 +69,11 @@
   "headerNewsLetter": "Sign up for the newsletter before launch to get a discount code on your first purchase.",
   "buttonNewsLetter": "Subscribe",
   "captionNewsletter": {
-    "first": "Discover all the benefits of staying up-to-date with just one click: exclusive previews, special promotions, detailed insights and personalized reminders for your purchases, all without filling up your inbox. Sign up now and ",
-    "bold": " take advantage of a 15% Discount Code",
+    "first": "Discover all the benefits of staying up-to-date with just one click: exclusive previews, special promotions, detailed insights and personalized reminders for your purchases, all without filling up your inbox. Sign up now and take advantage of a ",
+    "bold": "15% Discount Code",
     "second": " valid on your first purchase of items not already on promotion!"
   },
+  "newsletterEmailValidation": "Please enter a valid email address.",
   "captionNewsletterShort": "Stay up-to-date with a click without filling your inbox. Sign up for 15% off your first purchase of non-promotion items!",
   "footerNewsLetter": "Join our community and take advantage of special offers, straight to your email inbox!",
   "startingFrom": "starting from",
