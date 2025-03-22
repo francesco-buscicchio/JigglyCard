@@ -46,14 +46,14 @@
 
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
-      v-if="!isDesktopView"
+      v-show="!isDesktopView"
       :title="$t('deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
-      v-if="isDesktopView"
+      v-show="isDesktopView"
       :title="$t('deals')"
       :products="offerte"
       colorScheme="lightHome"
