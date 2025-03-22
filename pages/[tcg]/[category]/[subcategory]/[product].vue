@@ -82,6 +82,7 @@
         <OrganismsQuantitySelect
           :price="product.price"
           :quantity="product.quantity"
+          :isCart="false"
         />
       </div>
     </div>
