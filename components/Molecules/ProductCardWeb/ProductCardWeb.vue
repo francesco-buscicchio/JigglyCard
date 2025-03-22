@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex relative flex-col">
+    <div class="flex relative flex-col cursor-pointer">
       <img
         :src="imageUrl"
         :alt="productName"

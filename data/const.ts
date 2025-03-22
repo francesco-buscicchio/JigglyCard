@@ -20,7 +20,7 @@ export const availableConditions = [
   { code: "PO", name: "poor" },
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
-export const ITEMS_FOR_PAGE = 9;
+export const ITEMS_FOR_PAGE = 12;
 // TODO: controllare se le route sono corrette
 export const FOOTER_MENU_ITEMS = [
   { link: "about", route: "/about" },

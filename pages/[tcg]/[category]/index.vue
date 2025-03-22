@@ -34,7 +34,18 @@
           </div>
         </div>
       </div>
-      <OrganismsListingProducts :products="products" />
+      <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
+      <div class="flex">
+        <div class="w-[30vw]">
+          <!-- filters -->
+        </div>
+        <div class="grid grid-cols-4 gap-4 w-[70vw]">
+          <OrganismsListingProductsWeb
+            :products="products"
+            v-if="isDesktopView"
+          />
+        </div>
+      </div>
       <div class="pt-10">
         <MoleculesListingPagination
           :total-items="totalItems"
@@ -70,6 +81,7 @@ const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
 const filtersStringQuery = ref(`type:"${route.params.category}"`);
 const expansion = route.query.expansion;
+const isDesktopView = isDesktop();
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
