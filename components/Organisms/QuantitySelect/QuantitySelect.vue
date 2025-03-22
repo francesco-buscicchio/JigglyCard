@@ -1,8 +1,14 @@
 <template>
   <div>
     <div class="flex items-center gap-13">
-      <div class="flex mr-6 items-center">
-        <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
+      <div class="flex mr-6 items-center gap-3">
+        <div>
+          <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
+          <p class="my-1 text-xs" v-if="!isCart" v-show="isDesktopView">
+            ({{ $t("quantitySelect.availability") }}: {{ quantity }}
+            {{ $t("quantitySelect.pieces") }} )
+          </p>
+        </div>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
           :selected="quantity"
@@ -10,16 +16,16 @@
         />
       </div>
 
-      <h2 v-if="!isDesktopView" :class="!isCart ? 'mr-10' : ''">
+      <h2 v-show="!isDesktopView" :class="!isCart ? 'mr-10' : ''">
         {{ totalPrice }} €
       </h2>
     </div>
 
-    <p class="my-2" v-if="!isCart">
+    <p class="my-2" v-if="!isCart" v-show="!isDesktopView">
       {{ $t("quantitySelect.availability") }}: {{ quantity }}
       {{ $t("quantitySelect.pieces") }}
     </p>
-    <div v-if="isDesktopView" class="flex gap-5">
+    <div v-show="isDesktopView" class="flex gap-5">
       <h2 class="whitespace-nowrap">{{ totalPrice }} €</h2>
 
       <AtomsButtonCTA
