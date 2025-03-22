@@ -49,42 +49,10 @@
 </template>
 
 <script lang="ts" setup>
+import type { ProductCard } from "~/types/product.type";
 import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
-const props = defineProps({
-  colorScheme: {
-    type: String,
-  },
-  id: {
-    type: String,
-  },
-  tcg: {
-    type: String,
-  },
-  category: {
-    type: String,
-  },
-  productName: {
-    type: String,
-    required: true,
-  },
-  code: {
-    type: String,
-    required: true,
-  },
-  expansion: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: String,
-    required: true,
-  },
-  imageUrl: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps<ProductCard>();
 
 const productNameRef = ref<HTMLElement | null>(null);
 const isProductNameOverflowing = ref(false);
