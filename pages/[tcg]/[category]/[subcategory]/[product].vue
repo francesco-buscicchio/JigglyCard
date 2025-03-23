@@ -132,7 +132,6 @@ const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
 const isMobileView = isMobile();
-const isDesktopView = isDesktop();
 
 onMounted(async () => {
   fetchData();
