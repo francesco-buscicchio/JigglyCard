@@ -13,6 +13,7 @@
           class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2"
         >
           <h5
+            ref="productNameRef"
             class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
           >
             {{ productName }}
@@ -28,9 +29,10 @@
             </p></label
           >
           <div
+            v-if="isProductNameOverflowing"
             class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap"
           >
-            {{ productName }}
+            {{ formatProductName(productName) }}
           </div>
         </div>
       </div>
@@ -47,54 +49,31 @@
 </template>
 
 <script lang="ts" setup>
+import type { ProductCard } from "~/types/product.type";
+import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
-const props = defineProps({
-  colorScheme: {
-    type: String,
-  },
-  id: {
-    type: String,
-  },
-  tcg: {
-    type: String,
-  },
-  category: {
-    type: String,
-  },
-  productName: {
-    type: String,
-    required: true,
-  },
-  code: {
-    type: String,
-    required: true,
-  },
-  expansion: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: String,
-    required: true,
-  },
-  imageUrl: {
-    type: String,
-    required: true,
-  },
+const props = defineProps<ProductCard>();
+
+const productNameRef = ref<HTMLElement | null>(null);
+const isProductNameOverflowing = ref(false);
+
+const checkTruncation = () => {
+  if (productNameRef.value) {
+    isProductNameOverflowing.value =
+      productNameRef.value.scrollWidth > productNameRef.value.clientWidth;
+  }
+};
+
+onMounted(() => {
+  nextTick(() => {
+    checkTruncation();
+  });
+  window.addEventListener("resize", checkTruncation);
 });
 
-// const containerClass = computed(() => {
-//     switch (props.colorScheme) {
-//         case "primaryHome":
-//             return "bg-accent-500 text-white border-white border-[1px] mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4 rounded-lg";
-//         case "lightHome":
-//             return "bg-white text-neutrals-950 border-[1px] mx-4 border-accent-950 min-h-80 max-h-80 flex flex-col justify-between p-4  rounded-lg";
-//         case "noBorder":
-//             return "bg-white text-neutrals-950 mx-4 min-h-80 max-h-80 flex flex-col justify-between p-4";
-//         default:
-//             return "rounded-lg shadow-md overflow-hidden w-full min-h-80 max-h-80 flex flex-col justify-between p-4";
-//     }
-// });
+onUnmounted(() => {
+  window.removeEventListener("resize", checkTruncation);
+});
 
 const buttonCtaType = computed(() => {
   switch (props.colorScheme) {
