@@ -20,7 +20,8 @@ export const availableConditions = [
   { code: "PO", name: "poor" },
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
-export const ITEMS_FOR_PAGE = 12;
+export const ITEMS_FOR_PAGE_MOBILE = 9;
+export const ITEMS_FOR_PAGE_WEB = 12;
 // TODO: controllare se le route sono corrette
 export const FOOTER_MENU_ITEMS = [
   { link: "about", route: "/about" },
@@ -31,4 +32,12 @@ export const FOOTER_MENU_ITEMS = [
 export const PATH = {
   HOME: "/",
   CART: "/carrello",
+};
+
+export const VIEWPORTS = {
+  SM: 640, // small: >= 640px
+  MD: 768, // medium: >= 768px
+  LG: 1024, // large: >= 1024px
+  XL: 1280, // extra-large: >= 1280px
+  XXL: 1536, // 2x extra-large: >= 1536px
 };
