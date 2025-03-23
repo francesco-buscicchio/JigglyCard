@@ -89,10 +89,17 @@
 
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
+      v-show="!isDesktopView"
       :title="$t('deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
+    />
+    <OrganismsProductCarouselWeb
+      v-show="isDesktopView"
+      :title="$t('deals')"
+      :products="offerte"
+      colorScheme="lightHome"
     />
 
     <OrganismsServiceBanner class="mb-18" />
@@ -101,6 +108,7 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+const isDesktopView = isDesktop();
 import { algoliasearch } from "algoliasearch";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
@@ -130,7 +138,7 @@ onMounted(async () => {
   fetchData();
   const results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG },
+    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
   });
   setDeals(results);
 });
