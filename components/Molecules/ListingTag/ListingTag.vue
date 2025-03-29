@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="mb-4">{{ title }}:</p>
+        <p class="mb-4 lg:mb-2">{{ title }}:</p>
         <div class="flex gap-3 flex-wrap">
             <div v-if="tags.length" v-for="(tag, index) in tags">
                 <AtomsTag :text="tag.text" :type="getTagType(index)" :code="tag.code" @tagClicked="handleTagClick" />
