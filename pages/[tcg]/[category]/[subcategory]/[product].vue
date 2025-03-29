@@ -46,42 +46,57 @@
       </div>
     </div>
     <!-- Desktop -->
-    <div v-if="isDesktopView" class="flex gap-20 my-12 xl:ml-[14vw]">
-      <div>
-        <img :src="product.imageUrl" class="w-[400px] shadow-xl rounded-2xl" />
-      </div>
-      <div class="flex flex-col">
-        <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
-          <div>
-            <h1 class="text-accent-500">
-              {{ formatTitle(product.productName) }}
-            </h1>
-            <p v-if="product.productName" class="pt-2">
-              {{ extractCardCode(product.productName) }}
-            </p>
-            <p class="pt-2">{{ product.expansion }}</p>
-          </div>
-          <!-- Listing tags -->
-
-          <MoleculesListingTag
-            @handle-tag-click="handleTagClickLanguage"
-            :tags="tagsLanguage"
-            :title="$t('filter.language')"
-            v-if="tagsLanguage.length"
-          />
-          <MoleculesListingTag
-            @handle-tag-click="handleTagClickCondition"
-            :tags="tagsCondition"
-            :title="$t('filter.condition')"
-            v-if="tagsCondition.length"
+    <div v-if="isDesktopView">
+      <div class="flex gap-20 my-12 xl:ml-[14vw]">
+        <div>
+          <img
+            :src="product.imageUrl"
+            class="w-[400px] shadow-xl rounded-2xl"
           />
         </div>
+        <div class="flex flex-col">
+          <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
+            <div>
+              <h1 class="text-accent-500">
+                {{ formatTitle(product.productName) }}
+              </h1>
+              <p v-if="product.productName" class="pt-2">
+                {{ extractCardCode(product.productName) }}
+              </p>
+              <p class="pt-2">{{ product.expansion }}</p>
+            </div>
+            <!-- Listing tags -->
 
-        <OrganismsQuantitySelect
-          :price="product.price"
-          :quantity="product.quantity"
-          :isCart="false"
-        />
+            <MoleculesListingTag
+              @handle-tag-click="handleTagClickLanguage"
+              :tags="tagsLanguage"
+              :title="$t('filter.language')"
+              v-if="tagsLanguage.length"
+            />
+            <MoleculesListingTag
+              @handle-tag-click="handleTagClickCondition"
+              :tags="tagsCondition"
+              :title="$t('filter.condition')"
+              v-if="tagsCondition.length"
+            />
+          </div>
+
+          <OrganismsQuantitySelect
+            :price="product.price"
+            :quantity="product.quantity"
+            :isCart="false"
+          />
+        </div>
+      </div>
+      <div class="xl:mx-[14vw] my-18">
+        <MoleculesTextViewer>
+          <template v-slot:title>
+            {{ $t("productHero.Description") }}
+          </template>
+          <template v-slot:content>
+            {{ $t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
       </div>
     </div>
 
