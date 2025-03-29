@@ -46,18 +46,14 @@
       </div>
     </div>
     <!-- Desktop -->
-    <div
-      v-if="isDesktopView"
-      class="flex w-full items-center justify-center gap-20"
-    >
-      <div class="flex-1 flex items-center justify-center">
-        <img :src="product.imageUrl" class="w-full max-w-[360px] shadow-xl" />
+    <div v-if="isDesktopView" class="flex gap-20 my-12 xl:ml-[14vw]">
+      <div>
+        <img :src="product.imageUrl" class="w-[400px] shadow-xl rounded-2xl" />
       </div>
-      <div class="flex-1 flex flex-col">
-        <!-- Listing tags -->
-        <div class="flex flex-col gap-8 mb-7 w-full">
+      <div class="flex flex-col">
+        <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
           <div>
-            <h1 class="pt-4 text-accent-500">
+            <h1 class="text-accent-500">
               {{ formatTitle(product.productName) }}
             </h1>
             <p v-if="product.productName" class="pt-2">
@@ -65,6 +61,8 @@
             </p>
             <p class="pt-2">{{ product.expansion }}</p>
           </div>
+          <!-- Listing tags -->
+
           <MoleculesListingTag
             @handle-tag-click="handleTagClickLanguage"
             :tags="tagsLanguage"
