@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ITEMS_FOR_PAGE } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE } from "~/data/const";
 
 const props = defineProps({
   totalItems: Number,
@@ -19,12 +19,12 @@ const props = defineProps({
 });
 
 const startItem = computed(() => {
-  return (props.currentPage - 1) * ITEMS_FOR_PAGE + 1;
+  return (props.currentPage - 1) * ITEMS_FOR_PAGE_MOBILE + 1;
 });
 
 const endItem = computed(() => {
-  if (props.currentPage * ITEMS_FOR_PAGE > props.totalItems)
+  if (props.currentPage * ITEMS_FOR_PAGE_MOBILE > props.totalItems)
     return props.totalItems;
-  else return props.currentPage * ITEMS_FOR_PAGE;
+  else return props.currentPage * ITEMS_FOR_PAGE_MOBILE;
 });
 </script>

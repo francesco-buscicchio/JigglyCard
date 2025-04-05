@@ -71,7 +71,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { ITEMS_FOR_PAGE } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE } from "~/data/const";
 
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
@@ -79,7 +79,7 @@ const props = defineProps({
   currentPage: Number,
 });
 
-const totalPages = computed(() => Math.ceil(props.totalItems / ITEMS_FOR_PAGE));
+const totalPages = computed(() => Math.ceil(props.totalItems / ITEMS_FOR_PAGE_MOBILE));
 
 function changePage(page) {
   if (page < 1 || page > totalPages.value) return;
