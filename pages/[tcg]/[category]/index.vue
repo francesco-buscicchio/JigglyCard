@@ -9,7 +9,7 @@
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <div class="pb-6">
+      <div class="pb-6" v-show="!isDesktopView">
         <OrganismsFilter
           @filterUpdate="filterUpdate"
           :filters="filtersAppliedOrganismFilter"
@@ -19,12 +19,15 @@
       <OrganismsListingFilters
         :filters="filtersAppliedOrganismsListingFilters"
         @update-filters="updateFiltersApplied"
+        v-show="!isDesktopView"
       />
 
-      <div class="pb-6 flex flex-row justify-between items-center">
+      <div
+        class="pb-6 flex flex-row justify-between items-center lg:w-[70vw] lg:ml-[31vw]"
+      >
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
-        <div class="flex flex-row items-center gap-x-2">
+        <div class="flex flex-row items-center gap-x-2 lg:mr-27">
           <p>{{ $t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
@@ -36,8 +39,11 @@
       </div>
       <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
       <div class="flex">
-        <div class="w-[30vw]">
+        <div class="w-[30vw] flex justify-end">
           <!-- filters -->
+          <div>
+            <OrganismsFilterWeb />
+          </div>
         </div>
         <div class="grid grid-cols-4 gap-4 w-[70vw]">
           <OrganismsListingProductsWeb
