@@ -41,7 +41,7 @@
         </div>
         <div class="w-[30%]">
           <AtomsButtonCTA
-            type="primary"
+            :type="isValidEmail ? 'primary' : 'disabled'"
             :text="buttonNewsLetter"
             @click="mailAction(email)"
           />
@@ -84,6 +84,9 @@ const loadTemplates = async () => {
 };
 
 const mailAction = async (email: string) => {
+  if (!isValidEmail.value) {
+    return;
+  }
   const userName = getUsernameFromMail(email);
   const { newsletterToCustomer, newsletterToAdmin } = await loadTemplates();
 
