@@ -3,7 +3,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ITEMS_FOR_PAGE_MOBILE } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_WEB } from "~/data/const";
+const isDesktopView = isDesktop();
 
 const props = defineProps({
   page: {
@@ -16,12 +17,17 @@ const props = defineProps({
   },
 });
 
+const itemsPerPage = computed(() => {
+  return isDesktopView.value ? ITEMS_FOR_PAGE_WEB : ITEMS_FOR_PAGE_MOBILE;
+});
+
 const startItem = computed(() => {
-  return (props.page - 1) * ITEMS_FOR_PAGE_MOBILE + 1;
+  return (props.page - 1) * itemsPerPage.value + 1;
 });
 
 const endItem = computed(() => {
-  if (props.page * ITEMS_FOR_PAGE_MOBILE > props.totalItems) return props.totalItems;
-  else return props.page * ITEMS_FOR_PAGE_MOBILE;
+  if (props.page * itemsPerPage.value > props.totalItems)
+    return props.totalItems;
+  else return props.page * itemsPerPage.value;
 });
 </script>
