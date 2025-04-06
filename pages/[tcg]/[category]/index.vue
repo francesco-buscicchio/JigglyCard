@@ -38,18 +38,18 @@
         </div>
       </div>
       <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
-      <div class="flex">
+      <div class="flex" v-show="isDesktopView">
         <div class="w-[30vw] flex justify-end">
           <!-- filters -->
           <div>
-            <OrganismsFilterWeb />
+            <OrganismsFilterWeb
+              @filterUpdate="filterUpdate"
+              :filters="filtersAppliedOrganismFilter"
+            />
           </div>
         </div>
         <div class="grid grid-cols-4 gap-4 w-[70vw]">
-          <OrganismsListingProductsWeb
-            :products="products"
-            v-if="isDesktopView"
-          />
+          <OrganismsListingProductsWeb :products="products" />
         </div>
       </div>
       <div class="pt-10">
@@ -127,11 +127,16 @@ function calculateFilterString(e?: any) {
           .map((available: string) => `available:"${available}"`)
           .join(" OR ")
       : "";
+// Non ho capito questa parte
+    // filter += languageFilters.length += ` AND (${languageFilters})`;
+    // filter += conditionFilters.length += ` AND (${conditionFilters})`;
+    // filter += brandFilter.length += ` AND (${brandFilter})`;
+    // filter += availableFilter.length += ` AND (${availableFilter})`;
 
-    filter += languageFilters.length += ` AND (${languageFilters})`;
-    filter += conditionFilters.length += ` AND (${conditionFilters})`;
-    filter += brandFilter.length += ` AND (${brandFilter})`;
-    filter += availableFilter.length += ` AND (${availableFilter})`;
+    languageFilters.length && (filter += ` AND (${languageFilters})`);
+    conditionFilters.length && (filter += ` AND (${conditionFilters})`);
+    brandFilter.length && (filter += ` AND (${brandFilter})`);
+    availableFilter.length && (filter += ` AND (${availableFilter})`);
   }
 
   if (expansion) filter += ` AND (expansion:"${expansion}")`;
