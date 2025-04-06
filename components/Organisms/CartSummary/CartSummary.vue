@@ -20,12 +20,12 @@
 
     <div class="flex justify-between pt-2">
       <p>{{ $t("shipping") }}</p>
-      <p>{{ shippingCost }} €</p>
+      <p>{{ shippingCost <= 0 ? $t("gratis") : shippingCost }} €</p>
     </div>
 
     <div class="flex justify-between pt-2 font-bold border-t mt-2">
-      <p>{{ $t("total") }}</p>
-      <p>{{ finalTotal }} €</p>
+      <p class="bold text-lg">{{ $t("total") }}</p>
+      <p class="bold text-lg">{{ finalTotal }} €</p>
     </div>
   </div>
 </template>
