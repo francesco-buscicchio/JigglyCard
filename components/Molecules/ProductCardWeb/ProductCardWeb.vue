@@ -16,7 +16,7 @@
             ref="productNameRef"
             class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
           >
-            {{ productName }}
+            {{ formatProductName(productName) }}
           </h5>
           <p class="text-lg">{{ code }}</p>
           <p class="text-lg">{{ expansion }}</p>
