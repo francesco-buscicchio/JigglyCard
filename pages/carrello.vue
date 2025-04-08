@@ -11,12 +11,15 @@
     <MoleculesCartCard
       :image="item.image"
       :selectedQuantity="item.selectedQuantity"
-      :avaibleQuantity="item.avaibleQuantity"
+      :availableQuantity="item.availableQuantity"
       :price="item.price"
-      :title="item.title"
-      :language="item.language"
-      :condition="item.condition"
-    />
+    >
+      <div>
+        <h5 class="pb-2">{{ item.title }}</h5>
+        <p class="pb-2">{{ item.language }}</p>
+        <p class="pb-2">{{ item.condition }}</p>
+      </div>
+    </MoleculesCartCard>
   </div>
 
   <OrganismsProductCarouselWeb
@@ -48,7 +51,7 @@ const products = [
   {
     image: blastoise,
     selectedQuantity: 1,
-    avaibleQuantity: 4,
+    availableQuantity: 4,
     price: 8,
     title: "Blastoise ex (MEW 009)",
     language: "Italiano",
@@ -57,7 +60,7 @@ const products = [
   {
     image: blastoise,
     selectedQuantity: 1,
-    avaibleQuantity: 4,
+    availableQuantity: 4,
     price: 8,
     title: "Blastoise ex (MEW 009)",
     language: "Italiano",
@@ -66,7 +69,7 @@ const products = [
   {
     image: blastoise,
     selectedQuantity: 1,
-    avaibleQuantity: 4,
+    availableQuantity: 4,
     price: 8,
     title: "Blastoise ex (MEW 009)",
     language: "Italiano",
@@ -75,7 +78,7 @@ const products = [
   {
     image: blastoise,
     selectedQuantity: 1,
-    avaibleQuantity: 4,
+    availableQuantity: 4,
     price: 8,
     title: "Blastoise ex (MEW 009)",
     language: "Italiano",
