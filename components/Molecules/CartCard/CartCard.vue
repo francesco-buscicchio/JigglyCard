@@ -47,13 +47,22 @@
 const emit = defineEmits(["buttonClicked"]);
 const isMobileview = isMobile();
 
-defineProps<{
-  image: string;
-  selectedQuantity: number;
-  avaibleQuantity: number;
-  price: number;
-  title: string;
-  language: string;
-  condition: string;
-}>();
+defineProps({
+  image: {
+    type: String,
+    required: true,
+  },
+  selectedQuantity: {
+    type: Number,
+    default: 1,
+  },
+  availableQuantity: {
+    type: Number,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+});
 </script>

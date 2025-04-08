@@ -5,6 +5,7 @@
       alt="Lost in a fantasy forest"
       class="error-image"
     />
+    <h1 v-if="isDevMode">{{ error?.message }}</h1>
     <h1 class="pt-10">404 - Pagina Non Trovata</h1>
     <p class="text-l">
       Sembra che tu ti sia perso nel bosco delle illusioni... cerca di ritrovare
@@ -13,6 +14,16 @@
     <nuxt-link to="/" class="home-link">Torna alla Home</nuxt-link>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { NuxtError } from "#app";
+
+const props = defineProps({
+  error: Object as () => NuxtError,
+});
+
+const isDevMode = process.env.NODE_ENV === "development";
+</script>
 
 <style scoped>
 .error-container {
