@@ -21,6 +21,8 @@
       </div>
     </MoleculesCartCard>
   </div>
+  
+    <OrganismsShippingMode :total-cart="totalCart" />
 
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
@@ -95,6 +97,12 @@ onMounted(async () => {
     searchParams: { query: HIGHLIGHTS_TAG, hitsPerPage: 5 },
   });
   setProduct(results);
+});
+
+const totalCart = computed(() => {
+  return products
+    .reduce((acc, item) => acc + item.price * item.selectedQuantity, 0)
+    .toFixed(2);
 });
 
 const setProduct = (queryResult: SearchResponse<SearchProductResult>) => {
