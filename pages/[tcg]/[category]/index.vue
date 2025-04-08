@@ -9,7 +9,7 @@
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <div class="pb-6">
+      <div class="pb-6" v-show="!isDesktopView">
         <OrganismsFilter
           @filterUpdate="filterUpdate"
           :filters="filtersAppliedOrganismFilter"
@@ -19,12 +19,15 @@
       <OrganismsListingFilters
         :filters="filtersAppliedOrganismsListingFilters"
         @update-filters="updateFiltersApplied"
+        v-show="!isDesktopView"
       />
 
-      <div class="pb-6 flex flex-row justify-between items-center">
+      <div
+        class="pb-6 flex flex-row justify-between items-center lg:w-[70vw] lg:ml-[31vw]"
+      >
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
-        <div class="flex flex-row items-center gap-x-2">
+        <div class="flex flex-row items-center gap-x-2 lg:mr-27">
           <p>{{ $t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
@@ -34,7 +37,21 @@
           </div>
         </div>
       </div>
-      <OrganismsListingProducts :products="products" />
+      <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
+      <div class="flex" v-show="isDesktopView">
+        <div class="w-[30vw] flex justify-end">
+          <!-- filters -->
+          <div>
+            <OrganismsFilterWeb
+              @filterUpdate="filterUpdate"
+              :filters="filtersAppliedOrganismFilter"
+            />
+          </div>
+        </div>
+        <div class="grid grid-cols-4 gap-4 w-[70vw]">
+          <OrganismsListingProductsWeb :products="products" />
+        </div>
+      </div>
       <div class="pt-10">
         <MoleculesListingPagination
           :total-items="totalItems"
@@ -56,7 +73,12 @@
 </template>
 
 <script setup lang="ts">
-import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
+import {
+  PRODUCTS_COLLECTION,
+  ITEMS_FOR_PAGE_MOBILE,
+  ITEMS_FOR_PAGE_WEB,
+  VIEWPORTS,
+} from "~/data/const";
 import sortingItems from "~/data/sorting";
 import type { ProductType } from "~/types/product.type";
 
@@ -70,11 +92,22 @@ const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
 const filtersStringQuery = ref(`type:"${route.params.category}"`);
 const expansion = route.query.expansion;
+const isDesktopView = isDesktop();
+const windowWidth = ref(window.innerWidth);
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   calculateFilterString();
+  window.addEventListener("resize", updateWindowWidth);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateWindowWidth);
+});
+
+const ITEMS_FOR_PAGE = computed(() =>
+  windowWidth.value < VIEWPORTS.LG ? ITEMS_FOR_PAGE_MOBILE : ITEMS_FOR_PAGE_WEB
+);
 
 function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
@@ -94,11 +127,16 @@ function calculateFilterString(e?: any) {
           .map((available: string) => `available:"${available}"`)
           .join(" OR ")
       : "";
+// Non ho capito questa parte
+    // filter += languageFilters.length += ` AND (${languageFilters})`;
+    // filter += conditionFilters.length += ` AND (${conditionFilters})`;
+    // filter += brandFilter.length += ` AND (${brandFilter})`;
+    // filter += availableFilter.length += ` AND (${availableFilter})`;
 
-    filter += languageFilters.length += ` AND (${languageFilters})`;
-    filter += conditionFilters.length += ` AND (${conditionFilters})`;
-    filter += brandFilter.length += ` AND (${brandFilter})`;
-    filter += availableFilter.length += ` AND (${availableFilter})`;
+    languageFilters.length && (filter += ` AND (${languageFilters})`);
+    conditionFilters.length && (filter += ` AND (${conditionFilters})`);
+    brandFilter.length && (filter += ` AND (${brandFilter})`);
+    availableFilter.length && (filter += ` AND (${availableFilter})`);
   }
 
   if (expansion) filter += ` AND (expansion:"${expansion}")`;
@@ -144,7 +182,7 @@ async function fetchData() {
       {
         indexName: calculateCollection(),
         filters: filtersStringQuery.value,
-        hitsPerPage: ITEMS_FOR_PAGE,
+        hitsPerPage: ITEMS_FOR_PAGE.value,
         page: currentPage.value - 1,
       },
     ],
@@ -173,4 +211,8 @@ function setProducts(queryResult: any) {
 
   totalItems.value = queryResult.nbHits;
 }
+
+const updateWindowWidth = () => {
+  windowWidth.value = window.innerWidth;
+};
 </script>
