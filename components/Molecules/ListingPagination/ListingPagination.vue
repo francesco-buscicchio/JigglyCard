@@ -71,7 +71,7 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { ITEMS_FOR_PAGE_MOBILE } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
 
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
@@ -79,7 +79,13 @@ const props = defineProps({
   currentPage: Number,
 });
 
-const totalPages = computed(() => Math.ceil(props.totalItems / ITEMS_FOR_PAGE_MOBILE));
+const itemsForPage = computed(() => {
+  return isDesktopView ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
+});
+
+const totalPages = computed(() =>
+  Math.ceil(props.totalItems / itemsForPage.value)
+);
 
 function changePage(page) {
   if (page < 1 || page > totalPages.value) return;
