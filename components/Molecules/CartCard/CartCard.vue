@@ -3,16 +3,12 @@
   <div v-show="isMobileview"> 
     <div class="flex flex-row items-top gap-4">
       <img :src="image" class="w-18" />
-      <div>
-        <h5 class="pb-2">{{ title }}</h5>
-        <p class="pb-2">{{ language }}</p>
-        <p class="pb-2">{{ condition }}</p>
-      </div>
+      <slot/>
     </div>
     <div class="pt-4">
       <OrganismsQuantitySelect
         :price="price"
-        :quantity="avaibleQuantity"
+        :quantity="availableQuantity"
         :isCart="true"
       />
     </div>
@@ -24,16 +20,12 @@
   <div class="flex gap-3" v-show="!isMobileview">
     <img :src="image" class="w-24" />
 
-    <div class="flex-1">
-      <h5 class="pb-2">{{ title }}</h5>
-      <p class="pb-2">{{ language }}</p>
-      <p class="pb-2">{{ condition }}</p>
-    </div>
+    <slot />
     <div>
       <div class="pt-4">
         <OrganismsQuantitySelect
           :price="price"
-          :quantity="avaibleQuantity"
+          :quantity="availableQuantity"
           :isCart="true"
         />
       </div>
@@ -46,6 +38,7 @@
 <script lang="ts" setup>
 const emit = defineEmits(["buttonClicked"]);
 const isMobileview = isMobile();
+
 
 defineProps({
   image: {
