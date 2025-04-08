@@ -37,10 +37,9 @@
 import type { SearchResponse } from "algoliasearch";
 import blastoise from "~/assets/blastoise_ex_mew_009.png";
 import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION, SUGGESTED } from "~/data/const";
-import {
-  type SearchProductResult,
-  type ProductType,
-} from "~/types/product.type";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import type { ProductType } from "~/types/productType.type";
+
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const suggested: Ref<ProductType[]> = ref([]);
