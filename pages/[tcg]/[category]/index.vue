@@ -70,8 +70,7 @@
 import {
   PRODUCTS_COLLECTION,
   ITEMS_FOR_PAGE_MOBILE,
-  ITEMS_FOR_PAGE_WEB,
-  VIEWPORTS,
+  ITEMS_FOR_PAGE_DESKTOP,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
 import type { ProductType } from "~/types/product.type";
@@ -87,21 +86,11 @@ const filtersAppliedOrganismFilter = ref<string[]>([]);
 const filtersStringQuery = ref(`type:"${route.params.category}"`);
 const expansion = route.query.expansion;
 const isDesktopView = isDesktop();
-const windowWidth = ref(window.innerWidth);
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   calculateFilterString();
-  window.addEventListener("resize", updateWindowWidth);
 });
-
-onUnmounted(() => {
-  window.removeEventListener("resize", updateWindowWidth);
-});
-
-const ITEMS_FOR_PAGE = computed(() =>
-  windowWidth.value < VIEWPORTS.LG ? ITEMS_FOR_PAGE_MOBILE : ITEMS_FOR_PAGE_WEB
-);
 
 function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
@@ -171,7 +160,9 @@ async function fetchData() {
       {
         indexName: calculateCollection(),
         filters: filtersStringQuery.value,
-        hitsPerPage: ITEMS_FOR_PAGE.value,
+        hitsPerPage: isDesktopView.value
+          ? ITEMS_FOR_PAGE_DESKTOP
+          : ITEMS_FOR_PAGE_MOBILE,
         page: currentPage.value - 1,
       },
     ],
@@ -200,8 +191,4 @@ function setProducts(queryResult: any) {
 
   totalItems.value = queryResult.nbHits;
 }
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth;
-};
 </script>
