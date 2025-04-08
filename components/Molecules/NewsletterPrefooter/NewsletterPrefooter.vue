@@ -84,9 +84,6 @@ const loadTemplates = async () => {
 };
 
 const mailAction = async (email: string) => {
-  if (!isValidEmail.value) {
-    return;
-  }
   const userName = getUsernameFromMail(email);
   const { newsletterToCustomer, newsletterToAdmin } = await loadTemplates();
 
