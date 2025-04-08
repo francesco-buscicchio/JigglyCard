@@ -1,7 +1,7 @@
 <template>
   <div class="py-6">
     <div
-      class="flex flex-row gap-2 items-center"
+      class="flex flex-row gap-2 items-center cursor-pointer"
       @click="navigateToResolvedPage"
     >
       <Icon name="jig:previous-page" size="10" />
