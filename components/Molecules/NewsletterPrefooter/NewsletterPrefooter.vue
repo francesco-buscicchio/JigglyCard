@@ -41,7 +41,7 @@
         </div>
         <div class="w-[30%]">
           <AtomsButtonCTA
-            type="primary"
+            :type="isValidEmail ? 'primary' : 'disabled'"
             :text="buttonNewsLetter"
             @click="mailAction(email)"
           />
