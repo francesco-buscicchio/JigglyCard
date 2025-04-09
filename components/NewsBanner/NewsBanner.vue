@@ -22,14 +22,10 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay } from "swiper/modules";
+import type { NewsBanner } from "~/types/newsBanner.type";
 
-type NewsBannerProps = {
-  label: string;
-  url?: string;
-};
-
-const props = defineProps<{ news: NewsBannerProps[] }>();
-const handleClick = (news: NewsBannerProps) => {
+const props = defineProps<{ news: NewsBanner[] }>();
+const handleClick = (news: NewsBanner) => {
   if (news.url) navigateTo(news.url);
 };
 </script>

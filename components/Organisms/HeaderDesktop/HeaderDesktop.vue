@@ -81,14 +81,11 @@
 
 <script lang="ts" setup>
 import { PATH } from "~/data/const";
-import type { Hit } from "~/types/product.type";
-
-type HeaderPropsType = {
-  cartCount: number;
-};
+import type { Hit } from "~/interface/hit.interface";
+import type { HeaderProps } from "~/types/headerPropsType.type";
 
 const props = defineProps<{
-  header: HeaderPropsType;
+  header: HeaderProps;
   productSearch: Hit[];
   isSearchOpen: boolean;
   noResults: boolean;

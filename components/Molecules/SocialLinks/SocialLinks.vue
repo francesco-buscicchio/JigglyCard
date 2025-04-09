@@ -24,14 +24,11 @@
 </template>
 
 <script setup lang="ts">
-export type SocialLinksType = {
-  img: string;
-  url: string;
-};
+import type { SocialLinks } from "~/types/socialLink.type";
 
 const props = defineProps({
   imgs: {
-    type: [Array, Object] as PropType<SocialLinksType | SocialLinksType[]>,
+    type: [Array, Object] as PropType<SocialLinks | SocialLinks[]>,
     default: () => [],
   },
 });
