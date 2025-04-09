@@ -34,7 +34,18 @@
           </div>
         </div>
       </div>
-      <OrganismsListingProducts :products="products" />
+      <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
+      <div class="flex">
+        <div class="w-[30vw]">
+          <!-- filters -->
+        </div>
+        <div class="grid grid-cols-4 gap-4 w-[70vw]">
+          <OrganismsListingProductsWeb
+            :products="products"
+            v-if="isDesktopView"
+          />
+        </div>
+      </div>
       <div class="pt-10">
         <MoleculesListingPagination
           :total-items="totalItems"
@@ -56,7 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { PRODUCTS_COLLECTION, ITEMS_FOR_PAGE } from "~/data/const";
+import {
+  PRODUCTS_COLLECTION,
+  ITEMS_FOR_PAGE_MOBILE,
+  ITEMS_FOR_PAGE_DESKTOP,
+} from "~/data/const";
 import sortingItems from "~/data/sorting";
 import type { ProductType } from "~/types/product.type";
 
@@ -70,6 +85,7 @@ const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
 const filtersStringQuery = ref(`type:"${route.params.category}"`);
 const expansion = route.query.expansion;
+const isDesktopView = isDesktop();
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -144,7 +160,9 @@ async function fetchData() {
       {
         indexName: calculateCollection(),
         filters: filtersStringQuery.value,
-        hitsPerPage: ITEMS_FOR_PAGE,
+        hitsPerPage: isDesktopView.value
+          ? ITEMS_FOR_PAGE_DESKTOP
+          : ITEMS_FOR_PAGE_MOBILE,
         page: currentPage.value - 1,
       },
     ],
