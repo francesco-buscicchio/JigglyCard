@@ -25,8 +25,8 @@
       {{ $t("quantitySelect.availability") }}: {{ quantity }}
       {{ $t("quantitySelect.pieces") }}
     </p>
-    <div v-show="isDesktopView" class="flex gap-16 mt-6">
-      <h2 class="whitespace-nowrap price">{{ totalPrice }} €</h2>
+    <div v-show="isDesktopView" class="flex gap-16 mt-6 items-center">
+      <h2 class="whitespace-nowrap price-tag text-3xl">{{ totalPrice }} €</h2>
 
       <AtomsButtonCTA
         type="primary"
@@ -62,10 +62,3 @@ function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
 }
 </script>
-
-<style scoped>
-.price {
-  font-family: "Roboto Flex";
-  font-weight: 500;
-}
-</style>
