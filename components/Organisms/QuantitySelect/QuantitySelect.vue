@@ -4,7 +4,7 @@
       <div class="flex mr-6 my-7 items-center gap-3">
         <div>
           <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
-          <p class="my-1 text-xs" v-if="!isCart" v-show="isDesktopView">
+          <p class="my-1 text-xs" v-show="isDesktopView && !isCart">
             ({{ $t("quantitySelect.availability") }}: {{ quantity }}
             {{ $t("quantitySelect.pieces") }} )
           </p>
@@ -21,7 +21,7 @@
       </h2>
     </div>
 
-    <p class="my-2" v-if="!isCart" v-show="!isDesktopView">
+    <p class="my-2" v-show="!isDesktopView && !isCart">
       {{ $t("quantitySelect.availability") }}: {{ quantity }}
       {{ $t("quantitySelect.pieces") }}
     </p>
