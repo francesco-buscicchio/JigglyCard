@@ -1,9 +1,9 @@
 <template>
   <!-- mobile -->
-  <div v-show="isMobileview"> 
+  <div v-show="isMobileview">
     <div class="flex flex-row items-top gap-4">
       <img :src="image" class="w-18" />
-      <slot/>
+      <slot />
     </div>
     <div class="pt-4">
       <OrganismsQuantitySelect
@@ -13,7 +13,7 @@
       />
     </div>
     <div class="pt-7 pb-5">
-      <AtomsButtonCTA type="cart-drop" text="Elimina dal carrello" />
+      <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
     </div>
   </div>
   <!-- desktop -->
@@ -38,7 +38,6 @@
 <script lang="ts" setup>
 const emit = defineEmits(["buttonClicked"]);
 const isMobileview = isMobile();
-
 
 defineProps({
   image: {

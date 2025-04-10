@@ -4,7 +4,7 @@
     <p class="pt-5">{{ $t(`thanks.${props.type}`) }}</p>
     <img class="lg:w-103 w-62 pt-10" :src="thanksSrc" alt="Thank You" />
     <AtomsButtonCTA
-      type="cart-drop"
+      type="underline-text"
       :text="$t('thanks.backHome')"
       @button-clicked="navigateToHome()"
     />

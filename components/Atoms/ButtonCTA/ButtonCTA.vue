@@ -5,10 +5,12 @@
     @click="emitClick"
     :disabled="disabled"
   >
-    <span class="subtitle-m" v-if="type !== 'text' && type !== 'cart-drop'">{{
-      text
-    }}</span>
-    <p v-if="type === 'text' || type === 'cart-drop'">{{ text }}</p>
+    <span
+      class="subtitle-m"
+      v-if="type !== 'text' && type !== 'underline-text'"
+      >{{ text }}</span
+    >
+    <p v-if="type === 'text' || type === 'underline-text'">{{ text }}</p>
 
     <slot></slot>
   </button>
@@ -41,7 +43,7 @@ const baseClasses = {
   secondary:
     "bg-white text-accent-500 border-[2px] border-accent-500 active:text-accent-950 active:border-accent-950",
   text: "bg-none text-accent-500 font-bold active:text-accent-950",
-  "cart-drop":
+  "underline-text":
     "bg-none text-accent-500 font-bold underline active:text-accent-950",
   disabled: "bg-neutrals-200 text-neutrals-500",
 };
