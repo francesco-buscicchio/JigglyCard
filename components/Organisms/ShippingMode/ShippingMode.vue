@@ -8,43 +8,44 @@
         name="Standard-1"
         v-model="selectedOption"
       />
-      <span class="ml-2 text-base">Standard 1</span>
+      <span class="ml-2 text-base">Standard 1€ </span>
       <p class="text-xs py-3">
-        *puoi scegliere un’altra modalità in fase di checkout
+        {{ $t("shippingMode.message") }}
       </p>
     </div>
 
     <div class="flex justify-between border-t-[2px] border-neutral-200 py-4">
-      <p class="inter">Totale</p>
-      <p class="total inter">{{ totalCart }} €</p>
+      <p class="">Totale</p>
+      <p class="price-tag">{{ totalCart }} €</p>
     </div>
     <!-- Codice promo -->
-    <div>
-      <p>Hai un codice promo?</p>
+    <div class="mb-12">
+      <p class="mb-2">Hai un codice promo?</p>
       <div class="lg:flex w-full">
-<div >
-
-    <AtomsInputText :placeholder="placeholder" />
-</div>
-          <div class="lg:max-w-22">
-
-              <AtomsButtonCTA type="secondary" text="Applica Codice" />
-          </div>
+        <div class="mb-2">
+          <AtomsInputText :placeholder="placeholder" />
+        </div>
+        <div class="lg:max-w-22">
+          <AtomsButtonCTA type="secondary" text="Applica Codice" />
+        </div>
       </div>
     </div>
 
-    <div >
+    <div class="flex flex-col gap-y-4">
       <AtomsButtonCTA type="primary" text="Procedi all'acquisto" />
-      <AtomsButtonCTA type="text" text="Torna ai prodotti" />
+      <AtomsButtonCTA type="underline-text" text="Torna ai prodotti" />
     </div>
 
-    <div>
-      <p class="font-medium">Hai bisogno di assistenza?</p>
-      <p class="text-base">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Cumque eius
-        iure suscipit vel, commodi fugiat earum libero consectetur! Enim autem
-        illum dolore voluptate cum quidem, debitis odio commodi iusto magni.
-      </p>
+    <div class="my-16">
+      <MoleculesTextViewer>
+        <template v-slot:title>
+          {{ $t("needAssistance") }}
+        </template>
+        <template v-slot:content>
+          <!-- TODO mettere descrizione corretta -->
+          {{ $t("defaultDescription") }}
+        </template>
+      </MoleculesTextViewer>
     </div>
   </div>
 </template>
@@ -63,12 +64,4 @@ const placeholder = computed(() => {
 // TODO: rendere di default l'opzione standard
 const selectedOption = ref({ id: "standard-1" });
 </script>
-<style scoped>
-.total {
-  font-weight: 600;
-  font-size: 28px;
-}
-.inter {
-  font-family: "Inter", sans-serif;
-}
-</style>
+
