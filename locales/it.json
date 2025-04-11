@@ -172,5 +172,10 @@
   },
   "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
   "suggested": "Questi li hai visti?",
-  "gratis": "Gratis"
+  "gratis": "Gratis",
+  "needAssistance": "Hai bisogno di assistenza?",
+  "shippingMode" :{
+    "message": "*puoi scegliere un’altra modalità in fase di checkout"
+  }
+  
 }

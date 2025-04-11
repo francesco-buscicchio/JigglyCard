@@ -172,5 +172,10 @@
     "pieces": "pieces"
   },
   "suggested": "Did you see this?",
-  "gratis": "Free"
+  "gratis": "Free",
+  "needAssistance": "Need assistance?",
+  "shippingMode" :{
+    "message": "*you can choose an other the shipping method at checkout"
+  }
+
 }
