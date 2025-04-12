@@ -1,7 +1,7 @@
 <template>
   <div>
     <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5>{{ $t("filters") }}</h5>
+      <h5>{{ t("filters") }}</h5>
     </AtomsButtonCTA>
 
     <transition name="fade">
@@ -18,7 +18,7 @@
             @click="togglePanel"
           ></Icon>
           <h5 class="text-center w-full mr-18">
-            {{ $t("filters") }}
+            {{ t("filters") }}
           </h5>
         </div>
 
@@ -26,7 +26,7 @@
           <div v-for="category of filterCategories" :key="category.objectID">
             <MoleculesAccordion>
               <template #header>
-                <p>{{ $t(`filter.${category.name}`) }}</p>
+                <p>{{ t(`filter.${category.name}`) }}</p>
               </template>
               <div
                 v-for="(item, index) of category.value"
@@ -42,7 +42,7 @@
                     "
                     class="mr-6 bg-white custom-checkbox"
                   />
-                  <p class="text-left">{{ $t(`filter.${item.name}`) }}</p>
+                  <p class="text-left">{{ t(`filter.${item.name}`) }}</p>
                 </div>
               </div>
             </MoleculesAccordion>
@@ -50,12 +50,12 @@
 
           <!-- Slider Prezzo -->
           <div class="mx-6 mt-4">
-            <p>{{ $t("price") }}</p>
+            <p>{{ t("price") }}</p>
             <div
               class="flex items-center justify-center whitespace-nowrap mt-2"
             >
               <span class="mr-2 w-20"
-                >{{ $t("da") }} {{ selectedMinPrice }}</span
+                >{{ t("da") }} {{ selectedMinPrice }}</span
               >
               <MoleculesSlider
                 :min="0"
@@ -65,15 +65,13 @@
                 @update:minPrice="updateMinPrice($event)"
                 @update:maxPrice="updateMaxPrice($event)"
               />
-              <span class="ml-2 w-20"
-                >{{ $t("a") }} {{ selectedMaxPrice }}</span
-              >
+              <span class="ml-2 w-20">{{ t("a") }} {{ selectedMaxPrice }}</span>
             </div>
           </div>
 
           <!-- Input Prezzo -->
           <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">{{ $t("min") }}</p>
+            <p class="ml-12 mr-6">{{ t("min") }}</p>
             <AtomsInputText
               class="w-20"
               v-model="selectedMinPrice"
@@ -83,7 +81,7 @@
             />
           </div>
           <div class="flex items-center">
-            <p class="ml-12 mr-6">{{ $t("max") }}</p>
+            <p class="ml-12 mr-6">{{ t("max") }}</p>
             <AtomsInputText
               class="w-20"
               v-model="selectedMaxPrice"
@@ -102,10 +100,10 @@
               type="text"
               @click="resetAllFilters"
             >
-              <p>{{ $t("deleteAllFilters") }}</p>
+              <p>{{ t("deleteAllFilters") }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ $t("apply") }}</h5>
+              <h5>{{ t("apply") }}</h5>
             </AtomsButtonCTA>
           </div>
         </div>
@@ -120,6 +118,8 @@ import { FILTERS_COLLECTION } from "~/data/const";
 const props = defineProps({
   filters: Array<String>,
 });
+
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const filterList = ref<String[]>([]);
 const filterCategories = ref();

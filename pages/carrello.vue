@@ -2,7 +2,7 @@
   <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
-  <h1 class="text-accent-500 text-center pb-8">{{ $t("cart") }}</h1>
+  <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
   <div
     v-for="(item, index) of products"
     :key="index"
@@ -26,13 +26,13 @@
 
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
-    :title="$t('suggested')"
+    :title="t('suggested')"
     :products="suggested"
     colorScheme="lightHome"
   />
   <OrganismsProductCarousel
     v-if="isMobileView"
-    :title="$t('suggested')"
+    :title="t('suggested')"
     :products="suggested"
     colorScheme="lightHome"
   />
@@ -46,6 +46,8 @@ import {
   type SearchProductResult,
   type ProductType,
 } from "~/types/product.type";
+
+const { t } = useI18n();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const suggested: Ref<ProductType[]> = ref([]);

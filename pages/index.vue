@@ -6,13 +6,13 @@
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="$t('highlights')"
+      :title="t('highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('highlights')"
+      :title="t('highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
@@ -23,21 +23,21 @@
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('whatsnew')"
+      :title="t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
     />
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -57,8 +57,8 @@ import {
   HEROBANNER_TAG,
 } from "~/data/const";
 import type { ProductType } from "../types/product.type";
-const { t } = useI18n();
 
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);

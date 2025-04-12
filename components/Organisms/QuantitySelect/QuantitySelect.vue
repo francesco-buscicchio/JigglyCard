@@ -2,7 +2,7 @@
   <div>
     <div class="flex items-center gap-13">
       <div class="flex mr-6 items-center">
-        <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
+        <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
           :selected="quantity"
@@ -14,8 +14,8 @@
     </div>
 
     <p class="my-2" v-if="!isCart">
-      {{ $t("quantitySelect.availability") }}: {{ quantity }}
-      {{ $t("quantitySelect.pieces") }}
+      {{ t("quantitySelect.availability") }}: {{ quantity }}
+      {{ t("quantitySelect.pieces") }}
     </p>
   </div>
 </template>
@@ -28,7 +28,7 @@ const props = defineProps<{
 }>();
 
 const quantity = ref(1);
-
+const { t } = useI18n();
 const quantityOptions = computed(() => {
   return Array.from({ length: props.quantity }, (_, i) => ({
     value: (i + 1).toString(),

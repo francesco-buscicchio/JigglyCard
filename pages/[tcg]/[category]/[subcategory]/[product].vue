@@ -15,13 +15,13 @@
       <MoleculesListingTag
         @handle-tag-click="handleTagClickLanguage"
         :tags="tagsLanguage"
-        :title="$t('filter.language')"
+        :title="t('filter.language')"
         v-if="tagsLanguage.length"
       />
       <MoleculesListingTag
         @handle-tag-click="handleTagClickCondition"
         :tags="tagsCondition"
-        :title="$t('filter.condition')"
+        :title="t('filter.condition')"
         v-if="tagsCondition.length"
       />
     </div>
@@ -33,13 +33,13 @@
         :quantity="product.quantity"
       />
 
-      <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
+      <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
         <Icon name="jig:cart-white" size="30"></Icon>
       </AtomsButtonCTA>
 
       <MoleculesTextViewer>
         <template v-slot:content>
-          descrizione: {{ $t("defaultDescription") }}
+          descrizione: {{ t("defaultDescription") }}
         </template>
       </MoleculesTextViewer>
     </div>
@@ -47,14 +47,14 @@
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
       v-show="!isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
       v-show="isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -84,6 +84,7 @@ import {
 import type { ProductType } from "~/types/product.type";
 
 const product = ref();
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
