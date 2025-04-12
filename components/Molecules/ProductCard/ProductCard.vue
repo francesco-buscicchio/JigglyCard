@@ -10,14 +10,14 @@
       <div class="flex flex-col gap-y-2">
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
-        <label>{{ $t("startingFrom") }}</label>
+        <label>{{ t("startingFrom") }}</label>
         <p class="text-2xl font-bold">{{ price }} €</p>
       </div>
     </div>
     <div class="w-full">
       <AtomsButtonCTA
         :type="buttonCtaType"
-        :text="$t('showDetails')"
+        :text="t('showDetails')"
         v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
       />
     </div>
@@ -27,6 +27,7 @@
 <script lang="ts" setup>
 import type { PropType } from "vue";
 
+const { t } = useI18n();
 const props = defineProps({
   colorScheme: {
     type: String,
