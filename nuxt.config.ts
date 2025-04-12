@@ -44,7 +44,6 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "@nuxt/ui",
     "@nuxtjs/i18n",
-    "nuxt-medusa",
     "@formkit/nuxt",
     "@nuxt/icon",
     "@pinia/nuxt",
