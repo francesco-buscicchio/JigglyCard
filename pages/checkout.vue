@@ -1,7 +1,7 @@
 <template>
   <MoleculesBreadcrumb />
   <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ $t("shippingInfo") }}</h4>
+  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
 
   <OrganismsCheckoutForm @updateFormValues="updateFormData" />
   <OrganismsSelectOptions
@@ -19,7 +19,7 @@
       @click="validateForm"
       :type="isFormValid ? 'primary' : 'disabled'"
       :class="['rounded']"
-      :text="$t('confirmAndPay')"
+      :text="t('confirmAndPay')"
     >
     </AtomsButtonCTA>
   </div>
@@ -29,6 +29,7 @@
 import { ref, computed } from "vue";
 import type { Product } from "~/types/product.type";
 
+const { t } = useI18n();
 const formData = ref({});
 const shippingOptions = ref([
   { name: "Opzione 1", price: 5 },

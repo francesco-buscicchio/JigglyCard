@@ -25,7 +25,7 @@
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
         <div class="flex flex-row items-center gap-x-2">
-          <p>{{ $t("pageSorting.sortBy") }}</p>
+          <p>{{ t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
@@ -75,6 +75,7 @@ import {
 import sortingItems from "~/data/sorting";
 import type { ProductType } from "~/types/product.type";
 
+const { t } = useI18n();
 const products: Ref<ProductType[]> = ref([]);
 const client = useAlgolia();
 const route = useRoute();
