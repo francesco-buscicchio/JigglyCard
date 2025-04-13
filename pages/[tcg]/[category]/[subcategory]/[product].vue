@@ -17,13 +17,13 @@
         <MoleculesListingTag
           @handle-tag-click="handleTagClickLanguage"
           :tags="tagsLanguage"
-          :title="$t('filter.language')"
+          :title="t('filter.language')"
           v-if="tagsLanguage.length"
         />
         <MoleculesListingTag
           @handle-tag-click="handleTagClickCondition"
           :tags="tagsCondition"
-          :title="$t('filter.condition')"
+          :title="t('filter.condition')"
           v-if="tagsCondition.length"
         />
       </div>
@@ -34,13 +34,13 @@
           :quantity="product.quantity"
         />
 
-        <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
+        <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
           <Icon name="jig:cart-white" size="30"></Icon>
         </AtomsButtonCTA>
 
         <MoleculesTextViewer>
           <template v-slot:content>
-            descrizione: {{ $t("defaultDescription") }}
+            descrizione: {{ t("defaultDescription") }}
           </template>
         </MoleculesTextViewer>
       </div>
@@ -70,13 +70,13 @@
             <MoleculesListingTag
               @handle-tag-click="handleTagClickLanguage"
               :tags="tagsLanguage"
-              :title="$t('filter.language')"
+              :title="t('filter.language')"
               v-if="tagsLanguage.length"
             />
             <MoleculesListingTag
               @handle-tag-click="handleTagClickCondition"
               :tags="tagsCondition"
-              :title="$t('filter.condition')"
+              :title="t('filter.condition')"
               v-if="tagsCondition.length"
             />
           </div>
@@ -91,10 +91,10 @@
       <div class="xl:mx-[14vw] my-18">
         <MoleculesTextViewer>
           <template v-slot:title>
-            {{ $t("productHero.Description") }}
+            {{ t("productHero.Description") }}
           </template>
           <template v-slot:content>
-            {{ $t("defaultDescription") }}
+            {{ t("defaultDescription") }}
           </template>
         </MoleculesTextViewer>
       </div>

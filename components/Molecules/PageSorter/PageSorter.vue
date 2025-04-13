@@ -5,7 +5,7 @@
 
       <option v-for="item in sortingItems" :key="item.value" :value="item.value"
         :selected="item.value === selectedValue">
-        {{ $t(item.name) }}
+        {{ t(item.name) }}
       </option>
     </select>
 

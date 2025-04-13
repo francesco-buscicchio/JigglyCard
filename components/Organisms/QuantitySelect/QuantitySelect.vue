@@ -3,10 +3,10 @@
     <div class="flex items-center gap-13">
       <div class="flex mr-6 my-7 items-center gap-3">
         <div>
-          <p class="mr-6">{{ $t("quantitySelect.quantity") }}:</p>
+          <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
           <p class="my-1 text-xs" v-show="isDesktopView && !isCart">
-            ({{ $t("quantitySelect.availability") }}: {{ quantity }}
-            {{ $t("quantitySelect.pieces") }} )
+            ({{ t("quantitySelect.availability") }}: {{ quantity }}
+            {{ t("quantitySelect.pieces") }} )
           </p>
         </div>
         <MoleculesPageSorter
@@ -22,15 +22,15 @@
     </div>
 
     <p class="my-2" v-show="!isDesktopView && !isCart">
-      {{ $t("quantitySelect.availability") }}: {{ quantity }}
-      {{ $t("quantitySelect.pieces") }}
+      {{ t("quantitySelect.availability") }}: {{ quantity }}
+      {{ t("quantitySelect.pieces") }}
     </p>
     <div v-show="isDesktopView" class="flex gap-16 mt-6 items-center">
       <h2 class="whitespace-nowrap price-tag text-3xl">{{ totalPrice }} €</h2>
 
       <AtomsButtonCTA
         type="primary"
-        :text="$t('productHero.AddToCart')"
+        :text="t('productHero.AddToCart')"
         class="max-w-[30rem]"
       >
         <Icon name="jig:cart-white" size="30"></Icon>
