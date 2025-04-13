@@ -32,7 +32,7 @@ const navigateToHome = () => {
 
 <style>
 .link-to-home {
-  font-family: "Roboto Flex";
+  font-family: "Roboto Flex", sans-serif;
   text-decoration: underline;
   cursor: pointer;
   font-size: 12px;

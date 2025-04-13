@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useRouteHistoryStore = defineStore("routeHistory", {
   state: () => ({
-    history: [] as String[],
+    history: [] as string[],
   }),
   actions: {
     addRoute(from: string, to: string) {

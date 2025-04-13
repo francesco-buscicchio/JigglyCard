@@ -21,9 +21,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits<{
-  (e: "update:index", index: number): void;
-}>();
+const emit = defineEmits<(e: "update:index", index: number) => void>();
 
 const carouselContainer = ref<HTMLElement | null>(null);
 const activeIndex = ref(props.activeIndex);

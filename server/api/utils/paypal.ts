@@ -25,6 +25,8 @@ class PayPal {
   }
 
   async getAccessToken() {
+    const authString = btoa(`${this.clientId}:${this.clientSecret}`);
+
     const result = await this.fetch<{
       scope: string;
       access_token: string;
@@ -36,7 +38,7 @@ class PayPal {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${btoa(`${this.clientId}:${this.clientSecret}`)}`,
+        Authorization: `Basic ${authString}`,
       },
       body: "grant_type=client_credentials",
     });

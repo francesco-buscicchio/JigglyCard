@@ -1,7 +1,7 @@
 export type MenuItemType = {
-  name: String;
+  name: string;
   subMenu: { name: string; url: string }[] | null;
-  isSubMenuOpen?: Boolean;
+  isSubMenuOpen?: boolean;
   url?: string;
 };
 

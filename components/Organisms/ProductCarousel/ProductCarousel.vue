@@ -71,12 +71,10 @@ const containerClass = computed(() => {
 });
 
 const titleClass = computed(() => {
-  switch (props.colorScheme) {
-    case "primaryHome":
-      return "text-white text-center w-full pb-4";
-    default:
-      return "text-accent-500 text-center w-full pb-4";
-  }
+  if (props.colorScheme == "primaryHome")
+    return "text-white text-center w-full pb-4";
+
+  return "text-accent-500 text-center w-full pb-4";
 });
 
 const setControlledSwiper = (swiper: any) => {

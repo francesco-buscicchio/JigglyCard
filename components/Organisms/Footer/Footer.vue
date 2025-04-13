@@ -1,7 +1,7 @@
 <template>
   <div class="gap-2 bg-main-400 pb-8 w-full">
     <div class="mb-4">
-      <MoleculesFooterLinks :links="FOOTER_MENU_ITEMS"/>
+      <MoleculesFooterLinks :links="FOOTER_MENU_ITEMS" />
     </div>
 
     <MoleculesPaymentMethods v-if="!hidePayments" />
@@ -13,7 +13,7 @@
     <MoleculesSocialLinks :imgs="footer.imgs" />
 
     <div class="w-full text-center">
-      <label class="px-6">
+      <label class="px-6" for="policy">
         <template v-for="(policy, index) in policyLinks" :key="index">
           <a :href="policy.link">{{ policy.label }}</a>
           <span v-if="index < policyLinks!.length - 1"> - </span>

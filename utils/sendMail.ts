@@ -34,7 +34,7 @@ export async function sendMail(mailData: sendMailProps) {
       },
     ],
   };
-  const { data } = await useFetch("/api/sendgrid", {
+  await useFetch("/api/sendgrid", {
     method: "POST",
     body: msg,
   });

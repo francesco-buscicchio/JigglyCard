@@ -4,7 +4,10 @@
       <h3 class="pb-4">Atoms Cta</h3>
       <div class="flex flex-col gap-y-4">
         <AtomsButtonCTA type="primary" text="Primary Button"></AtomsButtonCTA>
-        <AtomsButtonCTA type="secondary" text="Secondary Button"></AtomsButtonCTA>
+        <AtomsButtonCTA
+          type="secondary"
+          text="Secondary Button"
+        ></AtomsButtonCTA>
         <AtomsButtonCTA type="disabled" text="Disabled Button">
           <Icon name="jig:heart"></Icon>
         </AtomsButtonCTA>
@@ -50,7 +53,10 @@
       <h3 class="pb-1">Radio Buttons</h3>
       <h6 class="pb-4">Status: {{ radioButtonStatus ? "on" : "off" }}</h6>
       <div>
-        <AtomsRadioButton :initialState="radioButtonStatus" @update:state="updateState"></AtomsRadioButton>
+        <AtomsRadioButton
+          :initialState="radioButtonStatus"
+          @update:state="updateState"
+        ></AtomsRadioButton>
       </div>
     </div>
 
@@ -73,8 +79,12 @@
 
     <div>
       <h3 class="pb-4">Hero Banner</h3>
-      <MoleculesHeroBanner :backgroundImage="Ossidiana" :navigateTo="'/listing/ossidiana-infuocata'"
-        title="Ossidiana Infuocata" ariaLabel="Promotional banner for Ossidiana Infuocata expansion" />
+      <MoleculesHeroBanner
+        :backgroundImage="Ossidiana"
+        :navigateTo="'/listing/ossidiana-infuocata'"
+        title="Ossidiana Infuocata"
+        ariaLabel="Promotional banner for Ossidiana Infuocata expansion"
+      />
     </div>
 
     <div>
@@ -103,8 +113,13 @@
 
     <div class="w-full">
       <h3 class="pb-4">Product Card</h3>
-      <MoleculesProductCard productName="Calyrex Cavaliere Glaciale VMAX" code="ASR TG15" expansion="Regno Glaciale"
-        :price="'1.0'" :imageUrl="CalyrexImage" />
+      <MoleculesProductCard
+        productName="Calyrex Cavaliere Glaciale VMAX"
+        code="ASR TG15"
+        expansion="Regno Glaciale"
+        :price="'1.0'"
+        :imageUrl="ASR_TG15"
+      />
     </div>
 
     <div class="w-full">
@@ -136,7 +151,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import Ossidiana from "../assets/img/Ossidiana.jpg";
-import CalyrexImage from "~/assets/img/ASR_TG15.png";
 import ASR_TG15 from "~/assets/img/ASR_TG15.png";
 import ASR_TG29 from "~/assets/img/AST_TG29.jpg";
 import ASR_TG03 from "~/assets/img/ASR_TG03.jpg";
@@ -172,7 +186,7 @@ const mockedTags: ListingTagProps[] = [
   { type: TagType.ACTIVE, text: "Active" },
   { type: TagType.INACTIVE, text: "Inactive" },
   { type: TagType.DISABLED, text: "Disabled" },
-]
+];
 
 const radioButtonStatus = ref(true);
 const isChecked = ref(false);
