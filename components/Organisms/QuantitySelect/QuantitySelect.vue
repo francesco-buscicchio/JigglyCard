@@ -48,7 +48,7 @@ const props = defineProps<{
 }>();
 
 const quantity = ref(1);
-
+const { t } = useI18n();
 const quantityOptions = computed(() => {
   return Array.from({ length: props.quantity }, (_, i) => ({
     value: (i + 1).toString(),

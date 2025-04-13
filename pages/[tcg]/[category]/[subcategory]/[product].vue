@@ -103,14 +103,14 @@
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
       v-show="!isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
       v-show="isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -140,6 +140,7 @@ import {
 import type { ProductType } from "~/types/product.type";
 
 const product = ref();
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();

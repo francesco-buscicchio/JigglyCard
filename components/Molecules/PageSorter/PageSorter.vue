@@ -9,15 +9,18 @@
       </option>
     </select>
 
-    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700">
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-700"
+    >
       <Icon name="jig:arrow-down" size="8"></Icon>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, defineEmits, ref, watch } from 'vue';
+import { defineProps, defineEmits, ref, watch } from "vue";
 
+const { t } = useI18n();
 const props = defineProps({
   sortingItems: {
     type: Array,
@@ -25,7 +28,7 @@ const props = defineProps({
   },
   selected: {
     type: [String, Number],
-    default: '',
+    default: "",
   },
 });
 
@@ -39,7 +42,10 @@ const handleSortingValue = (e: Event) => {
   emit("handleSorting", selectElement.value);
 };
 
-watch(() => props.selected, (newSelected) => {
-  selectedValue.value = newSelected;
-});
+watch(
+  () => props.selected,
+  (newSelected) => {
+    selectedValue.value = newSelected;
+  }
+);
 </script>
