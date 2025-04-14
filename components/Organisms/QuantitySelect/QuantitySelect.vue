@@ -1,22 +1,21 @@
 <template>
   <div>
-    <div class="flex items-center gap-13">
-      <div class="flex mr-6 items-center">
-        <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
+    <div class="flex items-center gap-13 lg:gap-4 lg:flex-col">
+      <div
+        class="flex mr-6 items-center lg:flex-col lg:mr-0 justify-center lg:gap-1"
+      >
+        <p class="mr-6 lg:mr-0">{{ t("quantitySelect.quantity") }}:</p>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
           :selected="quantity"
           @handleSorting="updateQuantity"
+          type="slim"
         />
       </div>
 
-      <h2 :class="!isCart ? 'mr-10' : ''">{{ totalPrice }} €</h2>
+      <h2 class="mr-10 lg:mr-0 lg:text-2xl">{{ totalPrice }} €</h2>
     </div>
 
-    <p class="my-2" v-if="!isCart">
-      {{ t("quantitySelect.availability") }}: {{ quantity }}
-      {{ t("quantitySelect.pieces") }}
-    </p>
   </div>
 </template>
 
@@ -24,7 +23,6 @@
 const props = defineProps<{
   quantity: number;
   price: number;
-  isCart: boolean;
 }>();
 
 const quantity = ref(1);
