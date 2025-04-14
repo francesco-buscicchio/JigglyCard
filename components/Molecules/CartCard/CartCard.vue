@@ -9,7 +9,6 @@
       <OrganismsQuantitySelect
         :price="price"
         :quantity="availableQuantity"
-        :isCart="true"
       />
     </div>
     <div class="pt-7 pb-5">
@@ -26,7 +25,6 @@
         <OrganismsQuantitySelect
           :price="price"
           :quantity="availableQuantity"
-          :isCart="true"
         />
       </div>
     </div>
