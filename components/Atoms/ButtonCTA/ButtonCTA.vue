@@ -33,7 +33,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["buttonClicked"]);
-const ctaButtonDefaultClass = "py-3 px-4 rounded-lg w-full";
+const ctaButtonDefaultClass = "py-3 px-4 rounded-lg w-full cursor-pointer";
 const disabled = computed(() => {
   return props.type === "disabled";
 });
