@@ -6,10 +6,7 @@
       <slot />
     </div>
     <div class="pt-4">
-      <OrganismsQuantitySelect
-        :price="price"
-        :quantity="availableQuantity"
-      />
+      <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
     </div>
     <div class="pt-7 pb-5">
       <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
@@ -22,14 +19,13 @@
     <slot />
     <div>
       <div class="pt-4">
-        <OrganismsQuantitySelect
-          :price="price"
-          :quantity="availableQuantity"
-        />
+        <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
       </div>
     </div>
     <!-- elimina dal carrello -->
-    <Icon name="jig:close-accent" class="ml-6" size="20" @click=""></Icon>
+    <div class="flex flex-col justify-center">
+      <Icon name="jig:close-accent" class="ml-6" size="20" @click=""></Icon>
+    </div>
   </div>
 </template>
 
