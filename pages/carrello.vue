@@ -4,11 +4,14 @@
   </div>
   <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
   <div class="lg:flex lg:gap-20 lg:mx-20">
-    <div>
+    <div class="lg:flex-1">
       <div
         v-for="(item, index) of products"
         :key="index"
-        class="border-t-[2px] border-neutral-200 mx-5 pt-4 pb-2"
+        :class="[
+          'mx-5 py-4 border-t-[2px] border-neutral-200',
+          { 'border-b-[2px]': index === products.length - 1 },
+        ]"
       >
         <MoleculesCartCard
           :image="item.image"
@@ -17,7 +20,10 @@
           :price="item.price"
         >
           <div>
-            <h5 class="pb-2">{{ item.title }}</h5>
+            <h5 class="pb-2 text-lg">{{ formatProductName(item.title) }}</h5>
+            <p class="pb-2" v-show="isDesktopView">
+              {{ extractProductCode(item.title) }}
+            </p>
             <p class="pb-2">{{ item.language }}</p>
             <p class="pb-2">{{ item.condition }}</p>
           </div>
@@ -51,6 +57,7 @@ import {
   type SearchProductResult,
   type ProductType,
 } from "~/types/product.type";
+import { formatProductName, extractProductCode } from "~/utils/productUtils";
 
 const { t } = useI18n();
 const isMobileView = isMobile();

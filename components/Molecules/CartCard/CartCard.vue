@@ -8,23 +8,31 @@
     <div class="pt-4">
       <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
     </div>
-    <div class="pt-7 pb-5">
+    <div class="pt-7">
       <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
     </div>
   </div>
   <!-- desktop -->
-  <div class="flex gap-3" v-show="!isMobileview">
-    <img :src="image" class="w-24" />
+  <div class="flex justify-between" v-show="!isMobileview">
+    <div class="flex gap-3">
+      <img :src="image" class="w-24" />
 
-    <slot />
-    <div>
-      <div class="pt-4">
+      <slot />
+    </div>
+
+    <div class="flex gap-13">
+      <div>
         <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
       </div>
-    </div>
-    <!-- elimina dal carrello -->
-    <div class="flex flex-col justify-center">
-      <Icon name="jig:close-accent" class="ml-6 cursor-pointer" size="20" @click=""></Icon>
+      <!-- elimina dal carrello -->
+      <div class="flex flex-col justify-center">
+        <Icon
+          name="jig:close-accent"
+          class="cursor-pointer"
+          size="20"
+          @click=""
+        ></Icon>
+      </div>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5 border-t-[2px] border-neutral-200 lg:border-none py-4">
+  <div class="mx-5 py-4">
     <h5>{{ t("shippingMode.shippingMethod") }}</h5>
 
     <div class="my-4">
@@ -62,7 +62,7 @@ const props = defineProps({
   },
 });
 import { useI18n } from "vue-i18n";
-import { goBack } from '@/utils/navigationUtils'
+import { goBack } from "@/utils/navigationUtils";
 
 const { t } = useI18n();
 const isDesktopView = isDesktop();

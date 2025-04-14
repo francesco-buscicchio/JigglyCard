@@ -2,7 +2,7 @@
   <div>
     <div class="flex items-center gap-13 lg:gap-4 lg:flex-col">
       <div
-        class="flex mr-6 items-center lg:flex-col lg:mr-0 justify-center lg:gap-1"
+        class="flex mr-6 items-center lg:flex-col lg:mr-0 justify-center lg:gap-2"
       >
         <p class="mr-6 lg:mr-0">{{ t("quantitySelect.quantity") }}:</p>
         <MoleculesPageSorter
