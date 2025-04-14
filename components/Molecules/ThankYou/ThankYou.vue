@@ -4,9 +4,9 @@
     <p class="pt-5">{{ t(`thanks.${props.type}`) }}</p>
     <img class="lg:w-103 w-62 pt-10" :src="thanksSrc" alt="Thank You" />
     <AtomsButtonCTA
-      type="cart-drop"
+      type="underline-text"
       :text="t('thanks.backHome')"
-      @button-clicked="navigateToHome()"
+      @button-clicked="goTo(PATH.HOME)"
     />
   </div>
 </template>
@@ -15,6 +15,8 @@
 import { defineProps } from "vue";
 import thanksSrc from "@/assets/img/thanks.png";
 import { PATH } from "~/data/const";
+import { goTo } from '@/utils/navigationUtils'
+
 
 const { t } = useI18n();
 const props = defineProps({
@@ -25,9 +27,6 @@ const props = defineProps({
   },
 });
 
-const navigateToHome = () => {
-  navigateTo(PATH.HOME);
-};
 </script>
 
 <style>

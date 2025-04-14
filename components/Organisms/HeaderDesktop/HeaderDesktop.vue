@@ -6,13 +6,13 @@
   >
     <header class="flex flex-col p-5 bg-white shadow-md px-18">
       <div class="flex justify-between items-center">
-        <h2 @click="navigation(PATH.HOME)" class="text-accent-950">
+        <h2 @click="goTo(PATH.HOME)" class="text-accent-950">
           Jigglycard
         </h2>
         <div class="flex flex-row gap-x-4">
           <button
             v-for="(item, index) of headerMenu"
-            @click="navigation(item.to)"
+            @click="goTo(item.to)"
           >
             <h5 class="text-accent-950 text-lg">
               {{ item.name }}
@@ -82,6 +82,8 @@
 <script lang="ts" setup>
 import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
+import { goTo } from '@/utils/navigationUtils'
+
 
 const { t } = useI18n();
 type HeaderPropsType = {
@@ -108,10 +110,6 @@ const emit = defineEmits([
   "closeSearch",
   "updateSearch",
 ]);
-
-const navigation = (path: string) => {
-  navigateTo(path);
-};
 
 const toggleSearch = () => {
   emit("toggleSearch");
