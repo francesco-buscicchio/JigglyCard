@@ -24,7 +24,7 @@
     </div>
     <!-- elimina dal carrello -->
     <div class="flex flex-col justify-center">
-      <Icon name="jig:close-accent" class="ml-6" size="20" @click=""></Icon>
+      <Icon name="jig:close-accent" class="ml-6 cursor-pointer" size="20" @click=""></Icon>
     </div>
   </div>
 </template>

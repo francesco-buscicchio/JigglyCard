@@ -36,6 +36,7 @@
       <AtomsButtonCTA
         type="underline-text"
         :text="t('shippingMode.goBackProducts')"
+        @button-clicked="goBack"
       />
     </div>
 
@@ -61,6 +62,8 @@ const props = defineProps({
   },
 });
 import { useI18n } from "vue-i18n";
+import { goBack } from '@/utils/navigationUtils'
+
 const { t } = useI18n();
 const isDesktopView = isDesktop();
 

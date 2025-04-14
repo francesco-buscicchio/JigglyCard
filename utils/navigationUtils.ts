@@ -3,5 +3,5 @@ export const goTo = (path: string, options?: { external?: boolean }) => {
 };
 
 export const goBack = () => {
-  return navigateTo({ path: "back" });
+  return useRouter().back();
 };
