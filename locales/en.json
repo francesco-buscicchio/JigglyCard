@@ -181,6 +181,7 @@
     "total": "Total",
     "couponCodeQuestion": "Do you have a coupon code?",
     "codeApply": "Apply code",
+    "codeApplyWeb": "apply",
     "buyCTA": "Proceed to checkout",
     "goBackProducts": "Go back to products"
   }

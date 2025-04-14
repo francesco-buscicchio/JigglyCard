@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5 border-t-[2px] border-neutral-200 py-4">
+  <div class="mx-5 border-t-[2px] border-neutral-200 lg:border-none py-4">
     <h5>{{ t("shippingMode.shippingMethod") }}</h5>
 
     <div class="my-4">
@@ -21,15 +21,12 @@
     <!-- Codice promo -->
     <div class="mb-12">
       <p class="mb-2">{{ t("shippingMode.couponCodeQuestion") }}</p>
-      <div class="lg:flex w-full">
-        <div class="mb-2">
-          <AtomsInputText :placeholder="placeholder" />
+      <div class="lg:flex w-full lg:gap-3 lg:items-center lg:justify-center">
+        <div class="mb-2 lg:mb-0 flex-1">
+          <AtomsInputText :placeholder="placeholder" status="newsletter" />
         </div>
         <div class="lg:max-w-22">
-          <AtomsButtonCTA
-            type="secondary"
-            :text="t('shippingMode.codeApply')"
-          />
+          <AtomsButtonCTA type="secondary" :text="codeApply" />
         </div>
       </div>
     </div>
@@ -64,11 +61,17 @@ const props = defineProps({
   },
 });
 import { useI18n } from "vue-i18n";
-
 const { t } = useI18n();
 const isDesktopView = isDesktop();
+
 const placeholder = computed(() => {
   return isDesktopView.value ? "XXXX" : t("shippingMode.couponCode");
+});
+
+const codeApply = computed(() => {
+  return isDesktopView.value
+    ? t("shippingMode.codeApplyWeb")
+    : t("shippingMode.codeApply");
 });
 // TODO: rendere di default l'opzione standard
 const selectedOption = ref({ id: "standard-1" });

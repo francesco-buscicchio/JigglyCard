@@ -3,26 +3,31 @@
     <MoleculesBreadcrumb />
   </div>
   <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
-  <div
-    v-for="(item, index) of products"
-    :key="index"
-    class="border-t-[2px] border-neutral-200 mx-5 pt-4 pb-2"
-  >
-    <MoleculesCartCard
-      :image="item.image"
-      :selectedQuantity="item.selectedQuantity"
-      :availableQuantity="item.availableQuantity"
-      :price="item.price"
-    >
-      <div>
-        <h5 class="pb-2">{{ item.title }}</h5>
-        <p class="pb-2">{{ item.language }}</p>
-        <p class="pb-2">{{ item.condition }}</p>
+  <div class="lg:flex lg:gap-20 lg:mx-20">
+    <div>
+      <div
+        v-for="(item, index) of products"
+        :key="index"
+        class="border-t-[2px] border-neutral-200 mx-5 pt-4 pb-2"
+      >
+        <MoleculesCartCard
+          :image="item.image"
+          :selectedQuantity="item.selectedQuantity"
+          :availableQuantity="item.availableQuantity"
+          :price="item.price"
+        >
+          <div>
+            <h5 class="pb-2">{{ item.title }}</h5>
+            <p class="pb-2">{{ item.language }}</p>
+            <p class="pb-2">{{ item.condition }}</p>
+          </div>
+        </MoleculesCartCard>
       </div>
-    </MoleculesCartCard>
+    </div>
+    <div class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20">
+      <OrganismsShippingMode :total-cart="totalCart" />
+    </div>
   </div>
-  
-    <OrganismsShippingMode :total-cart="totalCart" />
 
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
