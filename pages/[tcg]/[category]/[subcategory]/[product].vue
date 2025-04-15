@@ -27,16 +27,12 @@
           v-if="tagsCondition.length"
         />
       </div>
-      <!-- Select quantity, Add to Cart CTA  and Description-->
-      <div class="flex flex-col gap-12">
-        <OrganismsQuantitySelect
-          :price="product.price"
-          :quantity="product.quantity"
-        />
 
-        <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
-          <Icon name="jig:cart-white" size="30"></Icon>
-        </AtomsButtonCTA>
+      <div class="flex flex-col gap-12">
+        <OrganismsProductQuantityActions
+            :price="product.price"
+            :quantity="product.quantity"
+          />
 
         <MoleculesTextViewer>
           <template v-slot:content>
@@ -45,6 +41,7 @@
         </MoleculesTextViewer>
       </div>
     </div>
+    
     <!-- Desktop -->
     <div v-if="isDesktopView">
       <div class="flex gap-20 my-12 xl:ml-[14vw]">
@@ -81,10 +78,9 @@
             />
           </div>
 
-          <OrganismsQuantitySelect
+          <OrganismsProductQuantityActions
             :price="product.price"
             :quantity="product.quantity"
-            :isCart="false"
           />
         </div>
       </div>
