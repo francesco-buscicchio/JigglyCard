@@ -1,6 +1,6 @@
 <template>
   <div class="w-full items-center justify-center flex flex-col">
-    <img :src="image" class="max-w-[70vw] shadow-xl" />
+    <img :src="image" class="max-w-[70vw] shadow-xl rounded-2xl" />
     <h3 class="pt-4">{{ title }}</h3>
     <p v-if="code" class="pt-4">{{ code }}</p>
     <p class="pt-4">{{ formattedExpansion }}</p>
