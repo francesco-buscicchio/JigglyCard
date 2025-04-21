@@ -12,7 +12,6 @@
             'w-full py-4 px-2 section-bar bg-accent-50 md:border':
               sectionIndex === sections.length - 1,
           }"
-          :style="{ fontSize: sectionFontSize }"
         >
           <div class="flex flex-row items-center justify-between">
             <div v-if="section.imgUrl" class="w-full flex justify-center">
@@ -48,7 +47,6 @@
             'w-auto mb-0 py-4 px-2 section-bar bg-accent-50 border border-accent-950 rounded-lg':
               sectionIndex === sections.length - 1,
           }"
-          :style="{ fontSize: sectionFontSize }"
         >
           <div class="flex flex-col justify-between items-start">
             <p class="pb-2 w-full text-center">{{ section.title }}</p>
@@ -106,6 +104,4 @@ const sections = [
     imgUrl: "jig:support",
   },
 ];
-
-const sectionFontSize = "16px";
 </script>
