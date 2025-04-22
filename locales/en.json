@@ -19,7 +19,8 @@
     "Quantity": "Quantity",
     "AddToCart": "add to cart",
     "BuyWithPaypal": "Buy with PayPal",
-    "Description": "Description"
+    "Description": "Description",
+    "addToCartToast": "Product successfully added to cart"
   },
   "cart": "Cart",
   "routes": {
