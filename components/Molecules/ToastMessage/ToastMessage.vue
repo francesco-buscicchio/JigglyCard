@@ -24,65 +24,24 @@ const props = defineProps({
     default: "",
   },
 });
-const validTypes = ["success", "warning", "error", "info"];
+
+const toastMap: Record<
+  "success" | "warning" | "error" | "info",
+  { iconName: string; background: string }
+> = {
+  success: { iconName: "jig:check-circle", background: "bg-lime-500" },
+  warning: {
+    iconName: "garden:alert-warning-stroke-12",
+    background: "bg-yellow-400",
+  },
+  error: { iconName: "garden:x-circle-stroke-12", background: "bg-red-600" },
+  info: { iconName: "gridicons:info-outline", background: "bg-blue-500" },
+};
 
 const toastStyle = computed(() => {
-  const type = validTypes.includes(props.type)
-    ? (props.type as "success" | "warning" | "error" | "info")
-    : "info";
-
-  const map: Record<
-    "success" | "warning" | "error" | "info",
-    { iconName: string; background: string }
-  > = {
-    success: {
-      iconName: "jig:check-circle",
-      background: "bg-lime-500",
-    },
-    warning: {
-      iconName: "garden:alert-warning-stroke-12",
-      background: "bg-yellow-400",
-    },
-    error: {
-      iconName: "garden:x-circle-stroke-12",
-      background: "bg-red-600",
-    },
-    info: {
-      iconName: "gridicons:info-outline",
-      background: "bg-blue-500",
-    },
-  };
-
-  return map[type];
+  return (
+    toastMap[props.type as "success" | "warning" | "error" | "info"] ||
+    toastMap.info
+  );
 });
-
-// const toastStyle = computed(() => {
-//   switch (props.type) {
-//     case "success":
-//       return {
-//         iconName: "jig:check-circle",
-//         background: "bg-lime-500",
-//       };
-//     case "warning":
-//       return {
-//         iconName: "garden:alert-warning-stroke-12",
-//         background: "bg-yellow-400",
-//       };
-//     case "error":
-//       return {
-//         iconName: "garden:x-circle-stroke-12",
-//         background: "bg-red-600",
-//       };
-//     case "info":
-//       return {
-//         iconName: "gridicons:info-outline",
-//         background: "bg-blue-500",
-//       };
-//     default:
-//       return {
-//         iconName: "gridicons:info-outline",
-//         background: "bg-blue-500",
-//       };
-//   }
-// });
 </script>
