@@ -1,13 +1,16 @@
 <template>
-  <div
-    class="w-full fixed min-h-12 top-0 z-[1001] text-white px-5 py-3"
-    :class="toastStyle.background"
-  >
-    <div class="flex gap-3 items-center">
-      <Icon :name="toastStyle.iconName" class="shrink-0 w-5 h-5"></Icon>
-      <p>{{ text }}</p>
+  <transition name="toast">
+    <div
+      class="w-full fixed min-h-12 top-0 z-[1001] text-white px-5 py-3"
+      :class="toastStyle.background"
+      v-if="visible"
+    >
+      <div class="flex gap-3 items-center">
+        <Icon :name="toastStyle.iconName" class="shrink-0 w-5 h-5"></Icon>
+        <p>{{ text }}</p>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +26,9 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  triggerKey: Number,
 });
+const visible = ref(false);
 
 const toastMap: Record<
   "success" | "warning" | "error" | "info",
@@ -44,4 +49,50 @@ const toastStyle = computed(() => {
     toastMap.info
   );
 });
+
+let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+watch(
+  () => props.triggerKey,
+  () => {
+    visible.value = true;
+
+    if (timeoutId) clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      visible.value = false;
+      timeoutId = null;
+    }, 3000);
+  }
+);
 </script>
+
+<style>
+.toast-enter-from {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.toast-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.toast-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-leave-active {
+  transition: all 0.3s ease-in;
+}
+
+.toast-leave-to {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+</style>
