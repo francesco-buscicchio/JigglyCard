@@ -1,4 +1,9 @@
 <template>
+  <MoleculesToastMessage
+    :text="t('toastNewsletter')"
+    type="success"
+    v-if="showToastMessage"
+  />
   <!-- mobile -->
   <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-show="isMobileview">
     <h5>{{ t("titleNewsLetter") }}</h5>
@@ -65,6 +70,7 @@ const isMobileview = isMobile();
 const isValidEmail = ref(true);
 const email = ref("");
 const buttonNewsLetter = t("buttonNewsLetter");
+const showToastMessage = ref(false);
 
 const loadTemplates = async () => {
   const customerTemplateModule =
@@ -92,6 +98,11 @@ const mailAction = async (email: string) => {
   sendEmailToBackOffice(newsletterToAdmin(userName, email));
   // CREATE USER IN DB
   subscribeSendgrid(email);
+  // TODO: validare o meno la corretta sottoscrizione
+  showToastMessage.value = true;
+  setTimeout(() => {
+    showToastMessage.value = false;
+  }, 5000);
 };
 
 const sendEmailToSubscriber = (email: string, value: string) => {
