@@ -1,9 +1,19 @@
 <template>
+  <div class="lg:px-[4vw]">
+
   <MoleculesBreadcrumb />
   <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
   <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
 
-  <OrganismsCheckoutForm @updateFormValues="updateFormData" />
+  <div class="lg:flex lg:gap-[10vw] lg:items-start">
+
+    <OrganismsCheckoutForm @updateFormValues="updateFormData" class="lg:flex-1 mb-18 max-w-[650px]"/>
+    <OrganismsCartSummary
+      :products="mockProducts"
+      :shipping-cost="selectedShippingOption?.price || 0"
+      v-show="!isMobileView"
+    />
+  </div>
   <OrganismsSelectOptions
     :shipping-options="shippingOptions"
     @update:selectedOption="updateSelectedOption"
@@ -11,6 +21,7 @@
   <OrganismsCartSummary
     :products="mockProducts"
     :shipping-cost="selectedShippingOption?.price || 0"
+    v-show="isMobileView"
   />
 
   <!-- TODO da rivedere  -->
@@ -23,12 +34,14 @@
     >
     </AtomsButtonCTA>
   </div>
+</div>
+
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import type { Product } from "~/types/product.type";
-
+const isMobileView = isMobile()
 const { t } = useI18n();
 const formData = ref({});
 const shippingOptions = ref([
