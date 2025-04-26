@@ -21,7 +21,7 @@ const props = defineProps({
 <style scoped>
 .footer-link {
   font-size: 16px;
-  font-family: "Roboto Flex";
+  font-family: "Roboto Flex", sans-serif;
 }
 
 @media (min-width: 1024px) {

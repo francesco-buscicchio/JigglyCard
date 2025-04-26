@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <div class="border-b pb-2">
-      <h5>{{ $t("recapCart") }}</h5>
+      <h5>{{ t("recapCart") }}</h5>
     </div>
 
     <div
@@ -19,13 +19,13 @@
     </div>
 
     <div class="flex justify-between pt-2">
-      <p>{{ $t("shipping") }}</p>
-      <p>{{ shippingCost }} €</p>
+      <p>{{ t("shipping") }}</p>
+      <p>{{ shippingCost }}</p>
     </div>
 
     <div class="flex justify-between pt-2 font-bold border-t mt-2">
-      <p>{{ $t("total") }}</p>
-      <p>{{ finalTotal }} €</p>
+      <p class="bold text-lg">{{ t("total") }}</p>
+      <p class="bold text-lg">{{ finalTotal }} €</p>
     </div>
   </div>
 </template>
@@ -34,6 +34,7 @@
 import { computed, defineProps, type PropType } from "vue";
 import type { Product } from "~/types/product.type";
 
+const { t } = useI18n();
 const props = defineProps({
   products: {
     type: Array as PropType<Product[]>,
@@ -57,5 +58,9 @@ const totalPrice = computed(() => {
 
 const finalTotal = computed(() => {
   return totalPrice.value + props.shippingCost;
+});
+
+const shippingCost = computed(() => {
+  return props.shippingCost > 0 ? `${props.shippingCost} €` : t("gratis");
 });
 </script>

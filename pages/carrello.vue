@@ -2,13 +2,14 @@
   <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
-  <h1 class="text-accent-500 text-center pb-8">{{ $t("cart") }}</h1>
+  <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
   <div
     v-for="(item, index) of products"
     :key="index"
     class="border-t-[2px] border-neutral-200 mx-5 pt-4 pb-2"
   >
     <MoleculesCartCard
+      :alt="item.title"
       :image="item.image"
       :selectedQuantity="item.selectedQuantity"
       :availableQuantity="item.availableQuantity"
@@ -24,13 +25,13 @@
 
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
-    :title="$t('suggested')"
+    :title="t('suggested')"
     :products="suggested"
     colorScheme="lightHome"
   />
   <OrganismsProductCarousel
     v-if="isMobileView"
-    :title="$t('suggested')"
+    :title="t('suggested')"
     :products="suggested"
     colorScheme="lightHome"
   />
@@ -39,10 +40,11 @@
 <script lang="ts" setup>
 import type { SearchResponse } from "algoliasearch";
 import blastoise from "~/assets/blastoise_ex_mew_009.png";
-import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION, SUGGESTED } from "~/data/const";
+import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 import type { ProductType } from "~/types/productType.type";
 
+const { t } = useI18n();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const suggested: Ref<ProductType[]> = ref([]);

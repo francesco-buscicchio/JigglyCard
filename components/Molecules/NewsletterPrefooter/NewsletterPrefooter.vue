@@ -1,8 +1,8 @@
 <template>
   <!-- mobile -->
   <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-show="isMobileview">
-    <h5>{{ $t("titleNewsLetter") }}</h5>
-    <p>{{ $t("captionNewsletterShort") }}</p>
+    <h5>{{ t("titleNewsLetter") }}</h5>
+    <p>{{ t("captionNewsletterShort") }}</p>
     <MoleculesContainerInput
       status="default"
       placeholder="e-mail"
@@ -20,13 +20,13 @@
     v-show="!isMobileview"
   >
     <div class="flex-1">
-      <h3 class="mb-4">{{ $t("titleNewsLetter") }}</h3>
+      <h3 class="mb-4">{{ t("titleNewsLetter") }}</h3>
       <p class="mb-4">
-        {{ $t("captionNewsletter.first") }}
+        {{ t("captionNewsletter.first") }}
         <span class="bold">
-          {{ $t("captionNewsletter.bold") }}
+          {{ t("captionNewsletter.bold") }}
         </span>
-        {{ $t("captionNewsletter.second") }}
+        {{ t("captionNewsletter.second") }}
       </p>
       <div class="flex gap-4">
         <div class="w-[70%]">
@@ -34,14 +34,14 @@
             status="newsletter"
             placeholder="e-mail"
             @inputUpdate="email = $event"
-            :notValidMessage="$t('newsletterEmailValidation')"
+            :notValidMessage="t('newsletterEmailValidation')"
             :isValid="isValidEmail"
             @inputBlur="validateEmail"
           />
         </div>
         <div class="w-[30%]">
           <AtomsButtonCTA
-            type="primary"
+            :type="isValidEmail ? 'primary' : 'disabled'"
             :text="buttonNewsLetter"
             @click="mailAction(email)"
           />

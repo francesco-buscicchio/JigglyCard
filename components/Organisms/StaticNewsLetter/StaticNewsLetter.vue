@@ -37,8 +37,6 @@
 import { useI18n } from "vue-i18n";
 import { sendMail } from "~/utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
-
-const client = useMedusaClient();
 const emit = defineEmits(["mailSended"]);
 const config = useRuntimeConfig();
 const { t, locale } = useI18n();

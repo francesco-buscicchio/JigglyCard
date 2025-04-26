@@ -19,8 +19,8 @@
       </h5>
       <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
       <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
-      <label class="lg:text-xs xl:text-sm"
-        >{{ $t("startingFrom") }}
+      <label class="lg:text-xs xl:text-sm" for="product.price"
+        >{{ t("startingFrom") }}
         <p class="ml-5 font-bold inline lg:text-2xl xl:text-3xl">
           {{ product.price }} €
         </p></label
@@ -34,7 +34,7 @@
 
     <AtomsButtonCTA
       type="secondary"
-      :text="$t('showDetails')"
+      :text="t('showDetails')"
       v-on:button-clicked="
         navigateTo(`/${product.tcg}/${product.category}/${product.id}`)
       "
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import type { ProductType } from "~/types/product.type";
 
+const { t } = useI18n();
 const props = defineProps({
   product: {
     type: Object as () => ProductType,

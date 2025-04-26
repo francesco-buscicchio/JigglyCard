@@ -15,13 +15,13 @@
       <MoleculesListingTag
         @handle-tag-click="handleTagClickLanguage"
         :tags="tagsLanguage"
-        :title="$t('filter.language')"
+        :title="t('filter.language')"
         v-if="tagsLanguage.length"
       />
       <MoleculesListingTag
         @handle-tag-click="handleTagClickCondition"
         :tags="tagsCondition"
-        :title="$t('filter.condition')"
+        :title="t('filter.condition')"
         v-if="tagsCondition.length"
       />
     </div>
@@ -33,13 +33,13 @@
         :quantity="product.quantity"
       />
 
-      <AtomsButtonCTA type="primary" :text="$t('productHero.AddToCart')">
+      <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
         <Icon name="jig:cart-white" size="30"></Icon>
       </AtomsButtonCTA>
 
       <MoleculesTextViewer>
         <template v-slot:content>
-          descrizione: {{ $t("defaultDescription") }}
+          descrizione: {{ t("defaultDescription") }}
         </template>
       </MoleculesTextViewer>
     </div>
@@ -47,14 +47,14 @@
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
       v-show="!isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
       v-show="isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -66,7 +66,6 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
-import { algoliasearch } from "algoliasearch";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
   activateLanguage,
@@ -82,6 +81,7 @@ import { TagType } from "~/enum/tag.enum";
 import type { ProductType } from "~/types/productType.type";
 
 const product = ref();
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
@@ -188,14 +188,22 @@ const handleTagClickCondition = (code: TagCode): void => {
     );
     handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
   }
-  tagsCondition.value = tagsCondition.value.map((tag) => ({
-    ...tag,
-    type:
-      tag.type === TagType.DISABLED
-        ? TagType.DISABLED
-        : tag.code === code
-        ? TagType.ACTIVE
-        : TagType.INACTIVE,
-  }));
+
+  tagsCondition.value = tagsCondition.value.map((tag) => {
+    let tagType;
+
+    if (tag.type === TagType.DISABLED) {
+      tagType = TagType.DISABLED;
+    } else if (tag.code === code) {
+      tagType = TagType.ACTIVE;
+    } else {
+      tagType = TagType.INACTIVE;
+    }
+
+    return {
+      ...tag,
+      type: tagType,
+    };
+  });
 };
 </script>

@@ -3,6 +3,7 @@
     :class="[buttonClass, ctaButtonDefaultClass]"
     class="flex items-center justify-center gap-2"
     @click="emitClick"
+    :disabled="disabled"
   >
     <span class="subtitle-m" v-if="type !== 'text' && type !== 'cart-drop'">{{
       text
@@ -31,6 +32,9 @@ const props = defineProps({
 
 const emit = defineEmits(["buttonClicked"]);
 const ctaButtonDefaultClass = "py-3 px-4 rounded-lg w-full";
+const disabled = computed(() => {
+  return props.type === "disabled";
+});
 
 const baseClasses = {
   primary: "bg-accent-500 text-accent-50 font-bold active:bg-accent-950",

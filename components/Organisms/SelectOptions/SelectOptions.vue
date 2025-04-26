@@ -1,8 +1,8 @@
 <template>
   <div class="p-4">
-    <h5 class="pb-2">{{ $t("shippingMethod") }}</h5>
+    <h5 class="pb-2">{{ t("shippingMethod") }}</h5>
     <div v-for="(option, index) in shippingOptions" :key="index" class="py-1">
-      <label class="flex items-center cursor-pointer">
+      <label class="flex items-center cursor-pointer" for="shippingOptions">
         <AtomsRadioButton
           type="radio"
           :value="option"
@@ -28,11 +28,16 @@ const props = defineProps({
   },
 });
 
+const { t } = useI18n();
 const selectedOption = ref(null);
 
-const emit = defineEmits<{
-  (e: "update:selectedOption", option: { name: string; price: number }): void;
-}>();
+const emit =
+  defineEmits<
+    (
+      e: "update:selectedOption",
+      option: { name: string; price: number }
+    ) => void
+  >();
 
 const emitSelectedOption = () => {
   emit("update:selectedOption", selectedOption.value);

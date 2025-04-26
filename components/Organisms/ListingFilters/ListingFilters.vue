@@ -16,15 +16,13 @@
     <AtomsButtonCTA
       v-if="filters"
       type="text"
-      :text="$t('clearFilters')"
+      :text="t('clearFilters')"
       @button-clicked="removeAllFilters"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-
 const { t } = useI18n();
 const emit = defineEmits(["update-filters"]);
 

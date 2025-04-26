@@ -13,10 +13,8 @@
 
       <FormKit
         type="email"
-        id="email"
-        aria-required="Il campo mail e' obbligatorio"
-        validation="required|email"
         validation-visibility="blur"
+        validation="required|email"
         placeholder="Indirizzo mail"
       />
     </div>

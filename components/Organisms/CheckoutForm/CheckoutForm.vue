@@ -1,34 +1,34 @@
 <template>
   <div class="mx-4">
     <div class="mb-4">
-      <p class="mb-1">{{ $t("name") }}</p>
+      <p class="mb-1">{{ t("name") }}</p>
       <AtomsInputText @updateValue="updateField('name', $event)" />
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ $t("surname") }}</p>
+      <p class="mb-1">{{ t("surname") }}</p>
       <AtomsInputText @updateValue="updateField('surname', $event)" />
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ $t("email") }}</p>
+      <p class="mb-1">{{ t("email") }}</p>
       <AtomsInputText @updateValue="updateField('email', $event)" />
     </div>
 
     <div class="flex">
       <div class="mb-4 mr-2">
-        <p class="mb-1">{{ $t("cap") }}</p>
+        <p class="mb-1">{{ t("cap") }}</p>
         <AtomsInputText @updateValue="updateField('cap', $event)" />
       </div>
 
       <div class="mb-4 ml-2">
-        <p class="mb-1">{{ $t("city") }}</p>
+        <p class="mb-1">{{ t("city") }}</p>
         <AtomsInputText @updateValue="updateField('city', $event)" />
       </div>
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ $t("streetAndHouseNumber") }}</p>
+      <p class="mb-1">{{ t("streetAndHouseNumber") }}</p>
       <AtomsInputText
         @updateValue="updateField('streetAndHouseNumber', $event)"
       />
@@ -40,18 +40,28 @@
         :modelValue="formValues.iWantTheInvoice"
         @click="toggleCheckbox"
       />
-      <p class="text-left">{{ $t("iWantTheInvoice") }}</p>
+      <p class="text-left">{{ t("iWantTheInvoice") }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive, defineEmits } from "vue";
-import type { CheckoutForm } from "~/interface/checkoutForm.interface";
 
+const { t } = useI18n();
 const emit = defineEmits(["updateFormValues"]);
 
-const formValues: CheckoutForm = reactive({
+interface FormValues {
+  name: string;
+  surname: string;
+  email: string;
+  cap: string;
+  city: string;
+  streetAndHouseNumber: string;
+  iWantTheInvoice: boolean;
+}
+
+const formValues: FormValues = reactive({
   name: "",
   surname: "",
   email: "",
@@ -71,5 +81,3 @@ function toggleCheckbox() {
   emit("updateFormValues", { ...formValues });
 }
 </script>
-
-<style scoped></style>
