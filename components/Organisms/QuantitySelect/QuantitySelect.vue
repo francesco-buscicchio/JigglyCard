@@ -42,10 +42,3 @@ function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
 }
 </script>
-
-<style scoped>
-.price {
-  font-family: "Roboto Flex";
-  font-weight: 600;
-}
-</style>
