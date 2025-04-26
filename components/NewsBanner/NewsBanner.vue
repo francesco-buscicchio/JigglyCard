@@ -33,5 +33,3 @@ const handleClick = (news: NewsBannerProps) => {
   if (news.url) navigateTo(news.url);
 };
 </script>
-
-<style scoped></style>

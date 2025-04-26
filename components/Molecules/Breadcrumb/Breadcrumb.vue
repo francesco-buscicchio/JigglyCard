@@ -13,11 +13,11 @@
 <script setup lang="ts">
 import { useRouteHistoryStore } from "~/stores/routeHistory";
 
+const { t } = useI18n();
 const resolvedPage = computed(() => routeHistory.getHistory() || "/");
-
 const resolvedPageText = computed(() =>
   routeHistory.getHistory()
-    ? $t(`routes.${routeHistory.getHistory()}`)
+    ? t(`routes.${routeHistory.getHistory()}`)
     : "Homepage"
 );
 

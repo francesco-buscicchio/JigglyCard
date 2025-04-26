@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row items-top gap-4">
-    <img :src="image" class="w-18" />
+    <img :src="image" class="w-18" :alt="alt" />
     <slot />
   </div>
   <div class="pt-4">
@@ -19,6 +19,10 @@
 const emit = defineEmits(["buttonClicked"]);
 
 defineProps({
+  alt: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
     required: true,
