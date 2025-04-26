@@ -68,19 +68,17 @@ import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
-  type ListingTagProps,
-  type TagCode,
-  type TagStructure,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "~/components/Atoms/Tag/tag.types";
-import {
   activateLanguage,
   createTagCondition,
   createTagLanguage,
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ProductType } from "~/types/product.type";
+import type { ListingTagProps } from "~/types/listingTag.type";
+import type { TagStructure } from "~/types/tagStructure.type";
+import type { TagCode } from "~/types/tagCode.type";
+import { TagType } from "~/enum/tag.enum";
+import type { ProductType } from "~/types/productType.type";
 
 const product = ref();
 const { t } = useI18n();

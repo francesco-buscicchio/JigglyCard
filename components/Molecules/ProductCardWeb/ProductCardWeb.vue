@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProductCard } from "~/types/product.type";
+import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
 const props = defineProps<ProductCard>();

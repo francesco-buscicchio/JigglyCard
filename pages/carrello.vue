@@ -41,10 +41,8 @@
 import type { SearchResponse } from "algoliasearch";
 import blastoise from "~/assets/blastoise_ex_mew_009.png";
 import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
-import {
-  type SearchProductResult,
-  type ProductType,
-} from "~/types/product.type";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
 const isMobileView = isMobile();

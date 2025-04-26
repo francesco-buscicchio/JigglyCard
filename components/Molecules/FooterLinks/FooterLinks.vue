@@ -8,10 +8,7 @@
   </div>
 </template>
 <script setup lang="ts">
-interface LinkRoute {
-  link: string;
-  route: string;
-}
+import type { LinkRoute } from "~/interface/linkRoute.interface";
 
 const props = defineProps({
   links: {

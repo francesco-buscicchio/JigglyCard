@@ -1,17 +1,15 @@
-import { TagType } from "~/components/Atoms/Tag/tag.types";
-import type {
-  Language,
-  ListingTagProps,
-  TagCode,
-  TagCondition,
-  TagStructure,
-  VariantDetail,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
 import {
   availableConditions,
   availableLanguages,
   preferredLanguageOrder,
 } from "~/data/const";
+import type { Language } from "~/enum/language.enum";
+import { TagType } from "~/enum/tag.enum";
+import type { TagCondition } from "~/enum/tagCondition.enum";
+import type { VariantDetail } from "~/interface/variantDetail.interface";
+import type { ListingTagProps } from "~/types/listingTag.type";
+import type { TagCode } from "~/types/tagCode.type";
+import type { TagStructure } from "~/types/tagStructure.type";
 
 export const createTagLanguage = (
   tagsStructure: TagStructure[]
