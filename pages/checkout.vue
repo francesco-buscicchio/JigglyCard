@@ -13,16 +13,7 @@
     :shipping-cost="selectedShippingOption?.price || 0"
   />
 
-  <!-- TODO da rivedere  -->
-  <div class="mx-4 my-2">
-    <AtomsButtonCTA
-      @click="validateForm"
-      :type="isFormValid ? 'primary' : 'disabled'"
-      :class="['rounded']"
-      :text="t('confirmAndPay')"
-    >
-    </AtomsButtonCTA>
-  </div>
+  <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
 </template>
 
 <script setup lang="ts">
