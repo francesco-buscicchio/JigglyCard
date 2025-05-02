@@ -72,7 +72,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
-
+const isDesktopView = isDesktop();
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
   totalItems: Number,
