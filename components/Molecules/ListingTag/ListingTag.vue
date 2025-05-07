@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { TagType } from "~/enum/tag.enum";
-import type { ListingTagProps } from "~/types/listingTag.type";
+import type { ListingTag } from "~/types/listingTag.type";
 import type { TagCode } from "~/types/tagCode.type";
 
 const activeTagIndex = ref(-1);
@@ -19,7 +19,7 @@ const emit = defineEmits(["handleTagClick"]);
 
 const props = defineProps({
   tags: {
-    type: Array as PropType<ListingTagProps[]>,
+    type: Array as PropType<ListingTag[]>,
     default: () => [],
   },
   title: {
