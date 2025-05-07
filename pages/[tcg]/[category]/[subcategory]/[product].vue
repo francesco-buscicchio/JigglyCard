@@ -1,4 +1,9 @@
 <template>
+  <MoleculesToastMessage
+    :text="t('productHero.addToCartToast')"
+    type="success"
+    :trigger-key="toastKey"
+  />
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
@@ -33,7 +38,11 @@
         :quantity="product.quantity"
       />
 
-      <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
+      <AtomsButtonCTA
+        type="primary"
+        :text="t('productHero.AddToCart')"
+        @button-clicked="addToCart"
+      >
         <Icon name="jig:cart-white" size="30"></Icon>
       </AtomsButtonCTA>
 
@@ -86,6 +95,7 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
+const toastKey = ref(0);
 
 onMounted(async () => {
   fetchData();
@@ -205,5 +215,9 @@ const handleTagClickCondition = (code: TagCode): void => {
       type: tagType,
     };
   });
+};
+
+const addToCart = () => {
+  toastKey.value++;
 };
 </script>
