@@ -2,5 +2,9 @@
   "nuxt.isNuxtApp": false,
   "i18n-ally.localesPaths": ["locales"],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.sourceLanguage": "it"
+  "i18n-ally.sourceLanguage": "it",
+  "sonarlint.connectedMode.project": {
+    "connectionId": "http-localhost-9000-",
+    "projectKey": "jigglycard"
+  }
 }

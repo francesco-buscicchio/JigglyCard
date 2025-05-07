@@ -1,17 +1,15 @@
-import { TagType } from "~/components/Atoms/Tag/tag.types";
-import type {
-  Language,
-  ListingTagProps,
-  TagCode,
-  TagCondition,
-  TagStructure,
-  VariantDetail,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
 import {
   availableConditions,
   availableLanguages,
   preferredLanguageOrder,
 } from "~/data/const";
+import type { Language } from "~/enum/language.enum";
+import { TagType } from "~/enum/tag.enum";
+import type { TagCondition } from "~/enum/tagCondition.enum";
+import type { VariantDetail } from "~/interface/variantDetail.interface";
+import type { ListingTagProps } from "~/types/listingTag.type";
+import type { TagCode } from "~/types/tagCode.type";
+import type { TagStructure } from "~/types/tagStructure.type";
 
 export const createTagLanguage = (
   tagsStructure: TagStructure[]
@@ -22,7 +20,7 @@ export const createTagLanguage = (
     .filter((lang) => tagsStructure.some((item) => item.language === lang))
     .map((lang) => ({
       code: lang,
-      name: languageMap.get(lang) || lang,
+      name: languageMap.get(lang) ?? lang,
       conditions:
         tagsStructure.find((item) => item.language === lang)?.conditions || [],
     }));
@@ -52,14 +50,14 @@ export const createTagCondition = (
       const index = activeConditions.indexOf(cond);
       return {
         type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
-        text: conditionMap.get(cond) || cond,
-        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
+        text: conditionMap.get(cond) ?? cond,
+        code: findCodeByText(conditionMap.get(cond) ?? cond) as TagCondition,
       };
     } else {
       return {
         type: TagType.DISABLED,
-        text: conditionMap.get(cond) || cond,
-        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
+        text: conditionMap.get(cond) ?? cond,
+        code: findCodeByText(conditionMap.get(cond) ?? cond) as TagCondition,
       };
     }
   });
@@ -111,7 +109,7 @@ export const createTagsStructure = (query: any): TagStructure[] => {
   const tagStructures: TagStructure[] = Object.entries(grouped).map(
     ([lang, conditionsSet]) => ({
       language: lang as TagStructure["language"],
-      conditions: Array.from(conditionsSet!) as TagStructure["conditions"],
+      conditions: Array.from(conditionsSet),
     })
   );
 

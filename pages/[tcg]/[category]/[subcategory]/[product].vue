@@ -1,4 +1,9 @@
 <template>
+  <MoleculesToastMessage
+    :text="t('productHero.addToCartToast')"
+    type="success"
+    :trigger-key="toastKey"
+  />
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
@@ -118,14 +123,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
-import { algoliasearch } from "algoliasearch";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
-import {
-  type ListingTagProps,
-  type TagCode,
-  type TagStructure,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "~/components/Atoms/Tag/tag.types";
 import {
   activateLanguage,
   createTagCondition,
@@ -133,7 +131,11 @@ import {
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ProductType } from "~/types/product.type";
+import type { ListingTagProps } from "~/types/listingTag.type";
+import type { TagStructure } from "~/types/tagStructure.type";
+import type { TagCode } from "~/types/tagCode.type";
+import { TagType } from "~/enum/tag.enum";
+import type { ProductType } from "~/types/productType.type";
 
 const product = ref();
 const { t } = useI18n();
@@ -141,6 +143,7 @@ const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
+const toastKey = ref(0);
 const isMobileView = isMobile();
 
 onMounted(async () => {
@@ -244,14 +247,26 @@ const handleTagClickCondition = (code: TagCode): void => {
     );
     handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
   }
-  tagsCondition.value = tagsCondition.value.map((tag) => ({
-    ...tag,
-    type:
-      tag.type === TagType.DISABLED
-        ? TagType.DISABLED
-        : tag.code === code
-        ? TagType.ACTIVE
-        : TagType.INACTIVE,
-  }));
+
+  tagsCondition.value = tagsCondition.value.map((tag) => {
+    let tagType;
+
+    if (tag.type === TagType.DISABLED) {
+      tagType = TagType.DISABLED;
+    } else if (tag.code === code) {
+      tagType = TagType.ACTIVE;
+    } else {
+      tagType = TagType.INACTIVE;
+    }
+
+    return {
+      ...tag,
+      type: tagType,
+    };
+  });
+};
+
+const addToCart = () => {
+  toastKey.value++;
 };
 </script>

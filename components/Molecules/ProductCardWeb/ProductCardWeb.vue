@@ -20,7 +20,7 @@
           </h5>
           <p class="text-lg">{{ code }}</p>
           <p class="text-lg">{{ expansion }}</p>
-          <label class="text-xs"
+          <label class="text-xs" for="price"
             >{{ t("startingFrom") }}
             <p
               class="ml-1 xl:ml-4 lg:ml-2 font-bold inline text-base xl:text-2xl"
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProductCard } from "~/types/product.type";
+import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
 const props = defineProps<ProductCard>();
