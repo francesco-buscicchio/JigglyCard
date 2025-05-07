@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div>
     <div class="border-b pb-2">
       <h5>{{ t("recapCart") }}</h5>
     </div>

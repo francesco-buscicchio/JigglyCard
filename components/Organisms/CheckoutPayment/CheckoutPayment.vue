@@ -1,6 +1,6 @@
 <template>
-  <h5>Modalita di pagamento</h5>
-  <div>
+  <h5 class="mb-2">Modalita di pagamento</h5>
+  <div class="my-3">
     <AtomsRadioButton
       :value="{ id: 'credit-card' }"
       name="payment"
@@ -20,7 +20,7 @@
       </AtomsButtonCTA>
     </div>
   </div>
-  <div>
+  <div class="my-3">
     <AtomsRadioButton
       :value="{ id: 'paypal' }"
       name="payment"
@@ -39,7 +39,7 @@
       </AtomsButtonCTA>
     </div>
   </div>
-  <div>
+  <div class="my-3">
     <AtomsRadioButton
       :value="{ id: 'wire-transfer' }"
       name="payment"

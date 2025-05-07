@@ -1,19 +1,30 @@
 <template>
-  <MoleculesBreadcrumb />
-  <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
+  <div class="px-5">
+    <MoleculesBreadcrumb />
+    <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
+    <h4 class="py-4">{{ t("shippingInfo") }}</h4>
 
-  <OrganismsCheckoutForm @updateFormValues="updateFormData" />
-  <OrganismsSelectOptions
-    :shipping-options="shippingOptions"
-    @update:selectedOption="updateSelectedOption"
-  />
-  <OrganismsCartSummary
-    :products="mockProducts"
-    :shipping-cost="selectedShippingOption?.price || 0"
-  />
+    <div class="mb-6">
+      <OrganismsCheckoutForm @updateFormValues="updateFormData" />
+    </div>
 
-  <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
+    <div class="my-6">
+      <OrganismsSelectOptions
+        :shipping-options="shippingOptions"
+        @update:selectedOption="updateSelectedOption"
+      />
+    </div>
+
+    <div class="my-6">
+      <OrganismsCartSummary
+        :products="mockProducts"
+        :shipping-cost="selectedShippingOption?.price || 0"
+      />
+    </div>
+    <div class="my-6">
+      <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
