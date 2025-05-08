@@ -1,14 +1,14 @@
 <template>
   <div class="bg-accent-50 rounded-lg w-[400px]">
     <div class="flex items-center justify-center py-10">
-      <h5>{{ $t("filters") }}</h5>
+      <h5>{{ t("filters") }}</h5>
     </div>
 
     <div>
       <div v-for="category of filterCategories" :key="category.objectID">
         <MoleculesAccordion>
           <template #header>
-            <p>{{ $t(`filter.${category.name}`) }}</p>
+            <p>{{ t(`filter.${category.name}`) }}</p>
           </template>
           <div
             v-for="(item, index) of category.value"
@@ -24,7 +24,7 @@
                 "
                 class="mr-6 bg-white custom-checkbox"
               />
-              <p class="text-left">{{ $t(`filter.${item.name}`) }}</p>
+              <p class="text-left">{{ t(`filter.${item.name}`) }}</p>
             </div>
           </div>
         </MoleculesAccordion>
@@ -32,9 +32,9 @@
 
       <!-- Slider Prezzo -->
       <div class="mx-6 mt-4">
-        <p>{{ $t("price") }}</p>
+        <p>{{ t("price") }}</p>
         <div class="flex items-center justify-center whitespace-nowrap mt-2">
-          <span class="mr-2 w-20">{{ $t("da") }} {{ selectedMinPrice }}</span>
+          <span class="mr-2 w-20">{{ t("da") }} {{ selectedMinPrice }}</span>
           <MoleculesSlider
             :min="0"
             :max="5000"
@@ -43,13 +43,13 @@
             @update:minPrice="updateMinPrice($event)"
             @update:maxPrice="updateMaxPrice($event)"
           />
-          <span class="ml-2 w-20">{{ $t("a") }} {{ selectedMaxPrice }}</span>
+          <span class="ml-2 w-20">{{ t("a") }} {{ selectedMaxPrice }}</span>
         </div>
       </div>
 
       <!-- Input Prezzo -->
       <div class="flex items-center my-6">
-        <p class="ml-12 mr-6">{{ $t("min") }}</p>
+        <p class="ml-12 mr-6">{{ t("min") }}</p>
         <AtomsInputText
           class="w-20"
           v-model="selectedMinPrice"
@@ -59,7 +59,7 @@
         />
       </div>
       <div class="flex items-center">
-        <p class="ml-12 mr-6">{{ $t("max") }}</p>
+        <p class="ml-12 mr-6">{{ t("max") }}</p>
         <AtomsInputText
           class="w-20"
           v-model="selectedMaxPrice"
@@ -78,10 +78,10 @@
           type="text"
           @click="resetAllFilters"
         >
-          <p class="text-base">{{ $t("deleteAllFilters") }}</p>
+          <p class="text-base">{{ t("deleteAllFilters") }}</p>
         </AtomsButtonCTA>
         <AtomsButtonCTA @click="applyFilters">
-          <h5>{{ $t("apply") }}</h5>
+          <h5>{{ t("apply") }}</h5>
         </AtomsButtonCTA>
       </div>
     </div>
@@ -91,6 +91,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
+const { t } = useI18n();
 const props = defineProps({
   filters: Array<String>,
 });
