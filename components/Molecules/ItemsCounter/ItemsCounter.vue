@@ -22,17 +22,15 @@ const props = defineProps({
   },
 });
 
-const itemsPerPage = computed(() => {
-  return isDesktopView.value ? ITEMS_FOR_PAGE_WEB : ITEMS_FOR_PAGE_MOBILE;
-});
-
 const startItem = computed(() => {
   return (props.page - 1) * itemsForPage.value + 1;
 });
 
 const endItem = computed(() => {
-  if (props.page * itemsForPage.value > props.totalItems)
-    return props.totalItems;
-  else return props.page * itemsForPage.value;
+  const currentEndItem = props.page * itemsForPage.value > props.totalItems
+    ? props.totalItems
+    : props.page * itemsForPage.value;
+  return currentEndItem;
 });
+
 </script>
