@@ -42,9 +42,7 @@
       colorScheme="lightHome"
     />
 
-    <div class="px-4 pb-4">
-      <OrganismsServiceBanner />
-    </div>
+    <OrganismsServiceBanner />
   </div>
 </template>
 

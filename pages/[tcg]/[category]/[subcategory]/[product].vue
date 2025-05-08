@@ -116,7 +116,7 @@
       colorScheme="lightHome"
     />
 
-    <OrganismsServiceBanner class="mb-18" />
+    <OrganismsServiceBanner />
   </div>
 </template>
 

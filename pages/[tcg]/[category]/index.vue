@@ -59,9 +59,7 @@
           />
         </div>
       </div>
-      <div class="pb-10">
-        <OrganismsServiceBanner />
-      </div>
+      <OrganismsServiceBanner />
     </div>
   </div>
 </template>
