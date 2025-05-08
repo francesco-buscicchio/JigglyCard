@@ -79,7 +79,7 @@ import {
   ITEMS_FOR_PAGE_DESKTOP,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
 const products: Ref<ProductType[]> = ref([]);
@@ -97,16 +97,7 @@ const isDesktopView = isDesktop();
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   calculateFilterString();
-  window.addEventListener("resize", updateWindowWidth);
 });
-
-onUnmounted(() => {
-  window.removeEventListener("resize", updateWindowWidth);
-});
-
-const ITEMS_FOR_PAGE = computed(() =>
-  windowWidth.value < VIEWPORTS.LG ? ITEMS_FOR_PAGE_MOBILE : ITEMS_FOR_PAGE_WEB
-);
 
 function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
@@ -212,8 +203,4 @@ function setProducts(queryResult: any) {
 
   totalItems.value = queryResult.nbHits;
 }
-
-const updateWindowWidth = () => {
-  windowWidth.value = window.innerWidth;
-};
 </script>
