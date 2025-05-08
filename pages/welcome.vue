@@ -22,7 +22,7 @@
       <div class="px-5 lg:pr-20 order-1 lg:order-2 w-full lg:w-2/3">
         <img
           :src="Mainimg"
-          alt="Main Image"
+          alt="Team Rocket Jigglypuff"
           class="w-full h-auto object-contain"
         />
       </div>

@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter, type RouteLocation } from "vue-router";
+import { useRouter } from "vue-router";
 import "swiper/swiper-bundle.css";
 import type { PropType } from "vue";
-import type { ProductType } from "~/components/Organisms/ProductCarousel/ProductCarousel.vue";
+import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   slides: {

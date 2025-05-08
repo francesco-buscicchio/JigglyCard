@@ -11,7 +11,13 @@
 </template>
 
 <script setup>
-import { ITEMS_FOR_PAGE_MOBILE } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
+
+const isDesktopView = isDesktop();
+
+const itemsForPage = computed(() => {
+  return isDesktopView ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
+});
 
 const props = defineProps({
   totalItems: Number,
@@ -19,12 +25,12 @@ const props = defineProps({
 });
 
 const startItem = computed(() => {
-  return (props.currentPage - 1) * ITEMS_FOR_PAGE_MOBILE + 1;
+  return (props.currentPage - 1) * itemsForPage.value + 1;
 });
 
 const endItem = computed(() => {
-  if (props.currentPage * ITEMS_FOR_PAGE_MOBILE > props.totalItems)
+  if (props.currentPage * itemsForPage.value > props.totalItems)
     return props.totalItems;
-  else return props.currentPage * ITEMS_FOR_PAGE_MOBILE;
+  else return props.currentPage * itemsForPage.value;
 });
 </script>

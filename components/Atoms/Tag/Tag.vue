@@ -10,14 +10,12 @@
 
 <!-- TODO mettere traduzioni per le lingue -->
 <script setup lang="ts">
-import type { TagCode } from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "./tag.types";
-
-type TagTypeValues = `${TagType}`;
+import { TagType } from "~/enum/tag.enum";
+import type { TagCode } from "~/types/tagCode.type";
 
 const props = defineProps({
   type: {
-    type: String as () => TagTypeValues,
+    type: String as () => TagType,
     default: "active",
     validator: (value: TagType) =>
       [TagType.ACTIVE, TagType.INACTIVE, TagType.DISABLED].includes(value),

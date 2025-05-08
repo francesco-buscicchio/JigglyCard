@@ -41,7 +41,7 @@
           <input
             type="text"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-            :placeholder="$t('search') + '...'"
+            :placeholder="t('search') + '...'"
             @input="onSearchInput($event)"
           />
           <span
@@ -71,7 +71,7 @@
           <p
             class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
           >
-            {{ $t("no_results") }}
+            {{ t("no_results") }}
           </p>
         </div>
       </div>
@@ -81,14 +81,16 @@
 
 <script lang="ts" setup>
 import { PATH } from "~/data/const";
-import type { Hit } from "~/types/product.type";
+import type { Hit } from "~/interface/hit.interface";
+import type { HeaderProps } from "~/types/headerPropsType.type";
 
+const { t } = useI18n();
 type HeaderPropsType = {
   cartCount: number;
 };
 
 const props = defineProps<{
-  header: HeaderPropsType;
+  header: HeaderProps;
   productSearch: Hit[];
   isSearchOpen: boolean;
   noResults: boolean;

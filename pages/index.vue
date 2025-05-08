@@ -6,13 +6,13 @@
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="$t('highlights')"
+      :title="t('highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('highlights')"
+      :title="t('highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
@@ -23,21 +23,21 @@
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('whatsnew')"
+      :title="t('whatsnew')"
       :products="novita"
       colorScheme="primaryHome"
     />
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="$t('deals')"
+      :title="t('deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -57,8 +57,8 @@ import {
   HEROBANNER_TAG,
 } from "~/data/const";
 import type { ProductType } from "../types/product.type";
-const { t } = useI18n();
 
+const { t } = useI18n();
 const config = useRuntimeConfig();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
@@ -94,38 +94,69 @@ onMounted(async () => {
 
 function setProducts(queryResult: any) {
   const heroBannerTemp: ProductType[] = [];
-  for (let hit of queryResult.hits) {
-    const obj = {
-      id: hit.objectID,
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-    };
 
-    for (let tag of hit.tags) {
-      switch (tag) {
-        case HIGHLIGHTS_TAG:
-          if (evidenza.value.length < 5) evidenza.value.push(obj);
-          break;
-        case WHATSNEW_TAG:
-          if (novita.value.length < 5) novita.value.push(obj);
-          break;
-        case DEALS_TAG:
-          if (offerte.value.length < 5) offerte.value.push(obj);
-          break;
-        case HEROBANNER_TAG:
-          heroBannerTemp.push(obj);
-          break;
-      }
+  for (let hit of queryResult.hits) {
+    const product = createProductObj(hit);
+    processTags(hit.tags, product, heroBannerTemp);
+  }
+
+  setHeroBanner.value = heroBannerTemp.slice(-3);
+}
+
+function createProductObj(hit: any): ProductType {
+  return {
+    id: hit.objectID,
+    productName: hit.name,
+    code: hit.code ? `(${hit.code})` : "",
+    expansion: hit.expansion || "N.A.",
+    price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
+    imageUrl:
+      hit.thumbnailImage ||
+      (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+    tcg: hit.tcg,
+    category: hit.type,
+  };
+}
+
+function processTags(
+  tags: string[],
+  product: ProductType,
+  heroBannerTemp: ProductType[]
+) {
+  for (let tag of tags) {
+    switch (tag) {
+      case HIGHLIGHTS_TAG:
+        addToEvidenza(product);
+        break;
+      case WHATSNEW_TAG:
+        addToNovita(product);
+        break;
+      case DEALS_TAG:
+        addToOfferte(product);
+        break;
+      case HEROBANNER_TAG:
+        heroBannerTemp.push(product);
+        break;
     }
   }
-  setHeroBanner.value = heroBannerTemp.slice(-3);
+}
+
+function addToEvidenza(product: ProductType) {
+  if (evidenza.value.length < 5) {
+    evidenza.value.push(product);
+  }
+}
+
+function addToNovita(product: ProductType) {
+  if (novita.value.length < 5) {
+    novita.value.push(product);
+  }
+}
+
+function addToOfferte(product: ProductType) {
+  if (offerte.value.length < 5) {
+    offerte.value.push(product);
+  }
 }
 
 useHead({

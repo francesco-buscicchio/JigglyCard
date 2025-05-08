@@ -16,12 +16,12 @@
             ref="productNameRef"
             class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
           >
-            {{ productName }}
+            {{ formatProductName(productName) }}
           </h5>
           <p class="text-lg">{{ code }}</p>
           <p class="text-lg">{{ expansion }}</p>
-          <label class="text-xs"
-            >{{ $t("startingFrom") }}
+          <label class="text-xs" for="price"
+            >{{ t("startingFrom") }}
             <p
               class="ml-1 xl:ml-4 lg:ml-2 font-bold inline text-base xl:text-2xl"
             >
@@ -40,7 +40,7 @@
       <div class="mt-12">
         <AtomsButtonCTA
           :type="buttonCtaType"
-          :text="$t('showDetails')"
+          :text="t('showDetails')"
           v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
         />
       </div>
@@ -49,11 +49,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProductCard } from "~/types/product.type";
+import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
 // TODO: separare le props in un file separato
 const props = defineProps<ProductCard>();
 
+const { t } = useI18n();
 const productNameRef = ref<HTMLElement | null>(null);
 const isProductNameOverflowing = ref(false);
 

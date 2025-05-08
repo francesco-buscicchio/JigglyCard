@@ -1,0 +1,6 @@
+projectKey=jigglycard
+serverUrl=http://localhost:9000
+serverVersion=25.4.0.105899
+dashboardUrl=http://localhost:9000/dashboard?id=jigglycard
+ceTaskId=fc0b74e7-dde4-4fab-bdac-664357c2afd5
+ceTaskUrl=http://localhost:9000/api/ce/task?id=fc0b74e7-dde4-4fab-bdac-664357c2afd5

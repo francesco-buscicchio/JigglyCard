@@ -70,22 +70,21 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_WEB } from "~/data/const";
+import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
 
+const isDesktopView = isDesktop();
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
   totalItems: Number,
   currentPage: Number,
 });
-const isDesktopView = isDesktop(); 
 
-const itemsPerPage = computed(() => {
-  return isDesktopView.value ? ITEMS_FOR_PAGE_WEB : ITEMS_FOR_PAGE_MOBILE;
+const itemsForPage = computed(() => {
+  return isDesktopView ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
 });
 
 const totalPages = computed(() =>
-  Math.ceil(props.totalItems / itemsPerPage.value)
+  Math.ceil(props.totalItems / itemsForPage.value)
 );
 
 function changePage(page) {
@@ -94,5 +93,3 @@ function changePage(page) {
   emit("currentPage", page);
 }
 </script>
-
-<style scoped></style>

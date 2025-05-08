@@ -21,7 +21,7 @@ export const availableConditions = [
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
 export const ITEMS_FOR_PAGE_MOBILE = 9;
-export const ITEMS_FOR_PAGE_WEB = 12;
+export const ITEMS_FOR_PAGE_DESKTOP = 12;
 // TODO: controllare se le route sono corrette
 export const FOOTER_MENU_ITEMS = [
   { link: "about", route: "/about" },

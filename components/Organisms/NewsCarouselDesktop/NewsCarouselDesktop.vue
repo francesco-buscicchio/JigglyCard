@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center bg-accent-500 text-white py-30">
-    <h2 class="mb-18">{{ $t("whatsnew") }}</h2>
+    <h2 class="mb-18">{{ t("whatsnew") }}</h2>
     <div class="flex w-[100vw] justify-center">
       <button
         @click="prev"
@@ -61,6 +61,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import type { Swiper } from "swiper/types";
 
+const { t } = useI18n();
 const props = defineProps({
   products: {
     type: Array<ProductType>,

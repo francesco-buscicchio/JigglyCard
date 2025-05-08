@@ -19,7 +19,8 @@
     "Quantity": "Quantità",
     "AddToCart": "aggiungi al carrello",
     "BuyWithPaypal": "Acquista con PayPal",
-    "Description": "Descrizione"
+    "Description": "Descrizione",
+    "addToCartToast": "Prodotto aggiunto al carrello con successo"
   },
   "prestoOnline": "We're coming",
   "sconto10": "Sconto del 10%",
@@ -34,6 +35,7 @@
   "captionNewsletterShort": "Resta aggiornato con un click senza riempire la tua casella di posta. Iscriviti per un 15% di sconto sul primo acquisto di articoli non in promozione!",
   "buttonNewsLetter": "Iscriviti",
   "footerNewsLetter": "Inserendo la mail verrai inserito nei nostri sistemi cosi da tenerti aggiornato sulle novita e sugli sconti",
+  "toastNewsletter": "Iscrizione avvenuta con successo",
   "startingFrom": "a partire da",
   "privacy": "privacy",
   "cookies": "cookies",
@@ -171,5 +173,6 @@
     "pieces": "pezzi"
   },
   "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
-  "suggested": "Questi li hai visti?"
+  "suggested": "Questi li hai visti?",
+  "gratis": "Gratis"
 }
