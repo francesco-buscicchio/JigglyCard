@@ -7,50 +7,98 @@
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
-    <!-- Product -->
-    <MoleculesProductPageHero
-      :image="product.imageUrl"
-      :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)"
-      :expansion="product.expansion"
-    />
+    <!-- Mobile -->
+    <div v-if="isMobileView">
+      <!-- Product -->
+      <MoleculesProductPageHero
+        :image="product.imageUrl"
+        :title="formatTitle(product.productName)"
+        :code="extractCardCode(product.productName)"
+        :expansion="product.expansion"
+      />
 
-    <!-- Listing tags -->
-    <div class="flex flex-col gap-8 mb-7">
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickLanguage"
-        :tags="tagsLanguage"
-        :title="t('filter.language')"
-        v-if="tagsLanguage.length"
-      />
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickCondition"
-        :tags="tagsCondition"
-        :title="t('filter.condition')"
-        v-if="tagsCondition.length"
-      />
+      <!-- Listing tags -->
+      <div class="flex flex-col gap-8 mb-7">
+        <MoleculesListingTag
+          @handle-tag-click="handleTagClickLanguage"
+          :tags="tagsLanguage"
+          :title="t('filter.language')"
+          v-if="tagsLanguage.length"
+        />
+        <MoleculesListingTag
+          @handle-tag-click="handleTagClickCondition"
+          :tags="tagsCondition"
+          :title="t('filter.condition')"
+          v-if="tagsCondition.length"
+        />
+      </div>
+
+      <div class="flex flex-col gap-12">
+        <OrganismsProductQuantityActions
+            :price="product.price"
+            :quantity="product.quantity"
+          />
+
+        <MoleculesTextViewer>
+          <template v-slot:content>
+            descrizione: {{ t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
+    
+    <!-- Desktop -->
+    <div v-if="isDesktopView">
+      <div class="flex gap-20 my-12 xl:ml-[14vw]">
+        <div>
+          <img
+            :src="product.imageUrl"
+            class="w-[400px] shadow-xl rounded-2xl"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
+            <div>
+              <h1 class="text-accent-500">
+                {{ formatTitle(product.productName) }}
+              </h1>
+              <p v-if="product.productName" class="pt-2">
+                {{ extractCardCode(product.productName) }}
+              </p>
+              <p class="pt-2">{{ product.expansion }}</p>
+            </div>
+            <!-- Listing tags -->
 
-    <!-- Select quantity, Add to Cart CTA  and Description-->
-    <div class="flex flex-col gap-12">
-      <OrganismsQuantitySelect
-        :price="product.price"
-        :quantity="product.quantity"
-      />
+            <MoleculesListingTag
+              @handle-tag-click="handleTagClickLanguage"
+              :tags="tagsLanguage"
+              :title="t('filter.language')"
+              v-if="tagsLanguage.length"
+            />
+            <MoleculesListingTag
+              @handle-tag-click="handleTagClickCondition"
+              :tags="tagsCondition"
+              :title="t('filter.condition')"
+              v-if="tagsCondition.length"
+            />
+          </div>
 
-      <AtomsButtonCTA
-        type="primary"
-        :text="t('productHero.AddToCart')"
-        @button-clicked="addToCart"
-      >
-        <Icon name="jig:cart-white" size="30"></Icon>
-      </AtomsButtonCTA>
-
-      <MoleculesTextViewer>
-        <template v-slot:content>
-          descrizione: {{ t("defaultDescription") }}
-        </template>
-      </MoleculesTextViewer>
+          <OrganismsProductQuantityActions
+            :price="product.price"
+            :quantity="product.quantity"
+          />
+        </div>
+      </div>
+      <div class="xl:mx-[14vw] my-18">
+        <MoleculesTextViewer>
+          <template v-slot:title>
+            {{ t("productHero.Description") }}
+          </template>
+          <template v-slot:content>
+            {{ t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
 
     <!-- Deals Carousel -->
@@ -96,6 +144,7 @@ const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
 const toastKey = ref(0);
+const isMobileView = isMobile();
 
 onMounted(async () => {
   fetchData();

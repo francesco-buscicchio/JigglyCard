@@ -1,22 +1,17 @@
 <template>
-  <div>
-    <p class="mb-4">{{ title }}:</p>
-    <div class="flex gap-3 flex-wrap">
-      <div v-if="tags.length" v-for="(tag, index) in tags">
-        <AtomsTag
-          :text="tag.text"
-          :type="getTagType(index)"
-          :code="tag.code"
-          @tagClicked="handleTagClick"
-        />
-      </div>
+    <div>
+        <p class="mb-4 lg:mb-2">{{ title }}:</p>
+        <div class="flex gap-3 flex-wrap">
+            <div v-if="tags.length" v-for="(tag, index) in tags">
+                <AtomsTag :text="tag.text" :type="getTagType(index)" :code="tag.code" @tagClicked="handleTagClick" />
+            </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
 import { TagType } from "~/enum/tag.enum";
-import type { ListingTagProps } from "~/types/listingTag.type";
+import type { ListingTag } from "~/types/listingTag.type";
 import type { TagCode } from "~/types/tagCode.type";
 
 const activeTagIndex = ref(-1);
@@ -24,7 +19,7 @@ const emit = defineEmits(["handleTagClick"]);
 
 const props = defineProps({
   tags: {
-    type: Array as PropType<ListingTagProps[]>,
+    type: Array as PropType<ListingTag[]>,
     default: () => [],
   },
   title: {
