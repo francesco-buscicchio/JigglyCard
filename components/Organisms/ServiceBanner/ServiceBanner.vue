@@ -60,14 +60,18 @@
               </div>
               <div v-if="Array.isArray(section.sections)">
                 <div v-for="(item, index) in section.sections" :key="index">
-                  <label v-if="typeof item === 'object'" class="line-clamp-3">
+                  <label
+                    v-if="typeof item === 'object'"
+                    class="line-clamp-3"
+                    for="item.value"
+                  >
                     <a :href="item.link">{{ item.value }}</a>
                   </label>
                   <label v-else class="line-clamp-3">{{ item }}</label>
                 </div>
               </div>
               <div v-else>
-                <label>{{ section.sections }}</label>
+                <label for="section.sections">{{ section.sections }}</label>
               </div>
             </div>
           </div>

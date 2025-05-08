@@ -81,7 +81,8 @@
 
 <script lang="ts" setup>
 import { PATH } from "~/data/const";
-import type { Hit } from "~/types/product.type";
+import type { Hit } from "~/interface/hit.interface";
+import type { HeaderProps } from "~/types/headerPropsType.type";
 
 const { t } = useI18n();
 type HeaderPropsType = {
@@ -89,7 +90,7 @@ type HeaderPropsType = {
 };
 
 const props = defineProps<{
-  header: HeaderPropsType;
+  header: HeaderProps;
   productSearch: Hit[];
   isSearchOpen: boolean;
   noResults: boolean;
