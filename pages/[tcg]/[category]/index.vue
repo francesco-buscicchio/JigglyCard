@@ -117,11 +117,6 @@ function calculateFilterString(e?: any) {
           .map((available: string) => `available:"${available}"`)
           .join(" OR ")
       : "";
-// Non ho capito questa parte
-    // filter += languageFilters.length += ` AND (${languageFilters})`;
-    // filter += conditionFilters.length += ` AND (${conditionFilters})`;
-    // filter += brandFilter.length += ` AND (${brandFilter})`;
-    // filter += availableFilter.length += ` AND (${availableFilter})`;
 
     languageFilters.length && (filter += ` AND (${languageFilters})`);
     conditionFilters.length && (filter += ` AND (${conditionFilters})`);
