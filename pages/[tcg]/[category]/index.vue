@@ -28,7 +28,7 @@
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
         <div class="flex flex-row items-center gap-x-2 lg:mr-27">
-          <p>{{ $t("pageSorting.sortBy") }}</p>
+          <p>{{ t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
