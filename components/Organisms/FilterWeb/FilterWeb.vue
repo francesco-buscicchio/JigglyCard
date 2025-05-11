@@ -107,17 +107,18 @@ watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
 });
+
 function updateSelectedFilters() {
   resetAllFilters();
-  if (filterList.value.length) {
-    for (let filter of filterCategories.value) {
-      for (let value of filter.value) {
-        if (filterList.value.includes(value.name)) {
-          value.checked = true;
+  filterList.value.forEach((filterName) => {
+    filterCategories.value.forEach((category: { value: any[] }) => {
+      category.value.forEach((filter) => {
+        if (filter.name === filterName) {
+          filter.checked = true;
         }
-      }
-    }
-  }
+      });
+    });
+  });
 }
 
 onMounted(async () => {
