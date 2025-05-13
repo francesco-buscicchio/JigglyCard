@@ -27,48 +27,54 @@ const variantsIndex = client.collection("variants");
 createProductsOnStrapi();
 
 async function createProductsOnStrapi() {
-  //const { expansions, categories, products } = await getAllData();
+  const { expansions, categories, products } = await getAllData();
+  for (let product of products.data) {
+    const categoryID = product.category_id;
+    const categoryExists = await categoriesIndex.find({
+      locale: "en",
+      populate: "*",
+      filters: {
+        cardtraderID: {
+          $eq: categoryID,
+        },
+      },
+    });
 
-  const categoryExists = await variantsIndex.find({
-    locale: "en",
-  });
+    if (categoryExists.data.length === 0) {
+      const category = categories.data.find((cat) => cat.id === categoryID);
+      const categoryData = {
+        name: category.name,
+        cardtraderID: category.id.toString(),
+        slug: category.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+        description: "",
+      };
+      try {
+        await categoriesIndex.create(categoryData);
+      } catch (e) {
+        const errorBody = await e.response.json();
+        console.log("Error creating category:", errorBody);
+      }
+    }
 
-  const document = await strapi.documents("api::variant.variant").findOne({
-    documentId: "a1b2c3d4e5f6g7h8i9j0klm",
-  });
-  console.log(categoryExists);
-  console.log(document);
-  // for (let product of products) {
-  //   const categoryID = product.category_id;
-  //   // const categoryExists = await categoriesIndex.find({
-  //   //   locale: "en",
-  //   //   cardtraderID: categoryID,
-  //   // });
+    /*
+    const result = await productsIndex.find({
+      locale: "en",
+      code: "160",
+    });
+    console.log(result);
+    const { expansions, categories, products } = await getAllData();
 
-  //   // if (categoryExists.length === 0) {
-  //   //   const category = categories.find((cat) => cat.id === categoryID);
-  //   //   const categoryData = {
-  //   //     name: category.name,
-  //   //     cardtraderID: category.id,
-  //   //     createdAt: new Date(),
-  //   //     updatedAt: new Date(),
-  //   //   };
-  //   //   await categoriesIndex.create(categoryData);
-  //   // }
+    for(let product of products){
+      const obj = {
 
-  //   // const result = await productsIndex.find({
-  //   //   locale: "en",
-  //   //   code: "160",
-  //   // });
-  //   // console.log(result);
-  //   //const { expansions, categories, products } = await getAllData();
-
-  //   // for(let product of products){
-  //   //   const obj = {
-
-  //   //   }
-  //   // }
-  // }
+      }
+    }
+      */
+  }
 }
 
 async function getAllData() {
