@@ -6,14 +6,9 @@
   >
     <header class="flex flex-col p-5 bg-white shadow-md px-18">
       <div class="flex justify-between items-center">
-        <h2 @click="navigation(PATH.HOME)" class="text-accent-950">
-          Jigglycard
-        </h2>
+        <h2 @click="goTo(PATH.HOME)" class="text-accent-950">Jigglycard</h2>
         <div class="flex flex-row gap-x-4">
-          <button
-            v-for="(item, index) of headerMenu"
-            @click="navigation(item.to)"
-          >
+          <button v-for="(item, index) of headerMenu" @click="goTo(item.to)">
             <h5 class="text-accent-950 text-lg">
               {{ item.name }}
             </h5>
@@ -81,6 +76,7 @@
 
 <script lang="ts" setup>
 import { PATH } from "~/data/const";
+import { goTo } from "@/utils/navigationUtils";
 import type { Hit } from "~/interface/hit.interface";
 import type { HeaderProps } from "~/types/headerPropsType.type";
 
@@ -109,10 +105,6 @@ const emit = defineEmits([
   "closeSearch",
   "updateSearch",
 ]);
-
-const navigation = (path: string) => {
-  navigateTo(path);
-};
 
 const toggleSearch = () => {
   emit("toggleSearch");
