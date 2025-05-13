@@ -1,10 +1,10 @@
 <template>
-  <p>{{ `${startItem}-${endItem} ${$t("of")} ${totalItems}` }}</p>
+  <p>{{ `${startItem}-${endItem} ${t("of")} ${totalItems}` }}</p>
 </template>
 
 <script lang="ts" setup>
 import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
-
+const { t } = useI18n();
 const isDesktopView = isDesktop();
 
 const itemsForPage = computed(() => {
@@ -27,8 +27,10 @@ const startItem = computed(() => {
 });
 
 const endItem = computed(() => {
-  if (props.page * itemsForPage.value > props.totalItems)
-    return props.totalItems;
-  else return props.page * itemsForPage.value;
+  const currentEndItem =
+    props.page * itemsForPage.value > props.totalItems
+      ? props.totalItems
+      : props.page * itemsForPage.value;
+  return currentEndItem;
 });
 </script>

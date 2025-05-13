@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import type { PaymentMethod } from "~/types/paymentMethod.type";
 import paypal from "../../../assets/img/paypal.png";
 
 const { t } = useI18n();

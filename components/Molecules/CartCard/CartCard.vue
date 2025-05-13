@@ -42,6 +42,10 @@ const emit = defineEmits(["buttonClicked"]);
 const isMobileview = isMobile();
 
 defineProps({
+  alt: {
+    type: String,
+    required: true,
+  },
   image: {
     type: String,
     required: true,

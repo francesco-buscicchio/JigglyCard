@@ -19,7 +19,8 @@
     "Quantity": "Quantity",
     "AddToCart": "add to cart",
     "BuyWithPaypal": "Buy with PayPal",
-    "Description": "Description"
+    "Description": "Description",
+    "addToCartToast": "Product successfully added to cart"
   },
   "cart": "Cart",
   "routes": {
@@ -76,6 +77,7 @@
   "newsletterEmailValidation": "Please enter a valid email address.",
   "captionNewsletterShort": "Stay up-to-date with a click without filling your inbox. Sign up for 15% off your first purchase of non-promotion items!",
   "footerNewsLetter": "Join our community and take advantage of special offers, straight to your email inbox!",
+  "toastNewsletter": "Subscription completed successfully.",
   "startingFrom": "starting from",
   "privacy": "privacy",
   "cookies": "cookies",

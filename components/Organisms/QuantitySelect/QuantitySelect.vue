@@ -15,11 +15,11 @@
 
       <h2 class="mr-10 lg:mr-0 lg:text-2xl">{{ totalPrice }} €</h2>
     </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
+const isDesktopView = isDesktop();
 const props = defineProps<{
   quantity: number;
   price: number;
@@ -40,10 +40,3 @@ function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
 }
 </script>
-
-<style scoped>
-.price {
-  font-family: "Roboto Flex";
-  font-weight: 600;
-}
-</style>
