@@ -1,5 +1,9 @@
 <template>
-  <div v-for="product of products" class="flex justify-center">
+  <div
+    v-for="product of products"
+    :key="product.id"
+    class="flex justify-center"
+  >
     <MoleculesProductCardWeb
       :productName="product.productName"
       :code="product.code"
@@ -15,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const props = defineProps({
   products: Array as () => ProductType[],
