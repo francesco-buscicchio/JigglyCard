@@ -30,6 +30,7 @@
           </div>
         </MoleculesCartCard>
       </div>
+    </div>
       <div class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20">
       <OrganismsShippingMode :total-cart="totalCart" />
     </div>
