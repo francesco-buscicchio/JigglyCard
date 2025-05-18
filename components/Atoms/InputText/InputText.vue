@@ -46,7 +46,7 @@ const inputClass = computed(() => {
     success: "border-[#84CC16] focus:border-[#84CC16]",
     error: "border-[#DC2626] focus:border-[#DC2626]",
     warning: "border-[#FBBF24] focus:border-[#FBBF24]",
-    newsletter: "border-accent-950 focus:border-accent-950",
+    newsletter: "border-accent-950 focus:border-accent-950 py-3",
     default: "border-accent-950 focus:border-accent-950 bg-transparent",
     disabled:
       "border border-neutrals-500 bg-neutrals-200 focus:border-neutrals-500",
