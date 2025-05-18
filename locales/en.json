@@ -174,5 +174,17 @@
     "pieces": "pieces"
   },
   "suggested": "Did you see this?",
-  "gratis": "Free"
+  "gratis": "Free",
+  "needAssistance": "Need assistance?",
+  "shippingMode": {
+    "shippingMethod": "Shipping method",
+    "message": "*you can choose an other the shipping method at checkout",
+    "couponCode": "Enter the X-digit code",
+    "total": "Total",
+    "couponCodeQuestion": "Do you have a coupon code?",
+    "codeApply": "Apply code",
+    "codeApplyWeb": "apply",
+    "buyCTA": "Proceed to checkout",
+    "goBackProducts": "Go back to products"
+  }
 }
