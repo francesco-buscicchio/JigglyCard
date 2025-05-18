@@ -16,14 +16,14 @@
         <div class="relative w-[70%]">
           <h2
             class="text-accent-950 text-center cursor-pointer"
-            @click="navigatation(PATH.HOME)"
+            @click="goTo(PATH.HOME)"
           >
             Jigglycard
           </h2>
         </div>
 
         <div class="items-center space-x-4">
-          <button class="focus:outline-none" @click="navigatation(PATH.CART)">
+          <button class="focus:outline-none" @click="goTo(PATH.CART)">
             <Icon name="jig:cart-accent" size="25"></Icon>
           </button>
           <button
@@ -91,6 +91,7 @@
 <script setup lang="ts">
 import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
+import { goTo } from "@/utils/navigationUtils";
 
 const isMenuOpen = ref(false);
 const { t } = useI18n();
@@ -126,11 +127,6 @@ const toggleSearch = () => {
 
 const closeSearch = (event: MouseEvent) => {
   emit("closeSearch", event);
-};
-
-const navigatation = (path: string) => {
-  console.log("cart", path);
-  navigateTo(path);
 };
 
 const onSearchInput = (event: Event) => {
