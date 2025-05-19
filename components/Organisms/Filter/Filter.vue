@@ -116,12 +116,12 @@
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
 const props = defineProps({
-  filters: Array<String>,
+  filters: Array<string>,
 });
 
 const { t } = useI18n();
 const config = useRuntimeConfig();
-const filterList = ref<String[]>([]);
+const filterList = ref<string[]>([]);
 const filterCategories = ref();
 const client = useAlgolia();
 
@@ -209,7 +209,7 @@ function updateMaxPrice(value: number) {
 
 function validateNumberInput(event: KeyboardEvent) {
   const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
-  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
+  if (!/\d/.test(event.key) && !allowedKeys.includes(event.key)) {
     event.preventDefault();
   }
 }

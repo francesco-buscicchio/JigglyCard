@@ -19,7 +19,7 @@
       </h5>
       <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
       <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
-      <label class="lg:text-xs xl:text-sm"
+      <label class="lg:text-xs xl:text-sm" for="product.price"
         >{{ t("startingFrom") }}
         <p class="ml-5 font-bold inline lg:text-2xl xl:text-3xl">
           {{ product.price }} €

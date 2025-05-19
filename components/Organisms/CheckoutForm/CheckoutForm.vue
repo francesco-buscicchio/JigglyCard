@@ -81,5 +81,3 @@ function toggleCheckbox() {
   emit("updateFormValues", { ...formValues });
 }
 </script>
-
-<style scoped></style>
