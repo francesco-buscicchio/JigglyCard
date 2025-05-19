@@ -3,24 +3,37 @@
     <MoleculesBreadcrumb />
   </div>
   <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
-  <div
-    v-for="(item, index) of products"
-    :key="index"
-    class="border-t-[2px] border-neutral-200 mx-5 pt-4 pb-2"
-  >
-    <MoleculesCartCard
-      :alt="item.title"
-      :image="item.image"
-      :selectedQuantity="item.selectedQuantity"
-      :availableQuantity="item.availableQuantity"
-      :price="item.price"
-    >
-      <div>
-        <h5 class="pb-2">{{ item.title }}</h5>
-        <p class="pb-2">{{ item.language }}</p>
-        <p class="pb-2">{{ item.condition }}</p>
+  <div class="lg:flex lg:gap-20 lg:mx-20">
+    <div class="lg:flex-1">
+      <div
+        v-for="(item, index) of products"
+        :key="index"
+        :class="[
+          'mx-5 py-4 border-t-[2px] border-neutral-200',
+          { 'border-b-[2px]': index === products.length - 1 },
+        ]"
+      >
+        <MoleculesCartCard
+          :image="item.image"
+          :selectedQuantity="item.selectedQuantity"
+          :availableQuantity="item.availableQuantity"
+          :price="item.price"
+          :alt="item.title"
+        >
+          <div>
+            <h5 class="pb-2 text-lg">{{ formatProductName(item.title) }}</h5>
+            <p class="pb-2" v-show="isDesktopView">
+              {{ extractProductCode(item.title) }}
+            </p>
+            <p class="pb-2">{{ item.language }}</p>
+            <p class="pb-2">{{ item.condition }}</p>
+          </div>
+        </MoleculesCartCard>
       </div>
-    </MoleculesCartCard>
+    </div>
+      <div class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20">
+      <OrganismsShippingMode :total-cart="totalCart" />
+    </div>
   </div>
 
   <OrganismsProductCarouselWeb
@@ -43,6 +56,7 @@ import blastoise from "~/assets/blastoise_ex_mew_009.png";
 import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 import type { ProductType } from "~/types/productType.type";
+import { formatProductName, extractProductCode } from "~/utils/productUtils";
 
 const { t } = useI18n();
 const isMobileView = isMobile();
@@ -116,4 +130,10 @@ const setProduct = (queryResult: SearchResponse<SearchProductResult>) => {
     suggested.value.push(obj);
   });
 };
+
+const totalCart = computed(() => {
+  return products
+    .reduce((acc, item) => acc + item.price * item.selectedQuantity, 0)
+    .toFixed(2);
+});
 </script>

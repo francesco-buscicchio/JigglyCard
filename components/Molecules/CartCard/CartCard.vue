@@ -1,23 +1,45 @@
 <template>
-  <div class="flex flex-row items-top gap-4">
-    <img :src="image" class="w-18" :alt="alt" />
-    <slot />
+  <!-- mobile -->
+  <div v-show="isMobileview">
+    <div class="flex flex-row items-top gap-4">
+      <img :src="image" class="w-18" />
+      <slot />
+    </div>
+    <div class="pt-4">
+      <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
+    </div>
+    <div class="pt-7">
+      <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
+    </div>
   </div>
-  <div class="pt-4">
-    <OrganismsQuantitySelect
-      :price="price"
-      :quantity="availableQuantity"
-      :isCart="true"
-    />
-  </div>
-  <div class="pt-7 pb-5">
-    <AtomsButtonCTA type="cart-drop" text="Elimina dal carrello" />
+    <!-- desktop -->
+    <div class="flex justify-between" v-show="!isMobileview">
+    <div class="flex gap-3">
+      <img :src="image" class="w-24" />
+
+      <slot />
+    </div>
+
+    <div class="flex gap-13">
+      <div>
+        <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
+      </div>
+      <!-- elimina dal carrello -->
+      <div class="flex flex-col justify-center">
+        <Icon
+          name="jig:close-accent"
+          class="cursor-pointer"
+          size="20"
+          @click=""
+        ></Icon>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 const emit = defineEmits(["buttonClicked"]);
-
+const isMobileview = isMobile();
 defineProps({
   alt: {
     type: String,
