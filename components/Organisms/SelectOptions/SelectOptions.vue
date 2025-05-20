@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4">
+  <div>
     <h5 class="pb-2">{{ t("shippingMethod") }}</h5>
     <div v-for="(option, index) in shippingOptions" :key="index" class="py-1">
       <label class="flex items-center cursor-pointer" for="shippingOptions">

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="p-4 lg:bg-accent-50 lg:rounded-lg lg:w-[30vw] lg:max-w-[420px] lg:p-6"
+    class="lg:bg-accent-50 lg:rounded-lg lg:w-[30vw] lg:max-w-[420px] lg:p-6"
   >
     <div class="border-b pb-2">
       <h5>{{ t("recapCart") }}</h5>
