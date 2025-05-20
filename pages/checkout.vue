@@ -7,7 +7,7 @@
 
   <div class="lg:flex lg:gap-[10vw] lg:items-start">
 
-    <OrganismsCheckoutForm @updateFormValues="updateFormData" class="lg:flex-1 mb-18 max-w-[650px]"/>
+    <OrganismsCheckoutForm @updateFormValues="updateFormData" class="lg:flex-1 mb-12 max-w-[650px]"/>
     <OrganismsCartSummary
       :products="mockProducts"
       :shipping-cost="selectedShippingOption?.price || 0"
@@ -15,21 +15,21 @@
     />
   </div>
 
-    <div class="my-6">
+    <div class="mb-12 lg:mb-18">
       <OrganismsSelectOptions
         :shipping-options="shippingOptions"
         @update:selectedOption="updateSelectedOption"
       />
     </div>
 
-    <div class="my-6" v-show="isMobileView">
+    <div class="mb-12 lg:mb-18" v-show="isMobileView">
       <OrganismsCartSummary
         :products="mockProducts"
         :shipping-cost="selectedShippingOption?.price || 0"
       />
     </div>
     
-    <div class="my-6">
+    <div class="mb-12 lg:mb-18">
       <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
     </div>
  
