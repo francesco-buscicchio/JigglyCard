@@ -116,8 +116,8 @@
       colorScheme="lightHome"
     />
 
-    <OrganismsServiceBanner />
   </div>
+  <OrganismsServiceBanner />
 </template>
 
 <script setup lang="ts">
