@@ -10,7 +10,7 @@
     @search="searchProducts"
   />
 
-  <div class="hidden w-full lg:block sticky-header">
+  <div class="hidden w-full lg:block fixed-header">
     <OrganismsHeaderDesktop
       class="w-full"
       :header="{ cartCount: 9 }"
