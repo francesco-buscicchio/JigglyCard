@@ -1,9 +1,9 @@
 <template>
-  <div class="lg:px-[4vw]">
+  <div class="px-[4vw]">
 
   <MoleculesBreadcrumb />
   <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
+  <h4 class="py-4">{{ t("shippingInfo") }}</h4>
 
   <div class="lg:flex lg:gap-[10vw] lg:items-start">
 
@@ -14,15 +14,6 @@
       v-show="!isMobileView"
     />
   </div>
-  <OrganismsSelectOptions
-    :shipping-options="shippingOptions"
-    @update:selectedOption="updateSelectedOption"
-  />
-  <OrganismsCartSummary
-    :products="mockProducts"
-    :shipping-cost="selectedShippingOption?.price || 0"
-    v-show="isMobileView"
-  />
 
     <div class="my-6">
       <OrganismsSelectOptions
@@ -31,16 +22,17 @@
       />
     </div>
 
-    <div class="my-6">
+    <div class="my-6" v-show="isMobileView">
       <OrganismsCartSummary
         :products="mockProducts"
         :shipping-cost="selectedShippingOption?.price || 0"
       />
     </div>
+    
     <div class="my-6">
       <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
     </div>
-  </div>
+ 
 </div>
 
 </template>
