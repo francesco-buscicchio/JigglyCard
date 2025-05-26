@@ -5,17 +5,21 @@ import puppeteer from "puppeteer";
 import { Readable } from "stream";
 import { Blob } from "buffer";
 
+config();
+const cardtraderApiToken = process.env.CARDTRADER_API_KEY;
+const strapiApiToken = process.env.STRAPI_API_TOKEN;
+const strapiUrl = process.env.STRAPI_URL;
+const strapiUploadToken = process.env.STRAPI_UPLOAD_TOKEN;
+const cardsTraderApiBaseUrl = process.env.CARDTRADER_API_BASE_URL;
+
 const client = strapi({
-  baseURL: "http://localhost:1337/api",
-  auth: "f73611b51d1200d2b839291010ae88ef2212279a438c2b54ed035c0d67ebee2f245370a01849bef98f548cec35ac7a54056f63c20601427dee96cdf5ec216a1528d7c64855c3893e24d3bc552d6bce79eb2f0ec64aca137f893c2c1b537bca8e0f77665990e36074bc22824575ceaa13e338fec8efaffbcd827b21c2336c8e80",
+  baseURL: strapiUrl,
+  auth: strapiApiToken,
 });
 
-config();
-const token =
-  "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJjYXJkdHJhZGVyLXByb2R1Y3Rpb24iLCJzdWIiOiJhcHA6MTI5MTEiLCJhdWQiOiJhcHA6MTI5MTEiLCJleHAiOjQ5MDIzNTU5ODQsImp0aSI6IjBiMWQyNDc3LThiMjgtNGE4NC05NDM5LTlhNDBmZWZkOGUxNSIsImlhdCI6MTc0NjY4MjM4NCwibmFtZSI6IkppZ2dseWNhcmQgQXBwIDIwMjQxMTI4MTA0NzA4In0.e94ifYnH6ihm_jBG-vhwYbBGSS67tMlIl9crr2hF6dSPNdRyoU7NY3DWHgWRSUnQjLkwAJH5-J7D6aEets9jas347jEKha_7nG3QQOgzl7CXfYWlO9Xoh28DtRd4ldGILnH5s-siW9LRM8EGhSyjHcJB6HSVoDohRjzI8N2tWGj6j1DljPoN0YAYue4p5bQWiXmSIQdfm_pegOEjTD-SrSq1whq_C46gO7TW9JcH2tEtojEX0D5-G_88j4hbwEaQxVcMQ4YyAO0xhAf3qowI5_o22VOaehgt1z2pJI0jeOXedOG7aCqQ_gyV4-0pkVWzdUu2vAhfe95uSAQLAns4Hw";
 const configCardTrader = {
   headers: {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${cardtraderApiToken}`,
   },
 };
 const categoriesIndex = client.collection("categories");
@@ -29,19 +33,119 @@ const variantsIndex = client.collection("variants");
 
 await createProductsOnStrapi();
 await syncProductsImages();
+await checkVariantsAvailability();
+
+async function checkVariantsAvailability() {
+  const products = await getProductsCardTrader();
+  const cardtraderProducts = products.data;
+  const strapiProducts = await productsIndex.find({
+    locale: "en",
+    populate: "*",
+  });
+
+  for (const strapiProduct of strapiProducts.data) {
+    for (const variant of strapiProduct.variants) {
+      const variantData = await variantsIndex.find({
+        locale: "en",
+        populate: "*",
+        filters: {
+          documentId: {
+            $eq: variant.documentId,
+          },
+        },
+      });
+
+      let productFiltered = cardtraderProducts.filter((product) => {
+        return (
+          product.id === Number(strapiProduct.cardtraderID) &&
+          product.properties_hash.condition ===
+            variantData.data[0].condition.name
+        );
+      });
+
+      if (productFiltered.length === 0) {
+        console.log(
+          `Removing variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
+        );
+        updateVariant(variant, strapiProduct, 0);
+      } else {
+        // Filter by language
+        const languageKey = Object.keys(
+          productFiltered[0].properties_hash
+        ).find((key) => key.endsWith("_language"));
+        productFiltered = productFiltered.filter((product) => {
+          return (
+            product.properties_hash[languageKey] ===
+            variantData.data[0].language.name
+          );
+        });
+
+        // If we have a product with the same condition and language
+        // and the quantity is different, update the variant
+        if (productFiltered.length !== 0) {
+          if (
+            Number(productFiltered[0].quantity) !==
+            Number(variantData.data[0].quantity)
+          ) {
+            console.log(
+              `Updating variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
+            );
+            updateVariant(variant, strapiProduct, productFiltered[0].quantity);
+          }
+        }
+        // If we don't have a product with the same condition and language
+        // remove the variant
+        else {
+          console.log(
+            `Removing variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
+          );
+          updateVariant(variant, strapiProduct, 0);
+        }
+      }
+    }
+  }
+}
+
+async function updateVariant(variant, product, quantity) {
+  await variantsIndex.update(variant.documentId, {
+    quantity: quantity,
+    product: null,
+  });
+
+  const currentVariants = (product.variants || []).map((v) =>
+    typeof v === "string" ? v : v.documentId
+  );
+  const updatedVariants = [...currentVariants];
+
+  await productsIndex.update(product.documentId, {
+    variants: updatedVariants,
+  });
+}
 
 async function syncProductsImages() {
   const products = await productsIndex.find({
     locale: "en",
     populate: "*",
   });
+
   for (let product of products.data) {
     if (product.thumbnail) continue;
-    let link = `https://www.cardtrader.com/cards/${product.slug}-${product.rarity.slug}-${product.code}-${product.set.cards}-${product.set.slug}`;
-    const imageBuffer = await getThumbnail(link, 10);
-    if (!imageBuffer) continue;
 
-    const blob = new Blob([imageBuffer], { type: "image/jpeg" });
+    let link = `https://www.cardtrader.com/cards/${product.slug}-${product.rarity.slug}-${product.code}`;
+    if (product.set.cards) link += `-${product.set.cards}`;
+    link += `-${product.set.slug}`;
+
+    let link2 = `https://www.cardtrader.com/cards/${product.slug}-${product.code}`;
+    if (product.set.cards) link2 += `-${product.set.cards}`;
+    link2 += `-${product.set.slug}`;
+
+    const imageBuffer = await getThumbnail(link, 10);
+    const imageBuffer2 = await getThumbnail(link2, 10);
+    const imageToUse = imageBuffer || imageBuffer2;
+
+    if (!imageToUse) continue;
+
+    const blob = new Blob([imageToUse], { type: "image/jpeg" });
     const form = new FormData();
     form.append("files", blob, `${product.documentId}.jpg`);
 
@@ -49,11 +153,13 @@ async function syncProductsImages() {
       method: "POST",
       body: form,
       headers: {
-        Authorization: `Bearer e0038a3fca0ff82db81f90b7fe2aac40efb1a35134f3cf03a2715bfa9cefdc627cfc323c2d8453af76c8ee9df21e20b17cc6263f592b662bab664a2db7e085da85835c7edff1fc15306c77c81a604c596d42f61df6acb32df00cfd1f0c0cee68964136e75f05d8935987d2b598156ac873fefa59371329c3e2b345f8d2553e90`,
+        Authorization: `Bearer ${strapiUploadToken}`,
       },
     });
 
-    const uploadedFiles = await uploadResponse.json();
+    const responseJson = await uploadResponse.json();
+
+    const uploadedFiles = responseJson;
     const thumbnailId = uploadedFiles[0].id;
 
     await productsIndex.update(product.documentId, {
@@ -61,10 +167,8 @@ async function syncProductsImages() {
     });
   }
 }
-
 async function createProductsOnStrapi() {
   const { expansions, categories, products, games } = await getAllData();
-  let i = 0;
   for (let product of products.data) {
     await createTcg(product, games);
     await createCategory(product, categories);
@@ -74,13 +178,8 @@ async function createProductsOnStrapi() {
     await createLanguage(product);
     await createProduct(product);
     await createVariants(product);
-    i++;
-    if (i > 3) {
-      return;
-    }
   }
 }
-
 async function getAllData() {
   try {
     const expansions = await getExpansionsCardTrader();
@@ -94,22 +193,22 @@ async function getAllData() {
   }
 }
 async function getExpansionsCardTrader() {
-  const url = "https://api.cardtrader.com/api/v2/expansions/export";
+  const url = `${cardsTraderApiBaseUrl}/expansions/export`;
   const result = await axios.get(url, configCardTrader);
   return result;
 }
 async function getCategoriesCardTrader() {
-  const url = "https://api.cardtrader.com/api/v2/categories";
+  const url = `${cardsTraderApiBaseUrl}/categories`;
   const result = await axios.get(url, configCardTrader);
   return result;
 }
 async function getProductsCardTrader() {
-  const url = "https://api.cardtrader.com/api/v2/products/export";
+  const url = `${cardsTraderApiBaseUrl}/products/export`;
   const result = await axios.get(url, configCardTrader);
   return result;
 }
 async function getGamesCardTrader() {
-  const url = "https://api.cardtrader.com/api/v2/games";
+  const url = `${cardsTraderApiBaseUrl}/games`;
   const result = await axios.get(url, configCardTrader);
   return result;
 }
@@ -198,11 +297,7 @@ async function createTcg(product, games) {
     const tcgData = {
       name: tcg.display_name,
       cardtraderID: tcg.id.toString(),
-      slug: tcg.name
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+      slug: normalizeSlug(tcg.name),
       description: "",
     };
     try {
@@ -240,11 +335,7 @@ async function createCategory(product, categories) {
     const categoryData = {
       name: category.name,
       cardtraderID: category.id.toString(),
-      slug: category.name
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+      slug: normalizeSlug(category.name),
       description: "",
       tcg: tcgData.data[0].documentId,
     };
@@ -267,11 +358,7 @@ async function createSet(product, expansions) {
       name: set.name,
       code: set.code,
       cardtraderID: set.id.toString(),
-      slug: set.name
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+      slug: normalizeSlug(set.name),
       tcg: tcgData.data[0].documentId,
     };
     try {
@@ -292,11 +379,7 @@ async function createRarity(product) {
     const rarityData = {
       name: rarityID,
       short_name: rarityID,
-      slug: rarityID
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+      slug: normalizeSlug(rarityID),
     };
 
     try {
@@ -345,6 +428,12 @@ async function createCondition(product) {
 async function createProduct(product) {
   const productID = product.id;
   const productExists = await getProductExists(productID);
+  const tags = [
+    "yc9rj6klofl3x618tlfcx042",
+    "li0wur3zy7yz97ape7ka84sg",
+    "x34kvpiym4w0z6iewupxa6qo",
+  ];
+  const randomTag = tags[Math.floor(Math.random() * tags.length)];
 
   if (productExists.data.length === 0) {
     const rarityKey = Object.keys(product.properties_hash).find((key) =>
@@ -362,16 +451,13 @@ async function createProduct(product) {
     const productData = {
       name: product.name_en,
       cardtraderID: cardtraderID,
-      slug: product.name_en
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLowerCase()
-        .replace(/[^A-Za-z0-9-_.~]/g, "-"),
+      slug: normalizeSlug(product.name_en),
       description: "",
       category: categoryDocument.data[0].documentId,
       set: setDocument.data[0].documentId,
       rarity: rarityDocument.data[0].documentId,
       code: code,
+      tag: randomTag,
     };
 
     try {
@@ -435,7 +521,6 @@ async function createVariants(product) {
     });
   }
 }
-
 async function getThumbnail(url, limit = 1000) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -444,6 +529,7 @@ async function getThumbnail(url, limit = 1000) {
   const bestImage = await page.evaluate(() => {
     const prefix = "https://www.cardtrader.com/uploads/blueprints/";
     const imgs = Array.from(document.querySelectorAll("img"));
+    console.log(imgs);
     const matches = imgs.filter((img) => img.src.includes(prefix));
     return matches.length > 0 ? matches[0].src : null;
   });
@@ -457,7 +543,6 @@ async function getThumbnail(url, limit = 1000) {
 
   return null;
 }
-
 async function downloadImage(url) {
   const response = await axios({
     url,
@@ -467,4 +552,11 @@ async function downloadImage(url) {
 
   // Crea un Buffer dal contenuto dell'immagine
   return Buffer.from(response.data);
+}
+function normalizeSlug(slug) {
+  return slug
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^A-Za-z0-9-_.~]/g, "-");
 }
