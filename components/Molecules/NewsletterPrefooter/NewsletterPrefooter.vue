@@ -9,9 +9,12 @@
     <h5>{{ t("titleNewsLetter") }}</h5>
     <p>{{ t("captionNewsletterShort") }}</p>
     <MoleculesContainerInput
-      status="default"
+      status="newsletter"
       placeholder="e-mail"
       @inputUpdate="email = $event"
+      :notValidMessage="t('newsletterEmailValidation')"
+      :isValid="isValidEmail"
+      @inputBlur="validateEmail"
     />
     <AtomsButtonCTA
       type="primary"
