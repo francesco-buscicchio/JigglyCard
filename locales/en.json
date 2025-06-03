@@ -174,5 +174,8 @@
     "pieces": "pieces"
   },
   "suggested": "Did you see this?",
-  "gratis": "Free"
+  "gratis": "Free",
+  "paymentMethods": "Payment methods",
+  "creditCard": "Credit Card",
+  "wireTransfer": "Wire Transfer"
 }

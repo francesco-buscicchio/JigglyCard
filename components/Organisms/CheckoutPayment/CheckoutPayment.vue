@@ -1,13 +1,13 @@
 <template>
   <div class="max-w-[420px]">
-    <h5 class="mb-2">Modalita di pagamento</h5>
+    <h5 class="mb-2">{{t("paymentMethods")}}</h5>
     <div class="my-3">
       <AtomsRadioButton
         :value="{ id: 'credit-card' }"
         name="payment"
         v-model="selected"
       />
-      <span class="ml-2 text-base">Credit Card</span>
+      <span class="ml-2 text-base">{{t("creditCard")}}</span>
       <div v-if="selected.id === 'credit-card'" class="pl-4 mt-2">
         form 1
         <p>Inserisci i dati della tua carta.</p>
@@ -27,7 +27,7 @@
         name="payment"
         v-model="selected"
       />
-      <span class="ml-2 text-base">Paypal</span>
+      <span class="ml-2 text-base">PayPal</span>
       <div v-if="selected.id === 'paypal'" class="pl-4 mt-2">
         form PAYPAL
         <p>Inserisci i dati della tua carta.</p>
@@ -46,7 +46,7 @@
         name="payment"
         v-model="selected"
       />
-      <span class="ml-2 text-base">Bonifico</span>
+      <span class="ml-2 text-base">{{t("wireTransfer")}}</span>
       <div v-if="selected.id === 'wire-transfer'" class="pl-4 mt-2">
         form BONIFICO
         <p>Inserisci i dati della tua carta.</p>
