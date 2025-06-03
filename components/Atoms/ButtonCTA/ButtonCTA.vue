@@ -12,7 +12,7 @@
     >
     <p v-if="type === 'text' || type === 'underline-text'">{{ text }}</p>
 
-    <slot></slot>
+    <slot/>
   </button>
 </template>
 

@@ -48,11 +48,13 @@ const handleSortingValue = (e: Event) => {
   selectedValue.value = selectElement.value;
   emit("handleSorting", selectElement.value);
 };
+const classBase =
+  "bg-white border-[1px] border-accent-950 rounded-md shadow-sm w-full appearance-none";
 
 const className = computed(() => {
   return props.type === "page-sorter"
-    ? "bg-white border-[1px] border-accent-950 rounded-md shadow-sm w-full py-3 pl-4 pr-8 appearance-none"
-    : "bg-white border-[1px] border-accent-950 rounded-md shadow-sm w-full py-1 pl-6 pr-10 appearance-none";
+    ? `${classBase} py-3 pl-4 pr-8`
+    : `${classBase} py-1 pl-6 pr-10`;
 });
 
 watch(

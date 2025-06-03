@@ -31,7 +31,7 @@
           class="cursor-pointer"
           size="20"
           @click=""
-        ></Icon>
+        />
       </div>
     </div>
   </div>

@@ -24,7 +24,7 @@
 
         <div class="items-center space-x-4">
           <button class="focus:outline-none" @click="goTo(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25"></Icon>
+            <Icon name="jig:cart-accent" size="25"/>
           </button>
           <button
             @click="toggleSearch"
