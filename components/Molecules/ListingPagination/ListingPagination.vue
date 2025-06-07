@@ -36,7 +36,6 @@
 
 <script setup lang="ts">
 import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
-
 const isDesktopView = isDesktop();
 const emit = defineEmits(["currentPage"]);
 const props = defineProps({
