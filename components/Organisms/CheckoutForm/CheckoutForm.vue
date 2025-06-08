@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-4">
+  <div>
     <div class="mb-4">
       <p class="mb-1">{{ t("name") }}</p>
       <AtomsInputText @updateValue="updateField('name', $event)" />

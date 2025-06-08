@@ -186,5 +186,8 @@
     "codeApplyWeb": "apply",
     "buyCTA": "Proceed to checkout",
     "goBackProducts": "Go back to products"
-  }
+  },
+  "paymentMethods": "Payment methods",
+  "creditCard": "Credit Card",
+  "wireTransfer": "Wire Transfer"
 }

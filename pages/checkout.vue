@@ -1,39 +1,38 @@
 <template>
-  <div class="lg:px-[4vw]">
+  <div class="px-[4vw]">
 
   <MoleculesBreadcrumb />
   <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
+  <h4 class="py-4">{{ t("shippingInfo") }}</h4>
 
   <div class="lg:flex lg:gap-[10vw] lg:items-start">
 
-    <OrganismsCheckoutForm @updateFormValues="updateFormData" class="lg:flex-1 mb-18 max-w-[650px]"/>
+    <OrganismsCheckoutForm @updateFormValues="updateFormData" class="lg:flex-1 mb-12 max-w-[650px]"/>
     <OrganismsCartSummary
       :products="mockProducts"
       :shipping-cost="selectedShippingOption?.price || 0"
       v-show="!isMobileView"
     />
   </div>
-  <OrganismsSelectOptions
-    :shipping-options="shippingOptions"
-    @update:selectedOption="updateSelectedOption"
-  />
-  <OrganismsCartSummary
-    :products="mockProducts"
-    :shipping-cost="selectedShippingOption?.price || 0"
-    v-show="isMobileView"
-  />
 
-  <!-- TODO da rivedere  -->
-  <div class="mx-4 my-2">
-    <AtomsButtonCTA
-      @click="validateForm"
-      :type="isFormValid ? 'primary' : 'disabled'"
-      :class="['rounded']"
-      :text="t('confirmAndPay')"
-    >
-    </AtomsButtonCTA>
-  </div>
+    <div class="mb-12 lg:mb-18">
+      <OrganismsSelectOptions
+        :shipping-options="shippingOptions"
+        @update:selectedOption="updateSelectedOption"
+      />
+    </div>
+
+    <div class="mb-12 lg:mb-18" v-show="isMobileView">
+      <OrganismsCartSummary
+        :products="mockProducts"
+        :shipping-cost="selectedShippingOption?.price || 0"
+      />
+    </div>
+    
+    <div class="mb-12 lg:mb-18">
+      <OrganismsCheckoutPayment :is-checkout-valid="isFormValid" />
+    </div>
+ 
 </div>
 
 </template>

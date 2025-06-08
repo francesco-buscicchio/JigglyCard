@@ -186,5 +186,8 @@
     "codeApplyWeb": "applica",
     "buyCTA": "Procedi all'acquisto",
     "goBackProducts": "Torna ai prodotti"
-  }
+  },
+  "paymentMethods": "Modalità di pagamento",
+  "creditCard": "Carta di credito",
+  "wireTransfer": "Bonifico"
 }
