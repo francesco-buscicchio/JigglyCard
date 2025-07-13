@@ -74,6 +74,7 @@
             <p class="ml-12 mr-6">{{ t("min") }}</p>
             <AtomsInputText
               class="w-20"
+              :key="inputKey"
               v-model="selectedMinPrice"
               :placeholder="''"
               @keydown="validateNumberInput($event)"
@@ -83,6 +84,7 @@
           <div class="flex items-center">
             <p class="ml-12 mr-6">{{ t("max") }}</p>
             <AtomsInputText
+              :key="inputKey + 1"
               class="w-20"
               v-model="selectedMaxPrice"
               :placeholder="''"
@@ -130,6 +132,7 @@ const isOpen = ref(false);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 const selectedFilters = reactive<{ [key: string]: any }>({});
+const inputKey = ref(0);
 
 watch(props, () => {
   filterList.value = props.filters ?? [];
@@ -280,6 +283,7 @@ function resetAllFilters() {
   selectedMinPrice.value = 0;
   selectedMaxPrice.value = 5000;
   selectedFilters["Prezzo"] = { min: 0, max: 5000 };
+  inputKey.value++; //force rerender
 }
 
 watch(isOpen, (newValue) => {
