@@ -55,7 +55,7 @@
   "cart": "Carrello",
   "routes": {
     "cart": "Carrello",
-    "carrello": "Carrello",
+    "/carrello": "Carrello",
     "/pokemon/booster-box": "Pokemon - Booster Box",
     "/pokemon/box-set": "Pokemon - Box Set",
     "/pokemon/bundle": "Pokemon - Bundle",
