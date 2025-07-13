@@ -75,6 +75,7 @@
       <div class="flex mt-4 mb-6 mr-6">
         <AtomsButtonCTA
           class="text-underlined"
+          :class="areFiltersSelected ? 'visible' : 'invisible'"
           type="text"
           @click="resetAllFilters"
         >
@@ -98,7 +99,6 @@ const props = defineProps({
 const filterList = ref<String[]>([]);
 const filterCategories = ref();
 const client = useAlgolia();
-
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(5000);
 const selectedFilters = reactive<{ [key: string]: any }>({});
@@ -106,6 +106,21 @@ const selectedFilters = reactive<{ [key: string]: any }>({});
 watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
+});
+
+const areFiltersSelected = computed(() => {
+  const hasCheckedFilter = filterCategories.value?.some(
+    (category: {
+      name: string;
+      value: { name: string; checked: boolean }[];
+    }) => {
+      return category.value.some((filter) => filter.checked);
+    }
+  );
+
+  const isPriceRangeSelected =
+    selectedMaxPrice.value !== 5000 || selectedMinPrice.value !== 0;
+  return hasCheckedFilter || isPriceRangeSelected;
 });
 
 function updateSelectedFilters() {
@@ -125,9 +140,13 @@ onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-  filterCategories.value = results.hits.map((filter: any) => ({
+  const excludeMinMaxFilter = results.hits.filter(
+    (filter: any) => !filter.massimo && !filter.minimo
+  );
+
+  filterCategories.value = excludeMinMaxFilter.map((filter: any) => ({
     ...filter,
-    value: filter.value.map((language: any) => ({
+    value: filter.value?.map((language: any) => ({
       name: language,
       checked: false,
     })),

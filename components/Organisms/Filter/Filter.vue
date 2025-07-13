@@ -99,6 +99,7 @@
               class="text-underlined"
               type="text"
               @click="resetAllFilters"
+              :class="areFiltersSelected ? 'visible' : 'invisible'"
             >
               <p>{{ t("deleteAllFilters") }}</p>
             </AtomsButtonCTA>
@@ -134,6 +135,22 @@ watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
 });
+
+const areFiltersSelected = computed(() => {
+  const hasCheckedFilter = filterCategories.value?.some(
+    (category: {
+      name: string;
+      value: { name: string; checked: boolean }[];
+    }) => {
+      return category.value.some((filter) => filter.checked);
+    }
+  );
+
+  const isPriceRangeSelected =
+    selectedMaxPrice.value !== 5000 || selectedMinPrice.value !== 0;
+  return hasCheckedFilter || isPriceRangeSelected;
+});
+
 function updateSelectedFilters() {
   resetAllFilters();
   if (filterList.value.length) {
@@ -151,7 +168,10 @@ onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-  filterCategories.value = results.hits.map((filter: any) => ({
+  const excludeMinMaxFilter = results.hits.filter(
+    (filter: any) => !filter.massimo && !filter.minimo
+  );
+  filterCategories.value = excludeMinMaxFilter.map((filter: any) => ({
     ...filter,
     value: filter.value.map((language: any) => ({
       name: language,
