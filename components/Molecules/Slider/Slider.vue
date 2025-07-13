@@ -42,6 +42,14 @@ const dragging = ref<string | null>(null);
 const minPrice = computed(() => Math.min(price1.value, price2.value));
 const maxPrice = computed(() => Math.max(price1.value, price2.value));
 
+watch(
+  () => [props.initialMinPrice, props.initialMaxPrice],
+  ([newMin, newMax]) => {
+    price1.value = newMin;
+    price2.value = newMax;
+  }
+);
+
 const updatePrices = () => {
     emit('update:minPrice', minPrice.value);
     emit('update:maxPrice', maxPrice.value);
