@@ -57,6 +57,8 @@
                 :objectID="item.objectID"
                 :expansion="item.expansion"
                 :price="item.salePrice"
+                :tcg="item.tcg"
+                :type="item.type"
               />
             </div>
           </div>

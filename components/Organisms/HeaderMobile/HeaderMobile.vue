@@ -59,6 +59,8 @@
                 :name="item.name"
                 :objectID="item.objectID"
                 :expansion="item.expansion"
+                :tcg="item.tcg"
+                :type="item.type"
               />
             </div>
           </div>
