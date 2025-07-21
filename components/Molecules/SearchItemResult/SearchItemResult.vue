@@ -1,5 +1,8 @@
 <template>
-  <div class="w-full py-2 border-b-[1px] flex px-6 gap-x-10 cursor-pointer" @click="goTo(`/${tcg}/${type}/${objectID}`)">
+  <div
+    class="w-full py-2 border-b-[1px] flex px-6 gap-x-10 cursor-pointer"
+    @click="clickItem(tcg, type, objectID)"
+  >
     <NuxtImg
       :src="thumbnailImage"
       class="min-w-10 max-w-10 lg:min-w-18 lg:min-h-25 object-cover"
@@ -15,6 +18,7 @@
 
 <script setup lang="ts">
 import { goTo } from "@/utils/navigationUtils";
+const emit = defineEmits(["itemClick"]);
 const props = defineProps({
   thumbnailImage: {
     type: String,
@@ -43,7 +47,12 @@ const props = defineProps({
   price: {
     type: Number,
     required: false,
-    default: 0
+    default: 0,
   },
 });
+
+const clickItem = (tcg: string, type: string, objectID: string) => {
+  goTo(`/${tcg}/${type}/${objectID}`);
+  emit("itemClick");
+};
 </script>
