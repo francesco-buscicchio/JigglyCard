@@ -35,9 +35,9 @@
 
       <div class="flex flex-col gap-12">
         <OrganismsProductQuantityActions
-            :price="product.price"
-            :quantity="product.quantity"
-          />
+          :price="product.price"
+          :quantity="product.quantity"
+        />
 
         <MoleculesTextViewer>
           <template v-slot:content>
@@ -46,13 +46,13 @@
         </MoleculesTextViewer>
       </div>
     </div>
-    
+
     <!-- Desktop -->
     <div v-if="isDesktopView">
       <div class="flex gap-20 my-12 xl:ml-[14vw]">
         <div>
           <img
-            :src="product.imageUrl"
+            :src="product.imageUrl ?? defaultCardImage"
             class="w-[400px] shadow-xl rounded-2xl"
           />
         </div>
@@ -115,7 +115,6 @@
       :products="offerte"
       colorScheme="lightHome"
     />
-
   </div>
   <OrganismsServiceBanner />
 </template>
