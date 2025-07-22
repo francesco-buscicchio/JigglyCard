@@ -35,6 +35,13 @@ import type {
   StripeExpressCheckoutElementOptions,
   StripePaymentElementOptions,
 } from "@stripe/stripe-js";
+import {
+  elementsOptions,
+  stripeOptions,
+  expressCheckoutOptions,
+  paymentElementOptions,
+} from "~/service/StripeConfig";
+
 type PaymentIntentResponse = {
   success: boolean;
   clientSecret?: string;
@@ -53,7 +60,9 @@ const props = defineProps({
     required: true,
   },
 });
+
 const { t } = useI18n();
+const { handleError } = useErrorHandler();
 const emits = defineEmits(["submitConfirmAndPay"]);
 const config = useRuntimeConfig();
 const clientSecret = ref("");
@@ -61,65 +70,6 @@ const stripePublicKey = config.public.STRIPE_PUBLIC_KEY;
 const purchaseCompletedUrl = config.public.PURCHASE_COMPLETED_URL;
 const elementsComponent = ref();
 const paymentComponent = ref();
-const stripeOptions = ref({
-  // https://stripe.com/docs/js/initializing#init_stripe_js-options
-});
-
-const elementsOptions = ref<StripeElementsOptionsMode>({
-  // https://stripe.com/docs/js/elements_object/create#stripe_elements-options
-  mode: "payment",
-  amount: 100, //valore fittizio necessario per il render
-  currency: "eur",
-  appearance: {
-    theme: "stripe",
-    variables: {
-      fontWeightNormal: "500",
-      borderRadius: "2px",
-      colorPrimary: "#006482",
-      tabIconSelectedColor: "#fff",
-      gridRowSpacing: "16px",
-      iconColor: "#006482",
-    },
-    rules: {
-      ".Tab, .Input, .Block, .CheckboxInput, .CodeInput": {
-        boxShadow: "0px 3px 10px rgba(18, 42, 66, 0.08)",
-      },
-      ".Block": {
-        borderColor: "transparent",
-      },
-      ".BlockDivider": {
-        backgroundColor: "#ebebeb",
-      },
-      ".Tab, .Tab:hover, .Tab:focus": {
-        border: "0",
-        color: "#006482",
-      },
-      ".Tab--selected, .Tab--selected:hover": {
-        backgroundColor: "#EBF6FE",
-        color: "#006482",
-      },
-    },
-  },
-});
-
-const expressCheckoutOptions = ref<StripeExpressCheckoutElementOptions>({
-  // eventually fo apple and google pay
-  // https://docs.stripe.com/js/elements_object/create_express_checkout_element#express_checkout_element_create-options
-});
-
-const paymentElementOptions = ref<StripePaymentElementOptions>({
-  // https://docs.stripe.com/js/elements_object/create_payment_element#payment_element_create-options
-  layout: {
-    type: "accordion",
-    defaultCollapsed: false,
-    radios: true,
-    spacedAccordionItems: false,
-  },
-  wallets: {
-    applePay: "auto",
-    googlePay: "auto",
-  },
-});
 
 onBeforeMount(async () => {
   const totalCart = Math.round(props.totalAmount * 100); // Convert to cents
@@ -134,7 +84,7 @@ onBeforeMount(async () => {
 
     clientSecret.value = res.clientSecret ?? "";
   } catch (error) {
-    console.error("Error creating payment intent:", error);
+    handleError("Error creating payment intent", error);
   }
 });
 
@@ -150,7 +100,7 @@ const confirmAndPay = async () => {
 
   const { error: submitError } = await elements.submit();
   if (submitError) {
-    console.error("Error submitting elements:", submitError);
+    handleError("Error submitting elements:", submitError);
     return;
   }
   const { error } = await stripeInstance.confirmPayment({
