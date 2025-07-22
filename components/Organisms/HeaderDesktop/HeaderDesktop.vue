@@ -57,6 +57,9 @@
                 :objectID="item.objectID"
                 :expansion="item.expansion"
                 :price="item.salePrice"
+                :tcg="item.tcg"
+                :type="item.type"
+                @itemClick="onItemClick"
               />
             </div>
           </div>
@@ -104,6 +107,7 @@ const emit = defineEmits([
   "toggleSearch",
   "closeSearch",
   "updateSearch",
+  "itemClick",
 ]);
 
 const toggleSearch = () => {
@@ -117,6 +121,10 @@ const closeSearch = (event: MouseEvent) => {
 const onSearchInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("search", target.value);
+};
+
+const onItemClick = (event: Event) => {
+  emit("itemClick");
 };
 </script>
 

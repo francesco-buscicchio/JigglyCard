@@ -190,5 +190,6 @@
   },
   "paymentMethods": "Modalità di pagamento",
   "creditCard": "Carta di credito",
-  "wireTransfer": "Bonifico"
+  "wireTransfer": "Bonifico",
+   "no_results":"Nessun risultato"
 }

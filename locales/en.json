@@ -190,5 +190,6 @@
   },
   "paymentMethods": "Payment methods",
   "creditCard": "Credit Card",
-  "wireTransfer": "Wire Transfer"
+  "wireTransfer": "Wire Transfer",
+  "no_results":"No results"
 }

@@ -8,6 +8,7 @@
     @toggleSearch="toggleSearch"
     @closeSearch="closeSearch"
     @search="searchProducts"
+    @itemClick="onClickItem"
   />
 
   <div class="hidden w-full lg:block fixed-header">
@@ -20,6 +21,7 @@
       @toggleSearch="toggleSearch"
       @closeSearch="closeSearch"
       @search="searchProducts"
+      @itemClick="onClickItem"
     />
   </div>
   <slot />
@@ -76,6 +78,10 @@ const policyLinks = [
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
+};
+
+const onClickItem = () => {
+  isSearchOpen.value = false;
 };
 
 const closeSearch = (event: MouseEvent) => {

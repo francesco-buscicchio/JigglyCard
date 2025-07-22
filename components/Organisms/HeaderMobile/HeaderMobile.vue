@@ -24,7 +24,7 @@
 
         <div class="items-center space-x-4">
           <button class="focus:outline-none" @click="goTo(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25"/>
+            <Icon name="jig:cart-accent" size="25" />
           </button>
           <button
             @click="toggleSearch"
@@ -59,6 +59,9 @@
                 :name="item.name"
                 :objectID="item.objectID"
                 :expansion="item.expansion"
+                :tcg="item.tcg"
+                :type="item.type"
+                @itemClick="onItemClick"
               />
             </div>
           </div>
@@ -107,6 +110,7 @@ const emit = defineEmits([
   "toggleSearch",
   "closeSearch",
   "updateSearch",
+  "itemClick",
 ]);
 
 watch(isMenuOpen, (newValue) => {
@@ -132,5 +136,9 @@ const closeSearch = (event: MouseEvent) => {
 const onSearchInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("search", target.value);
+};
+
+const onItemClick = (event: Event) => {
+  emit("itemClick");
 };
 </script>
