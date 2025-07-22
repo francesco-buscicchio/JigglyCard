@@ -47,7 +47,7 @@
         class="absolute left-0 w-full bg-white shadow-lg z-50 py-6"
       >
         <div class="max-w-screen-xl mx-auto px-12">
-          <div class="flex justify-center flex-wrap gap-[5vw]">
+          <div class="flex justify-center flex-wrap gap-[2.5vw]">
             <div
               v-for="(sub, i) in headerMenu[activeIndex].subMenu"
               class="w-min-[10vw] h-min-[10vw]"
