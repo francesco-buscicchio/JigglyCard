@@ -36,6 +36,7 @@ export default defineNuxtConfig({
       paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
       STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
       PURCHASE_COMPLETED_URL: process.env.PURCHASE_COMPLETED_URL,
+      STRAPI_API_TOKEN_READ_ONLY: process.env.STRAPI_API_TOKEN_READ_ONLY,
     },
   },
 

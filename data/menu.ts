@@ -1,79 +1,50 @@
+import { getFilePath } from "~/service/StrapiImage";
+
+export const useMenu = async () => {
+  const client = useAlgolia();
+  const getTcg = await client.searchForFacetValues({
+    indexName: "ecommerce",
+    facetName: "tcg",
+  });
+  const getType = await client.searchForFacetValues({
+    indexName: "ecommerce",
+    facetName: "type",
+  });
+
+  if (!getTcg.facetHits.length || !getType.facetHits.length) {
+    console.error("No TCG facet values found");
+    return ref<MenuItemType[]>([]);
+  }
+
+  const menuItems: MenuItemType[] = [];
+  for (let item of getTcg.facetHits) {
+    const subItems = getType.facetHits.filter((type) => {
+      return type.value.toLowerCase().includes(item.value.toLowerCase());
+    });
+    const obj = {
+      name: item.value,
+      subMenu: subItems.map((type) => ({
+        label: type.value,
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/box_set_cfea8afe3e.jpg",
+        to: `/${item.value.toLowerCase()}/${type.value
+          .replace(item.value + " ", "")
+          .toLowerCase()}`,
+      })),
+      isSubMenuOpen: false,
+    };
+    const data = await getFilePath("Pokémon Singles.jpg");
+    console.log("File URL", data);
+    menuItems.push(obj);
+  }
+
+  console.log("Menu items generated:", menuItems);
+  return menuItems;
+};
+
 export type MenuItemType = {
   name: string;
-  subMenu: { name: string; url: string }[] | null;
+  subMenu: any;
   isSubMenuOpen?: boolean;
   url?: string;
 };
-
-const menuItems = ref<MenuItemType[]>([
-  {
-    name: "Pokémon",
-    subMenu: [
-      { name: "Booster Box", url: "/pokemon/booster-box" },
-      { name: "Box Set", url: "/pokemon/box-set" },
-      { name: "Bundle", url: "/pokemon/bundle" },
-      { name: "Carte Singole", url: "/pokemon/singole" },
-      { name: "Mazzi Precostruiti", url: "/pokemon/mazzi-precostruiti" },
-      { name: "Tins", url: "/pokemon/tins" },
-      { name: "Tutti i Prodotti", url: "/pokemon/all" },
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "One Piece",
-    subMenu: [
-      { name: "Booster Box", url: "/one-piece/booster-box" },
-      { name: "Box Set", url: "/one-piece/box-set" },
-      { name: "Bundle", url: "/one-piece/bundle" },
-      { name: "Carte Singole", url: "/one-piece/singole" },
-      { name: "Mazzi Precostruiti", url: "/one-piece/mazzi-precostruiti" },
-      { name: "Tins", url: "/one-piece/tins" },
-      { name: "Tutti i Prodotti", url: "/one-piece/all" },
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Final Fantasy",
-    subMenu: [
-      { name: "Booster Box", url: "/final-fantasy/booster-box" },
-      { name: "Box Set", url: "/final-fantasy/box-set" },
-      { name: "Bundle", url: "/final-fantasy/bundle" },
-      { name: "Carte Singole", url: "/final-fantasy/singole" },
-      { name: "Mazzi Precostruiti", url: "/final-fantasy/mazzi-precostruiti" },
-      { name: "Tins", url: "/final-fantasy/tins" },
-      { name: "Tutti i Prodotti", url: "/final-fantasy/all" },
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Dragon Ball",
-    subMenu: [
-      { name: "Booster Box", url: "/dragon-ball/booster-box" },
-      { name: "Box Set", url: "/dragon-ball/box-set" },
-      { name: "Bundle", url: "/dragon-ball/bundle" },
-      { name: "Carte Singole", url: "/dragon-ball/singole" },
-      { name: "Mazzi Precostruiti", url: "/dragon-ball/mazzi-precostruiti" },
-      { name: "Tins", url: "/dragon-ball/tins" },
-      { name: "Tutti i Prodotti", url: "/dragon-ball/all" },
-    ],
-    isSubMenuOpen: false,
-  },
-  {
-    name: "Lorcana",
-
-    subMenu: [
-      { name: "Booster Box", url: "/lorcana/booster-box" },
-      { name: "Box Set", url: "/lorcana/box-set" },
-      { name: "Bundle", url: "/lorcana/bundle" },
-      { name: "Carte Singole", url: "/lorcana/singole" },
-      { name: "Mazzi Precostruiti", url: "/lorcana/mazzi-precostruiti" },
-      { name: "Tins", url: "/lorcana/tins" },
-      { name: "Tutti i Prodotti", url: "/lorcana/all" },
-    ],
-    isSubMenuOpen: false,
-  },
-  { name: "Servizi", subMenu: null, url: "/servizi" },
-  { name: "Contatti", subMenu: null, url: "/contatti" },
-]);
-
-export default menuItems;
