@@ -73,8 +73,9 @@
 </template>
 
 <script setup lang="ts">
-import { HEADER_MENU, PATH } from "~/data/const";
+import { PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
+import useMenu from "~/data/menu";
 
 const props = defineProps<{
   isSearchOpen: boolean;
@@ -82,7 +83,7 @@ const props = defineProps<{
 
 const activeIndex = ref<number | null>(null);
 
-const headerMenu = ref(HEADER_MENU);
+const headerMenu = ref(await useMenu());
 </script>
 
 <style scoped>
