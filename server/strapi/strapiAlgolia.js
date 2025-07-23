@@ -25,9 +25,10 @@ const variantsIndex = strapiClient.collection("variants");
 const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
-await syncAlgoliaToStrapiProducts();
-await syncAlgoliaToStrapiSets();
-await syncAlgoliaMassimoMinimo();
+// await syncAlgoliaToStrapiProducts();
+// await syncAlgoliaToStrapiSets();
+// await syncAlgoliaMassimoMinimo();
+await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
   const products = await getProducts();
@@ -135,6 +136,44 @@ async function syncAlgoliaToStrapiProducts() {
     });
 }
 
+async function syncAlgoliaToStrapiMenu() {
+  const categories = await getCategories();
+  const menuToSave = {};
+
+  for (let item of categories.data) {
+    if (!item.tcg || !item.tcg.name) continue;
+
+    if (!menuToSave[item.tcg.name])
+      menuToSave[item.tcg.name] = {
+        categories: [],
+      };
+
+    const categoryData = {
+      objectID: item.id,
+      name: item.name,
+      slug: item.slug,
+      description: item.description,
+      image: item.image
+        ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${item.image.url.replace(
+            /^\/uploads/,
+            ""
+          )}`
+        : null,
+    };
+
+    menuToSave[item.tcg.name].categories.push(categoryData);
+  }
+
+  await algoliaClient
+    .saveObjects({
+      indexName: "menu",
+      objects: [menuToSave],
+    })
+    .then((val) => {
+      console.log(`Menu Salvato`);
+    });
+}
+
 async function syncAlgoliaToStrapiSets() {
   const sets = await getSets();
 
@@ -206,6 +245,13 @@ async function getCategory(categoryID) {
         $eq: categoryID,
       },
     },
+  });
+}
+
+async function getCategories() {
+  return await categoriesIndex.find({
+    locale: "en",
+    populate: "*",
   });
 }
 
