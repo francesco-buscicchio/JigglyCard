@@ -3,7 +3,7 @@
     <h5>{{ productName }}</h5>
     <div class="flex">
       <img
-        :src="imageUrl"
+        :src="imageUrl ?? defaultCardImage"
         :alt="productName"
         class="max-h-38 object-cover mr-4"
       />
@@ -25,6 +25,7 @@
 </template>
 
 <script lang="ts" setup>
+import defaultCardImage from "@/assets/img/default-card-image.png";
 const { t } = useI18n();
 const props = defineProps({
   colorScheme: {

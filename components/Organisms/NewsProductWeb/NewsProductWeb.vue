@@ -4,7 +4,7 @@
     :class="containerClass"
   >
     <img
-      :src="product.imageUrl"
+      :src="product.imageUrl ?? defaultCardImage"
       :alt="product.productName"
       class="rounded-2xl w-full h-full min-w-47"
     />
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import type { ProductType } from "~/types/product.type";
+import defaultCardImage from "@/assets/img/default-card-image.png";
 
 const { t } = useI18n();
 const props = defineProps({

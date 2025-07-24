@@ -2,7 +2,7 @@
   <div>
     <div class="flex relative flex-col cursor-pointer">
       <img
-        :src="imageUrl"
+        :src="imageUrl ?? defaultCardImage"
         :alt="productName"
         class="max-h-[20vw] w-[13vw] object-cover rounded-2xl"
       />
@@ -51,6 +51,8 @@
 <script lang="ts" setup>
 import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
+import defaultCardImage from "@/assets/img/default-card-image.png";
+
 // TODO: separare le props in un file separato
 const props = defineProps<ProductCard>();
 

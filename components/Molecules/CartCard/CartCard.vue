@@ -2,7 +2,7 @@
   <!-- mobile -->
   <div v-show="isMobileview">
     <div class="flex flex-row items-top gap-4">
-      <img :src="image" class="w-18" />
+      <img :src="image ?? defaultCardImage" class="w-18" />
       <slot />
     </div>
     <div class="pt-4">
@@ -12,10 +12,10 @@
       <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
     </div>
   </div>
-    <!-- desktop -->
-    <div class="flex justify-between" v-show="!isMobileview">
+  <!-- desktop -->
+  <div class="flex justify-between" v-show="!isMobileview">
     <div class="flex gap-3">
-      <img :src="image" class="w-24" />
+      <img :src="image ?? defaultCardImage" class="w-24" />
 
       <slot />
     </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script lang="ts" setup>
+import defaultCardImage from "@/assets/img/default-card-image.png";
 const emit = defineEmits(["buttonClicked"]);
 const isMobileview = isMobile();
 defineProps({
