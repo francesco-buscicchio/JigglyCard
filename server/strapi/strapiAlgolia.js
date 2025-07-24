@@ -25,7 +25,7 @@ const variantsIndex = strapiClient.collection("variants");
 const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
-// await syncAlgoliaToStrapiProducts();
+await syncAlgoliaToStrapiProducts();
 // await syncAlgoliaToStrapiSets();
 // await syncAlgoliaMassimoMinimo();
 await syncAlgoliaToStrapiMenu();
@@ -72,9 +72,11 @@ async function syncAlgoliaToStrapiProducts() {
     const variants = await getProductVariants(product.id);
     const category = await getCategory(product.category.documentId);
 
-    const productQuantity = variants.data.reduce((acc, variant) => {
-      return acc + (variant.quantity || 0);
-    });
+    const productQuantity = variants.data.length
+      ? variants.data.reduce((acc, variant) => {
+          return acc + (variant.quantity || 0);
+        })
+      : 0;
 
     const conditionsList = [];
     const languagesList = [];
@@ -102,7 +104,7 @@ async function syncAlgoliaToStrapiProducts() {
       expansion: product.set ? product.set.name : "N/A",
       languages: languagesList,
       tcg: category.data[0].tcg ? category.data[0].tcg.name : "N/A",
-      type: product.category ? product.category.name : "N/A",
+      type: product.category ? product.category.slug : "N/A",
       code: `${product.set.code} ${product.code}`,
       shortDescription: product.description,
       thumbnailImage: product.thumbnail
@@ -183,7 +185,6 @@ async function syncAlgoliaToStrapiSets() {
     if (!set.thumbnail || !set.thumbnail[0].url) {
       continue;
     }
-    console.log("Sto qui");
     const setData = {
       objectID: set.id,
       name: set.name,
