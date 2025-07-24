@@ -135,6 +135,7 @@
     "english": "inglese",
     "japanese": "giapponese",
     "near_mint": "near mint",
+    "MP": "good",
     "excellent": "excellent",
     "good": "good",
     "played": "played",
@@ -191,5 +192,5 @@
   "paymentMethods": "Modalità di pagamento",
   "creditCard": "Carta di credito",
   "wireTransfer": "Bonifico",
-   "no_results":"Nessun risultato"
+  "no_results": "Nessun risultato"
 }

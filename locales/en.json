@@ -145,6 +145,7 @@
     "near_mint": "near mint",
     "excellent": "excellent",
     "good": "good",
+    "MP": "good",
     "played": "played",
     "poor": "poor"
   },
@@ -191,5 +192,5 @@
   "paymentMethods": "Payment methods",
   "creditCard": "Credit Card",
   "wireTransfer": "Wire Transfer",
-  "no_results":"No results"
+  "no_results": "No results"
 }
