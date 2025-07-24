@@ -160,6 +160,7 @@ const updateFiltersApplied = (newFilters: any) => {
 };
 
 async function fetchData() {
+  console.log("Fetching data with filters:", filtersStringQuery.value);
   let results = await client.search({
     requests: [
       {
