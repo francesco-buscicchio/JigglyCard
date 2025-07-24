@@ -15,7 +15,7 @@ const useMenu = async () => {
       subMenu: {
         label: string;
         image?: string;
-        url: string;
+        to: string;
       }[];
       isSubMenuOpen: boolean;
     }
@@ -45,9 +45,7 @@ const useMenu = async () => {
             tempMenu[key].subMenu.push({
               label: category.name,
               image: category.image,
-              url: `/${key.toLowerCase().replace(/\s+/g, "-")}/${
-                category.slug
-              }`,
+              to: `/${key.toLowerCase().replace(/\s+/g, "-")}/${category.slug}`,
             });
           }
         });
