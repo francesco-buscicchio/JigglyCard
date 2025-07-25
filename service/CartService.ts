@@ -2,11 +2,11 @@ import { StrapiCollectionCRUD } from "./StrapiCollectionCRUD";
 
 // Interfaccia che rappresenta la struttura di un carrello
 interface Cart {
-  userId: string;
-  items: Array<{ productId: string; quantity: number }>;
-  total: number;
-  createdAt: Date;
-  updatedAt: Date;
+  documentID: string;
+  session_id: string;
+  creation_date: Date;
+  expired_date: Date;
+  variant: string[];
 }
 
 class CartService extends StrapiCollectionCRUD<Cart> {
@@ -23,19 +23,32 @@ class CartService extends StrapiCollectionCRUD<Cart> {
   }
 
   async createCart(
-    cartData: Omit<Cart, "createdAt" | "updatedAt">
+    cartData: Omit<Cart, "creation_date" | "expired_date">
   ): Promise<Cart> {
     const now = new Date();
-    const newCart = {
+    const expiredDate = new Date();
+    expiredDate.setMinutes(expiredDate.getMinutes() + 30);
+
+    const newCart: Cart = {
       ...cartData,
-      createdAt: now,
-      updatedAt: now,
+      creation_date: now,
+      expired_date: expiredDate,
     };
     return await this.createItem(newCart);
   }
 
-  async updateCart(cartId: string, updateData: Partial<Cart>): Promise<Cart> {
-    return await this.updateItem(cartId, updateData);
+  async updateCart(
+    cartId: string,
+    updateData: Omit<Cart, "expiredDate">
+  ): Promise<Cart> {
+    const expiredDate = new Date();
+    expiredDate.setMinutes(expiredDate.getMinutes() + 30);
+
+    const newCart: Cart = {
+      ...updateData,
+      expired_date: expiredDate,
+    };
+    return await this.updateItem(cartId, newCart);
   }
 
   async deleteCart(cartId: string): Promise<void> {

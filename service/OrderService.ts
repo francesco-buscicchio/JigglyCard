@@ -2,12 +2,15 @@ import { StrapiCollectionCRUD } from "./StrapiCollectionCRUD";
 
 // Interfaccia che rappresenta la struttura di un ordine
 interface Order {
-  userId: string;
-  items: Array<{ productId: string; quantity: number; price: number }>;
-  total: number;
-  status: string; // E.g., "pending", "completed"
-  createdAt: Date;
-  updatedAt: Date;
+  documentID: string;
+  user: string;
+  date: Date;
+  shipment_method: string;
+  paid: boolean;
+  order_value: number;
+  shipment_value: number;
+  total_value: number;
+  variant: string[];
 }
 
 class OrderService extends StrapiCollectionCRUD<Order> {
@@ -24,14 +27,11 @@ class OrderService extends StrapiCollectionCRUD<Order> {
     return await this.getItemById(orderId);
   }
 
-  async createOrder(
-    orderData: Omit<Order, "createdAt" | "updatedAt">
-  ): Promise<Order> {
+  async createOrder(orderData: Omit<Order, "date">): Promise<Order> {
     const now = new Date();
-    const newOrder = {
+    const newOrder: Order = {
       ...orderData,
-      createdAt: now,
-      updatedAt: now,
+      date: now,
     };
     return await this.createItem(newOrder);
   }
