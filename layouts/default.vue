@@ -24,6 +24,8 @@
       @itemClick="onClickItem"
     />
   </div>
+
+  <MoleculesCookieBanner />
   <slot />
 
   <footer>
