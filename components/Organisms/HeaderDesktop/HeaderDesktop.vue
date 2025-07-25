@@ -1,42 +1,93 @@
 <template>
-  <div class="relative" @mouseleave="activeIndex = null">
-    <header
-      class="flex justify-between items-center bg-white shadow-md px-18 py-5"
-    >
-      <!-- Logo -->
-      <h2 @click="goTo(PATH.HOME)" class="text-accent-950 cursor-pointer">
-        Jigglycard
-      </h2>
+  <div
+    class="relative"
+    @mouseleave="activeIndex = null"
+    @click="closeSearch($event)"
+    :class="{ 'fixed-header': !isSearchOpen, 'overlay-header': isSearchOpen }"
+  >
+    <header class="bg-white shadow-md px-18 py-5">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <h2 @click="goTo(PATH.HOME)" class="text-accent-950 cursor-pointer">
+          Jigglycard
+        </h2>
 
-      <!-- Menu -->
-      <nav class="flex gap-x-6">
-        <div
-          v-for="(item, index) in headerMenu"
-          :key="index"
-          class="relative"
-          @mouseenter="activeIndex = index"
-        >
-          <button @click="goTo(item.to)">
-            <h5 class="text-accent-950 text-lg">{{ item.name }}</h5>
+        <!-- Menu -->
+        <nav class="flex gap-x-6">
+          <div
+            v-for="(item, index) in headerMenu"
+            :key="index"
+            class="relative"
+            @mouseenter="activeIndex = index"
+          >
+            <button @click="goTo(item.to)">
+              <h5 class="text-accent-950 text-lg">{{ item.name }}</h5>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Icon buttons -->
+        <div class="flex gap-x-4">
+          <button
+            class="header-btn"
+            @click="$emit('toggleSearch')"
+            v-show="!isSearchOpen"
+          >
+            <Icon name="jig:search-header-desktop" size="18" />
+          </button>
+          <button
+            v-for="(button, index) in headerButtons"
+            :key="index"
+            class="header-btn"
+            @click="goTo(button.to)"
+            :aria-label="button.ariaLabel"
+          >
+            <Icon :name="button.icon" size="18" />
           </button>
         </div>
-      </nav>
+      </div>
 
-      <!-- Icon buttons -->
-      <div class="flex gap-x-4">
-        <button
-          class="header-btn"
-          @click="$emit('toggleSearch')"
-          v-show="isSearchOpen"
-        >
-          <Icon name="jig:search-header-desktop" size="18" />
-        </button>
-        <button class="header-btn">
-          <Icon name="jig:cart-header-desktop" size="18" />
-        </button>
-        <button class="header-btn">
-          <Icon name="jig:user-accent" size="18" />
-        </button>
+      <div v-show="isSearchOpen" class="mt-4">
+        <div class="relative">
+          <input
+            type="text"
+            :placeholder="$t('search') + '...'"
+            @input="onSearchInput($event)"
+            class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
+          />
+          <span
+            class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
+          >
+            <Icon name="jig:cerca-accent"></Icon>
+          </span>
+        </div>
+
+        <div v-if="productSearch.length > 0" class="flex flex-col gap-4 pt-4">
+          <div
+            class="flex flex-col gap-4 xl:gap-6 w-full lg:grid lg:grid-cols-3"
+          >
+            <div v-for="item of productSearch">
+              <MoleculesSearchItemResult
+                :thumbnailImage="item.thumbnailImage"
+                :name="item.name"
+                :objectID="item.objectID"
+                :expansion="item.expansion"
+                :price="item.salePrice"
+                :tcg="item.tcg"
+                :type="item.type"
+                @itemClick="onItemClick"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div v-if="noResults" class="w-full py-6 flex flex-col items-center">
+          <p
+            class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
+          >
+            {{ t("no_results") }}
+          </p>
+        </div>
       </div>
     </header>
 
@@ -76,10 +127,39 @@
 import { PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
 import useMenu from "~/data/menu";
+import { headerButtons } from "~/data/headerButtons";
+import type { Hit } from "~/interface/hit.interface";
+import type { HeaderProps } from "~/types/headerPropsType.type";
+
+const { t } = useI18n();
 
 const props = defineProps<{
+  header: HeaderProps;
+  productSearch: Hit[];
   isSearchOpen: boolean;
+  noResults: boolean;
 }>();
+
+const emit = defineEmits([
+  "search",
+  "toggleSearch",
+  "closeSearch",
+  "updateSearch",
+  "itemClick",
+]);
+
+const closeSearch = (event: MouseEvent) => {
+  emit("closeSearch", event);
+};
+
+const onSearchInput = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("search", target.value);
+};
+
+const onItemClick = (event: Event) => {
+  emit("itemClick");
+};
 
 const activeIndex = ref<number | null>(null);
 

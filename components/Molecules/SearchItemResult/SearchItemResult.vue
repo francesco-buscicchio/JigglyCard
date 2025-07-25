@@ -3,8 +3,8 @@
     class="w-full py-2 border-b-[1px] flex px-6 gap-x-10 cursor-pointer"
     @click="clickItem(tcg, type, objectID)"
   >
-    <NuxtImg
-      :src="thumbnailImage"
+    <img
+      :src="thumbnailImage ?? defaultCardImage"
       class="min-w-10 max-w-10 lg:min-w-18 lg:min-h-25 object-cover"
       :alt="name"
     />
@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import defaultCardImage from "@/assets/img/default-card-image.png";
 import { goTo } from "@/utils/navigationUtils";
 const emit = defineEmits(["itemClick"]);
 const props = defineProps({
