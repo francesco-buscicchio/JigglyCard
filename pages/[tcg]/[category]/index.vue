@@ -32,7 +32,7 @@
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
-              :handle-sorting="handleSorting"
+              @handleSorting="handleSorting"
             />
           </div>
         </div>
