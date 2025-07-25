@@ -55,7 +55,6 @@ import {
   HEROBANNER_TAG,
 } from "~/data/const";
 import type { ProductType } from "~/types/productType.type";
-import { CartService } from "~/service/cartService";
 
 const { t } = useI18n();
 const config = useRuntimeConfig();
@@ -66,14 +65,6 @@ const setHeroBanner: Ref<ProductType[]> = ref([]);
 const client = useAlgolia();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
-
-const cartService = new CartService(
-  config.public.STRAPI_BASE_URL as string,
-  config.public.FULL_ACCESS_TOKEN as string
-);
-
-const cart = await cartService.getAllCarts();
-console.log(cart);
 
 onMounted(async () => {
   //todo: cercare una soluzione per un'unica query
