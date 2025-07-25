@@ -11,13 +11,13 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-const showBanner = ref(false);
-
 onMounted(() => {
-  const hasAcceptedCookies = localStorage.getItem("cookiesAccepted");
+  const hasAcceptedCookies = localStorage.getItem(
+    "_iub_previous_preference_id"
+  );
 
-  if (!hasAcceptedCookies) {
-    showBanner.value = true;
+  if (hasAcceptedCookies) {
+    return;
   }
 
   // Aggiungi il primo script di configurazione Iubenda
@@ -25,7 +25,7 @@ onMounted(() => {
   iubConfigScript.type = "text/javascript";
   iubConfigScript.innerHTML = `
     var _iub = _iub || [];
-    _iub.csConfiguration = {"siteId":4175415,"cookiePolicyId":94013012,"lang":"it","storage":{"useSiteId":true}};
+    _iub.csConfiguration = {"siteId":4175415,"cookiePolicyId":94013012,"lang":"it","storage":{"type":"local_storage","useSiteId":true}};
   `;
   document.head.appendChild(iubConfigScript);
 
