@@ -101,6 +101,7 @@ function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
 
   if (e) {
+    console.log("Filter update received:", e);
     let languageFilters = e.language
       ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
       : "";
@@ -115,11 +116,19 @@ function calculateFilterString(e?: any) {
           .map((available: string) => `available:"${available}"`)
           .join(" OR ")
       : "";
+    let minPriceFilter = e.price?.min;
+    let maxPriceFilter = e.price?.max;
 
     languageFilters.length && (filter += ` AND (${languageFilters})`);
     conditionFilters.length && (filter += ` AND (${conditionFilters})`);
     brandFilter.length && (filter += ` AND (${brandFilter})`);
     availableFilter.length && (filter += ` AND (${availableFilter})`);
+    if (minPriceFilter !== undefined) {
+      filter += ` AND salePrice >= ${minPriceFilter}`;
+    }
+    if (maxPriceFilter !== undefined) {
+      filter += ` AND salePrice <= ${maxPriceFilter}`;
+    }
   }
 
   if (expansion) filter += ` AND (expansion:"${expansion}")`;
