@@ -10,7 +10,7 @@
       <p>{{ config.public.MAIL_ADMIN }}</p>
     </div>
 
-    <MoleculesSocialLinks :imgs="footer.imgs" />
+    <MoleculesSocialLinks />
 
     <div class="w-full text-center">
       <label class="px-6" for="policy">
@@ -24,17 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import { type SocialLinksType } from "~/components/Molecules/SocialLinks/SocialLinks.vue";
 import { FOOTER_MENU_ITEMS } from "~/data/const";
 
 const config = useRuntimeConfig();
 const props = defineProps({
-  footer: {
-    type: Object as PropType<{
-      imgs?: SocialLinksType | SocialLinksType[];
-    }>,
-    default: () => ({ text: "", imgs: [] }),
-  },
   policyLinks: {
     type: Array as PropType<Array<{ label: string; link: string }>>,
   },

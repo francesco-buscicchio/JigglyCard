@@ -1,10 +1,10 @@
 <template>
   <div class="flex flex-col items-center py-2 pb-4">
     <div class="flex flex-row items-center">
-      <template v-if="Array.isArray(imgs)">
+      <template v-if="Array.isArray(footerData.imgs)">
         <div
           class="py-2 mx-3 cursor-pointer"
-          v-for="(img, index) in imgs"
+          v-for="(img, index) in footerData.imgs"
           :key="index"
           @click="iconSocialPressed(img.url)"
         >
@@ -14,9 +14,9 @@
       <template v-else>
         <div
           class="max-h-6 cursor-pointer"
-          @click="iconSocialPressed(imgs?.url ?? '')"
+          @click="iconSocialPressed(footerData.imgs?.url ?? '')"
         >
-          <img v-if="imgs" :src="imgs.img" alt="Logo" />
+          <img v-if="footerData.imgs" :src="footerData.imgs.img" alt="Logo" />
         </div>
       </template>
     </div>
@@ -25,13 +25,7 @@
 
 <script setup lang="ts">
 import type { SocialLinks } from "~/types/socialLink.type";
-
-const props = defineProps({
-  imgs: {
-    type: [Array, Object] as PropType<SocialLinks | SocialLinks[]>,
-    default: () => [],
-  },
-});
+import { footerData } from "~/data/footer";
 
 const iconSocialPressed = (url: string) => {
   navigateTo(url, {
