@@ -1,4 +1,7 @@
 <template>
+  <p class="hidden">
+    {{ containerClass }}
+  </p>
   <div
     class="flex flex-col items-center relative transition-transform duration-200 ease-in-out"
     :class="containerClass"
