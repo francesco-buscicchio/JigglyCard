@@ -27,7 +27,7 @@ class UserService extends StrapiCollectionCRUD<User> {
     return await this.getItemById(userID);
   }
 
-  async createUser(userData: User): Promise<User> {
+  async createUser(userData: Omit<User, "documentID">): Promise<User> {
     return await this.createItem(userData);
   }
 

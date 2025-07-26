@@ -11,6 +11,13 @@ interface Order {
   shipment_value: number;
   total_value: number;
   variant: string[];
+  country: string;
+  city: string;
+  cap: string;
+  street: string;
+  trackingCode: string;
+  shipped: boolean;
+  invoiced: boolean;
 }
 
 class OrderService extends StrapiCollectionCRUD<Order> {
@@ -18,18 +25,19 @@ class OrderService extends StrapiCollectionCRUD<Order> {
     super(strapiBaseUrl, accessToken, "orders");
   }
 
-  // Metodi personalizzati per OrderService, se necessari
   async getAllOrders(): Promise<Order[]> {
-    return await this.getAllItems("en"); // Puoi personalizzare locale se necessario
+    return await this.getAllItems("en");
   }
 
   async getOrderById(orderId: string): Promise<Order | null> {
     return await this.getItemById(orderId);
   }
 
-  async createOrder(orderData: Omit<Order, "date">): Promise<Order> {
+  async createOrder(
+    orderData: Omit<Order, "date" | "documentID">
+  ): Promise<Order> {
     const now = new Date();
-    const newOrder: Order = {
+    const newOrder: Omit<Order, "documentID"> = {
       ...orderData,
       date: now,
     };

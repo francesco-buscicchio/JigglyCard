@@ -14,6 +14,14 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     super(strapiBaseUrl, accessToken, "carts");
   }
 
+  generateSessionId(): string {
+    const sessionId = [...Array(16)]
+      .map(() => Math.floor(Math.random() * 16).toString(16))
+      .join("");
+    localStorage.setItem("session_id", sessionId);
+    return sessionId;
+  }
+
   async getAllCarts(): Promise<Cart[]> {
     return await this.getAllItems("en");
   }
@@ -23,13 +31,13 @@ class CartService extends StrapiCollectionCRUD<Cart> {
   }
 
   async createCart(
-    cartData: Omit<Cart, "creation_date" | "expired_date">
+    cartData: Omit<Cart, "creation_date" | "expired_date" | "documentID">
   ): Promise<Cart> {
     const now = new Date();
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
 
-    const newCart: Cart = {
+    const newCart: Omit<Cart, "documentID"> = {
       ...cartData,
       creation_date: now,
       expired_date: expiredDate,
