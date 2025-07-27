@@ -228,7 +228,7 @@ function formatTitle(title: string): string {
 
 const handleTagClickLanguage = (code: TagCode): void => {
   const activeConditions = tagsStructure.find(
-    (tag) => tag.language === code
+    (tag) => tag.language.toUpperCase() === code
   )?.conditions;
   if (activeConditions) {
     tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
@@ -244,7 +244,7 @@ const handleTagClickCondition = (code: TagCode): void => {
     const tagContainThisCondition = tagsStructure.find((tag) =>
       tag.conditions.some((cond) => cond === conditionSelected?.code)
     );
-    handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
+    handleTagClickLanguage(tagContainThisCondition?.language.toUpperCase() as TagCode);
   }
 
   tagsCondition.value = tagsCondition.value.map((tag) => {

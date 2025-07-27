@@ -15,9 +15,8 @@ export const createTagLanguage = (
   tagsStructure: TagStructure[]
 ): ListingTagProps[] => {
   const languageMap = createLanguageMap();
-
   const sortedLanguages = preferredLanguageOrder
-    .filter((lang) => tagsStructure.some((item) => item.language === lang))
+    .filter((lang) => tagsStructure.some((item) => item.language.toUpperCase() === lang))
     .map((lang) => ({
       code: lang,
       name: languageMap.get(lang) ?? lang,
@@ -71,10 +70,10 @@ export const findActiveLanguage = (
 ): TagStructure | undefined => {
   const languageMap = createLanguageMap();
   const activeLanguageCode = preferredLanguageOrder.find((lang) =>
-    tagLanguage.find((tag) => tag?.text === languageMap.get(lang))
+    tagLanguage.find((tag) => tag?.text === languageMap.get(lang.toUpperCase()))
   );
   const activeLanguage = tagsStructure.find(
-    (item) => item.language === activeLanguageCode
+    (item) => item.language.toUpperCase() === activeLanguageCode
   );
   return activeLanguage;
 };
@@ -98,11 +97,11 @@ export const createTagsStructure = (query: any): TagStructure[] => {
 
   variantsDetails.forEach((variant) => {
     const { language, condition } = variant;
-
+    
     if (!grouped[language]) {
       grouped[language] = new Set();
     }
-
+    
     grouped[language]?.add(condition);
   });
 
