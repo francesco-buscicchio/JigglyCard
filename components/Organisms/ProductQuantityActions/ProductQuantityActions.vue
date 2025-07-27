@@ -23,6 +23,7 @@
         type="primary"
         :text="t('productHero.AddToCart')"
         class="max-w-[30rem] mt-12"
+        @click="addToCart"
       >
         <Icon name="jig:cart-white" size="30"></Icon>
       </AtomsButtonCTA>
