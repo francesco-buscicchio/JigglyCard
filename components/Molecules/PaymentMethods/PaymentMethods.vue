@@ -67,16 +67,16 @@ const paymentMethods: PaymentMethod[] = [
     alt: "Satispay",
     link: "#",
   },
-  {
-    src: applePay,
-    alt: "Apple Pay",
-    link: "#",
-  },
-  {
-    src: googlePay,
-    alt: "Google Pay",
-    link: "#",
-  },
+  // {
+  //   src: applePay,
+  //   alt: "Apple Pay",
+  //   link: "#",
+  // },
+  // {
+  //   src: googlePay,
+  //   alt: "Google Pay",
+  //   link: "#",
+  // },
 ];
 
 const iconSocialPressed = (url: string) => {
