@@ -2,7 +2,7 @@
   <div>
     <p class="px-6 lg:text-center">{{ t("payments.terms") }}</p>
     <div class="flex justify-center w-full">
-      <div class="flex m-4 px-4 gap-5">
+      <div class="flex m-4 px-4 gap-5 flex-wrap justify-center">
         <div
           v-for="(payment, index) in paymentMethods"
           :key="index"
@@ -12,7 +12,7 @@
             <img
               :src="payment.src"
               :alt="payment.alt"
-              class="mt-2 w-18 h-10 object-cover"
+              class="mt-2 w-18 h-10 object-contain"
             />
           </a>
         </div>
@@ -23,36 +23,60 @@
 
 <script setup lang="ts">
 import type { PaymentMethod } from "~/types/paymentMethod.type";
-import paypal from "../../../assets/img/paypal.png";
+import paypalTest from "../../../assets/img/paypal.png";
+import paypal from "../../../assets/img/PayPal-Monogram-FullColor-RGB.png";
+import mastercard from "../../../assets/img/mc_vrt_pos.png";
+import visa from "../../../assets/img/Visa_Brandmark_Blue_RGB_2021.png";
+import klarna from "../../../assets/img/Klarna_Badge_With_Clear_Space.svg";
+import satispay from "../../../assets/img/satispay-seeklogo.png";
+import ameriExpr from "../../../assets/img/american-express-alternative.svg";
+import applePay from "../../../assets/img/Apple_Pay_Mark_RGB_041619.svg";
+import googlePay from "../../../assets/img/GPay_Acceptance_Mark_800.png";
+// Alternative paypal resource: https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg
 
 const { t } = useI18n();
-type PaymentMethodType = {
-  src: string;
-  alt: string;
-  link: string;
-};
 
-const paymentMethods: PaymentMethodType[] = [
+const paymentMethods: PaymentMethod[] = [
   {
     src: paypal,
-    alt: "paypal",
+    alt: "Paypal",
     link: "#",
   },
-  // {
-  //     src: "https://via.placeholder.com/100x50?text=Pay2",
-  //     alt: "Pay Method 2",
-  //     link: "#",
-  // },
-  // {
-  //     src: "https://via.placeholder.com/100x50?text=Pay3",
-  //     alt: "Pay Method 3",
-  //     link: "#",
-  // },
-  // {
-  //     src: "https://via.placeholder.com/100x50?text=Pay4",
-  //     alt: "Pay Method 4",
-  //     link: "#",
-  // },
+  {
+    src: mastercard,
+    alt: "Mastercard",
+    link: "#",
+  },
+  {
+    src: visa,
+    alt: "Visa",
+    link: "#",
+  },
+  {
+    src: ameriExpr,
+    alt: "American Express",
+    link: "#",
+  },
+  {
+    src: klarna,
+    alt: "Klarna",
+    link: "#",
+  },
+  {
+    src: satispay,
+    alt: "Satispay",
+    link: "#",
+  },
+  {
+    src: applePay,
+    alt: "Apple Pay",
+    link: "#",
+  },
+  {
+    src: googlePay,
+    alt: "Google Pay",
+    link: "#",
+  },
 ];
 
 const iconSocialPressed = (url: string) => {
