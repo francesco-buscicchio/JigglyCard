@@ -61,12 +61,13 @@
 </template>
 
 <script setup lang="ts">
+import type { Variant } from "~/types/variant.type";
+
 const { t } = useI18n();
 const isDesktopView = isDesktop();
 const quantity = ref(1);
 const props = defineProps<{
-  quantity: number;
-  price: number;
+  variant: Variant;
 }>();
 
 const quantityOptions = computed(() => {

@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ props.variants }}
     <div>
       <p class="mb-4 lg:mb-2">Lingua:</p>
       <div class="flex gap-3 flex-wrap">
@@ -52,8 +51,6 @@
 </template>
 
 <script setup lang="ts">
-import { variants } from "#tailwind-config";
-import { TagType } from "~/enum/tag.enum";
 import type { Variant } from "~/types/variant.type";
 
 const selectedLanguage = ref<string | null>(null);
@@ -98,7 +95,6 @@ function selectableTags() {
     const firstVariant = props.variants[0];
     selectedCondition.value = firstVariant.condition;
     selectedLanguage.value = firstVariant.language;
-    // Emmette l'evento al padre per la selezione iniziale
     emitVariantChange(firstVariant);
   }
 
@@ -109,20 +105,23 @@ function selectableTags() {
     (val) => val.condition === selectedCondition.value
   );
 
-  const distinctLanguage = variantsFilteredByLanguage.filter(
-    (value, index, self) =>
-      self.findIndex((v) => v.language === value.language) === index
-  );
-  const distinctLanguageTag = distinctLanguage.map((val) => val.condition);
+  const distinctLanguage: string[] = [];
+  for (let item of [...variantsFilteredByConditions]) {
+    if (!distinctLanguage.includes(item.language))
+      distinctLanguage.push(item.language);
+  }
 
-  const distinctConditions = variantsFilteredByConditions.filter(
-    (value, index, self) =>
-      self.findIndex((v) => v.language === value.language) === index
-  );
-  const distinctConditionsTag = distinctConditions.map((val) => val.language);
+  const distinctConditions: string[] = [];
+  for (let item of [...variantsFilteredByLanguage]) {
+    if (!distinctConditions.includes(item.condition))
+      distinctConditions.push(item.condition);
+  }
 
-  enableConditions.value = distinctConditionsTag;
-  enableLanguage.value = distinctLanguageTag;
+  console.log(distinctConditions);
+  console.log(distinctLanguage);
+
+  enableConditions.value = distinctConditions;
+  enableLanguage.value = distinctLanguage;
 }
 
 // Calcola il tipo di tag (active o inactive) per ogni tag
@@ -186,7 +185,7 @@ function handleClickTag(tag: "condition" | "language", code: string) {
 
 // Emissione dell'evento al padre con l'ID della variante selezionata
 function emitVariantChange(variant: Variant) {
-  emit("variantSelected", variant.id);
+  emit("variantSelected", variant.documentId);
 }
 
 // Trova la lingua corrispondente per una condizione

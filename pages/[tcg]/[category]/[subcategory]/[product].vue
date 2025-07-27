@@ -27,10 +27,7 @@
       </div>
 
       <div class="flex flex-col gap-12">
-        <OrganismsProductQuantityActions
-          :price="product.price"
-          :quantity="product.quantity"
-        />
+        <OrganismsProductQuantityActions :variant="selectedVariant" />
 
         <MoleculesTextViewer>
           <template v-slot:content>
@@ -67,7 +64,6 @@
             </div>
           </div>
 
-          {{ selectedVariant }}
           <OrganismsProductQuantityActions
             v-if="selectedVariant"
             :price="selectedVariant.price"
@@ -168,7 +164,6 @@ const setTags = (tagsStructure: TagStructure[]): void => {
 const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
     const item = queryResult.hits[0];
-    console.log(item);
     product.value = {
       productName: item.name,
       code: item.code ? `(${item.code})` : "",
@@ -214,11 +209,11 @@ function formatTitle(title: string): string {
 }
 
 const changedVariant = (variantID: TagCode): void => {
+  console.log(variantID);
+  console.log();
   selectedVariant.value = product.value.variants.filter((val: any) => {
-    return (val.id = variantID);
+    return val.documentId === variantID;
   })[0];
-
-  console.log(selectedVariant.value);
 };
 
 const addToCart = () => {
