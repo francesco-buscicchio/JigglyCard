@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import puppeteer from "puppeteer";
 import { Readable } from "stream";
 import { Blob } from "buffer";
+import qs from "qs";
 
 config();
 const cardtraderApiToken = process.env.CARDTRADER_API_KEY;
@@ -22,28 +23,17 @@ const configCardTrader = {
     Authorization: `Bearer ${cardtraderApiToken}`,
   },
 };
-const categoriesIndex = client.collection("categories");
-const conditionsIndex = client.collection("conditions");
-const languagesIndex = client.collection("languages");
-const productsIndex = client.collection("products");
-const raritiesIndex = client.collection("rarities");
-const setsIndex = client.collection("sets");
-const tcgsIndex = client.collection("tcgs");
-const variantsIndex = client.collection("variants");
 
-await createProductsOnStrapi();
+//await createProductsOnStrapi();
 await syncProductsImages();
-await checkVariantsAvailability();
+//await checkVariantsAvailability();
 
 async function checkVariantsAvailability() {
   const products = await getProductsCardTrader();
   const cardtraderProducts = products.data;
-  const strapiProducts = await productsIndex.find({
-    locale: "en",
-    populate: "*",
-  });
+  const strapiProducts = await getAllProducts();
 
-  for (const strapiProduct of strapiProducts.data) {
+  for (const strapiProduct of strapiProducts) {
     for (const variant of strapiProduct.variants) {
       const variantData = await variantsIndex.find({
         locale: "en",
@@ -123,27 +113,30 @@ async function updateVariant(variant, product, quantity) {
 }
 
 async function syncProductsImages() {
-  const products = await productsIndex.find({
-    locale: "en",
-    populate: "*",
-  });
+  const productsIndex = client.collection("products");
+  const products = await getAllProducts();
+  const blueprintsArray = [];
 
-  for (let product of products.data) {
+  for (let product of products) {
+    await sleep(5000);
+    const setID = product.set.cardtraderID;
+
     if (product.thumbnail) continue;
 
-    let link = `https://www.cardtrader.com/cards/${product.slug}-${product.rarity.slug}-${product.code}`;
-    if (product.set.cards) link += `-${product.set.cards}`;
-    link += `-${product.set.slug}`;
+    if (!blueprintsArray[setID]) {
+      const result = await getBlueprintCardTrader(setID);
+      blueprintsArray[setID] = result.data;
+    }
 
-    let link2 = `https://www.cardtrader.com/cards/${product.slug}-${product.code}`;
-    if (product.set.cards) link2 += `-${product.set.cards}`;
-    link2 += `-${product.set.slug}`;
+    const blueprintFiltered = blueprintsArray[setID].filter((val) => {
+      return val.id === product.blueprintID;
+    });
 
-    const imageBuffer = await getThumbnail(link, 10);
-    const imageBuffer2 = await getThumbnail(link2, 10);
-    const imageToUse = imageBuffer || imageBuffer2;
+    if (!blueprintFiltered.length) continue;
 
-    if (!imageToUse) continue;
+    const blueprintData = blueprintFiltered[0];
+
+    const imageToUse = await downloadImage(blueprintData.image_url);
 
     const blob = new Blob([imageToUse], { type: "image/jpeg" });
     const form = new FormData();
@@ -169,7 +162,10 @@ async function syncProductsImages() {
 }
 async function createProductsOnStrapi() {
   const { expansions, categories, products, games } = await getAllData();
-  for (let product of products.data) {
+
+  for (let i = 0; i < 100; i++) {
+    const product = products.data[i];
+    //for (let product of products.data) {
     await createTcg(product, games);
     await createCategory(product, categories);
     await createSet(product, expansions);
@@ -178,6 +174,7 @@ async function createProductsOnStrapi() {
     await createLanguage(product);
     await createProduct(product);
     await createVariants(product);
+    //}
   }
 }
 async function getAllData() {
@@ -192,6 +189,13 @@ async function getAllData() {
     console.error("Error fetching data:", error);
   }
 }
+
+async function getBlueprintCardTrader(idExpansion) {
+  const url = `${cardsTraderApiBaseUrl}/blueprints/export?expansion_id=${idExpansion}`;
+  const result = await axios.get(url, configCardTrader);
+  return result;
+}
+
 async function getExpansionsCardTrader() {
   const url = `${cardsTraderApiBaseUrl}/expansions/export`;
   const result = await axios.get(url, configCardTrader);
@@ -213,6 +217,7 @@ async function getGamesCardTrader() {
   return result;
 }
 async function getTcgExists(id) {
+  const tcgsIndex = client.collection("tcgs");
   return await tcgsIndex.find({
     locale: "en",
     populate: "*",
@@ -224,6 +229,7 @@ async function getTcgExists(id) {
   });
 }
 async function getRarityExists(name) {
+  const raritiesIndex = client.collection("rarities");
   return await raritiesIndex.find({
     locale: "en",
     populate: "*",
@@ -235,6 +241,7 @@ async function getRarityExists(name) {
   });
 }
 async function getLanguageExists(name) {
+  const languagesIndex = client.collection("languages");
   return await languagesIndex.find({
     locale: "en",
     populate: "*",
@@ -246,6 +253,7 @@ async function getLanguageExists(name) {
   });
 }
 async function getCategoryExists(id) {
+  const categoriesIndex = client.collection("categories");
   return await categoriesIndex.find({
     locale: "en",
     populate: "*",
@@ -257,6 +265,7 @@ async function getCategoryExists(id) {
   });
 }
 async function getSetExists(id) {
+  const setsIndex = client.collection("sets");
   return await setsIndex.find({
     locale: "en",
     populate: "*",
@@ -268,23 +277,13 @@ async function getSetExists(id) {
   });
 }
 async function getConditionExists(name) {
+  const conditionsIndex = client.collection("conditions");
   return await conditionsIndex.find({
     locale: "en",
     populate: "*",
     filters: {
       name: {
         $eq: name,
-      },
-    },
-  });
-}
-async function getProductExists(id) {
-  return await productsIndex.find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      cardtraderID: {
-        $eq: id,
       },
     },
   });
@@ -308,7 +307,22 @@ async function createTcg(product, games) {
     }
   }
 }
+
+async function getProductExists(id) {
+  const productsIndex = client.collection("products");
+  return await productsIndex.find({
+    locale: "en",
+    populate: "*",
+    filters: {
+      cardtraderID: {
+        $eq: id,
+      },
+    },
+  });
+}
+
 async function getVariantExists(productID, conditionID, languageID) {
+  const variantsIndex = client.collection("variants");
   return await variantsIndex.find({
     locale: "en",
     populate: "*",
@@ -340,6 +354,7 @@ async function createCategory(product, categories) {
       tcg: tcgData.data[0].documentId,
     };
     try {
+      const categoriesIndex = client.collection("categories");
       await categoriesIndex.create(categoryData);
     } catch (e) {
       const errorBody = await e.response.json();
@@ -362,6 +377,7 @@ async function createSet(product, expansions) {
       tcg: tcgData.data[0].documentId,
     };
     try {
+      const setsIndex = client.collection("sets");
       await setsIndex.create(expansionData);
     } catch (e) {
       const errorBody = await e.response.json();
@@ -383,6 +399,7 @@ async function createRarity(product) {
     };
 
     try {
+      const raritiesIndex = client.collection("rarities");
       await raritiesIndex.create(rarityData);
     } catch (e) {
       console.log("Error creating rarity:", e);
@@ -402,6 +419,7 @@ async function createLanguage(product) {
     };
 
     try {
+      const languagesIndex = client.collection("languages");
       await languagesIndex.create(languageData);
     } catch (e) {
       console.log("Error creating language:", e);
@@ -418,6 +436,7 @@ async function createCondition(product) {
     };
 
     try {
+      const conditionsIndex = client.collection("conditions");
       await conditionsIndex.create(conditionData);
     } catch (e) {
       const errorBody = await e.response.json();
@@ -446,21 +465,22 @@ async function createProduct(product) {
     const code = product.properties_hash.collector_number
       ? product.properties_hash.collector_number.split("/")[0]
       : product.properties_hash.collector_number;
-    const cardtraderID = product.id.toString();
 
     const productData = {
       name: product.name_en,
-      cardtraderID: cardtraderID,
+      rarity: rarityDocument.data[0].documentId,
+      category: categoryDocument.data[0].documentId,
+      cardtraderID: product.id,
+      set: setDocument.data[0].documentId,
       slug: normalizeSlug(product.name_en),
       description: "",
-      category: categoryDocument.data[0].documentId,
-      set: setDocument.data[0].documentId,
-      rarity: rarityDocument.data[0].documentId,
-      code: code,
       tag: randomTag,
+      code: code,
+      blueprintID: product.blueprint_id,
     };
 
     try {
+      const productsIndex = client.collection("products");
       await productsIndex.create(productData);
     } catch (e) {
       const errorBody = await e.response.json();
@@ -500,6 +520,7 @@ async function createVariants(product) {
     };
 
     try {
+      const variantsIndex = client.collection("variants");
       const result = await variantsIndex.create(variantData);
 
       const newVariantId = result.data.documentId;
@@ -507,6 +528,7 @@ async function createVariants(product) {
         (v) => (typeof v === "string" ? v : v.documentId)
       );
       const updatedVariants = [...currentVariants, newVariantId];
+      const productsIndex = client.collection("products");
       await productsIndex.update(productDocument.data[0].documentId, {
         variants: updatedVariants,
       });
@@ -521,28 +543,7 @@ async function createVariants(product) {
     });
   }
 }
-async function getThumbnail(url, limit = 1000) {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.goto(url, { waitUntil: "networkidle2" });
 
-  const bestImage = await page.evaluate(() => {
-    const prefix = "https://www.cardtrader.com/uploads/blueprints/";
-    const imgs = Array.from(document.querySelectorAll("img"));
-    console.log(imgs);
-    const matches = imgs.filter((img) => img.src.includes(prefix));
-    return matches.length > 0 ? matches[0].src : null;
-  });
-
-  await browser.close();
-
-  if (bestImage) {
-    const imageBuffer = await downloadImage(bestImage);
-    return imageBuffer; // Restituisce il Buffer dell'immagine
-  }
-
-  return null;
-}
 async function downloadImage(url) {
   const response = await axios({
     url,
@@ -559,4 +560,36 @@ function normalizeSlug(slug) {
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^A-Za-z0-9-_.~]/g, "-");
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+async function getAllProducts() {
+  let page = 1;
+  const pageSize = 25;
+  let allProducts = [];
+  let totalPages = 1;
+
+  do {
+    const query = qs.stringify({
+      pagination: {
+        page,
+        pageSize,
+      },
+      populate: "*",
+    });
+
+    const response = await productsIndex.find(query);
+    const { data, meta } = response;
+    allProducts = allProducts.concat(data);
+
+    totalPages = meta?.pagination?.pageCount || 1;
+    page++;
+  } while (page <= totalPages);
+
+  return allProducts;
 }

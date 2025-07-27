@@ -1,6 +1,6 @@
 import https from "https";
 import { strapi } from "@strapi/client";
-
+import qs from "qs";
 import { algoliasearch } from "algoliasearch";
 import { config } from "dotenv";
 
@@ -26,8 +26,8 @@ const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
 await syncAlgoliaToStrapiProducts();
-// await syncAlgoliaToStrapiSets();
-// await syncAlgoliaMassimoMinimo();
+await syncAlgoliaToStrapiSets();
+await syncAlgoliaMassimoMinimo();
 await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
@@ -36,7 +36,7 @@ async function syncAlgoliaMassimoMinimo() {
   let minorPrice = 100000000;
   let maxPrice = 0;
 
-  for (const product of products.data) {
+  for (const product of products) {
     for (const variant of product.variants) {
       if (variant.price < minorPrice) {
         minorPrice = variant.price;
@@ -68,7 +68,7 @@ async function syncAlgoliaMassimoMinimo() {
 async function syncAlgoliaToStrapiProducts() {
   const products = await getProducts();
   const productsToSave = [];
-  for (const product of products.data) {
+  for (const product of products) {
     const variants = await getProductVariants(product.id);
     const category = await getCategory(product.category.documentId);
 
@@ -117,6 +117,7 @@ async function syncAlgoliaToStrapiProducts() {
       images: [product.thumbnail],
       variantsDetails: variants.data.map((variant) => ({
         id: variant.id,
+        documentId: variant.documentId,
         language: variant.language.short_name,
         condition: variant.condition.short_name,
         price: variant.price / 100,
@@ -181,10 +182,7 @@ async function syncAlgoliaToStrapiSets() {
 
   const setsToSave = [];
 
-  for (const set of sets.data) {
-    if (!set.thumbnail || !set.thumbnail[0].url) {
-      continue;
-    }
+  for (const set of sets) {
     const setData = {
       objectID: set.id,
       name: set.name,
@@ -192,10 +190,12 @@ async function syncAlgoliaToStrapiSets() {
       expansion: set.slug,
       tags: ["HEROBANNER"],
       description: set.description,
-      thumbnailImage: `https://honorable-belief-ab1c5a7281.media.strapiapp.com${set.thumbnail[0].url.replace(
-        /^\/uploads/,
-        ""
-      )}`,
+      thumbnailImage: set.thumbnail
+        ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${set.thumbnail[0].url.replace(
+            /^\/uploads/,
+            ""
+          )}`
+        : null,
     };
     setsToSave.push(setData);
   }
@@ -212,22 +212,38 @@ async function syncAlgoliaToStrapiSets() {
 }
 
 async function getProducts() {
-  return await productsIndex.find({
-    locale: "en",
-    populate: "*",
-  });
+  let page = 1;
+  const pageSize = 25;
+  let allProducts = [];
+  let totalPages = 1;
+
+  do {
+    const response = await productsIndex.find({
+      pagination: {
+        page,
+        pageSize,
+      },
+      populate: "*",
+    });
+    const { data, meta } = response;
+    allProducts = allProducts.concat(data);
+
+    totalPages = meta?.pagination?.pageCount || 1;
+    page++;
+  } while (page <= totalPages);
+
+  return allProducts;
 }
 
 async function getConditions() {
   return await strapiClient.collection("conditions").find({
-    locale: "en",
     populate: "*",
   });
 }
 
 async function getProductVariants(productID) {
-  return await variantsIndex.find({
-    locale: "en",
+  const variantsI = strapiClient.collection("variants");
+  return await variantsI.find({
     populate: "*",
     filters: {
       product: {
@@ -239,7 +255,6 @@ async function getProductVariants(productID) {
 
 async function getCategory(categoryID) {
   return await categoriesIndex.find({
-    locale: "en",
     populate: "*",
     filters: {
       documentId: {
@@ -251,14 +266,30 @@ async function getCategory(categoryID) {
 
 async function getCategories() {
   return await categoriesIndex.find({
-    locale: "en",
     populate: "*",
   });
 }
 
 async function getSets() {
-  return await setIndex.find({
-    locale: "en",
-    populate: "*",
-  });
+  let page = 1;
+  const pageSize = 25;
+  let allSets = [];
+  let totalPages = 1;
+
+  do {
+    const response = await setIndex.find({
+      pagination: {
+        page,
+        pageSize,
+      },
+      populate: "*",
+    });
+    const { data, meta } = response;
+    allSets = allSets.concat(data);
+
+    totalPages = meta?.pagination?.pageCount || 1;
+    page++;
+  } while (page <= totalPages);
+
+  return allSets;
 }
