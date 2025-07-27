@@ -130,7 +130,7 @@ import {
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ListingTagProps } from "~/types/listingTag.type";
+import type { ListingTag } from "~/types/listingTag.type";
 import type { TagStructure } from "~/types/tagStructure.type";
 import type { TagCode } from "~/types/tagCode.type";
 import { TagType } from "~/enum/tag.enum";
@@ -154,8 +154,8 @@ onMounted(async () => {
   setDeals(results);
 });
 
-const tagsLanguage = ref<ListingTagProps[]>([]);
-const tagsCondition = ref<ListingTagProps[]>([]);
+const tagsLanguage = ref<ListingTag[]>([]);
+const tagsCondition = ref<ListingTag[]>([]);
 let tagsStructure: TagStructure[];
 
 async function fetchData() {
@@ -238,16 +238,18 @@ const handleTagClickLanguage = (code: TagCode): void => {
 
 const handleTagClickCondition = (code: TagCode): void => {
   const conditionSelected = tagsCondition.value.find(
-    (tag) => tag.code === code
+    (tag: ListingTag) => tag.code === code
   );
   if (conditionSelected?.type === TagType.DISABLED) {
     const tagContainThisCondition = tagsStructure.find((tag) =>
       tag.conditions.some((cond) => cond === conditionSelected?.code)
     );
-    handleTagClickLanguage(tagContainThisCondition?.language.toUpperCase() as TagCode);
+    handleTagClickLanguage(
+      tagContainThisCondition?.language.toUpperCase() as TagCode
+    );
   }
 
-  tagsCondition.value = tagsCondition.value.map((tag) => {
+  tagsCondition.value = tagsCondition.value.map((tag: ListingTag) => {
     let tagType;
 
     if (tag.type === TagType.DISABLED) {
