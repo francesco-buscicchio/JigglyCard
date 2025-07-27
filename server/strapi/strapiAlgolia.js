@@ -117,6 +117,7 @@ async function syncAlgoliaToStrapiProducts() {
       images: [product.thumbnail],
       variantsDetails: variants.data.map((variant) => ({
         id: variant.id,
+        quantity: variant.quantity,
         documentId: variant.documentId,
         language: variant.language.short_name,
         condition: variant.condition.short_name,
