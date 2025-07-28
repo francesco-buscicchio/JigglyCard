@@ -1,4 +1,9 @@
 <template>
+  <MoleculesToastMessage
+    :text="toastData.message"
+    :type="toastData.type"
+    :trigger-key="toastKey"
+  />
   <div v-if="quantityOptions">
     <!-- mobile -->
     <div v-show="!isDesktopView">
@@ -71,9 +76,14 @@ const { t } = useI18n();
 
 const isDesktopView = isDesktop();
 const quantityRef = ref(1);
+const toastKey = ref(0);
 const props = defineProps<{
   variant: Variant;
 }>();
+const toastData = {
+  message: "",
+  type: "",
+};
 
 const cartService = new CartService(
   config.public.STRAPI_BASE_URL,
@@ -121,6 +131,9 @@ async function addToCart() {
     });
     localStorage.setItem("jiggly_cart_id", result.data.documentId);
     localStorage.setItem("jiggly_cart_session_id", sessionID);
+    toastData.message = "Prodotto Aggiunto Al Carrello con Successo";
+    toastData.type = "success";
+    toastKey.value++;
   } else {
     const cart = await cartService.getCartById(cartID);
     if (cart) {
@@ -135,6 +148,14 @@ async function addToCart() {
         });
         if (indexQuantity !== -1) {
           quantity[indexQuantity].quantity += quantityRef.value;
+          if ((quantity[indexQuantity].quantity += quantityRef.value)) {
+            toastData.message =
+              "La quantità aggiunta al carrello è maggiore della quantità disponibile";
+            toastData.type = "error";
+            toastKey.value++;
+
+            return;
+          }
         } else {
           quantity.push({
             variant: props.variant.documentId,
@@ -144,7 +165,10 @@ async function addToCart() {
           cartData.quantity = JSON.stringify(quantity);
         }
       }
-      cartService.updateCart(cart.data.documentId, cartData);
+      await cartService.updateCart(cart.data.documentId, cartData);
+      toastData.message = "Prodotto Aggiunto Al Carrello con Successo";
+      toastData.type = "success";
+      toastKey.value++;
     }
   }
 }
