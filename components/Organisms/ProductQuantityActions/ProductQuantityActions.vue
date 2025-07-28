@@ -105,7 +105,6 @@ async function addToCart() {
   if (localStorage.getItem("jiggly_cart_session_id")) {
     sessionID = localStorage.getItem("jiggly_cart_session_id") ?? "";
     cartID = localStorage.getItem("jiggly_cart_id") ?? "";
-    console.log(cartID);
     cartExists = true;
   } else {
     sessionID = cartService.generateSessionId();

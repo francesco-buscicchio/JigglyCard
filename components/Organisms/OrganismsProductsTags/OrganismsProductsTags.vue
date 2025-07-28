@@ -117,9 +117,6 @@ function selectableTags() {
       distinctConditions.push(item.condition);
   }
 
-  console.log(distinctConditions);
-  console.log(distinctLanguage);
-
   enableConditions.value = distinctConditions;
   enableLanguage.value = distinctLanguage;
 }

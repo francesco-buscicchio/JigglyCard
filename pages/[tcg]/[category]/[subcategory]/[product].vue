@@ -205,8 +205,6 @@ function formatTitle(title: string): string {
 }
 
 const changedVariant = (variantID: TagCode): void => {
-  console.log(variantID);
-  console.log();
   selectedVariant.value = product.value.variants.filter((val: any) => {
     return val.documentId === variantID;
   })[0];
