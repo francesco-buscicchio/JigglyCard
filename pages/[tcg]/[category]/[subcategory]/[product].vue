@@ -27,7 +27,7 @@
       </div>
 
       <div class="flex flex-col gap-12">
-        <OrganismsProductQuantityActions :variant="selectedVariant" />
+        <OrganismsProductQuantityActions :variant="selectedVariant.value" />
 
         <MoleculesTextViewer>
           <template v-slot:content>
@@ -64,11 +64,7 @@
             </div>
           </div>
 
-          <OrganismsProductQuantityActions
-            v-if="selectedVariant"
-            :price="selectedVariant.price"
-            :quantity="selectedVariant.quantity"
-          />
+          <OrganismsProductQuantityActions :variant="selectedVariant" />
         </div>
       </div>
       <div class="xl:mx-[14vw] my-18">

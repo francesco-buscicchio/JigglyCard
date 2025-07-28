@@ -6,7 +6,7 @@ interface Cart {
   session_id: string;
   creation_date: Date;
   expired_date: Date;
-  variant: string[];
+  variants: string[];
 }
 
 class CartService extends StrapiCollectionCRUD<Cart> {
@@ -18,7 +18,6 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     const sessionId = [...Array(16)]
       .map(() => Math.floor(Math.random() * 16).toString(16))
       .join("");
-    localStorage.setItem("session_id", sessionId);
     return sessionId;
   }
 
@@ -26,13 +25,13 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     return await this.getAllItems("en");
   }
 
-  async getCartById(cartId: string): Promise<Cart | null> {
+  async getCartById(cartId: string): Promise<any> {
     return await this.getItemById(cartId);
   }
 
   async createCart(
     cartData: Omit<Cart, "creation_date" | "expired_date" | "documentID">
-  ): Promise<Cart> {
+  ): Promise<any> {
     const now = new Date();
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
@@ -42,6 +41,7 @@ class CartService extends StrapiCollectionCRUD<Cart> {
       creation_date: now,
       expired_date: expiredDate,
     };
+    console.log(newCart);
     return await this.createItem(newCart);
   }
 
@@ -49,6 +49,7 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     cartId: string,
     updateData: Omit<Cart, "expiredDate">
   ): Promise<Cart> {
+    console.log(cartId);
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
 

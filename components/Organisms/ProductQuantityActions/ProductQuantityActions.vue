@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="quantityOptions">
     <!-- mobile -->
     <div v-show="!isDesktopView">
       <div class="flex items-center gap-14">
@@ -15,7 +15,8 @@
         <h2 class="price-tag">{{ totalPrice }} €</h2>
       </div>
       <p class="my-2">
-        {{ t("quantitySelect.availability") }}: {{ quantity }}
+        {{ t("quantitySelect.availability") }}:
+        {{ quantityOptions.length }}
         {{ t("quantitySelect.pieces") }}
       </p>
 
@@ -35,8 +36,8 @@
         <div class="">
           <p>{{ t("quantitySelect.quantity") }}:</p>
           <p class="my-1 text-xs">
-            ({{ t("quantitySelect.availability") }}: {{ quantity }}
-            {{ t("quantitySelect.pieces") }} )
+            ({{ t("quantitySelect.availability") }}:
+            {{ quantityOptions.length }} {{ t("quantitySelect.pieces") }} )
           </p>
         </div>
         <MoleculesPageSorter
@@ -52,6 +53,7 @@
           type="primary"
           :text="t('productHero.AddToCart')"
           class="max-w-[30rem]"
+          @click="addToCart()"
         >
           <Icon name="jig:cart-white" size="30"></Icon>
         </AtomsButtonCTA>
@@ -61,25 +63,67 @@
 </template>
 
 <script setup lang="ts">
+import { CartService } from "~/service/CartService";
 import type { Variant } from "~/types/variant.type";
 
+const config = useRuntimeConfig();
 const { t } = useI18n();
+
 const isDesktopView = isDesktop();
 const quantity = ref(1);
 const props = defineProps<{
   variant: Variant;
 }>();
 
+const cartService = new CartService(
+  config.public.STRAPI_BASE_URL,
+  config.public.FULL_ACCESS_TOKEN
+);
+
 const quantityOptions = computed(() => {
-  return Array.from({ length: props.quantity }, (_, i) => ({
+  if (!props.variant) return null;
+  return Array.from({ length: props.variant.quantity }, (_, i) => ({
     value: (i + 1).toString(),
     name: (i + 1).toString(),
   }));
 });
 
-const totalPrice = computed(() => (quantity.value * props.price).toFixed(2));
+const totalPrice = computed(() => {
+  if (!props.variant) return null;
+  return (quantity.value * props.variant.price).toFixed(2);
+});
 
 function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
+}
+
+async function addToCart() {
+  let cartExists = false;
+  let sessionID = "";
+  let cartID = "";
+
+  if (localStorage.getItem("jiggly_cart_session_id")) {
+    sessionID = localStorage.getItem("jiggly_cart_session_id") ?? "";
+    cartID = localStorage.getItem("jiggly_cart_id") ?? "";
+    console.log(cartID);
+    cartExists = true;
+  } else {
+    sessionID = cartService.generateSessionId();
+  }
+
+  if (!cartExists) {
+    const result = await cartService.createCart({
+      session_id: sessionID,
+      variants: [props.variant.documentId],
+    });
+    localStorage.setItem("jiggly_cart_id", result.data.documentId);
+    localStorage.setItem("jiggly_cart_session_id", sessionID);
+    console.log(result);
+  } else {
+    console.log("Sto editando un carrello esistente");
+    const cart = await cartService.getCartById(cartID);
+    if (cart) cart.data.variants.push(props.variant.documentId);
+    cartService.updateCart(cart.data.id, cart.data);
+  }
 }
 </script>

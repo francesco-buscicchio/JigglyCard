@@ -4,4 +4,5 @@ export type Variant = {
   language: string;
   condition: string;
   price: number;
+  quantity: number;
 };
