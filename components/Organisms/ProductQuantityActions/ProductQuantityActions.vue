@@ -7,7 +7,7 @@
           <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
           <MoleculesPageSorter
             :sortingItems="quantityOptions"
-            :selected="quantity"
+            :selected="quantityRef"
             @handleSorting="updateQuantity"
           />
         </div>
@@ -42,7 +42,7 @@
         </div>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
-          :selected="quantity"
+          :selected="quantityRef"
           @handleSorting="updateQuantity"
         />
       </div>
@@ -70,7 +70,7 @@ const config = useRuntimeConfig();
 const { t } = useI18n();
 
 const isDesktopView = isDesktop();
-const quantity = ref(1);
+const quantityRef = ref(1);
 const props = defineProps<{
   variant: Variant;
 }>();
@@ -90,11 +90,11 @@ const quantityOptions = computed(() => {
 
 const totalPrice = computed(() => {
   if (!props.variant) return null;
-  return (quantity.value * props.variant.price).toFixed(2);
+  return (quantityRef.value * props.variant.price).toFixed(2);
 });
 
 function updateQuantity(newQuantity: string) {
-  quantity.value = Number(newQuantity);
+  quantityRef.value = Number(newQuantity);
 }
 
 async function addToCart() {
@@ -112,18 +112,41 @@ async function addToCart() {
   }
 
   if (!cartExists) {
+    const quantityData = [
+      { variant: props.variant.documentId, quantity: quantityRef.value },
+    ];
     const result = await cartService.createCart({
       session_id: sessionID,
       variants: [props.variant.documentId],
+      quantity: JSON.stringify(quantityData),
     });
     localStorage.setItem("jiggly_cart_id", result.data.documentId);
     localStorage.setItem("jiggly_cart_session_id", sessionID);
-    console.log(result);
   } else {
-    console.log("Sto editando un carrello esistente");
     const cart = await cartService.getCartById(cartID);
-    if (cart) cart.data.variants.push(props.variant.documentId);
-    cartService.updateCart(cart.data.id, cart.data);
+    if (cart) {
+      const quantity = cart.data.quantity;
+      const cartData = {
+        variants: cart.data.variants,
+        quantity: cart.data.quantity,
+      };
+      if (quantity.length) {
+        const indexQuantity = quantity.findIndex((val: any) => {
+          return val.variant === props.variant.documentId;
+        });
+        if (indexQuantity !== -1) {
+          quantity[indexQuantity].quantity += quantityRef.value;
+        } else {
+          quantity.push({
+            variant: props.variant.documentId,
+            quantity: quantityRef.value,
+          });
+          cartData.variants.push(props.variant.documentId);
+          cartData.quantity = JSON.stringify(quantity);
+        }
+      }
+      cartService.updateCart(cart.data.documentId, cartData);
+    }
   }
 }
 </script>

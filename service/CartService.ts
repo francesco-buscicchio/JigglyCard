@@ -7,6 +7,7 @@ interface Cart {
   creation_date: Date;
   expired_date: Date;
   variants: string[];
+  quantity: string;
 }
 
 class CartService extends StrapiCollectionCRUD<Cart> {
@@ -25,8 +26,8 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     return await this.getAllItems("en");
   }
 
-  async getCartById(cartId: string): Promise<any> {
-    return await this.getItemById(cartId);
+  async getCartById(documentID: string): Promise<any> {
+    return await this.getItemById(documentID);
   }
 
   async createCart(
@@ -45,15 +46,12 @@ class CartService extends StrapiCollectionCRUD<Cart> {
     return await this.createItem(newCart);
   }
 
-  async updateCart(
-    cartId: string,
-    updateData: Omit<Cart, "expiredDate">
-  ): Promise<Cart> {
+  async updateCart(cartId: string, updateData: Partial<Cart>): Promise<Cart> {
     console.log(cartId);
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
 
-    const newCart: Cart = {
+    const newCart: Partial<Cart> = {
       ...updateData,
       expired_date: expiredDate,
     };
