@@ -1,9 +1,4 @@
 <template>
-  <MoleculesToastMessage
-    :text="t('productHero.addToCartToast')"
-    type="success"
-    :trigger-key="toastKey"
-  />
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
@@ -208,9 +203,5 @@ const changedVariant = (variantID: TagCode): void => {
   selectedVariant.value = product.value.variants.filter((val: any) => {
     return val.documentId === variantID;
   })[0];
-};
-
-const addToCart = () => {
-  toastKey.value++;
 };
 </script>
