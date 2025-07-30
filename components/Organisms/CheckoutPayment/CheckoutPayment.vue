@@ -40,7 +40,7 @@ import {
   stripeOptions,
   expressCheckoutOptions,
   paymentElementOptions,
-} from "~/service/Strapi/StripeConfig";
+} from "~/service/StripeConfig";
 
 type PaymentIntentResponse = {
   success: boolean;
