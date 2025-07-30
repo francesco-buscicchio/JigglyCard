@@ -1,65 +1,198 @@
-import { StrapiCollectionCRUD } from "./StrapiCollectionCRUD";
+import { ToastMessageType, type ToastMessage } from "~/types/toastMessage.type";
+import { CartStrapiService, type Cart } from "./Strapi/CartService";
+import type { Variant } from "./Strapi/VariantService";
+import { variants } from "#tailwind-config";
 
-// Interfaccia che rappresenta la struttura di un carrello
-interface Cart {
-  documentID: string;
-  session_id: string;
-  creation_date: Date;
-  expired_date: Date;
-  variants: string[];
-  quantity: string;
-}
+type QuantityItem = { variant: string; quantity: number };
+class CartService {
+  private static instance: CartService;
+  private strapiBaseUrl = "";
+  private accessToken = "";
+  private defaultExpiredDate = "06/09/2000";
+  private jiggly_cart_session_id = "";
+  private jiggly_cart_expired_date = new Date(this.defaultExpiredDate);
+  public jiggly_cart_id = "";
+  private cartService: CartStrapiService;
 
-class CartService extends StrapiCollectionCRUD<Cart> {
-  constructor(strapiBaseUrl: string, accessToken: string) {
-    super(strapiBaseUrl, accessToken, "carts");
+  private constructor(strapiBaseUrl: string, accessToken: string) {
+    this.strapiBaseUrl = strapiBaseUrl;
+    this.accessToken = accessToken;
+    this.validateToken();
+    this.cartService = new CartStrapiService(
+      this.strapiBaseUrl,
+      this.accessToken
+    );
   }
 
-  generateSessionId(): string {
-    const sessionId = [...Array(16)]
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join("");
-    return sessionId;
+  public static getInstance(
+    strapiBaseUrl: string,
+    accessToken: string
+  ): CartService {
+    if (!CartService.instance) {
+      CartService.instance = new CartService(strapiBaseUrl, accessToken);
+    }
+    return CartService.instance;
   }
 
-  async getAllCarts(): Promise<Cart[]> {
-    return await this.getAllItems("en");
+  private validateToken() {
+    if (localStorage.getItem("jiggly_cart_session_id")) {
+      this.jiggly_cart_session_id =
+        localStorage.getItem("jiggly_cart_session_id") ?? "";
+      this.jiggly_cart_expired_date = new Date(
+        localStorage.getItem("jiggly_cart_expired_date") ?? ""
+      );
+      this.jiggly_cart_id = localStorage.getItem("jiggly_cart_id") ?? "";
+
+      if (
+        this.jiggly_cart_session_id &&
+        this.jiggly_cart_expired_date &&
+        this.jiggly_cart_id
+      ) {
+        if (this.jiggly_cart_expired_date <= new Date()) {
+          this.resetTokenStorage();
+        }
+      }
+    }
   }
 
-  async getCartById(documentID: string): Promise<any> {
-    return await this.getItemById(documentID);
+  private resetTokenStorage() {
+    localStorage.removeItem("jiggly_cart_session_id");
+    localStorage.removeItem("jiggly_cart_expired_date");
+    localStorage.removeItem("jiggly_cart_id");
+    this.jiggly_cart_id = "";
+    this.jiggly_cart_session_id = "";
+    this.jiggly_cart_expired_date = new Date(this.defaultExpiredDate);
   }
 
-  async createCart(
-    cartData: Omit<Cart, "creation_date" | "expired_date" | "documentID">
-  ): Promise<any> {
-    const now = new Date();
-    const expiredDate = new Date();
-    expiredDate.setMinutes(expiredDate.getMinutes() + 30);
+  private setToken(result: any, sessionID: string) {
+    localStorage.setItem("jiggly_cart_id", result.data.documentId);
+    localStorage.setItem("jiggly_cart_expired_date", result.data.expired_date);
+    localStorage.setItem("jiggly_cart_session_id", sessionID);
+    this.jiggly_cart_id = result.data.documentId;
+    this.jiggly_cart_expired_date = result.data.expired_date;
+    this.jiggly_cart_session_id = sessionID;
+  }
 
-    const newCart: Omit<Cart, "documentID"> = {
-      ...cartData,
-      creation_date: now,
-      expired_date: expiredDate,
+  public async getCart() {
+    return this.cartService.getCartById(this.jiggly_cart_id);
+  }
+
+  public async addToCart(
+    documentId: string,
+    quantitySelected: Number,
+    availableQuantity: Number
+  ): Promise<ToastMessage> {
+    try {
+      let sessionID = this.jiggly_cart_session_id;
+      if (sessionID === "") sessionID = this.cartService.generateSessionId();
+
+      //CREA CARRELLO E PUSHA ELEMENTO SE NON ESISTE
+      if (!this.jiggly_cart_id) {
+        const quantityData = [
+          { variant: documentId, quantity: quantitySelected },
+        ];
+        const result = await this.cartService.createCart({
+          session_id: sessionID,
+          variants: [documentId],
+          quantity: JSON.stringify(quantityData),
+        });
+        this.setToken(result, sessionID);
+        return {
+          text: "Prodotto Aggiunto Al Carrello con Successo",
+          type: ToastMessageType.SUCCESS,
+        };
+      } else {
+        const cart = await this.cartService.getCartById(this.jiggly_cart_id);
+        //OTTIENE DATI CARRELLO
+        if (cart) {
+          const quantity = cart.data.quantity;
+          const cartData = {
+            variants: cart.data.variants,
+            quantity: cart.data.quantity,
+          };
+          cartData.variants = cartData.variants.map((val: Variant) => {
+            return val.documentId;
+          });
+
+          //CERCA SE ELEMENTO GIA PRESENTE NEL CARRELLO
+          const indexQuantity = quantity.findIndex((val: any) => {
+            return val.variant === documentId;
+          });
+          //SE PRESENTE AGGIORNA LE QUANTITA
+          if (indexQuantity !== -1) {
+            quantity[indexQuantity].quantity += quantitySelected;
+            if (quantity[indexQuantity].quantity > availableQuantity) {
+              return {
+                text: "La quantità aggiunta al carrello è maggiore della quantità disponibile",
+                type: ToastMessageType.ERROR,
+              };
+            }
+          }
+          //SE ASSENTE LO PUSHA NELL'ARRAY
+          else {
+            quantity.push({
+              variant: documentId,
+              quantity: quantitySelected,
+            });
+            cartData.variants.push(documentId);
+          }
+          cartData.quantity = JSON.stringify(quantity);
+          await this.cartService.updateCart(this.jiggly_cart_id, cartData);
+          return {
+            text: "Prodotto Aggiunto Al Carrello con Successo",
+            type: ToastMessageType.SUCCESS,
+          };
+        }
+        return {
+          text: "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
+          type: ToastMessageType.ERROR,
+        };
+      }
+    } catch (_) {
+      return {
+        text: "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
+        type: ToastMessageType.ERROR,
+      };
+    }
+  }
+
+  public async updateQuantityData(
+    quantityData: QuantityItem[],
+    idVariant: string,
+    newQuantity: number
+  ) {
+    const index = quantityData.findIndex((val: QuantityItem) => {
+      return val.variant === idVariant;
+    });
+    if (index !== -1) {
+      quantityData[index].quantity = newQuantity;
+    }
+    const newCartData = {
+      quantity: JSON.stringify(quantityData),
     };
-    console.log(newCart);
-    return await this.createItem(newCart);
+    console.log(newCartData);
+    return await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
   }
 
-  async updateCart(cartId: string, updateData: Partial<Cart>): Promise<Cart> {
-    console.log(cartId);
-    const expiredDate = new Date();
-    expiredDate.setMinutes(expiredDate.getMinutes() + 30);
+  public async removeItem(cartData: Cart, item: any) {
+    const newVariants = cartData.variants.filter((val: any) => {
+      return val.documentId !== item.id;
+    });
+    const newQuantity = cartData.quantity.filter((val: any) => {
+      return val.variant !== item.id;
+    });
 
-    const newCart: Partial<Cart> = {
-      ...updateData,
-      expired_date: expiredDate,
+    const newCartData = {
+      variants: newVariants.map((val: any) => {
+        return val.documentId;
+      }),
+      quantity: JSON.stringify(newQuantity),
     };
-    return await this.updateItem(cartId, newCart);
-  }
 
-  async deleteCart(cartId: string): Promise<void> {
-    await this.deleteItem(cartId);
+    const result = await this.cartService.updateCart(
+      this.jiggly_cart_id,
+      newCartData
+    );
   }
 }
 

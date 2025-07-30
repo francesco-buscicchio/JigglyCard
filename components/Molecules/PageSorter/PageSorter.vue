@@ -1,11 +1,14 @@
 <template>
   <div class="relative max-w-40">
-    <select @change="handleSortingValue" :class="className">
+    <select
+      v-model="selectedValue"
+      @change="handleSortingValue"
+      :class="className"
+    >
       <option
         v-for="item in sortingItems"
         :key="item.value"
         :value="item.value"
-        :selected="item.value === selectedValue"
       >
         {{ t(item.name) }}
       </option>

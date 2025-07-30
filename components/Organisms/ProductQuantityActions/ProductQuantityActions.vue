@@ -85,7 +85,7 @@ const toastData = {
   type: "",
 };
 
-const cartService = new CartService(
+const cartService = CartService.getInstance(
   config.public.STRAPI_BASE_URL,
   config.public.FULL_ACCESS_TOKEN
 );
@@ -108,68 +108,13 @@ function updateQuantity(newQuantity: string) {
 }
 
 async function addToCart() {
-  let cartExists = false;
-  let sessionID = "";
-  let cartID = "";
-
-  if (localStorage.getItem("jiggly_cart_session_id")) {
-    sessionID = localStorage.getItem("jiggly_cart_session_id") ?? "";
-    cartID = localStorage.getItem("jiggly_cart_id") ?? "";
-    cartExists = true;
-  } else {
-    sessionID = cartService.generateSessionId();
-  }
-
-  if (!cartExists) {
-    const quantityData = [
-      { variant: props.variant.documentId, quantity: quantityRef.value },
-    ];
-    const result = await cartService.createCart({
-      session_id: sessionID,
-      variants: [props.variant.documentId],
-      quantity: JSON.stringify(quantityData),
-    });
-    localStorage.setItem("jiggly_cart_id", result.data.documentId);
-    localStorage.setItem("jiggly_cart_session_id", sessionID);
-    toastData.message = "Prodotto Aggiunto Al Carrello con Successo";
-    toastData.type = "success";
-    toastKey.value++;
-  } else {
-    const cart = await cartService.getCartById(cartID);
-    if (cart) {
-      const quantity = cart.data.quantity;
-      const cartData = {
-        variants: cart.data.variants,
-        quantity: cart.data.quantity,
-      };
-      if (quantity.length) {
-        const indexQuantity = quantity.findIndex((val: any) => {
-          return val.variant === props.variant.documentId;
-        });
-        if (indexQuantity !== -1) {
-          quantity[indexQuantity].quantity += quantityRef.value;
-          if ((quantity[indexQuantity].quantity += quantityRef.value)) {
-            toastData.message =
-              "La quantità aggiunta al carrello è maggiore della quantità disponibile";
-            toastData.type = "error";
-            toastKey.value++;
-
-            return;
-          }
-        } else {
-          quantity.push({
-            variant: props.variant.documentId,
-            quantity: quantityRef.value,
-          });
-          cartData.variants.push(props.variant.documentId);
-          cartData.quantity = JSON.stringify(quantity);
-        }
-      }
-      await cartService.updateCart(cart.data.documentId, cartData);
-      toastData.message = "Prodotto Aggiunto Al Carrello con Successo";
-      toastData.type = "success";
-      toastKey.value++;
-    }
-  }
+  const toastMessage = await cartService.addToCart(
+    props.variant.documentId,
+    quantityRef.value,
+    quantityOptions.value?.length ?? 0
+  );
+  toastData.message = toastMessage.text;
+  toastData.type = toastMessage.type;
+  toastKey.value++;
 }
 </script>
