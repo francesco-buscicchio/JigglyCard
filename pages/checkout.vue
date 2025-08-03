@@ -59,14 +59,14 @@ type formData = {
   iWantTheInvoice: boolean;
 };
 const selectedShippingOption = ref(
-  null as { name: string; price: number } | null
+  null as { id: string; price: number } | null
 );
 
 function updateFormData(data: formData) {
   formData.value = data;
 }
 
-function updateSelectedOption(option: { name: string; price: number }) {
+function updateSelectedOption(option: { id: string; price: number }) {
   selectedShippingOption.value = option;
 }
 

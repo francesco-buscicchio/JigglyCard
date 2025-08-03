@@ -43,7 +43,7 @@ const emit =
   defineEmits<
     (
       e: "update:selectedOption",
-      option: { name: string; price: number }
+      option: { id: string; price: number }
     ) => void
   >();
 
