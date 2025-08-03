@@ -3,17 +3,13 @@
     <h5>{{ t("shippingMode.shippingMethod") }}</h5>
 
     <div class="my-4">
-      <div v-for="shippingMethod of SHIPPING_METHODS">
-        <AtomsRadioButton
-          :value="shippingMethod"
-          :id="shippingMethod.id"
-          name="shippingMethod"
-          v-model="selectedOption"
-          :label="shippingMethod.label"
-        />
-      </div>
-
-      <!-- <span class="ml-2 text-base">Standard 1€ </span> -->
+      <AtomsRadioButton
+        :value="SHIPPING_METHOD_STANDARD"
+        :id="SHIPPING_METHOD_STANDARD.id"
+        name="shippingMethod"
+        v-model="selectedOption"
+        :label="SHIPPING_METHOD_STANDARD.label"
+      />
       <p class="text-xs py-3">
         {{ t("shippingMode.message") }}
       </p>
@@ -68,7 +64,7 @@ const props = defineProps({
 });
 import { useI18n } from "vue-i18n";
 import { goBack } from "@/utils/navigationUtils";
-import { SHIPPING_METHODS } from "~/data/const";
+import { SHIPPING_METHOD_STANDARD } from "~/data/const";
 const { t } = useI18n();
 const isDesktopView = isDesktop();
 const placeholder = computed(() => {
@@ -80,5 +76,5 @@ const codeApply = computed(() => {
     : t("shippingMode.codeApply");
 });
 // TODO: rendere di default l'opzione standard
-const selectedOption = ref(SHIPPING_METHODS[0]);
+const selectedOption = ref(SHIPPING_METHOD_STANDARD);
 </script>

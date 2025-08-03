@@ -18,7 +18,7 @@
 
     <div class="mb-12 lg:mb-18">
       <OrganismsSelectOptions
-        :shipping-options="shippingOptions"
+        :shipping-options="SHIPPING_METHODS"
         @update:selectedOption="updateSelectedOption"
       />
     </div>
@@ -41,16 +41,13 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { SHIPPING_METHODS } from "~/data/const";
 import type { Product } from "~/types/product.type";
 const isMobileView = isMobile();
 const totalAmount = ref(100); // Example total amount for test, replace with actual calculation
 const { t } = useI18n();
 const formData = ref({});
-const shippingOptions = ref([
-  { name: "Opzione 1", price: 5 },
-  { name: "Opzione 2", price: 10 },
-  { name: "Opzione 3", price: 15 },
-]);
+
 
 type formData = {
   name: string | null;
