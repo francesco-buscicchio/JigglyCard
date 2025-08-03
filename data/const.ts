@@ -94,3 +94,6 @@ export const HEADER_MENU = [
   { name: "Dragon Ball", to: "/dragon-ball/all", subMenu: [] },
   { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
 ];
+
+export const SHIPPING_METHODS: { id: string; label: string; price: number }[] =
+  [{ id: "standard-1", label: "Standard 1", price: 0 }];
