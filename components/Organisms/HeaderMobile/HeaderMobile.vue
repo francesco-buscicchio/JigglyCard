@@ -23,15 +23,15 @@
         </div>
 
         <div class="items-center space-x-4">
-          <button class="focus:outline-none" @click="goTo(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25" />
-          </button>
           <button
             @click="toggleSearch"
             :style="{ visibility: isSearchOpen ? 'hidden' : 'visible' }"
             class="focus:outline-none"
           >
             <Icon name="jig:cerca-accent" size="25" />
+          </button>
+          <button class="focus:outline-none" @click="goTo(PATH.CART)">
+            <Icon name="jig:cart-accent" size="25" />
           </button>
         </div>
       </div>
