@@ -4,9 +4,10 @@ export const headerButtons = [
     to: "/carrello",
     arialabel: "Search",
   },
-  {
-    icon: "jig:user-accent",
-    to: "/user",
-    arialabel: "Search",
-  },
+  // DISABILITATO TEMPORANEAMENTE
+  // {
+  //   icon: "jig:user-accent",
+  //   to: "/user",
+  //   arialabel: "Search",
+  // },
 ];
