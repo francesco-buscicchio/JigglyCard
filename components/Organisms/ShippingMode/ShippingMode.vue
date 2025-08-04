@@ -33,7 +33,11 @@
     </div>
 
     <div class="flex flex-col gap-y-4">
-      <AtomsButtonCTA type="primary" :text="t('shippingMode.buyCTA')" />
+      <AtomsButtonCTA
+        type="primary"
+        :text="t('shippingMode.buyCTA')"
+        @button-clicked="goTo(PATH.CHECKOUT)"
+      />
       <AtomsButtonCTA
         type="underline-text"
         :text="t('shippingMode.goBackProducts')"
@@ -64,7 +68,8 @@ const props = defineProps({
 });
 import { useI18n } from "vue-i18n";
 import { goBack } from "@/utils/navigationUtils";
-import { SHIPPING_METHOD_STANDARD } from "~/data/const";
+import { SHIPPING_METHOD_STANDARD, PATH } from "~/data/const";
+import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const isDesktopView = isDesktop();
 const placeholder = computed(() => {
