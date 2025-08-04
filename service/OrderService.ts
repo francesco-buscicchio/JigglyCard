@@ -10,7 +10,7 @@ interface Order {
   order_value: number;
   shipment_value: number;
   total_value: number;
-  variant: string[];
+  variants: string[];
   country: string;
   city: string;
   cap: string;
