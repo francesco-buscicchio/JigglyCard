@@ -22,20 +22,19 @@
     "Description": "Descrizione",
     "addToCartToast": "Prodotto aggiunto al carrello con successo"
   },
-  "prestoOnline": "We're coming",
-  "sconto10": "Sconto del 10%",
-  "titleNewsLetter": "Gotta catch us!",
-  "headerNewsLetter": "Unisciti alla nostra community e approfitta delle offerte speciali, direttamente nella tua casella email!",
-  "captionNewsletter": {
-    "first": "Scopri tutti i vantaggi di restare aggiornato con un solo click: anteprime esclusive, promozioni speciali, approfondimenti dettagliati e reminder personalizzati per i tuoi acquisti, il tutto senza riempire la tua casella di posta. Iscriviti ora e approfitta di un ",
-    "bold": " Codice Sconto del 15% ",
-    "second": " valido sul tuo primo acquisto di articoli non già in promozione!"
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Unisciti alla nostra community e approfitta delle offerte speciali, direttamente nella tua casella email!",
+    "caption": {
+      "first": "Scopri tutti i vantaggi di restare aggiornato con un solo click: anteprime esclusive, promozioni speciali, approfondimenti dettagliati e reminder personalizzati per i tuoi acquisti, il tutto senza riempire la tua casella di posta. Iscriviti ora e approfitta di un ",
+      "bold": " Codice Sconto del 15% ",
+      "second": " valido sul tuo primo acquisto di articoli non già in promozione!"
+    },
+    "emailValidation": "Inserisci una email valida.",
+    "short": "Resta aggiornato con un click senza riempire la tua casella di posta. Iscriviti per un 15% di sconto sul primo acquisto di articoli non in promozione!",
+    "button": "Iscriviti",
+    "toast": "Iscrizione avvenuta con successo"
   },
-  "newsletterEmailValidation": "Inserisci una email valida.",
-  "captionNewsletterShort": "Resta aggiornato con un click senza riempire la tua casella di posta. Iscriviti per un 15% di sconto sul primo acquisto di articoli non in promozione!",
-  "buttonNewsLetter": "Iscriviti",
-  "footerNewsLetter": "Inserendo la mail verrai inserito nei nostri sistemi cosi da tenerti aggiornato sulle novita e sugli sconti",
-  "toastNewsletter": "Iscrizione avvenuta con successo",
   "startingFrom": "a partire da",
   "privacy": "privacy",
   "cookies": "cookies",
@@ -49,7 +48,6 @@
   "da": "da",
   "a": "a",
   "price": "Prezzo",
-  "deleteAllFilters": "Cancella tutti i filtri",
   "apply": "Applica",
   "showDetails": "vedi dettagli",
   "cart": "Carrello",
@@ -103,8 +101,8 @@
     "priceExpensive": "Più caro",
     "nameAtoZ": "Nome (A - Z)",
     "nameZtoA": "Nome (Z - A)",
-    "collecorsNumberLowest": "Per numero di collezione (prima il piu' basso)",
-    "collecorsNumberHighest": "Per numero di collezione (prima il piu' alto)"
+    "collectorsNumberLowest": "Per numero di collezione (prima il più basso)",
+    "collectorsNumberHighest": "Per numero di collezione (prima il più alto)"
   },
   "filter": {
     "language": "Lingua",
@@ -131,15 +129,18 @@
   "min": "Min",
   "max": "Max",
   "tag": {
-    "italian": "italiano",
-    "english": "inglese",
-    "japanese": "giapponese",
-    "near_mint": "near mint",
-    "MP": "good",
-    "excellent": "excellent",
-    "good": "good",
-    "played": "played",
-    "poor": "poor"
+    "it": "Italiano",
+    "en": "Inglese",
+    "Near Mint": "Near Mint",
+    "Good": "Good",
+    "Poor": "Poor"
+  },
+  "toast": {
+    "cart": {
+      "success": "Prodotto Aggiunto Al Carrello con Successo",
+      "error": "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
+      "overflow": "La quantità aggiunta al carrello è maggiore della quantità disponibile"
+    }
   },
   "footerLinks": {
     "about": "About",
@@ -159,7 +160,7 @@
   "streetAndHouseNumber": "Via e numero civico",
   "iWantTheInvoice": "Voglio la fattura",
   "shippingMethod": "Modalità di spedizione",
-  "recapCart": "Riepilogo carrello",
+  "cartSummary": "Riepilogo carrello",
   "shipping": "Spedizione",
   "total": "Totale",
   "confirmAndPay": "Conferma e paga",
@@ -178,7 +179,7 @@
   "suggested": "Questi li hai visti?",
   "gratis": "Gratis",
   "needAssistance": "Hai bisogno di assistenza?",
-  "shippingMode": {
+  "shippingSection": {
     "shippingMethod": "Modalità di spedizione",
     "message": "*puoi scegliere un’altra modalità in fase di checkout",
     "couponCode": "Inserisci il codice di X cifre",
@@ -192,5 +193,6 @@
   "paymentMethods": "Modalità di pagamento",
   "creditCard": "Carta di credito",
   "wireTransfer": "Bonifico",
-  "no_results": "Nessun risultato"
+  "no_results": "Nessun risultato",
+  "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!"
 }

@@ -115,7 +115,6 @@ const { t } = useI18n();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
-const toastKey = ref(0);
 const isMobileView = isMobile();
 const selectedVariant = ref(null);
 

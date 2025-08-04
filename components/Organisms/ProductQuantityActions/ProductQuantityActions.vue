@@ -113,7 +113,7 @@ async function addToCart() {
     quantityRef.value,
     quantityOptions.value?.length ?? 0
   );
-  toastData.message = toastMessage.text;
+  toastData.message = t(toastMessage.text);
   toastData.type = toastMessage.type;
   toastKey.value++;
 }

@@ -97,7 +97,7 @@ class CartService {
         });
         this.setToken(result, sessionID);
         return {
-          text: "Prodotto Aggiunto Al Carrello con Successo",
+          text: "toast.cart.success",
           type: ToastMessageType.SUCCESS,
         };
       } else {
@@ -122,7 +122,7 @@ class CartService {
             quantity[indexQuantity].quantity += quantitySelected;
             if (quantity[indexQuantity].quantity > availableQuantity) {
               return {
-                text: "La quantità aggiunta al carrello è maggiore della quantità disponibile",
+                text: "toast.cart.overflow",
                 type: ToastMessageType.ERROR,
               };
             }
@@ -138,18 +138,18 @@ class CartService {
           cartData.quantity = JSON.stringify(quantity);
           await this.cartService.updateCart(this.jiggly_cart_id, cartData);
           return {
-            text: "Prodotto Aggiunto Al Carrello con Successo",
+            text: "toast.cart.success",
             type: ToastMessageType.SUCCESS,
           };
         }
         return {
-          text: "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
+          text: "toast.cart.success",
           type: ToastMessageType.ERROR,
         };
       }
     } catch (_) {
       return {
-        text: "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
+        text: "toast.cart.success",
         type: ToastMessageType.ERROR,
       };
     }
@@ -187,10 +187,7 @@ class CartService {
       quantity: JSON.stringify(newQuantity),
     };
 
-    const result = await this.cartService.updateCart(
-      this.jiggly_cart_id,
-      newCartData
-    );
+    await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
   }
 }
 
