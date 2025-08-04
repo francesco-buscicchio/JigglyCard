@@ -32,6 +32,7 @@ export const FOOTER_MENU_ITEMS = [
 export const PATH = {
   HOME: "/",
   CART: "/carrello",
+  CHECKOUT: '/checkout'
 };
 
 export const VIEWPORTS = {
