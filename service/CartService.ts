@@ -42,12 +42,10 @@ class CartService extends StrapiCollectionCRUD<Cart> {
       creation_date: now,
       expired_date: expiredDate,
     };
-    console.log(newCart);
     return await this.createItem(newCart);
   }
 
   async updateCart(cartId: string, updateData: Partial<Cart>): Promise<Cart> {
-    console.log(cartId);
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
 
