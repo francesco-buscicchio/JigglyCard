@@ -41,15 +41,6 @@ class CartService {
     if (!CartService.instance) {
       CartService.instance = new CartService(strapiBaseUrl, accessToken);
     }
-
-    console.log("Session ID", localStorage.getItem("jiggly_cart_session_id"));
-
-    console.log("Cart ID", localStorage.getItem("jiggly_cart_id"));
-
-    console.log(
-      "Expired Date",
-      localStorage.getItem("jiggly_cart_expired_date")
-    );
     return CartService.instance;
   }
 
@@ -84,31 +75,12 @@ class CartService {
   }
 
   private setToken(result: { data: Cart }, sessionID: string) {
-    console.log(result);
     localStorage.setItem("jiggly_cart_id", result.data.documentId);
     localStorage.setItem(
       "jiggly_cart_expired_date",
       result.data.expired_date as string
     );
     localStorage.setItem("jiggly_cart_session_id", sessionID);
-
-    console.log(
-      "Session ID Store",
-      localStorage.getItem("jiggly_cart_session_id")
-    );
-
-    console.log("Cart ID Store", localStorage.getItem("jiggly_cart_id"));
-
-    console.log(
-      "Expired Date Store",
-      localStorage.getItem("jiggly_cart_expired_date")
-    );
-
-    console.log("Session ID Var", this.jiggly_cart_session_id);
-
-    console.log("Cart ID Var", this.jiggly_cart_id);
-
-    console.log("Expired Date Var", this.jiggly_cart_expired_date);
   }
 
   public async getCart() {
