@@ -40,7 +40,7 @@
             :key="index"
             class="header-btn"
             @click="goTo(button.to)"
-            :aria-label="button.ariaLabel"
+            :aria-label="button.arialabel"
           >
             <Icon :name="button.icon" size="18" />
           </button>

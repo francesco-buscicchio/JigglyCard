@@ -108,6 +108,7 @@ import type { TagStructure } from "~/types/tagStructure.type";
 import type { TagCode } from "~/types/tagCode.type";
 import type { ProductType } from "~/types/productType.type";
 import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
+import defaultCardImage from "@/assets/img/default-card-image.png";
 
 const product = ref();
 const { t } = useI18n();

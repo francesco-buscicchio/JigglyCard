@@ -1,7 +1,6 @@
 import { ToastMessageType, type ToastMessage } from "~/types/toastMessage.type";
 import { CartStrapiService, type Cart } from "./Strapi/CartService";
 import type { Variant } from "./Strapi/VariantService";
-import { variants } from "#tailwind-config";
 
 type QuantityItem = { variant: string; quantity: number };
 class CartService {
