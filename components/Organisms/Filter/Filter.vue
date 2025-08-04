@@ -58,8 +58,8 @@
                 >{{ t("da") }} {{ selectedMinPrice }}</span
               >
               <MoleculesSlider
-                :min="0"
-                :max="5000"
+                :min="minumPrice"
+                :max="maxPrice"
                 :initialMinPrice="selectedMinPrice"
                 :initialMaxPrice="selectedMaxPrice"
                 @update:minPrice="updateMinPrice($event)"
@@ -129,8 +129,10 @@ const filterCategories = ref();
 const client = useAlgolia();
 
 const isOpen = ref(false);
+const minumPrice = ref(0);
+const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(5000);
+const selectedMaxPrice = ref(0);
 const selectedFilters = reactive<{ [key: string]: any }>({});
 const inputKey = ref(0);
 
@@ -150,7 +152,8 @@ const areFiltersSelected = computed(() => {
   );
 
   const isPriceRangeSelected =
-    selectedMaxPrice.value !== 5000 || selectedMinPrice.value !== 0;
+    selectedMaxPrice.value !== maxPrice.value ||
+    selectedMinPrice.value !== minumPrice.value;
   return hasCheckedFilter || isPriceRangeSelected;
 });
 
@@ -181,6 +184,17 @@ onMounted(async () => {
       checked: false,
     })),
   }));
+
+  const minMaxItem: any = results.hits.find(
+    (filter: any) => filter.massimo && filter.minimo
+  );
+
+  if (minMaxItem) {
+    selectedMinPrice.value = minMaxItem.minimo;
+    selectedMaxPrice.value = minMaxItem.massimo;
+    minumPrice.value = minMaxItem.minimo;
+    maxPrice.value = minMaxItem.massimo;
+  }
 });
 
 const emit = defineEmits(["filterUpdate"]);
@@ -227,7 +241,7 @@ function updateMinPrice(value: number) {
 }
 
 function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, 5000);
+  selectedMaxPrice.value = Math.min(value, maxPrice.value);
 }
 
 function validateNumberInput(event: KeyboardEvent) {
@@ -244,23 +258,19 @@ function validatePriceInput(type: "min" | "max", event: Event) {
   if (!isNaN(numericValue)) {
     if (type === "min") {
       selectedMinPrice.value = Math.max(
-        0,
+        minumPrice.value,
         Math.min(numericValue, selectedMaxPrice.value)
       );
     } else {
       selectedMaxPrice.value = Math.min(
         Math.max(numericValue, selectedMinPrice.value),
-        5000
+        maxPrice.value
       );
     }
   }
 }
 
 function applyFilters() {
-  selectedFilters["Prezzo"] = {
-    min: selectedMinPrice.value,
-    max: selectedMaxPrice.value,
-  };
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
@@ -268,6 +278,11 @@ function applyFilters() {
     return acc;
   }, {});
   togglePanel();
+
+  result["price"] = {
+    min: selectedMinPrice.value,
+    max: selectedMaxPrice.value,
+  };
   emit("filterUpdate", result);
 }
 
@@ -280,9 +295,9 @@ function resetAllFilters() {
   Object.keys(selectedFilters).forEach((key) => {
     delete selectedFilters[key];
   });
-  selectedMinPrice.value = 0;
-  selectedMaxPrice.value = 5000;
-  selectedFilters["Prezzo"] = { min: 0, max: 5000 };
+  selectedMinPrice.value = minumPrice.value;
+  selectedMaxPrice.value = maxPrice.value;
+  selectedFilters["Prezzo"] = { min: minumPrice.value, max: maxPrice.value };
   inputKey.value++; //force rerender
 }
 
