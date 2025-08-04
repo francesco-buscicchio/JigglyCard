@@ -135,6 +135,8 @@ import type { TagStructure } from "~/types/tagStructure.type";
 import type { TagCode } from "~/types/tagCode.type";
 import { TagType } from "~/enum/tag.enum";
 import type { ProductType } from "~/types/productType.type";
+import defaultCardImage from "@/assets/img/default-card-image.png";
+
 
 const product = ref();
 const { t } = useI18n();
