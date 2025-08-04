@@ -169,7 +169,6 @@ class CartService {
     const newCartData = {
       quantity: JSON.stringify(quantityData),
     };
-    console.log(newCartData);
     return await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
   }
 
