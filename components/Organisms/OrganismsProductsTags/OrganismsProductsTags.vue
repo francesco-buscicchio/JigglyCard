@@ -11,13 +11,7 @@
           <AtomsTag
             :text="tag"
             :code="tag"
-            :type="
-              selectedLanguage === tag
-                ? 'active'
-                : tagType[tag]
-                ? 'inactive'
-                : 'disabled'
-            "
+            :type="selectedLanguage === tag ? 'active' : 'inactive'"
             @tagClicked="handleClickTag('language', tag)"
           />
         </div>

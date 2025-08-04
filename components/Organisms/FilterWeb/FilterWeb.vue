@@ -81,7 +81,7 @@
           type="text"
           @click="resetAllFilters"
         >
-          <p class="text-base">{{ t("deleteAllFilters") }}</p>
+          <p class="text-base">{{ t("clearFilters") }}</p>
         </AtomsButtonCTA>
         <AtomsButtonCTA @click="applyFilters">
           <h5>{{ t("apply") }}</h5>

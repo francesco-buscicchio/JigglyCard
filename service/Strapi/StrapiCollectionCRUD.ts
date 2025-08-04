@@ -23,7 +23,7 @@ class StrapiCollectionCRUD<T> {
 
   // Fetch a single item by ID
   async getItemById(itemId: string): Promise<T | null> {
-    return await this.collection.findOne(itemId);
+    return await this.collection.findOne(itemId, { populate: "*" });
   }
 
   // Create a new item in the collection

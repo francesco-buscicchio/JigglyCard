@@ -103,7 +103,7 @@
               @click="resetAllFilters"
               :class="areFiltersSelected ? 'visible' : 'invisible'"
             >
-              <p>{{ t("deleteAllFilters") }}</p>
+              <p>{{ t("clearFilters") }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
               <h5>{{ t("apply") }}</h5>

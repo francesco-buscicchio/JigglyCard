@@ -20,11 +20,11 @@ export default [
     value: "_name_desc",
   },
   {
-    name: "pageSorting.collecorsNumberLowest",
+    name: "pageSorting.collectorsNumberLowest",
     value: "_number_asc",
   },
   {
-    name: "pageSorting.collecorsNumberHighest",
+    name: "pageSorting.collectorsNumberHighest",
     value: "_number_desc",
   },
 ];

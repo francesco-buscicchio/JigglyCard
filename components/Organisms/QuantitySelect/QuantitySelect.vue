@@ -19,13 +19,15 @@
 </template>
 
 <script setup lang="ts">
-const isDesktopView = isDesktop();
 const props = defineProps<{
   quantity: number;
   price: number;
+  selectedQuantity: number;
 }>();
 
-const quantity = ref(1);
+const emit = defineEmits(["quantityChanged"]);
+
+const quantity = ref(props.selectedQuantity);
 const { t } = useI18n();
 const quantityOptions = computed(() => {
   return Array.from({ length: props.quantity }, (_, i) => ({
@@ -38,5 +40,6 @@ const totalPrice = computed(() => (quantity.value * props.price).toFixed(2));
 
 function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
+  emit("quantityChanged", Number(newQuantity));
 }
 </script>
