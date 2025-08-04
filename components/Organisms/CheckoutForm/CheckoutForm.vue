@@ -71,9 +71,10 @@ const formValues: FormValues = reactive({
   iWantTheInvoice: false,
 });
 
-function updateField(field: string, value: any) {
+type TextFieldKeys = Exclude<keyof FormValues, "iWantTheInvoice">;
+
+function updateField<K extends TextFieldKeys>(field: K, value: string) {
   formValues[field] = value;
-  emit("updateFormValues", { ...formValues });
 }
 
 function toggleCheckbox() {

@@ -20,10 +20,10 @@ export default defineEventHandler(async (event) => {
       success: true,
       clientSecret: paymentIntent.client_secret,
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
       success: false,
-      message: error?.message || "Unknown error",
+      message: (error as Error)?.message || "Unknown error",
     };
   }
 });

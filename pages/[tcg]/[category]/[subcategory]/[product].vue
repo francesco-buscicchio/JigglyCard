@@ -97,7 +97,6 @@ import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
-  activateLanguage,
   createTagCondition,
   createTagLanguage,
   createTagsStructure,
