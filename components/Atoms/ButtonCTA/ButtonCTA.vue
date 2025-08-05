@@ -12,7 +12,7 @@
     >
     <p v-if="type === 'text' || type === 'underline-text'">{{ text }}</p>
 
-    <slot/>
+    <slot />
   </button>
 </template>
 
@@ -24,7 +24,9 @@ const props = defineProps({
     type: String,
     default: "primary",
     validator: (value: string) =>
-      ["primary", "secondary", "disabled", "text", "underline-text"].includes(value),
+      ["primary", "secondary", "disabled", "text", "underline-text"].includes(
+        value
+      ),
   },
   text: {
     type: String,

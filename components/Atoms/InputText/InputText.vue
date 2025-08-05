@@ -1,6 +1,18 @@
 <template>
   <div class="relative">
+    <!-- Se longText è true, usa un textarea a 5 righe -->
+    <textarea
+      v-if="props.longText"
+      :class="inputClass"
+      v-model="inputValue"
+      :disabled="status === 'disabled'"
+      :placeholder="placeholder"
+      @blur="handleBlur"
+      rows="5"
+    />
+    <!-- Altrimenti, usa un input singola riga -->
     <input
+      v-else
       type="text"
       :class="inputClass"
       v-model="inputValue"
@@ -30,14 +42,16 @@ const props = defineProps({
     type: String,
     default: "Placeholder",
   },
+  longText: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const slots = useSlots();
 const inputValue = ref("");
 
-const hasSlotContent = computed(() => {
-  return !!slots.default;
-});
+const hasSlotContent = computed(() => !!slots.default);
 
 const inputClass = computed(() => {
   const baseClass =
@@ -52,10 +66,13 @@ const inputClass = computed(() => {
       "border border-neutrals-500 bg-neutrals-200 focus:border-neutrals-500",
   };
 
+  // Aggiunge padding destro extra se c'è uno slot
+  const paddingRight = hasSlotContent.value ? "pr-10" : "";
+
   return `${baseClass} ${
     statusClasses[props.status as keyof typeof statusClasses] ||
     statusClasses.default
-  } ${hasSlotContent.value ? "pr-10" : ""}`;
+  } ${paddingRight}`;
 });
 
 watch(inputValue, (newValue) => {
