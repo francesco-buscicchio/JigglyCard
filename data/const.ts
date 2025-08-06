@@ -24,3 +24,18 @@ export const PATH = {
 
 export const email = "jigglycard@gmail.com";
 export const phoneNumber = "+39 351 5223779";
+
+export const availableLanguages = [
+  { code: "IT", name: "italian" },
+  { code: "EN", name: "english" },
+  { code: "JP", name: "japanese" },
+];
+
+export const availableConditions = [
+  { code: "NM", name: "near_mint" },
+  { code: "EX", name: "excellent" },
+  { code: "GD", name: "good" },
+  { code: "PL", name: "played" },
+  { code: "PO", name: "poor" },
+];
+export const preferredLanguageOrder = ["IT", "EN", "JP"];
