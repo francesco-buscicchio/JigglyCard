@@ -2,6 +2,17 @@ import { ToastMessageType, type ToastMessage } from "~/types/toastMessage.type";
 import { CartStrapiService, type Cart } from "./Strapi/CartService";
 import type { Variant } from "./Strapi/VariantService";
 
+export type CartItem = {
+  id: string;
+  image: string;
+  selectedQuantity: number;
+  availableQuantity: number;
+  price: number;
+  totalPrice: number;
+  title: string;
+  language: string;
+  condition: string;
+};
 type QuantityItem = { variant: string; quantity: number };
 class CartService {
   private static instance: CartService;
@@ -63,13 +74,13 @@ class CartService {
     this.jiggly_cart_expired_date = new Date(this.defaultExpiredDate);
   }
 
-  private setToken(result: any, sessionID: string) {
+  private setToken(result: { data: Cart }, sessionID: string) {
     localStorage.setItem("jiggly_cart_id", result.data.documentId);
-    localStorage.setItem("jiggly_cart_expired_date", result.data.expired_date);
+    localStorage.setItem(
+      "jiggly_cart_expired_date",
+      result.data.expired_date as string
+    );
     localStorage.setItem("jiggly_cart_session_id", sessionID);
-    this.jiggly_cart_id = result.data.documentId;
-    this.jiggly_cart_expired_date = result.data.expired_date;
-    this.jiggly_cart_session_id = sessionID;
   }
 
   public async getCart() {
@@ -114,7 +125,7 @@ class CartService {
           });
 
           //CERCA SE ELEMENTO GIA PRESENTE NEL CARRELLO
-          const indexQuantity = quantity.findIndex((val: any) => {
+          const indexQuantity = quantity.findIndex((val: QuantityItem) => {
             return val.variant === documentId;
           });
           //SE PRESENTE AGGIORNA LE QUANTITA
@@ -172,17 +183,29 @@ class CartService {
     return await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
   }
 
-  public async removeItem(cartData: Cart, item: any) {
-    const newVariants = cartData.variants.filter((val: any) => {
-      return val.documentId !== item.id;
+  public async removeItem(cartData: Cart, item: CartItem) {
+    const newVariants = cartData.variants.filter((val: string | Variant) => {
+      if (typeof val === "string") {
+        return val !== item.id;
+      } else {
+        return val.documentId !== item.id;
+      }
     });
-    const newQuantity = cartData.quantity.filter((val: any) => {
+
+    let quantityArray: QuantityItem[] = [];
+    if (typeof cartData.quantity === "string") {
+      quantityArray = JSON.parse(cartData.quantity);
+    } else {
+      quantityArray = cartData.quantity;
+    }
+
+    const newQuantity = quantityArray.filter((val: QuantityItem) => {
       return val.variant !== item.id;
     });
 
     const newCartData = {
-      variants: newVariants.map((val: any) => {
-        return val.documentId;
+      variants: newVariants.map((val: string | Variant) => {
+        return typeof val === "string" ? val : val.documentId;
       }),
       quantity: JSON.stringify(newQuantity),
     };

@@ -70,27 +70,26 @@ import {
 } from "~/service/Strapi/VariantService";
 import { ProductStrapiService as ProductService } from "~/service/Strapi/ProductService";
 import type { SearchResponse } from "algoliasearch";
-import { CartService } from "~/service/CartService";
-import { CartStrapiService } from "~/service/Strapi/CartService";
+import { CartService, type CartItem } from "~/service/CartService";
 
 const config = useRuntimeConfig();
 const { t } = useI18n();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const suggested: Ref<ProductType[]> = ref([]);
-const products: any = ref([]);
+const products: Ref<CartItem[]> = ref([]);
 const client = useAlgolia();
 let cartService;
 let cartData: any;
 
-async function quantityChanged(newQuantity: number, item: any) {
+async function quantityChanged(newQuantity: number, item: CartItem) {
   const quantityData = [...cartData.data.quantity];
   cartService!.updateQuantityData(quantityData, item.id, newQuantity);
 }
 
-const removeItemFromCart = async (item: any) => {
+const removeItemFromCart = async (item: CartItem) => {
   await cartService!.removeItem(cartData.data, item);
-  products.value = products.value.filter((val: any) => {
+  products.value = products.value.filter((val: CartItem) => {
     return val.id !== item.id;
   });
 };
@@ -174,7 +173,7 @@ onMounted(async () => {
 
 const totalCart = computed(() => {
   return products.value
-    .reduce((acc: number, item: any) => acc + item.totalPrice, 0)
+    .reduce((acc: number, item: CartItem) => acc + item.totalPrice, 0)
     .toFixed(2);
 });
 </script>
