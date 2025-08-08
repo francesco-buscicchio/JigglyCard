@@ -1,34 +1,49 @@
 <template>
-  <MoleculesBreadcrumb />
-  <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
+  <div class="px-[4vw]">
+    <MoleculesBreadcrumb />
+    <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
+    <h4 class="py-4">{{ t("shippingInfo") }}</h4>
 
-  <OrganismsCheckoutForm @updateFormValues="updateFormData" />
-  <OrganismsSelectOptions
-    :shipping-options="shippingOptions"
-    @update:selectedOption="updateSelectedOption"
-  />
-  <OrganismsCartSummary
-    :products="mockProducts"
-    :shipping-cost="selectedShippingOption?.price || 0"
-  />
+    <div class="lg:flex lg:gap-[10vw] lg:items-start">
+      <OrganismsCheckoutForm
+        @updateFormValues="updateFormData"
+        class="lg:flex-1 mb-12 max-w-[650px]"
+      />
+      <OrganismsCartSummary
+        :products="mockProducts"
+        :shipping-cost="selectedShippingOption?.price || 0"
+        v-show="!isMobileView"
+      />
+    </div>
 
-  <!-- TODO da rivedere  -->
-  <div class="mx-4 my-2">
-    <AtomsButtonCTA
-      @click="validateForm"
-      :type="isFormValid ? 'primary' : 'disabled'"
-      :class="['rounded']"
-      :text="t('confirmAndPay')"
-    >
-    </AtomsButtonCTA>
+    <div class="mb-12 lg:mb-18">
+      <OrganismsSelectOptions
+        :shipping-options="shippingOptions"
+        @update:selectedOption="updateSelectedOption"
+      />
+    </div>
+
+    <div class="mb-12 lg:mb-18" v-show="isMobileView">
+      <OrganismsCartSummary
+        :products="mockProducts"
+        :shipping-cost="selectedShippingOption?.price || 0"
+      />
+    </div>
+
+    <div class="mb-12 lg:mb-18">
+      <OrganismsCheckoutPayment
+        :is-checkout-valid="isFormValid"
+        :totalAmount="totalAmount"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import type { Product } from "~/types/product.type";
-
+const isMobileView = isMobile();
+const totalAmount = ref(100); // Example total amount for test, replace with actual calculation
 const { t } = useI18n();
 const formData = ref({});
 const shippingOptions = ref([
@@ -36,13 +51,25 @@ const shippingOptions = ref([
   { name: "Opzione 2", price: 10 },
   { name: "Opzione 3", price: 15 },
 ]);
-const selectedShippingOption = ref(null);
 
-function updateFormData(data) {
+type formData = {
+  name: string | null;
+  surname: string | null;
+  email: string | null;
+  streetAndHouseNumber: string | null;
+  city: string | null;
+  cap: string | null;
+  iWantTheInvoice: boolean;
+};
+const selectedShippingOption = ref(
+  null as { name: string; price: number } | null
+);
+
+function updateFormData(data: formData) {
   formData.value = data;
 }
 
-function updateSelectedOption(option) {
+function updateSelectedOption(option: { name: string; price: number }) {
   selectedShippingOption.value = option;
 }
 

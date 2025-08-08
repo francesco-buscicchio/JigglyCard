@@ -58,8 +58,8 @@
                 >{{ t("da") }} {{ selectedMinPrice }}</span
               >
               <MoleculesSlider
-                :min="0"
-                :max="5000"
+                :min="minumPrice"
+                :max="maxPrice"
                 :initialMinPrice="selectedMinPrice"
                 :initialMaxPrice="selectedMaxPrice"
                 @update:minPrice="updateMinPrice($event)"
@@ -74,6 +74,7 @@
             <p class="ml-12 mr-6">{{ t("min") }}</p>
             <AtomsInputText
               class="w-20"
+              :key="inputKey"
               v-model="selectedMinPrice"
               :placeholder="''"
               @keydown="validateNumberInput($event)"
@@ -83,6 +84,7 @@
           <div class="flex items-center">
             <p class="ml-12 mr-6">{{ t("max") }}</p>
             <AtomsInputText
+              :key="inputKey + 1"
               class="w-20"
               v-model="selectedMaxPrice"
               :placeholder="''"
@@ -99,8 +101,9 @@
               class="text-underlined"
               type="text"
               @click="resetAllFilters"
+              :class="areFiltersSelected ? 'visible' : 'invisible'"
             >
-              <p>{{ t("deleteAllFilters") }}</p>
+              <p>{{ t("clearFilters") }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
               <h5>{{ t("apply") }}</h5>
@@ -126,14 +129,34 @@ const filterCategories = ref();
 const client = useAlgolia();
 
 const isOpen = ref(false);
+const minumPrice = ref(0);
+const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(5000);
+const selectedMaxPrice = ref(0);
 const selectedFilters = reactive<{ [key: string]: any }>({});
+const inputKey = ref(0);
 
 watch(props, () => {
   filterList.value = props.filters ?? [];
   updateSelectedFilters();
 });
+
+const areFiltersSelected = computed(() => {
+  const hasCheckedFilter = filterCategories.value?.some(
+    (category: {
+      name: string;
+      value: { name: string; checked: boolean }[];
+    }) => {
+      return category.value.some((filter) => filter.checked);
+    }
+  );
+
+  const isPriceRangeSelected =
+    selectedMaxPrice.value !== maxPrice.value ||
+    selectedMinPrice.value !== minumPrice.value;
+  return hasCheckedFilter || isPriceRangeSelected;
+});
+
 function updateSelectedFilters() {
   resetAllFilters();
   if (filterList.value.length) {
@@ -151,13 +174,27 @@ onMounted(async () => {
   let results = await client.searchSingleIndex({
     indexName: FILTERS_COLLECTION,
   });
-  filterCategories.value = results.hits.map((filter: any) => ({
+  const excludeMinMaxFilter = results.hits.filter(
+    (filter: any) => !filter.massimo && !filter.minimo
+  );
+  filterCategories.value = excludeMinMaxFilter.map((filter: any) => ({
     ...filter,
     value: filter.value.map((language: any) => ({
       name: language,
       checked: false,
     })),
   }));
+
+  const minMaxItem: any = results.hits.find(
+    (filter: any) => filter.massimo && filter.minimo
+  );
+
+  if (minMaxItem) {
+    selectedMinPrice.value = minMaxItem.minimo;
+    selectedMaxPrice.value = minMaxItem.massimo;
+    minumPrice.value = minMaxItem.minimo;
+    maxPrice.value = minMaxItem.massimo;
+  }
 });
 
 const emit = defineEmits(["filterUpdate"]);
@@ -204,7 +241,7 @@ function updateMinPrice(value: number) {
 }
 
 function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, 5000);
+  selectedMaxPrice.value = Math.min(value, maxPrice.value);
 }
 
 function validateNumberInput(event: KeyboardEvent) {
@@ -221,23 +258,19 @@ function validatePriceInput(type: "min" | "max", event: Event) {
   if (!isNaN(numericValue)) {
     if (type === "min") {
       selectedMinPrice.value = Math.max(
-        0,
+        minumPrice.value,
         Math.min(numericValue, selectedMaxPrice.value)
       );
     } else {
       selectedMaxPrice.value = Math.min(
         Math.max(numericValue, selectedMinPrice.value),
-        5000
+        maxPrice.value
       );
     }
   }
 }
 
 function applyFilters() {
-  selectedFilters["Prezzo"] = {
-    min: selectedMinPrice.value,
-    max: selectedMaxPrice.value,
-  };
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
@@ -245,6 +278,11 @@ function applyFilters() {
     return acc;
   }, {});
   togglePanel();
+
+  result["price"] = {
+    min: selectedMinPrice.value,
+    max: selectedMaxPrice.value,
+  };
   emit("filterUpdate", result);
 }
 
@@ -257,9 +295,10 @@ function resetAllFilters() {
   Object.keys(selectedFilters).forEach((key) => {
     delete selectedFilters[key];
   });
-  selectedMinPrice.value = 0;
-  selectedMaxPrice.value = 5000;
-  selectedFilters["Prezzo"] = { min: 0, max: 5000 };
+  selectedMinPrice.value = minumPrice.value;
+  selectedMaxPrice.value = maxPrice.value;
+  selectedFilters["Prezzo"] = { min: minumPrice.value, max: maxPrice.value };
+  inputKey.value++; //force rerender
 }
 
 watch(isOpen, (newValue) => {

@@ -1,12 +1,20 @@
 <template>
+  <MoleculesToastMessage
+    :text="t('newsletter.toast')"
+    type="success"
+    :trigger-key="toastKey"
+  />
   <!-- mobile -->
   <div class="bg-accent-50 p-4 flex flex-col gap-y-4" v-show="isMobileview">
-    <h5>{{ t("titleNewsLetter") }}</h5>
-    <p>{{ t("captionNewsletterShort") }}</p>
+    <h5>{{ t("newsletter.title") }}</h5>
+    <p>{{ t("newsletter.short") }}</p>
     <MoleculesContainerInput
-      status="default"
+      status="newsletter"
       placeholder="e-mail"
       @inputUpdate="email = $event"
+      :notValidMessage="t('newsletter.emailValidation')"
+      :isValid="isValidEmail"
+      @inputBlur="validateEmail"
     />
     <AtomsButtonCTA
       type="primary"
@@ -20,13 +28,13 @@
     v-show="!isMobileview"
   >
     <div class="flex-1">
-      <h3 class="mb-4">{{ t("titleNewsLetter") }}</h3>
+      <h3 class="mb-4">{{ t("newsletter.title") }}</h3>
       <p class="mb-4">
-        {{ t("captionNewsletter.first") }}
+        {{ t("newsletter.caption.first") }}
         <span class="bold">
-          {{ t("captionNewsletter.bold") }}
+          {{ t("newsletter.caption.bold") }}
         </span>
-        {{ t("captionNewsletter.second") }}
+        {{ t("newsletter.caption.second") }}
       </p>
       <div class="flex gap-4">
         <div class="w-[70%]">
@@ -34,7 +42,7 @@
             status="newsletter"
             placeholder="e-mail"
             @inputUpdate="email = $event"
-            :notValidMessage="t('newsletterEmailValidation')"
+            :notValidMessage="t('newsletter.emailValidation')"
             :isValid="isValidEmail"
             @inputBlur="validateEmail"
           />
@@ -64,7 +72,8 @@ const config = useRuntimeConfig();
 const isMobileview = isMobile();
 const isValidEmail = ref(true);
 const email = ref("");
-const buttonNewsLetter = t("buttonNewsLetter");
+const buttonNewsLetter = t("newsletter.button");
+const toastKey = ref(0);
 
 const loadTemplates = async () => {
   const customerTemplateModule =
@@ -92,6 +101,8 @@ const mailAction = async (email: string) => {
   sendEmailToBackOffice(newsletterToAdmin(userName, email));
   // CREATE USER IN DB
   subscribeSendgrid(email);
+  // TODO: validare o meno la corretta sottoscrizione
+  toastKey.value++;
 };
 
 const sendEmailToSubscriber = (email: string, value: string) => {

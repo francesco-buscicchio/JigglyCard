@@ -22,10 +22,10 @@
           :speed="1000"
           :parallax="true"
           ref="swiperRef"
-          @swiper="setControlledSwiper"
+          @swiper="onSwiperUpdate"
         >
           <SwiperSlide
-            v-for="(product, index) in props.products"
+            v-for="(product, index) in productList"
             :key="index"
             class="relative cursor-pointer"
             :style="{
@@ -36,7 +36,7 @@
           >
             <OrganismsNewsProductWeb
               :product="product"
-              :is-middle="isMiddle(index)"
+              :isMiddle="isMiddle(index)"
               data-swiper-parallax="0"
             />
           </SwiperSlide>
@@ -72,8 +72,9 @@ const currentIndex = ref(0);
 const productList = computed(() => props.products.slice(0, 9));
 const controlledSwiper = ref<Swiper | null>(null);
 
-const setControlledSwiper = (swiper: any) => {
+const onSwiperUpdate = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
+  currentIndex.value = swiper.activeIndex;
 };
 
 const next = () => {
@@ -90,7 +91,7 @@ const prev = () => {
 
 const isMiddle = (index: number) => {
   const activeIndex = controlledSwiper?.value?.activeIndex || 0;
-  const slidesPerView = 3; // Number of slides visible per view
+  const slidesPerView = 3; // Numero di slide visibili per volta
   const middleIndex = activeIndex + Math.floor(slidesPerView / 2);
   return index === middleIndex;
 };

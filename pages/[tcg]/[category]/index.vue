@@ -9,7 +9,7 @@
   </div>
   <div class="gap-b-4 flex flex-col">
     <div class="mx-8">
-      <div class="pb-6">
+      <div class="pb-6" v-show="!isDesktopView">
         <OrganismsFilter
           @filterUpdate="filterUpdate"
           :filters="filtersAppliedOrganismFilter"
@@ -19,31 +19,37 @@
       <OrganismsListingFilters
         :filters="filtersAppliedOrganismsListingFilters"
         @update-filters="updateFiltersApplied"
+        v-show="!isDesktopView"
       />
 
-      <div class="pb-6 flex flex-row justify-between items-center">
+      <div
+        class="pb-6 flex flex-row justify-between items-center lg:w-[70vw] lg:ml-[31vw]"
+      >
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
-        <div class="flex flex-row items-center gap-x-2">
+        <div class="flex flex-row items-center gap-x-2 lg:mr-27">
           <p>{{ t("pageSorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
-              :handle-sorting="handleSorting"
+              @handleSorting="handleSorting"
             />
           </div>
         </div>
       </div>
       <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
-      <div class="flex">
-        <div class="w-[30vw]">
+      <div class="flex" v-show="isDesktopView">
+        <div class="w-[30vw] flex justify-end">
           <!-- filters -->
+          <div>
+            <OrganismsFilterWeb
+              @filterUpdate="filterUpdate"
+              :filters="filtersAppliedOrganismFilter"
+            />
+          </div>
         </div>
         <div class="grid grid-cols-4 gap-4 w-[70vw]">
-          <OrganismsListingProductsWeb
-            :products="products"
-            v-if="isDesktopView"
-          />
+          <OrganismsListingProductsWeb :products="products" />
         </div>
       </div>
       <div class="pt-10">
@@ -59,9 +65,7 @@
           />
         </div>
       </div>
-      <div class="pb-10">
-        <OrganismsServiceBanner />
-      </div>
+      <OrganismsServiceBanner />
     </div>
   </div>
 </template>
@@ -73,7 +77,7 @@ import {
   ITEMS_FOR_PAGE_DESKTOP,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
 const products: Ref<ProductType[]> = ref([]);
@@ -97,6 +101,7 @@ function calculateFilterString(e?: any) {
   let filter = `type:"${route.params.category}"`;
 
   if (e) {
+    console.log("Filter update received:", e);
     let languageFilters = e.language
       ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
       : "";
@@ -111,11 +116,19 @@ function calculateFilterString(e?: any) {
           .map((available: string) => `available:"${available}"`)
           .join(" OR ")
       : "";
+    let minPriceFilter = e.price?.min;
+    let maxPriceFilter = e.price?.max;
 
-    filter += languageFilters.length += ` AND (${languageFilters})`;
-    filter += conditionFilters.length += ` AND (${conditionFilters})`;
-    filter += brandFilter.length += ` AND (${brandFilter})`;
-    filter += availableFilter.length += ` AND (${availableFilter})`;
+    languageFilters.length && (filter += ` AND (${languageFilters})`);
+    conditionFilters.length && (filter += ` AND (${conditionFilters})`);
+    brandFilter.length && (filter += ` AND (${brandFilter})`);
+    availableFilter.length && (filter += ` AND (${availableFilter})`);
+    if (minPriceFilter !== undefined) {
+      filter += ` AND salePrice >= ${minPriceFilter}`;
+    }
+    if (maxPriceFilter !== undefined) {
+      filter += ` AND salePrice <= ${maxPriceFilter}`;
+    }
   }
 
   if (expansion) filter += ` AND (expansion:"${expansion}")`;

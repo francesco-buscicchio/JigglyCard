@@ -1,15 +1,18 @@
 <template>
+  <p class="hidden">
+    {{ containerClass }}
+  </p>
   <div
-    class="w-full h-full flex justify-center flex-col items-center relative"
+    class="flex flex-col items-center relative transition-transform duration-200 ease-in-out"
     :class="containerClass"
   >
     <img
-      :src="product.imageUrl"
+      :src="product.imageUrl ?? defaultCardImage"
       :alt="product.productName"
-      class="rounded-2xl w-full h-full min-w-47"
+      class="rounded-2xl min-w-47 w-full h-auto"
     />
     <div
-      class="absolute min-w-47 layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-2xl group px-4 pb-4"
+      class="absolute layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-2xl group px-4 pb-4"
       :class="layerClass"
     >
       <h5
@@ -45,7 +48,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
+import defaultCardImage from "@/assets/img/default-card-image.png";
 
 const { t } = useI18n();
 const props = defineProps({
@@ -59,11 +63,11 @@ const props = defineProps({
   },
 });
 
-const containerClass = computed(() => ({
-  "w-full": props.isMiddle,
-  "w-5/6": !props.isMiddle,
-  "h-5/6": !props.isMiddle,
-}));
+// Scala proporzionale: isMiddle = 100%, altrimenti 75%
+const containerClass = computed(() => {
+  return props.isMiddle ? "scale-100 w-full" : "scale-75 w-full";
+});
+
 const layerClass = computed(() => ({
   "pb-[20%]": props.isMiddle,
 }));
@@ -71,11 +75,6 @@ const layerClass = computed(() => ({
 
 <style scoped>
 .layer {
-  background-image: -webkit-linear-gradient(
-    0deg,
-    #006482 40%,
-    rgba(0, 0, 0, 0) 60%
-  );
   background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #006482 60%);
 }
 </style>

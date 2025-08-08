@@ -8,9 +8,10 @@
     @toggleSearch="toggleSearch"
     @closeSearch="closeSearch"
     @search="searchProducts"
+    @itemClick="onClickItem"
   />
 
-  <div class="hidden w-full lg:block sticky-header">
+  <div class="hidden w-full lg:block fixed-header">
     <OrganismsHeaderDesktop
       class="w-full"
       :header="{ cartCount: 9 }"
@@ -20,21 +21,20 @@
       @toggleSearch="toggleSearch"
       @closeSearch="closeSearch"
       @search="searchProducts"
+      @itemClick="onClickItem"
     />
   </div>
+
+  <MoleculesCookieBanner />
   <slot />
 
   <footer>
     <OrganismsPreFooter />
-    <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" />
+    <OrganismsFooter :policyLinks="policyLinks" />
   </footer>
 </template>
 
 <script setup lang="ts">
-import facebookLogo from "~/assets/icons/facebook.svg";
-import instagramLogo from "~/assets/icons/instagram.svg";
-import youtubeLogo from "~/assets/icons/youtube.svg";
-import tiktokLogo from "~/assets/icons/tiktok.png";
 import { useI18n } from "vue-i18n";
 import type { Hit, SearchProductResult } from "~/types/product.type";
 const client = useAlgolia();
@@ -47,27 +47,6 @@ const noResults = computed(
   () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
 );
 
-const footerData = {
-  imgs: [
-    {
-      img: instagramLogo,
-      url: "https://www.instagram.com/jigglycard/",
-    },
-    {
-      img: tiktokLogo,
-      url: "https://www.tiktok.com/@jigglycard",
-    },
-    {
-      img: facebookLogo,
-      url: "#",
-    },
-    {
-      img: youtubeLogo,
-      url: "#",
-    },
-  ],
-};
-
 const policyLinks = [
   { label: t("privacy"), link: "/privacy-policy" },
   { label: t("cookies"), link: "/cookies" },
@@ -76,6 +55,10 @@ const policyLinks = [
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
+};
+
+const onClickItem = () => {
+  isSearchOpen.value = false;
 };
 
 const closeSearch = (event: MouseEvent) => {

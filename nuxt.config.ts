@@ -24,6 +24,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     paypalClientSecret: process.env.NUXT_PAYPAL_CLIENT_SECRET,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     public: {
       SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
@@ -33,6 +34,11 @@ export default defineNuxtConfig({
       SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
       ADMIN_MAIL: process.env.ADMIN_MAIL,
       paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
+      STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+      PURCHASE_COMPLETED_URL: process.env.PURCHASE_COMPLETED_URL,
+      STRAPI_BASE_URL: process.env.STRAPI_BASE_URL,
+      STRAPI_API_TOKEN_READ_ONLY: process.env.STRAPI_API_TOKEN_READ_ONLY,
+      FULL_ACCESS_TOKEN: process.env.FULL_ACCESS_TOKEN,
     },
   },
 

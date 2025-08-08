@@ -1,7 +1,9 @@
 <template>
-  <div class="p-4">
+  <div
+    class="lg:bg-accent-50 lg:rounded-lg lg:w-[30vw] lg:max-w-[420px] lg:p-6"
+  >
     <div class="border-b pb-2">
-      <h5>{{ t("recapCart") }}</h5>
+      <h5>{{ t("cartSummary") }}</h5>
     </div>
 
     <div
@@ -57,7 +59,7 @@ const totalPrice = computed(() => {
 });
 
 const finalTotal = computed(() => {
-  return totalPrice.value + props.shippingCost;
+  return (totalPrice.value + props.shippingCost).toFixed(2);
 });
 
 const shippingCost = computed(() => {

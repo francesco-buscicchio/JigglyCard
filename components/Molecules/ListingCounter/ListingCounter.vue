@@ -20,8 +20,16 @@ const itemsForPage = computed(() => {
 });
 
 const props = defineProps({
-  totalItems: Number,
-  currentPage: Number,
+  totalItems: {
+    type: Number,
+    required: true,
+    validator: (value) => value > 0,
+  },
+  currentPage: {
+    type: Number,
+    required: true,
+    validator: (value) => value > 0,
+  },
 });
 
 const startItem = computed(() => {

@@ -16,22 +16,22 @@
         <div class="relative w-[70%]">
           <h2
             class="text-accent-950 text-center cursor-pointer"
-            @click="navigatation(PATH.HOME)"
+            @click="goTo(PATH.HOME)"
           >
             Jigglycard
           </h2>
         </div>
 
         <div class="items-center space-x-4">
-          <button class="focus:outline-none" @click="navigatation(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25"></Icon>
-          </button>
           <button
             @click="toggleSearch"
             :style="{ visibility: isSearchOpen ? 'hidden' : 'visible' }"
             class="focus:outline-none"
           >
             <Icon name="jig:cerca-accent" size="25" />
+          </button>
+          <button class="focus:outline-none" @click="goTo(PATH.CART)">
+            <Icon name="jig:cart-accent" size="25" />
           </button>
         </div>
       </div>
@@ -59,6 +59,9 @@
                 :name="item.name"
                 :objectID="item.objectID"
                 :expansion="item.expansion"
+                :tcg="item.tcg"
+                :type="item.type"
+                @itemClick="onItemClick"
               />
             </div>
           </div>
@@ -91,6 +94,7 @@
 <script setup lang="ts">
 import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
+import { goTo } from "@/utils/navigationUtils";
 
 const isMenuOpen = ref(false);
 const { t } = useI18n();
@@ -106,6 +110,7 @@ const emit = defineEmits([
   "toggleSearch",
   "closeSearch",
   "updateSearch",
+  "itemClick",
 ]);
 
 watch(isMenuOpen, (newValue) => {
@@ -128,13 +133,12 @@ const closeSearch = (event: MouseEvent) => {
   emit("closeSearch", event);
 };
 
-const navigatation = (path: string) => {
-  console.log("cart", path);
-  navigateTo(path);
-};
-
 const onSearchInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
   emit("search", target.value);
+};
+
+const onItemClick = (event: Event) => {
+  emit("itemClick");
 };
 </script>

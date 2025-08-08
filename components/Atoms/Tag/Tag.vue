@@ -46,6 +46,6 @@ const typeClass = computed(() => {
 });
 
 const emitClick = () => {
-  emit("tagClicked", props.code);
+  if (props.type !== TagType.DISABLED) emit("tagClicked", props.code);
 };
 </script>

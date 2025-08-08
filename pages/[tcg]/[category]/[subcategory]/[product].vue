@@ -2,46 +2,76 @@
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
-    <!-- Product -->
-    <MoleculesProductPageHero
-      :image="product.imageUrl"
-      :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)"
-      :expansion="product.expansion"
-    />
+    <!-- Mobile -->
+    <div v-if="isMobileView">
+      <!-- Product -->
+      <MoleculesProductPageHero
+        :image="product.imageUrl"
+        :title="formatTitle(product.productName)"
+        :code="extractCardCode(product.productName)"
+        :expansion="product.expansion"
+      />
 
-    <!-- Listing tags -->
-    <div class="flex flex-col gap-8 mb-7">
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickLanguage"
-        :tags="tagsLanguage"
-        :title="t('filter.language')"
-        v-if="tagsLanguage.length"
-      />
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickCondition"
-        :tags="tagsCondition"
-        :title="t('filter.condition')"
-        v-if="tagsCondition.length"
-      />
+      <!-- Listing tags -->
+      <OrganismsProductsTags :variants="product.variants" />
+      <div class="flex flex-col gap-8 mb-7">
+        <OrganismsProductsTags
+          :variants="product.variants"
+          @variantSelected="changedVariant"
+        />
+      </div>
+
+      <div class="flex flex-col gap-12">
+        <OrganismsProductQuantityActions :variant="selectedVariant.value" />
+
+        <MoleculesTextViewer>
+          <template v-slot:content>
+            descrizione: {{ t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
 
-    <!-- Select quantity, Add to Cart CTA  and Description-->
-    <div class="flex flex-col gap-12">
-      <OrganismsQuantitySelect
-        :price="product.price"
-        :quantity="product.quantity"
-      />
+    <!-- Desktop -->
+    <div v-if="isDesktopView">
+      <div class="flex gap-20 my-12 xl:ml-[14vw]">
+        <div>
+          <img
+            :src="product.imageUrl ?? defaultCardImage"
+            class="w-[400px] shadow-xl rounded-2xl"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
+            <div>
+              <h1 class="text-accent-500">
+                {{ formatTitle(product.productName) }}
+              </h1>
+              <p v-if="product.productName" class="pt-2">
+                {{ extractCardCode(product.productName) }}
+              </p>
+              <p class="pt-2">{{ product.expansion }}</p>
 
-      <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
-        <Icon name="jig:cart-white" size="30"></Icon>
-      </AtomsButtonCTA>
+              <OrganismsProductsTags
+                :variants="product.variants"
+                @variantSelected="changedVariant"
+              />
+            </div>
+          </div>
 
-      <MoleculesTextViewer>
-        <template v-slot:content>
-          descrizione: {{ t("defaultDescription") }}
-        </template>
-      </MoleculesTextViewer>
+          <OrganismsProductQuantityActions :variant="selectedVariant" />
+        </div>
+      </div>
+      <div class="xl:mx-[14vw] my-18">
+        <MoleculesTextViewer>
+          <template v-slot:title>
+            {{ t("productHero.Description") }}
+          </template>
+          <template v-slot:content>
+            {{ t("defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
 
     <!-- Deals Carousel -->
@@ -58,9 +88,8 @@
       :products="offerte"
       colorScheme="lightHome"
     />
-
-    <OrganismsServiceBanner class="mb-18" />
   </div>
+  <OrganismsServiceBanner />
 </template>
 
 <script setup lang="ts">
@@ -68,24 +97,25 @@ import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
-  activateLanguage,
   createTagCondition,
   createTagLanguage,
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ListingTagProps } from "~/types/listingTag.type";
+import type { ListingTag } from "~/types/listingTag.type";
 import type { TagStructure } from "~/types/tagStructure.type";
 import type { TagCode } from "~/types/tagCode.type";
-import { TagType } from "~/enum/tag.enum";
 import type { ProductType } from "~/types/productType.type";
+import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
+import defaultCardImage from "@/assets/img/default-card-image.png";
 
 const product = ref();
 const { t } = useI18n();
-const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
+const isMobileView = isMobile();
+const selectedVariant = ref(null);
 
 onMounted(async () => {
   fetchData();
@@ -96,8 +126,8 @@ onMounted(async () => {
   setDeals(results);
 });
 
-const tagsLanguage = ref<ListingTagProps[]>([]);
-const tagsCondition = ref<ListingTagProps[]>([]);
+const tagsLanguage = ref<ListingTag[]>([]);
+const tagsCondition = ref<ListingTag[]>([]);
 let tagsStructure: TagStructure[];
 
 async function fetchData() {
@@ -168,42 +198,9 @@ function formatTitle(title: string): string {
   return title.replace(/\s*\([^)]*\)/, "");
 }
 
-const handleTagClickLanguage = (code: TagCode): void => {
-  const activeConditions = tagsStructure.find(
-    (tag) => tag.language === code
-  )?.conditions;
-  if (activeConditions) {
-    tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
-  }
-  tagsLanguage.value = activateLanguage(tagsLanguage.value, code);
-};
-
-const handleTagClickCondition = (code: TagCode): void => {
-  const conditionSelected = tagsCondition.value.find(
-    (tag) => tag.code === code
-  );
-  if (conditionSelected?.type === TagType.DISABLED) {
-    const tagContainThisCondition = tagsStructure.find((tag) =>
-      tag.conditions.some((cond) => cond === conditionSelected?.code)
-    );
-    handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
-  }
-
-  tagsCondition.value = tagsCondition.value.map((tag) => {
-    let tagType;
-
-    if (tag.type === TagType.DISABLED) {
-      tagType = TagType.DISABLED;
-    } else if (tag.code === code) {
-      tagType = TagType.ACTIVE;
-    } else {
-      tagType = TagType.INACTIVE;
-    }
-
-    return {
-      ...tag,
-      type: tagType,
-    };
-  });
+const changedVariant = (variantID: TagCode): void => {
+  selectedVariant.value = product.value.variants.filter((val: any) => {
+    return val.documentId === variantID;
+  })[0];
 };
 </script>
