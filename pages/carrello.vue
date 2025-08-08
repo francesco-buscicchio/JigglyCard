@@ -34,8 +34,17 @@
           </MoleculesCartCard>
         </div>
       </div>
-      <div class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20">
-        <OrganismsShippingMode :total-cart="totalCart" />
+      <div
+        class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20"
+        v-if="cartData"
+      >
+        <OrganismsShippingMode
+          :total-cart="totalCart"
+          :cart="cartData.data"
+          :couponData="couponData"
+          @couponApplied="applyCoupon"
+          @removeCoupon="removeCoupon"
+        />
       </div>
     </div>
   </div>
@@ -71,6 +80,7 @@ import {
 import { ProductStrapiService as ProductService } from "~/service/Strapi/ProductService";
 import type { SearchResponse } from "algoliasearch";
 import { CartService, type CartItem } from "~/service/CartService";
+import { CouponStrapiService } from "~/service/Strapi/CouponService";
 
 const config = useRuntimeConfig();
 const { t } = useI18n();
@@ -78,9 +88,19 @@ const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const suggested: Ref<ProductType[]> = ref([]);
 const products: Ref<CartItem[]> = ref([]);
+const couponData = ref({
+  name: "",
+  value: 0,
+  error: "",
+});
 const client = useAlgolia();
 let cartService;
 let cartData: any;
+
+const couponService = new CouponStrapiService(
+  config.public.STRAPI_BASE_URL,
+  config.public.FULL_ACCESS_TOKEN
+);
 
 async function quantityChanged(newQuantity: number, item: CartItem) {
   const quantityData = [...cartData.data.quantity];
@@ -92,6 +112,35 @@ const removeItemFromCart = async (item: CartItem) => {
   products.value = products.value.filter((val: CartItem) => {
     return val.id !== item.id;
   });
+};
+
+const removeCoupon = async () => {
+  await cartService!.removeCouponCode(cartData.data.documentId);
+  couponData.value.name = "";
+  couponData.value.value = 0;
+};
+
+const applyCoupon = async (event: string) => {
+  //TODO: COUPON SOLO SPEDIZIONE
+  const result = await couponService.getCouponByCode(event);
+  if (result.length > 0) {
+    if (new Date(result[0].expired_date) < new Date()) {
+      couponData.value.error = "Codice Coupon Scaduto";
+      return;
+    }
+    await cartService!.addCouponCode(
+      cartData.data.documentId,
+      result[0].documentId
+    );
+    couponData.value.name = result[0].code;
+    if (result[0].coupon_type.discount > 0) {
+      const raw =
+        result[0].coupon_type.discount * 0.01 * Number(totalCart.value);
+      couponData.value.value = Number(raw.toFixed(2));
+    }
+  } else {
+    couponData.value.error = "Codice Coupon non valido";
+  }
 };
 
 const setSuggestProducts = (
@@ -150,8 +199,24 @@ const getCart = async () => {
       title: productData.name,
       language: variantData.language.name,
       condition: variantData.condition.name,
+      coupon: "",
     };
     products.value.push(obj);
+  }
+
+  if (cartData.data.coupon) {
+    const totalCart = products.value
+      .reduce((acc: number, item: CartItem) => acc + item.totalPrice, 0)
+      .toFixed(2);
+    const resultCoupon = await couponService.getCouponByCode(
+      cartData.data.coupon.code
+    );
+    couponData.value.name = resultCoupon[0].code;
+    if (resultCoupon[0].coupon_type.discount > 0) {
+      const raw =
+        resultCoupon[0].coupon_type.discount * 0.01 * Number(totalCart);
+      couponData.value.value = Number(raw.toFixed(2));
+    }
   }
 };
 

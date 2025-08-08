@@ -9,6 +9,7 @@ export interface Cart {
   expired_date: Date | string;
   variants: string[] | Variant[];
   quantity: QuantityType[] | string;
+  coupon: any;
 }
 
 type QuantityType = {
@@ -38,13 +39,16 @@ class CartStrapiService extends StrapiCollectionCRUD<Cart> {
   }
 
   async createCart(
-    cartData: Omit<Cart, "creation_date" | "expired_date" | "documentId">
+    cartData: Omit<
+      Cart,
+      "creation_date" | "expired_date" | "documentId" | "coupon"
+    >
   ): Promise<{ data: Cart }> {
     const now = new Date();
     const expiredDate = new Date();
     expiredDate.setMinutes(expiredDate.getMinutes() + 30);
 
-    const newCart: Omit<Cart, "documentId"> = {
+    const newCart: Omit<Cart, "documentId" | "coupon"> = {
       ...cartData,
       creation_date: now,
       expired_date: expiredDate,
