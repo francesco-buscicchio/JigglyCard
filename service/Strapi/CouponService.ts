@@ -21,13 +21,6 @@ class CouponStrapiService extends StrapiCollectionCRUD<Coupon> {
     super(strapiBaseUrl, accessToken, "coupons");
   }
 
-  generateSessionId(): string {
-    const sessionId = [...Array(16)]
-      .map(() => Math.floor(Math.random() * 16).toString(16))
-      .join("");
-    return sessionId;
-  }
-
   async getCouponByCode(code: string): Promise<any> {
     if (code) return await this.getItemFromProperty("code", code);
     else return undefined;
