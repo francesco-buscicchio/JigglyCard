@@ -25,9 +25,9 @@ const variantsIndex = strapiClient.collection("variants");
 const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
-await syncAlgoliaToStrapiProducts();
-await syncAlgoliaToStrapiSets();
-await syncAlgoliaMassimoMinimo();
+//await syncAlgoliaToStrapiProducts();
+//await syncAlgoliaToStrapiSets();
+//await syncAlgoliaMassimoMinimo();
 await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
@@ -99,7 +99,7 @@ async function syncAlgoliaToStrapiProducts() {
       objectID: product.id,
       name: product.name,
       tags: product.tag ? [product.tag.name] : [],
-      available: productQuantity > 0,
+      available: totalQuantity > 0,
       conditions: conditionsList.length > 0 ? conditionsList : ["N/A"],
       expansion: product.set ? product.set.name : "N/A",
       languages: languagesList,
@@ -109,10 +109,12 @@ async function syncAlgoliaToStrapiProducts() {
       number: Number(product.code),
       shortDescription: product.description,
       thumbnailImage: product.thumbnail
-        ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${product.thumbnail.url.replace(
-            /^\/uploads/,
-            ""
-          )}`
+        ? [
+            `https://honorable-belief-ab1c5a7281.media.strapiapp.com${product.thumbnail.url.replace(
+              /^\/uploads/,
+              ""
+            )}`,
+          ]
         : null,
       salePrice: minorPrice / 100,
       images: [product.thumbnail],
@@ -143,7 +145,7 @@ async function syncAlgoliaToStrapiProducts() {
 
 async function syncAlgoliaToStrapiMenu() {
   const categories = await getCategories();
-  const menuToSave = {};
+  const menuToSave = { objectID: "menu" };
 
   for (let item of categories.data) {
     if (!item.tcg || !item.tcg.name) continue;
@@ -158,12 +160,7 @@ async function syncAlgoliaToStrapiMenu() {
       name: item.name,
       slug: item.slug,
       description: item.description,
-      image: item.image
-        ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${item.image.url.replace(
-            /^\/uploads/,
-            ""
-          )}`
-        : null,
+      image: item.image ? `${item.image.url.replace(/^\/uploads/, "")}` : null,
     };
 
     menuToSave[item.tcg.name].categories.push(categoryData);
@@ -192,6 +189,7 @@ async function syncAlgoliaToStrapiSets() {
       expansion: set.slug,
       tags: ["HEROBANNER"],
       description: set.description,
+      hasThumbnailImage: set.thumbnail ? true : false,
       thumbnailImage: set.thumbnail
         ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${set.thumbnail[0].url.replace(
             /^\/uploads/,
