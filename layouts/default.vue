@@ -78,7 +78,7 @@ const searchProducts = async (data: string) => {
   if (data.length > 2) {
     const results = await client.searchSingleIndex<SearchProductResult>({
       indexName: "ecommerce",
-      searchParams: { query: data, hitsPerPage: 4 },
+      searchParams: { query: data, hitsPerPage: 6 },
     });
     productSearch.value = results.hits as unknown as Hit[];
   } else productSearch.value = [];

@@ -1,5 +1,4 @@
 <template>
-  {{ "test" }}
   <div :class="containerClass">
     <h3 :class="titleClass">{{ title }}</h3>
     <div class="max-w-full">
