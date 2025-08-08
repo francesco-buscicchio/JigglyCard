@@ -106,6 +106,7 @@ async function syncAlgoliaToStrapiProducts() {
       tcg: category.data[0].tcg ? category.data[0].tcg.name : "N/A",
       type: product.category ? product.category.slug : "N/A",
       code: `${product.set.code} ${product.code}`,
+      number: Number(product.code),
       shortDescription: product.description,
       thumbnailImage: product.thumbnail
         ? `https://honorable-belief-ab1c5a7281.media.strapiapp.com${product.thumbnail.url.replace(
