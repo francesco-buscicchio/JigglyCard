@@ -28,7 +28,7 @@
       </div>
       <div class="flex justify-between">
         <p class="">{{ t("shippingSection.total") }}</p>
-        <p class="price-tag">{{ totalCart - couponData.value }} €</p>
+        <p class="price-tag">{{ total }} €</p>
       </div>
     </div>
     <!-- Codice promo -->
@@ -92,7 +92,7 @@ import { type CartItem } from "~/service/CartService";
 const props = defineProps<{
   cart: CartItem;
   totalCart: Number;
-  couponData: Object;
+  couponData: any;
 }>();
 
 const emit = defineEmits(["couponApplied", "removeCoupon"]);
@@ -102,6 +102,10 @@ const couponCode = ref("");
 const updateCouponCode = (event: string) => {
   couponCode.value = event;
 };
+
+const total = computed(() => {
+  return (Number(props.totalCart) - Number(props.couponData.value)).toFixed(2);
+});
 
 const applyCoupon = () => {
   emit("couponApplied", couponCode.value);

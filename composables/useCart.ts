@@ -82,12 +82,15 @@ export function useCart(config: CartConfig) {
     });
 
     if (cartData.data.coupon) {
-      const total = Number(totalCart.value);
       const [coupon] = await couponService.getCouponByCode(
         cartData.data.coupon.code
       );
       couponData.value.name = coupon.code;
-      couponData.value.value = coupon.coupon_type.discount * 0.01 * total;
+      couponData.value.value = Number(
+        (coupon.coupon_type.discount * 0.01 * Number(totalCart.value)).toFixed(
+          2
+        )
+      );
     }
   }
 
