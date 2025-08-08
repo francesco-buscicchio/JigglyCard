@@ -109,11 +109,13 @@ export function useCart(config: CartConfig) {
     couponData.value.error = "";
     const result = await couponService.getCouponByCode(code);
     if (result.length === 0) {
+      console.log("Codice coupon non valido");
       couponData.value.error = "Codice coupon non valido";
       return;
     }
     const coupon = result[0];
     if (new Date(coupon.expired_date) < new Date()) {
+      console.log("Codice coupon scaduto");
       couponData.value.error = "Codice coupon scaduto";
       return;
     }
@@ -123,8 +125,9 @@ export function useCart(config: CartConfig) {
       coupon.documentId
     );
     couponData.value.name = coupon.code;
-    couponData.value.value =
-      coupon.coupon_type.discount * 0.01 * Number(totalCart.value);
+    couponData.value.value = Number(
+      (coupon.coupon_type.discount * 0.01 * Number(totalCart.value)).toFixed(2)
+    );
   }
 
   async function removeCoupon() {

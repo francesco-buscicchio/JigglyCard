@@ -42,8 +42,8 @@
           :total-cart="totalCart"
           :products="products"
           :couponData="couponData"
-          @couponApplied="applyCoupon"
-          @removeCoupon="removeCoupon"
+          @couponApplied="applyCoupon($event)"
+          @removeCoupon="removeCoupon($event)"
         />
       </div>
     </div>
@@ -53,31 +53,36 @@
       {{ "Il tuo viaggio da allenatore non è ancora cominciato!" }}
     </h5>
   </div>
-
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
-    :title="products.length > 0 ? t('suggested') : 'Inizia da qui'"
-    :products="suggested"
+    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :products="dealsProducts"
     colorScheme="lightHome"
   />
   <OrganismsProductCarousel
     v-if="isMobileView"
-    :title="products.length > 0 ? t('suggested') : 'Inizia da qui'"
-    :products="suggested"
+    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :products="dealsProducts"
     colorScheme="lightHome"
   />
 </template>
 
 <script lang="ts" setup>
 import { type CartConfig } from "~/composables/useCart";
+import { DEALS_TAG } from "~/data/const";
+import type { ProductType } from "~/types/productType.type";
 
+const isDesktopView = isDesktop();
+const isMobileView = isMobile();
 const { t } = useI18n();
+const client = useAlgolia();
 const runtimeConfig = useRuntimeConfig();
 const cartConfig: CartConfig = {
   strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
   fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
 };
 
+const dealsProducts: Ref<ProductType[]> = ref([]);
 const {
   products,
   totalCart,
@@ -87,4 +92,34 @@ const {
   applyCoupon,
   removeCoupon,
 } = useCart(cartConfig);
+
+// TODO: refactor mettere setProducts in una utils perchè usata più volte
+const setDeals = (queryResult: any) => {
+  for (let hit of queryResult.hits) {
+    const obj = {
+      id: hit.objectID,
+      productName: hit.name,
+      code: hit.code ? `(${hit.code})` : "",
+      expansion: hit.expansion || "N.A.",
+      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
+      imageUrl:
+        hit.thumbnailImage ||
+        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
+      tcg: hit.tcg,
+      category: hit.type,
+    };
+    dealsProducts.value.push(obj);
+  }
+};
+
+const dealsProductsResult = await client.searchSingleIndex({
+  indexName: "ecommerce",
+  searchParams: {
+    query: DEALS_TAG,
+    hitsPerPage: 5,
+    filters: "available:true",
+  },
+});
+
+setDeals(dealsProductsResult);
 </script>
