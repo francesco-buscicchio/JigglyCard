@@ -35,7 +35,7 @@ async function checkVariantsAvailability() {
 
   for (const strapiProduct of strapiProducts) {
     for (const variant of strapiProduct.variants) {
-      const variantData = await variantsIndex.find({
+      const variantData = await client.collection("variants").find({
         locale: "en",
         populate: "*",
         filters: {
@@ -97,7 +97,7 @@ async function checkVariantsAvailability() {
 }
 
 async function updateVariant(variant, product, quantity) {
-  await variantsIndex.update(variant.documentId, {
+  await client.collection("variants").update(variant.documentId, {
     quantity: quantity,
     product: null,
   });
@@ -107,22 +107,23 @@ async function updateVariant(variant, product, quantity) {
   );
   const updatedVariants = [...currentVariants];
 
-  await productsIndex.update(product.documentId, {
+  await client.collection("products").update(product.documentId, {
     variants: updatedVariants,
   });
 }
 
 async function syncProductsImages() {
-  const productsIndex = client.collection("products");
   const products = await getAllProducts();
   const blueprintsArray = [];
 
   for (let product of products) {
-    await sleep(5000);
+    if (!product.set) return;
+
     const setID = product.set.cardtraderID;
 
     if (product.thumbnail) continue;
 
+    await sleep(500);
     if (!blueprintsArray[setID]) {
       const result = await getBlueprintCardTrader(setID);
       blueprintsArray[setID] = result.data;
@@ -135,29 +136,41 @@ async function syncProductsImages() {
     if (!blueprintFiltered.length) continue;
 
     const blueprintData = blueprintFiltered[0];
+    let imageUrl = "";
 
-    const imageToUse = await downloadImage(blueprintData.image.url);
+    if (blueprintData.image)
+      imageUrl = "https://www.cardtrader.com/" + blueprintData.image.url;
+    else imageUrl = blueprintData.image_url;
+
+    const imageToUse = await downloadImage(imageUrl);
 
     const blob = new Blob([imageToUse], { type: "image/jpeg" });
     const form = new FormData();
     form.append("files", blob, `${product.documentId}.jpg`);
 
-    const uploadResponse = await fetch("http://localhost:1337/api/upload", {
-      method: "POST",
-      body: form,
-      headers: {
-        Authorization: `Bearer ${strapiUploadToken}`,
-      },
-    });
+    try {
+      const uploadResponse = await fetch(
+        "https://honorable-belief-ab1c5a7281.strapiapp.com/api/upload",
+        {
+          method: "POST",
+          body: form,
+          headers: {
+            Authorization: `Bearer ${strapiUploadToken}`,
+          },
+        }
+      );
 
-    const responseJson = await uploadResponse.json();
+      const responseJson = await uploadResponse.json();
 
-    const uploadedFiles = responseJson;
-    const thumbnailId = uploadedFiles[0].id;
+      const uploadedFiles = responseJson;
+      const thumbnailId = uploadedFiles[0].id;
 
-    await productsIndex.update(product.documentId, {
-      thumbnail: thumbnailId,
-    });
+      await client.collection("products").update(product.documentId, {
+        thumbnail: thumbnailId,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 }
 async function createProductsOnStrapi() {
@@ -166,27 +179,27 @@ async function createProductsOnStrapi() {
   //for (let i = 0; i < 1000; i++) {
   //const product = products.data[i];
   for (let product of products.data) {
-    try {
-      await sleep(100);
-      await createTcg(product, games);
-      await sleep(100);
-      await createCategory(product, categories);
-      await sleep(100);
-      await createSet(product, expansions);
-      await sleep(100);
-      await createRarity(product);
-      await sleep(100);
-      await createCondition(product);
-      await sleep(100);
-      await createLanguage(product);
-      await sleep(100);
-      await createProduct(product);
-      await sleep(100);
-      await createVariants(product);
-    } catch (e) {
-      console.log("Errore");
-      console.log(e.message);
-    }
+    // try {
+    await sleep(100);
+    await createTcg(product, games);
+    await sleep(100);
+    await createCategory(product, categories);
+    await sleep(100);
+    await createSet(product, expansions);
+    await sleep(100);
+    await createRarity(product);
+    await sleep(100);
+    await createCondition(product);
+    await sleep(100);
+    await createLanguage(product);
+    await sleep(100);
+    await createProduct(product);
+    await sleep(100);
+    await createVariants(product);
+    // } catch (e) {
+    //   console.log("Errore");
+    //   console.log(e.message);
+    // }
   }
   // }
 }
@@ -230,8 +243,7 @@ async function getGamesCardTrader() {
   return result;
 }
 async function getTcgExists(id) {
-  const tcgsIndex = client.collection("tcgs");
-  return await tcgsIndex.find({
+  return await client.collection("tcgs").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -242,8 +254,7 @@ async function getTcgExists(id) {
   });
 }
 async function getRarityExists(name) {
-  const raritiesIndex = client.collection("rarities");
-  return await raritiesIndex.find({
+  return await client.collection("rarities").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -254,8 +265,7 @@ async function getRarityExists(name) {
   });
 }
 async function getLanguageExists(name) {
-  const languagesIndex = client.collection("languages");
-  return await languagesIndex.find({
+  return await client.collection("languages").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -266,8 +276,7 @@ async function getLanguageExists(name) {
   });
 }
 async function getCategoryExists(id) {
-  const categoriesIndex = client.collection("categories");
-  return await categoriesIndex.find({
+  return await client.collection("categories").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -278,8 +287,7 @@ async function getCategoryExists(id) {
   });
 }
 async function getSetExists(id) {
-  const setsIndex = client.collection("sets");
-  return await setsIndex.find({
+  return await client.collection("sets").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -290,8 +298,7 @@ async function getSetExists(id) {
   });
 }
 async function getConditionExists(name) {
-  const conditionsIndex = client.collection("conditions");
-  return await conditionsIndex.find({
+  return await client.collection("conditions").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -313,8 +320,7 @@ async function createTcg(product, games) {
       description: "",
     };
     try {
-      const tcgsIndex = client.collection("tcgs");
-      await tcgsIndex.create(tcgData);
+      await client.collection("tcgs").create(tcgData);
     } catch (e) {
       console.log("Error creating game:", e);
     }
@@ -322,8 +328,7 @@ async function createTcg(product, games) {
 }
 
 async function getProductExists(id) {
-  const productsIndex = client.collection("products");
-  return await productsIndex.find({
+  return await client.collection("products").find({
     locale: "en",
     populate: "*",
     filters: {
@@ -360,8 +365,7 @@ async function createCategory(product, categories) {
       tcg: tcgData.data[0].documentId,
     };
     try {
-      const categoriesIndex = client.collection("categories");
-      await categoriesIndex.create(categoryData);
+      await client.collection("categories").create(categoryData);
     } catch (e) {
       const errorBody = await e.response.json();
       console.log("Error creating category:", errorBody);
@@ -383,8 +387,7 @@ async function createSet(product, expansions) {
       tcg: tcgData.data[0].documentId,
     };
     try {
-      const setsIndex = client.collection("sets");
-      await setsIndex.create(expansionData);
+      await client.collection("sets").create(expansionData);
     } catch (e) {
       const errorBody = await e.response.json();
       console.log("Error creating expansion:", errorBody);
@@ -405,8 +408,7 @@ async function createRarity(product) {
     };
 
     try {
-      const raritiesIndex = client.collection("rarities");
-      await raritiesIndex.create(rarityData);
+      await client.collection("rarities").create(rarityData);
     } catch (e) {
       console.log("Error creating rarity:", e);
     }
@@ -425,8 +427,7 @@ async function createLanguage(product) {
     };
 
     try {
-      const languagesIndex = client.collection("languages");
-      await languagesIndex.create(languageData);
+      await client.collection("languages").create(languageData);
     } catch (e) {
       console.log("Error creating language:", e);
     }
@@ -442,8 +443,7 @@ async function createCondition(product) {
     };
 
     try {
-      const conditionsIndex = client.collection("conditions");
-      await conditionsIndex.create(conditionData);
+      await client.collection("conditions").create(conditionData);
     } catch (e) {
       const errorBody = await e.response.json();
       console.log("Error creating condition:", errorBody);
@@ -486,8 +486,7 @@ async function createProduct(product) {
     };
 
     try {
-      const productsIndex = client.collection("products");
-      await productsIndex.create(productData);
+      await client.collection("products").create(productData);
     } catch (e) {
       const errorBody = await e.response.json();
       console.log("Error creating product:", errorBody);
@@ -526,27 +525,29 @@ async function createVariants(product) {
     };
 
     try {
-      const variantsIndex = client.collection("variants");
-      const result = await variantsIndex.create(variantData);
+      const result = await client.collection("variants").create(variantData);
 
       const newVariantId = result.data.documentId;
       const currentVariants = (productDocument.data[0].variants || []).map(
         (v) => (typeof v === "string" ? v : v.documentId)
       );
       const updatedVariants = [...currentVariants, newVariantId];
-      const productsIndex = client.collection("products");
-      await productsIndex.update(productDocument.data[0].documentId, {
-        variants: updatedVariants,
-      });
+      await client
+        .collection("products")
+        .update(productDocument.data[0].documentId, {
+          variants: updatedVariants,
+        });
     } catch (e) {
       const errorBody = await e.response.json();
       console.log("Error creating product:", errorBody);
     }
   } else {
-    await variantsIndex.update(variantExists.data[0].documentId, {
-      price: product.price_cents,
-      quantity: product.quantity,
-    });
+    // await client
+    //   .collection("variants")
+    //   .update(variantExists.data[0].documentId, {
+    //     price: product.price_cents,
+    //     quantity: product.quantity,
+    //   });
   }
 }
 
@@ -581,15 +582,13 @@ async function getAllProducts() {
   let totalPages = 1;
 
   do {
-    const query = qs.stringify({
+    const response = await client.collection("products").find({
       pagination: {
         page,
         pageSize,
       },
       populate: "*",
     });
-
-    const response = await productsIndex.find(query);
     const { data, meta } = response;
     allProducts = allProducts.concat(data);
 
