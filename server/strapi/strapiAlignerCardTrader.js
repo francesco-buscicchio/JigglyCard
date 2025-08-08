@@ -1,7 +1,6 @@
 import { strapi } from "@strapi/client";
 import axios from "axios";
 import { config } from "dotenv";
-import puppeteer from "puppeteer";
 import { Readable } from "stream";
 import { Blob } from "buffer";
 import qs from "qs";
@@ -24,92 +23,85 @@ const configCardTrader = {
   },
 };
 
+// ---- INIZIALIZZA MAPPE PER CACHE ----
+let tcgMap,
+  categoryMap,
+  setMap,
+  rarityMap,
+  languageMap,
+  conditionMap,
+  productMap,
+  variantMap;
+
+await initializeCache();
+
 await createProductsOnStrapi();
 await syncProductsImages();
-//await checkVariantsAvailability();
+// await checkVariantsAvailability();
 
-async function checkVariantsAvailability() {
-  const products = await getProductsCardTrader();
-  const cardtraderProducts = products.data;
-  const strapiProducts = await getAllProducts();
+async function initializeCache() {
+  // Prendi tutti i dati con paginazione ampia (assumendo max 10000 oggetti, regola se necessario)
+  const pagOpts = { pagination: { page: 1, pageSize: 10000 }, populate: "*" };
 
-  for (const strapiProduct of strapiProducts) {
-    for (const variant of strapiProduct.variants) {
-      const variantData = await client.collection("variants").find({
-        locale: "en",
-        populate: "*",
-        filters: {
-          documentId: {
-            $eq: variant.documentId,
-          },
-        },
-      });
+  const [
+    tcgs,
+    categories,
+    sets,
+    rarities,
+    languages,
+    conditions,
+    products,
+    variants,
+  ] = await Promise.all([
+    client.collection("tcgs").find(pagOpts),
+    client.collection("categories").find(pagOpts),
+    client.collection("sets").find(pagOpts),
+    client.collection("rarities").find(pagOpts),
+    client.collection("languages").find(pagOpts),
+    client.collection("conditions").find(pagOpts),
+    client.collection("products").find(pagOpts),
+    client.collection("variants").find(pagOpts),
+  ]);
 
-      let productFiltered = cardtraderProducts.filter((product) => {
-        return (
-          product.id === Number(strapiProduct.cardtraderID) &&
-          product.properties_hash.condition ===
-            variantData.data[0].condition.name
-        );
-      });
-
-      if (productFiltered.length === 0) {
-        console.log(
-          `Removing variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
-        );
-        updateVariant(variant, strapiProduct, 0);
-      } else {
-        // Filter by language
-        const languageKey = Object.keys(
-          productFiltered[0].properties_hash
-        ).find((key) => key.endsWith("_language"));
-        productFiltered = productFiltered.filter((product) => {
-          return (
-            product.properties_hash[languageKey] ===
-            variantData.data[0].language.name
-          );
-        });
-
-        // If we have a product with the same condition and language
-        // and the quantity is different, update the variant
-        if (productFiltered.length !== 0) {
-          if (
-            Number(productFiltered[0].quantity) !==
-            Number(variantData.data[0].quantity)
-          ) {
-            console.log(
-              `Updating variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
-            );
-            updateVariant(variant, strapiProduct, productFiltered[0].quantity);
-          }
-        }
-        // If we don't have a product with the same condition and language
-        // remove the variant
-        else {
-          console.log(
-            `Removing variant ${variant.documentId} for product ${strapiProduct.name} (${strapiProduct.documentId})`
-          );
-          updateVariant(variant, strapiProduct, 0);
-        }
-      }
-    }
-  }
+  tcgMap = new Map(tcgs.data.map((x) => [x.cardtraderID?.toString(), x]));
+  categoryMap = new Map(
+    categories.data.map((x) => [x.cardtraderID?.toString(), x])
+  );
+  setMap = new Map(sets.data.map((x) => [x.cardtraderID?.toString(), x]));
+  rarityMap = new Map(rarities.data.map((x) => [x.name, x]));
+  languageMap = new Map(languages.data.map((x) => [x.short_name, x]));
+  conditionMap = new Map(conditions.data.map((x) => [x.name, x]));
+  productMap = new Map(
+    products.data.map((x) => [x.cardtraderID?.toString(), x])
+  );
+  variantMap = new Map(
+    variants.data.map((x) => [`${x.product}-${x.condition}-${x.language}`, x])
+  );
 }
 
-async function updateVariant(variant, product, quantity) {
-  await client.collection("variants").update(variant.documentId, {
-    quantity: quantity,
-    product: null,
-  });
+// ------ METODI PRINCIPALI ------
 
-  const currentVariants = (product.variants || []).map((v) =>
-    typeof v === "string" ? v : v.documentId
-  );
-  const updatedVariants = [...currentVariants];
+async function createProductsOnStrapi() {
+  const { expansions, categories, products, games } = await getAllData();
 
-  await client.collection("products").update(product.documentId, {
-    variants: updatedVariants,
-  });
+  for (let product of products.data) {
+    await sleep(100);
+    await createTcg(product, games);
+    await sleep(100);
+    await createCategory(product, categories);
+    await sleep(100);
+    await createSet(product, expansions);
+    await sleep(100);
+    await createRarity(product);
+    await sleep(100);
+    await createCondition(product);
+    await sleep(100);
+    await createLanguage(product);
+    await sleep(100);
+    await createProduct(product);
+    await sleep(100);
+    await createVariants(product);
+  }
 }
 
 async function syncProductsImages() {
@@ -117,10 +109,9 @@ async function syncProductsImages() {
   const blueprintsArray = [];
 
   for (let product of products) {
-    if (!product.set) return;
+    if (!product.set) continue;
 
     const setID = product.set.cardtraderID;
-
     if (product.thumbnail) continue;
 
     await sleep(500);
@@ -129,9 +120,9 @@ async function syncProductsImages() {
       blueprintsArray[setID] = result.data;
     }
 
-    const blueprintFiltered = blueprintsArray[setID].filter((val) => {
-      return val.id === product.blueprintID;
-    });
+    const blueprintFiltered = blueprintsArray[setID].filter(
+      (val) => val.id === product.blueprintID
+    );
 
     if (!blueprintFiltered.length) continue;
 
@@ -161,7 +152,6 @@ async function syncProductsImages() {
       );
 
       const responseJson = await uploadResponse.json();
-
       const uploadedFiles = responseJson;
       const thumbnailId = uploadedFiles[0].id;
 
@@ -173,43 +163,250 @@ async function syncProductsImages() {
     }
   }
 }
-async function createProductsOnStrapi() {
-  const { expansions, categories, products, games } = await getAllData();
 
-  //for (let i = 0; i < 1000; i++) {
-  //const product = products.data[i];
-  for (let product of products.data) {
-    // try {
-    await sleep(100);
-    await createTcg(product, games);
-    await sleep(100);
-    await createCategory(product, categories);
-    await sleep(100);
-    await createSet(product, expansions);
-    await sleep(100);
-    await createRarity(product);
-    await sleep(100);
-    await createCondition(product);
-    await sleep(100);
-    await createLanguage(product);
-    await sleep(100);
-    await createProduct(product);
-    await sleep(100);
-    await createVariants(product);
-    // } catch (e) {
-    //   console.log("Errore");
-    //   console.log(e.message);
-    // }
+// ----------- CRUD ENTITÀ ------------
+
+async function createTcg(product, games) {
+  const tcgID = product.game_id?.toString();
+  if (!tcgMap.has(tcgID)) {
+    const tcg = games.data.find((game) => game.id === product.game_id);
+    if (!tcg) return;
+    const tcgData = {
+      name: tcg.display_name,
+      cardtraderID: tcg.id.toString(),
+      slug: normalizeSlug(tcg.name),
+      description: "",
+    };
+    try {
+      const created = await client.collection("tcgs").create(tcgData);
+      tcgMap.set(tcgID, created.data);
+    } catch (e) {
+      console.log("Error creating game:", e);
+    }
   }
-  // }
 }
+
+async function createCategory(product, categories) {
+  const categoryID = product.category_id?.toString();
+  if (!categoryMap.has(categoryID)) {
+    const tcgID = product.game_id?.toString();
+    const tcgDoc = tcgMap.get(tcgID);
+    const category = categories.data.find(
+      (cat) => cat.id === product.category_id
+    );
+    if (!tcgDoc || !category) return;
+    const categoryData = {
+      name: category.name,
+      cardtraderID: category.id.toString(),
+      slug: normalizeSlug(category.name),
+      description: "",
+      tcg: tcgDoc.documentId,
+    };
+    try {
+      const created = await client
+        .collection("categories")
+        .create(categoryData);
+      categoryMap.set(categoryID, created.data);
+    } catch (e) {
+      const errorBody = await e.response?.json?.();
+      console.log("Error creating category:", errorBody || e);
+    }
+  }
+}
+
+async function createSet(product, expansions) {
+  const setID = product.expansion?.id?.toString();
+  if (!setMap.has(setID)) {
+    const tcgID = product.game_id?.toString();
+    const tcgDoc = tcgMap.get(tcgID);
+    const set = expansions.data.find((exp) => exp.id === product.expansion.id);
+    if (!tcgDoc || !set) return;
+    const expansionData = {
+      name: set.name,
+      code: set.code,
+      cardtraderID: set.id.toString(),
+      slug: normalizeSlug(set.name),
+      tcg: tcgDoc.documentId,
+    };
+    try {
+      const created = await client.collection("sets").create(expansionData);
+      setMap.set(setID, created.data);
+    } catch (e) {
+      const errorBody = await e.response?.json?.();
+      console.log("Error creating expansion:", errorBody || e);
+    }
+  }
+}
+
+async function createRarity(product) {
+  const rarityKey = Object.keys(product.properties_hash).find((key) =>
+    key.endsWith("_rarity")
+  );
+  const rarityID = product.properties_hash[rarityKey];
+  if (!rarityMap.has(rarityID)) {
+    const rarityData = {
+      name: rarityID,
+      short_name: rarityID,
+      slug: normalizeSlug(rarityID),
+    };
+    try {
+      const created = await client.collection("rarities").create(rarityData);
+      rarityMap.set(rarityID, created.data);
+    } catch (e) {
+      console.log("Error creating rarity:", e);
+    }
+  }
+}
+
+async function createLanguage(product) {
+  const languageKey = Object.keys(product.properties_hash).find((key) =>
+    key.endsWith("_language")
+  );
+  const languageID = product.properties_hash[languageKey];
+  if (!languageMap.has(languageID)) {
+    const languageData = {
+      name: languageID,
+      short_name: languageID,
+    };
+    try {
+      const created = await client.collection("languages").create(languageData);
+      languageMap.set(languageID, created.data);
+    } catch (e) {
+      console.log("Error creating language:", e);
+    }
+  }
+}
+
+async function createCondition(product) {
+  const conditionID = product.properties_hash.condition;
+  if (!conditionMap.has(conditionID)) {
+    const conditionData = {
+      name: conditionID,
+      short_name: conditionID,
+    };
+    try {
+      const created = await client
+        .collection("conditions")
+        .create(conditionData);
+      conditionMap.set(conditionID, created.data);
+    } catch (e) {
+      const errorBody = await e.response?.json?.();
+      console.log("Error creating condition:", errorBody || e);
+    }
+  }
+}
+
+async function createProduct(product) {
+  const productID = product.id?.toString();
+  if (!productMap.has(productID)) {
+    const rarityKey = Object.keys(product.properties_hash).find((key) =>
+      key.endsWith("_rarity")
+    );
+    const rarityID = product.properties_hash[rarityKey];
+    const rarityDoc = rarityMap.get(rarityID);
+    const categoryDoc = categoryMap.get(product.category_id?.toString());
+    const setDoc = setMap.get(product.expansion?.id?.toString());
+
+    const code = product.properties_hash.collector_number
+      ? product.properties_hash.collector_number.split("/")[0]
+      : product.properties_hash.collector_number;
+
+    const tags = [
+      "yc9rj6klofl3x618tlfcx042",
+      "li0wur3zy7yz97ape7ka84sg",
+      "x34kvpiym4w0z6iewupxa6qo",
+    ];
+    const randomTag = tags[Math.floor(Math.random() * tags.length)];
+
+    if (!rarityDoc || !categoryDoc || !setDoc) return;
+
+    const productData = {
+      name: product.name_en,
+      rarity: rarityDoc.documentId,
+      category: categoryDoc.documentId,
+      cardtraderID: product.id,
+      set: setDoc.documentId,
+      slug: normalizeSlug(product.name_en),
+      description: "",
+      tag: randomTag,
+      code: code,
+      blueprintID: product.blueprint_id,
+    };
+
+    try {
+      const created = await client.collection("products").create(productData);
+      productMap.set(productID, created.data);
+    } catch (e) {
+      const errorBody = await e.response?.json?.();
+      console.log("Error creating product:", errorBody || e);
+    }
+  }
+}
+
+async function createVariants(product) {
+  const productID = product.id?.toString();
+  const productDoc = productMap.get(productID);
+
+  const conditionID = product.properties_hash.condition;
+  const conditionDoc = conditionMap.get(conditionID);
+
+  const languageKey = Object.keys(product.properties_hash).find((key) =>
+    key.endsWith("_language")
+  );
+  const languageID = product.properties_hash[languageKey];
+  const languageDoc = languageMap.get(languageID);
+
+  if (!productDoc || !conditionDoc || !languageDoc) return;
+
+  const key = `${productDoc.documentId}-${conditionDoc.documentId}-${languageDoc.documentId}`;
+  if (!variantMap.has(key)) {
+    const variantData = {
+      name:
+        languageDoc.short_name.toUpperCase() +
+        "-" +
+        conditionDoc.short_name.toUpperCase(),
+      price: product.price_cents,
+      quantity: product.quantity,
+      language: languageDoc.documentId,
+      condition: conditionDoc.documentId,
+      product: productDoc.documentId,
+    };
+
+    try {
+      const result = await client.collection("variants").create(variantData);
+
+      const newVariantId = result.data.documentId;
+      const currentVariants = (productDoc.variants || []).map((v) =>
+        typeof v === "string" ? v : v.documentId
+      );
+      const updatedVariants = [...currentVariants, newVariantId];
+
+      await client.collection("products").update(productDoc.documentId, {
+        variants: updatedVariants,
+      });
+
+      variantMap.set(key, result.data);
+    } catch (e) {
+      const errorBody = await e.response?.json?.();
+      console.log("Error creating variant:", errorBody || e);
+    }
+  } else {
+    // Aggiornamento variante se necessario (opzionale)
+    // await client.collection("variants").update(variantMap.get(key).documentId, {
+    //   price: product.price_cents,
+    //   quantity: product.quantity,
+    // });
+  }
+}
+
+// ------------- FUNZIONI DI SUPPORTO -------------
+
 async function getAllData() {
   try {
     const expansions = await getExpansionsCardTrader();
     const categories = await getCategoriesCardTrader();
     const products = await getProductsCardTrader();
     const games = await getGamesCardTrader();
-
     return { expansions, categories, products, games };
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -242,338 +439,6 @@ async function getGamesCardTrader() {
   const result = await axios.get(url, configCardTrader);
   return result;
 }
-async function getTcgExists(id) {
-  return await client.collection("tcgs").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      cardtraderID: {
-        $eq: id,
-      },
-    },
-  });
-}
-async function getRarityExists(name) {
-  return await client.collection("rarities").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      name: {
-        $eq: name,
-      },
-    },
-  });
-}
-async function getLanguageExists(name) {
-  return await client.collection("languages").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      short_name: {
-        $eq: name,
-      },
-    },
-  });
-}
-async function getCategoryExists(id) {
-  return await client.collection("categories").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      cardtraderID: {
-        $eq: id,
-      },
-    },
-  });
-}
-async function getSetExists(id) {
-  return await client.collection("sets").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      cardtraderID: {
-        $eq: id,
-      },
-    },
-  });
-}
-async function getConditionExists(name) {
-  return await client.collection("conditions").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      name: {
-        $eq: name,
-      },
-    },
-  });
-}
-async function createTcg(product, games) {
-  const tcgID = product.game_id;
-  const tcgExists = await getTcgExists(tcgID);
-  if (tcgExists.data.length === 0) {
-    const tcg = games.data.array.find((game) => game.id === tcgID);
-    const tcgData = {
-      name: tcg.display_name,
-      cardtraderID: tcg.id.toString(),
-      slug: normalizeSlug(tcg.name),
-      description: "",
-    };
-    try {
-      await client.collection("tcgs").create(tcgData);
-    } catch (e) {
-      console.log("Error creating game:", e);
-    }
-  }
-}
-
-async function getProductExists(id) {
-  return await client.collection("products").find({
-    locale: "en",
-    populate: "*",
-    filters: {
-      cardtraderID: {
-        $eq: id,
-      },
-    },
-  });
-}
-
-async function getVariantExists(productID, conditionID, languageID) {
-  const result = await client.collection("variants").find({
-    filters: {
-      product: { $eq: productID },
-      condition: { $eq: conditionID },
-      language: { $eq: languageID },
-    },
-    populate: "*",
-  });
-  return result;
-}
-async function createCategory(product, categories) {
-  const categoryID = product.category_id;
-  const tcgID = product.game_id;
-  const categoryExists = await getCategoryExists(categoryID);
-  if (categoryExists.data.length === 0) {
-    const tcgData = await getTcgExists(tcgID);
-    const category = categories.data.find((cat) => cat.id === categoryID);
-    const categoryData = {
-      name: category.name,
-      cardtraderID: category.id.toString(),
-      slug: normalizeSlug(category.name),
-      description: "",
-      tcg: tcgData.data[0].documentId,
-    };
-    try {
-      await client.collection("categories").create(categoryData);
-    } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating category:", errorBody);
-    }
-  }
-}
-async function createSet(product, expansions) {
-  const setID = product.expansion.id;
-  const tcgID = product.game_id;
-  const setExists = await getSetExists(setID);
-  if (setExists.data.length === 0) {
-    const tcgData = await getTcgExists(tcgID);
-    const set = expansions.data.find((exp) => exp.id === setID);
-    const expansionData = {
-      name: set.name,
-      code: set.code,
-      cardtraderID: set.id.toString(),
-      slug: normalizeSlug(set.name),
-      tcg: tcgData.data[0].documentId,
-    };
-    try {
-      await client.collection("sets").create(expansionData);
-    } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating expansion:", errorBody);
-    }
-  }
-}
-async function createRarity(product) {
-  const rarityKey = Object.keys(product.properties_hash).find((key) =>
-    key.endsWith("_rarity")
-  );
-  const rarityID = product.properties_hash[rarityKey];
-  const rarityExists = await getRarityExists(rarityID);
-  if (rarityExists.data.length === 0) {
-    const rarityData = {
-      name: rarityID,
-      short_name: rarityID,
-      slug: normalizeSlug(rarityID),
-    };
-
-    try {
-      await client.collection("rarities").create(rarityData);
-    } catch (e) {
-      console.log("Error creating rarity:", e);
-    }
-  }
-}
-async function createLanguage(product) {
-  const languageKey = Object.keys(product.properties_hash).find((key) =>
-    key.endsWith("_language")
-  );
-  const languageID = product.properties_hash[languageKey];
-  const languageExists = await getLanguageExists(languageID);
-  if (languageExists.data.length === 0) {
-    const languageData = {
-      name: languageID,
-      short_name: languageID,
-    };
-
-    try {
-      await client.collection("languages").create(languageData);
-    } catch (e) {
-      console.log("Error creating language:", e);
-    }
-  }
-}
-async function createCondition(product) {
-  const conditionID = product.properties_hash.condition;
-  const conditionExists = await getConditionExists(conditionID);
-  if (conditionExists.data.length === 0) {
-    const conditionData = {
-      name: conditionID,
-      short_name: conditionID,
-    };
-
-    try {
-      await client.collection("conditions").create(conditionData);
-    } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating condition:", errorBody);
-    }
-  }
-}
-async function createProduct(product) {
-  const productID = product.id;
-  const productExists = await getProductExists(productID);
-  const tags = [
-    "yc9rj6klofl3x618tlfcx042",
-    "li0wur3zy7yz97ape7ka84sg",
-    "x34kvpiym4w0z6iewupxa6qo",
-  ];
-  const randomTag = tags[Math.floor(Math.random() * tags.length)];
-
-  if (productExists.data.length === 0) {
-    const rarityKey = Object.keys(product.properties_hash).find((key) =>
-      key.endsWith("_rarity")
-    );
-    const rarityID = product.properties_hash[rarityKey];
-    const rarityDocument = await getRarityExists(rarityID);
-    const categoryDocument = await getCategoryExists(product.category_id);
-    const setDocument = await getSetExists(product.expansion.id);
-    const code = product.properties_hash.collector_number
-      ? product.properties_hash.collector_number.split("/")[0]
-      : product.properties_hash.collector_number;
-
-    const productData = {
-      name: product.name_en,
-      rarity: rarityDocument.data[0].documentId,
-      category: categoryDocument.data[0].documentId,
-      cardtraderID: product.id,
-      set: setDocument.data[0].documentId,
-      slug: normalizeSlug(product.name_en),
-      description: "",
-      tag: randomTag,
-      code: code,
-      blueprintID: product.blueprint_id,
-    };
-
-    try {
-      await client.collection("products").create(productData);
-    } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating product:", errorBody);
-    }
-  }
-}
-async function createVariants(product) {
-  const productID = product.id;
-  const productDocument = await getProductExists(productID);
-
-  const conditionID = product.properties_hash.condition;
-  const conditionDocument = await getConditionExists(conditionID);
-
-  const languageKey = Object.keys(product.properties_hash).find((key) =>
-    key.endsWith("_language")
-  );
-  const languageID = product.properties_hash[languageKey];
-  const languageDocument = await getLanguageExists(languageID);
-
-  const variantExists = await getVariantExists(
-    productDocument.data[0].id,
-    conditionDocument.data[0].id,
-    languageDocument.data[0].id
-  );
-
-  if (variantExists.data.length === 0) {
-    const variantData = {
-      name:
-        languageDocument.data[0].short_name.toUpperCase() +
-        "-" +
-        conditionDocument.data[0].short_name.toUpperCase(),
-      price: product.price_cents,
-      quantity: product.quantity,
-      language: languageDocument.data[0].documentId,
-      condition: conditionDocument.data[0].documentId,
-    };
-
-    try {
-      const result = await client.collection("variants").create(variantData);
-
-      const newVariantId = result.data.documentId;
-      const currentVariants = (productDocument.data[0].variants || []).map(
-        (v) => (typeof v === "string" ? v : v.documentId)
-      );
-      const updatedVariants = [...currentVariants, newVariantId];
-      await client
-        .collection("products")
-        .update(productDocument.data[0].documentId, {
-          variants: updatedVariants,
-        });
-    } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating product:", errorBody);
-    }
-  } else {
-    // await client
-    //   .collection("variants")
-    //   .update(variantExists.data[0].documentId, {
-    //     price: product.price_cents,
-    //     quantity: product.quantity,
-    //   });
-  }
-}
-
-async function downloadImage(url) {
-  const response = await axios({
-    url,
-    method: "GET",
-    responseType: "arraybuffer", // Ottieni i dati come un array di byte
-  });
-
-  // Crea un Buffer dal contenuto dell'immagine
-  return Buffer.from(response.data);
-}
-function normalizeSlug(slug) {
-  return slug
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
-    .replace(/[^A-Za-z0-9-_.~]/g, "-");
-}
-
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
 
 async function getAllProducts() {
   let page = 1;
@@ -597,4 +462,27 @@ async function getAllProducts() {
   } while (page <= totalPages);
 
   return allProducts;
+}
+
+async function downloadImage(url) {
+  const response = await axios({
+    url,
+    method: "GET",
+    responseType: "arraybuffer",
+  });
+  return Buffer.from(response.data);
+}
+
+function normalizeSlug(slug) {
+  return slug
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^A-Za-z0-9-_.~]/g, "-");
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
