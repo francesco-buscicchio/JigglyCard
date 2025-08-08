@@ -13,9 +13,9 @@
           v-for="(subItem, index) in item.subMenu"
           :key="index"
           class="text-gray-500 py-2 hover:text-gray-700 cursor-pointer"
-          @click="navigate(subItem.url)"
+          @click="navigate(subItem.to)"
         >
-          {{ subItem.name }}
+          {{ subItem.label }}
         </p>
       </ul>
     </li>
@@ -23,8 +23,9 @@
 </template>
 
 <script setup lang="ts">
-import menuItems, { type MenuItemType } from "~/data/menu";
+import useMenu, { type MenuItemType } from "~/data/menu";
 const emit = defineEmits(["closeMenu"]);
+const menuItems = ref<MenuItemType[]>(await useMenu());
 
 const toggleSubMenu = (item: MenuItemType) => {
   item.isSubMenuOpen = !item.isSubMenuOpen;
