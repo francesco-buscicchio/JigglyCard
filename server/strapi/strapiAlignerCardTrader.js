@@ -24,7 +24,7 @@ const configCardTrader = {
   },
 };
 
-//await createProductsOnStrapi();
+await createProductsOnStrapi();
 await syncProductsImages();
 //await checkVariantsAvailability();
 
@@ -136,7 +136,7 @@ async function syncProductsImages() {
 
     const blueprintData = blueprintFiltered[0];
 
-    const imageToUse = await downloadImage(blueprintData.image_url);
+    const imageToUse = await downloadImage(blueprintData.image.url);
 
     const blob = new Blob([imageToUse], { type: "image/jpeg" });
     const form = new FormData();
@@ -163,19 +163,32 @@ async function syncProductsImages() {
 async function createProductsOnStrapi() {
   const { expansions, categories, products, games } = await getAllData();
 
-  for (let i = 0; i < 100; i++) {
-    const product = products.data[i];
-    //for (let product of products.data) {
-    await createTcg(product, games);
-    await createCategory(product, categories);
-    await createSet(product, expansions);
-    await createRarity(product);
-    await createCondition(product);
-    await createLanguage(product);
-    await createProduct(product);
-    await createVariants(product);
-    //}
+  //for (let i = 0; i < 1000; i++) {
+  //const product = products.data[i];
+  for (let product of products.data) {
+    try {
+      await sleep(100);
+      await createTcg(product, games);
+      await sleep(100);
+      await createCategory(product, categories);
+      await sleep(100);
+      await createSet(product, expansions);
+      await sleep(100);
+      await createRarity(product);
+      await sleep(100);
+      await createCondition(product);
+      await sleep(100);
+      await createLanguage(product);
+      await sleep(100);
+      await createProduct(product);
+      await sleep(100);
+      await createVariants(product);
+    } catch (e) {
+      console.log("Errore");
+      console.log(e.message);
+    }
   }
+  // }
 }
 async function getAllData() {
   try {
@@ -300,10 +313,10 @@ async function createTcg(product, games) {
       description: "",
     };
     try {
+      const tcgsIndex = client.collection("tcgs");
       await tcgsIndex.create(tcgData);
     } catch (e) {
-      const errorBody = await e.response.json();
-      console.log("Error creating game:", errorBody);
+      console.log("Error creating game:", e);
     }
   }
 }
@@ -322,22 +335,15 @@ async function getProductExists(id) {
 }
 
 async function getVariantExists(productID, conditionID, languageID) {
-  const variantsIndex = client.collection("variants");
-  return await variantsIndex.find({
-    locale: "en",
-    populate: "*",
+  const result = await client.collection("variants").find({
     filters: {
-      product: {
-        $eq: productID,
-      },
-      condition: {
-        $eq: conditionID,
-      },
-      language: {
-        $eq: languageID,
-      },
+      product: { $eq: productID },
+      condition: { $eq: conditionID },
+      language: { $eq: languageID },
     },
+    populate: "*",
   });
+  return result;
 }
 async function createCategory(product, categories) {
   const categoryID = product.category_id;
@@ -502,9 +508,9 @@ async function createVariants(product) {
   const languageDocument = await getLanguageExists(languageID);
 
   const variantExists = await getVariantExists(
-    productID,
-    conditionID,
-    languageID
+    productDocument.data[0].id,
+    conditionDocument.data[0].id,
+    languageDocument.data[0].id
   );
 
   if (variantExists.data.length === 0) {
