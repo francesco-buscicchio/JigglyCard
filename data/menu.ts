@@ -59,9 +59,12 @@ const useMenu = async () => {
 
 export type MenuItemType = {
   name: string;
-  subMenu: { name: string; url: string }[] | null;
+  subMenu: {
+    label: string;
+    image?: string;
+    to: string;
+  }[];
   isSubMenuOpen?: boolean;
-  url?: string;
 };
 
 export default useMenu;
