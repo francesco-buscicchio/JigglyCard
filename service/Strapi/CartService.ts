@@ -12,7 +12,7 @@ export interface Cart {
   coupon: any;
 }
 
-type QuantityType = {
+export type QuantityType = {
   variant: string;
   quantity: number;
 };
