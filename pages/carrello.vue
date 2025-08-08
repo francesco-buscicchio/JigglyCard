@@ -165,7 +165,11 @@ onMounted(async () => {
 
   const results = await client.searchSingleIndex<SearchProductResult>({
     indexName: PRODUCTS_COLLECTION,
-    searchParams: { query: HIGHLIGHTS_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: HIGHLIGHTS_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
 
   setSuggestProducts(results);

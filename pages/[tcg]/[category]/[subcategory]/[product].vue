@@ -121,7 +121,11 @@ onMounted(async () => {
   fetchData();
   const results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: DEALS_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
   setDeals(results);
 });
