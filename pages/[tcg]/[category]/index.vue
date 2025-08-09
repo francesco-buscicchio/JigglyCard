@@ -75,6 +75,7 @@ import {
   PRODUCTS_COLLECTION,
   ITEMS_FOR_PAGE_MOBILE,
   ITEMS_FOR_PAGE_DESKTOP,
+  TcgSlug,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
 import type { ProductType } from "~/types/productType.type";
@@ -88,7 +89,13 @@ const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
-const filtersStringQuery = ref(`type:"${route.params.category}"`);
+const filtersStringQuery = ref(
+  route.params.category === "all"
+    ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
+    : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
+        route.params.category
+      }"`
+);
 const expansion = route.query.expansion;
 const isDesktopView = isDesktop();
 
@@ -98,10 +105,14 @@ onMounted(async () => {
 });
 
 function calculateFilterString(e?: any) {
-  let filter = `type:"${route.params.category}"`;
+  let filter =
+    route.params.category === "all"
+      ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
+      : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
+          route.params.category
+        }"`;
 
   if (e) {
-    console.log("Filter update received:", e);
     let languageFilters = e.language
       ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
       : "";

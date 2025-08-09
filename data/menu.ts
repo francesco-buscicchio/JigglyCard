@@ -12,6 +12,7 @@ const useMenu = async () => {
     string,
     {
       name: string;
+      to: string;
       subMenu: {
         label: string;
         image?: string;
@@ -32,6 +33,7 @@ const useMenu = async () => {
         if (!tempMenu[key]) {
           tempMenu[key] = {
             name: key,
+            to: `/${key.toLowerCase().replace(/\s+/g, "-")}/all`,
             subMenu: [],
             isSubMenuOpen: false,
           };
@@ -59,6 +61,7 @@ const useMenu = async () => {
 
 export type MenuItemType = {
   name: string;
+  to: string;
   subMenu: {
     label: string;
     image?: string;

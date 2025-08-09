@@ -32,7 +32,7 @@ export const FOOTER_MENU_ITEMS = [
 export const PATH = {
   HOME: "/",
   CART: "/carrello",
-  CHECKOUT: '/checkout'
+  CHECKOUT: "/checkout",
 };
 
 export const VIEWPORTS = {
@@ -95,3 +95,9 @@ export const HEADER_MENU = [
   { name: "Dragon Ball", to: "/dragon-ball/all", subMenu: [] },
   { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
 ];
+
+export enum TcgSlug {
+  "dragon-ball-super" = "Dragon Ball Super",
+  "one-piece" = "One Piece",
+  "pokémon" = "Pokémon",
+}
