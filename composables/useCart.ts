@@ -112,13 +112,13 @@ export function useCart(config: CartConfig) {
     couponData.value.error = "";
     const result = await couponService.getCouponByCode(code);
     if (result.length === 0) {
-      console.log("Codice coupon non valido");
       couponData.value.error = "Codice coupon non valido";
       return;
     }
     const coupon = result[0];
-    if (new Date(coupon.expired_date) < new Date()) {
-      console.log("Codice coupon scaduto");
+    const expiry = new Date(coupon.expired_date);
+    expiry.setHours(23, 59, 59, 999);
+    if (expiry < new Date()) {
       couponData.value.error = "Codice coupon scaduto";
       return;
     }

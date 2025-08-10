@@ -101,6 +101,21 @@ export const HEADER_MENU = [
   { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
 ];
 
+export const SHIPPING_METHOD_STANDARD: {
+  id: string;
+  label: string;
+  price: number;
+} = { id: "standard-1", label: "Standard 1", price: 0 };
+
+export const SHIPPING_METHODS: {
+  id: string;
+  label: string;
+  price: number;
+}[] = [
+  { id: "ship-1", label: "Opzione 1", price: 5 },
+  { id: "ship-2", label: "Opzione 2", price: 10 },
+  { id: "ship-3", label: "Opzione 3", price: 15 },
+];
 export enum TcgSlug {
   "dragon-ball-super" = "Dragon Ball Super",
   "one-piece" = "One Piece",
