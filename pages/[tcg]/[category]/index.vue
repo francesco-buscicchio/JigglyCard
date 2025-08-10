@@ -4,7 +4,7 @@
   </div>
   <div class="p-10">
     <MoleculesListingTitle
-      :title="`routes./${route.params.tcg}/${route.params.category}`"
+      :title="`${route.params.tcg}/${route.params.category}`"
     />
   </div>
   <div class="gap-b-4 flex flex-col">
