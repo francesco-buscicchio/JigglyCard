@@ -12,6 +12,7 @@ export type CartItem = {
   title: string;
   language: string;
   condition: string;
+  coupon: any;
 };
 type QuantityItem = { variant: string; quantity: number };
 class CartService {
@@ -164,6 +165,18 @@ class CartService {
         type: ToastMessageType.ERROR,
       };
     }
+  }
+
+  public async addCouponCode(documentId: string, couponCode: string) {
+    this.cartService.updateCart(documentId, {
+      coupon: couponCode,
+    });
+  }
+
+  public async removeCouponCode(documentId: string) {
+    this.cartService.updateCart(documentId, {
+      coupon: null,
+    });
   }
 
   public async updateQuantityData(

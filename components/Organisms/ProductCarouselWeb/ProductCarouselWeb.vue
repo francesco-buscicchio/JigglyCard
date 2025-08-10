@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const props = defineProps({
   products: {
