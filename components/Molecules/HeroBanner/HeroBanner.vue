@@ -27,7 +27,8 @@
 import { useRouter } from "vue-router";
 import "swiper/swiper-bundle.css";
 import type { PropType } from "vue";
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
+import type { Swiper } from "swiper/types";
 
 const props = defineProps({
   slides: {
@@ -51,7 +52,7 @@ function updateIndex(index: number) {
   controlledSwiper.value.slideTo(index);
 }
 
-const setControlledSwiper = (swiper: any) => {
+const setControlledSwiper = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
 };
 

@@ -14,7 +14,7 @@ interface User {
   role: string;
 }
 
-class UserService extends StrapiCollectionCRUD<User> {
+class UserStrapiService extends StrapiCollectionCRUD<User> {
   constructor(strapiBaseUrl: string, accessToken: string) {
     super(strapiBaseUrl, accessToken, "users");
   }
@@ -40,4 +40,4 @@ class UserService extends StrapiCollectionCRUD<User> {
   }
 }
 
-export { UserService };
+export { UserStrapiService };

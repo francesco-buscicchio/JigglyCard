@@ -3,22 +3,22 @@
     class="lg:bg-accent-50 lg:rounded-lg lg:w-[30vw] lg:max-w-[420px] lg:p-6"
   >
     <div class="border-b pb-2">
-      <h5>{{ t("recapCart") }}</h5>
+      <h5>{{ t("cartSummary") }}</h5>
     </div>
 
-  <div
-    v-for="product in products"
-    :key="product.id"
-    class="flex justify-between border-b py-2 items-end"
-  >
-    <div>
-      <p class="mb-1">{{ product.nameProduct }}</p>
-      <p>{{ product.codeProduct }}</p>
+    <div
+      v-for="product in products"
+      :key="product.id"
+      class="flex justify-between border-b py-2 items-end"
+    >
+      <div>
+        <p class="mb-1">{{ product.nameProduct }}</p>
+        <p>{{ product.codeProduct }}</p>
+      </div>
+      <div class="text-right">
+        <p>{{ product.price }} €</p>
+      </div>
     </div>
-    <div class="text-right">
-      <p>{{ product.price }} €</p>
-  </div>
-</div>
 
     <div class="flex justify-between pt-2">
       <p>{{ t("shipping") }}</p>

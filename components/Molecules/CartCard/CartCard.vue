@@ -6,7 +6,12 @@
       <slot />
     </div>
     <div class="pt-4">
-      <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
+      <OrganismsQuantitySelect
+        :price="price"
+        :quantity="availableQuantity"
+        :selectedQuantity="quantity"
+        @quantityChanged="quantityChange"
+      />
     </div>
     <div class="pt-7">
       <AtomsButtonCTA type="underline-text" text="Elimina dal carrello" />
@@ -22,7 +27,12 @@
 
     <div class="flex gap-13">
       <div>
-        <OrganismsQuantitySelect :price="price" :quantity="availableQuantity" />
+        <OrganismsQuantitySelect
+          :price="price"
+          :quantity="availableQuantity"
+          :selectedQuantity="quantity"
+          @quantityChanged="quantityChange"
+        />
       </div>
       <!-- elimina dal carrello -->
       <div class="flex flex-col justify-center">
@@ -30,7 +40,7 @@
           name="jig:close-accent"
           class="cursor-pointer"
           size="20"
-          @click=""
+          @click="removeVariant"
         />
       </div>
     </div>
@@ -39,9 +49,18 @@
 
 <script lang="ts" setup>
 import defaultCardImage from "@/assets/img/default-card-image.png";
-const emit = defineEmits(["buttonClicked"]);
+const emit = defineEmits(["removeVariantClicked", "quantityChanged"]);
 const isMobileview = isMobile();
-defineProps({
+
+const quantity = computed(() => {
+  return props.selectedQuantity;
+});
+
+function quantityChange(newQuantity: Number) {
+  emit("quantityChanged", newQuantity);
+}
+
+const props = defineProps({
   alt: {
     type: String,
     required: true,
@@ -63,4 +82,8 @@ defineProps({
     required: true,
   },
 });
+
+const removeVariant = () => {
+  emit("removeVariantClicked");
+};
 </script>

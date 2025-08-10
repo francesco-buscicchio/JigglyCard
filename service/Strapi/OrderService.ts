@@ -10,7 +10,7 @@ interface Order {
   order_value: number;
   shipment_value: number;
   total_value: number;
-  variant: string[];
+  variants: string[];
   country: string;
   city: string;
   cap: string;
@@ -20,7 +20,7 @@ interface Order {
   invoiced: boolean;
 }
 
-class OrderService extends StrapiCollectionCRUD<Order> {
+class OrderStrapiService extends StrapiCollectionCRUD<Order> {
   constructor(strapiBaseUrl: string, accessToken: string) {
     super(strapiBaseUrl, accessToken, "orders");
   }
@@ -56,4 +56,4 @@ class OrderService extends StrapiCollectionCRUD<Order> {
   }
 }
 
-export { OrderService };
+export { OrderStrapiService };
