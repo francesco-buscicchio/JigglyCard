@@ -4,11 +4,12 @@
 
     <div class="my-4">
       <AtomsRadioButton
-        :value="{ id: 'standard-1' }"
-        name="Standard-1"
+        :value="SHIPPING_METHOD_STANDARD"
+        :id="SHIPPING_METHOD_STANDARD.id"
+        name="shippingMethod"
         v-model="selectedOption"
+        :label="SHIPPING_METHOD_STANDARD.label"
       />
-      <span class="ml-2 text-base">Standard 1€ </span>
       <p class="text-xs py-3">
         {{ t("shippingSection.message") }}
       </p>
@@ -67,7 +68,7 @@ const props = defineProps({
 });
 import { useI18n } from "vue-i18n";
 import { goBack } from "@/utils/navigationUtils";
-import { PATH } from "~/data/const";
+import { SHIPPING_METHOD_STANDARD, PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const isDesktopView = isDesktop();
@@ -80,5 +81,5 @@ const codeApply = computed(() => {
     : t("shippingSection.codeApply");
 });
 // TODO: rendere di default l'opzione standard
-const selectedOption = ref({ id: "standard-1" });
+const selectedOption = ref(SHIPPING_METHOD_STANDARD);
 </script>
