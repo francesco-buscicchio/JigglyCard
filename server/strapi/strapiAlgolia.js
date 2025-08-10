@@ -104,6 +104,7 @@ async function syncAlgoliaToStrapiProducts() {
       expansion: product.set ? product.set.name : "N/A",
       languages: languagesList,
       tcg: category.data[0].tcg ? category.data[0].tcg.name : "N/A",
+      tcgSlug: category.data[0].tcg ? category.data[0].tcg.slug : "N/A",
       type: product.category ? product.category.slug : "N/A",
       code: `${product.set.code} ${product.code}`,
       number: Number(product.code),
