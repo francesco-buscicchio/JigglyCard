@@ -20,8 +20,8 @@
             :availableQuantity="item.availableQuantity"
             :price="item.price"
             :alt="item.title"
-            @removeVariantClicked="removeItemFromCart(item)"
-            @quantityChanged="quantityChanged($event, item)"
+            @removeVariantClicked="removeItem(item)"
+            @quantityChanged="changeQuantity($event, item)"
           >
             <div>
               <h5 class="pb-2 text-lg">{{ formatProductName(item.title) }}</h5>
@@ -34,8 +34,17 @@
           </MoleculesCartCard>
         </div>
       </div>
-      <div class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20">
-        <OrganismsShippingMode :total-cart="totalCart" />
+      <div
+        class="lg:bg-accent-50 lg:rounded-lg lg:w-[430px] lg:mb-20"
+        v-if="products.length > 0"
+      >
+        <OrganismsShippingMode
+          :total-cart="totalCart"
+          :products="products"
+          :couponData="couponData"
+          @couponApplied="applyCoupon($event)"
+          @removeCoupon="removeCoupon($event)"
+        />
       </div>
     </div>
   </div>
@@ -44,60 +53,49 @@
       {{ "Il tuo viaggio da allenatore non è ancora cominciato!" }}
     </h5>
   </div>
-
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
-    :title="products.length > 0 ? t('suggested') : 'Inizia da qui'"
-    :products="suggested"
+    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :products="dealsProducts"
     colorScheme="lightHome"
   />
   <OrganismsProductCarousel
     v-if="isMobileView"
-    :title="products.length > 0 ? t('suggested') : 'Inizia da qui'"
-    :products="suggested"
+    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :products="dealsProducts"
     colorScheme="lightHome"
   />
 </template>
 
 <script lang="ts" setup>
-import { HIGHLIGHTS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
-import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import { type CartConfig } from "~/composables/useCart";
+import { DEALS_TAG } from "~/data/const";
 import type { ProductType } from "~/types/productType.type";
-import { formatProductName, extractProductCode } from "~/utils/productUtils";
-import {
-  VariantStrapiService as VariantService,
-  type Variant,
-} from "~/service/Strapi/VariantService";
-import { ProductStrapiService as ProductService } from "~/service/Strapi/ProductService";
-import type { SearchResponse } from "algoliasearch";
-import { CartService, type CartItem } from "~/service/CartService";
 
-const config = useRuntimeConfig();
-const { t } = useI18n();
-const isMobileView = isMobile();
 const isDesktopView = isDesktop();
-const suggested: Ref<ProductType[]> = ref([]);
-const products: Ref<CartItem[]> = ref([]);
+const isMobileView = isMobile();
+const { t } = useI18n();
 const client = useAlgolia();
-let cartService;
-let cartData: any;
-
-async function quantityChanged(newQuantity: number, item: CartItem) {
-  const quantityData = [...cartData.data.quantity];
-  cartService!.updateQuantityData(quantityData, item.id, newQuantity);
-}
-
-const removeItemFromCart = async (item: CartItem) => {
-  await cartService!.removeItem(cartData.data, item);
-  products.value = products.value.filter((val: CartItem) => {
-    return val.id !== item.id;
-  });
+const runtimeConfig = useRuntimeConfig();
+const cartConfig: CartConfig = {
+  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
+  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
 };
 
-const setSuggestProducts = (
-  queryResult: SearchResponse<SearchProductResult>
-) => {
-  queryResult.hits.forEach((hit: any) => {
+const dealsProducts: Ref<ProductType[]> = ref([]);
+const {
+  products,
+  totalCart,
+  couponData,
+  changeQuantity,
+  removeItem,
+  applyCoupon,
+  removeCoupon,
+} = useCart(cartConfig);
+
+// TODO: refactor mettere setProducts in una utils perchè usata più volte
+const setDeals = (queryResult: any) => {
+  for (let hit of queryResult.hits) {
     const obj = {
       id: hit.objectID,
       productName: hit.name,
@@ -110,74 +108,18 @@ const setSuggestProducts = (
       tcg: hit.tcg,
       category: hit.type,
     };
-
-    suggested.value.push(obj);
-  });
-};
-
-const variantService = new VariantService(
-  config.public.STRAPI_BASE_URL,
-  config.public.FULL_ACCESS_TOKEN
-);
-
-const productService = new ProductService(
-  config.public.STRAPI_BASE_URL,
-  config.public.FULL_ACCESS_TOKEN
-);
-
-const getCart = async () => {
-  cartData = await cartService!.getCart();
-  if (!cartData) return;
-  for (let variant of cartData.data.variants) {
-    const variantData = (
-      await variantService.getVariantById(variant.documentId)
-    ).data;
-    const productData = (
-      await productService.getProductById(variantData.product.documentId)
-    ).data;
-    const cartQuantity = cartData.data.quantity.filter((val: any) => {
-      return val.variant === variant.documentId;
-    });
-    const obj = {
-      id: variant.documentId,
-      image: productData.thumbnail.url,
-      selectedQuantity: cartQuantity ? cartQuantity[0].quantity : 0,
-      availableQuantity: variantData.quantity,
-      price: variantData.price / 100,
-      totalPrice:
-        (cartQuantity.length ? cartQuantity[0].quantity : 0) *
-        (variantData.price / 100),
-      title: productData.name,
-      language: variantData.language.name,
-      condition: variantData.condition.name,
-    };
-    products.value.push(obj);
+    dealsProducts.value.push(obj);
   }
 };
 
-onMounted(async () => {
-  cartService = CartService.getInstance(
-    config.public.STRAPI_BASE_URL,
-    config.public.FULL_ACCESS_TOKEN
-  );
-
-  await getCart();
-
-  const results = await client.searchSingleIndex<SearchProductResult>({
-    indexName: PRODUCTS_COLLECTION,
-    searchParams: {
-      query: HIGHLIGHTS_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
-
-  setSuggestProducts(results);
+const dealsProductsResult = await client.searchSingleIndex({
+  indexName: "ecommerce",
+  searchParams: {
+    query: DEALS_TAG,
+    hitsPerPage: 5,
+    filters: "available:true",
+  },
 });
 
-const totalCart = computed(() => {
-  return products.value
-    .reduce((acc: number, item: CartItem) => acc + item.totalPrice, 0)
-    .toFixed(2);
-});
+setDeals(dealsProductsResult);
 </script>
