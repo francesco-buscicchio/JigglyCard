@@ -102,6 +102,7 @@ async function syncAlgoliaToStrapiProducts() {
       available: totalQuantity > 0,
       conditions: conditionsList.length > 0 ? conditionsList : ["N/A"],
       expansion: product.set ? product.set.name : "N/A",
+      setSlug: product.set ? product.set.slug : "N/A",
       languages: languagesList,
       tcg: category.data[0].tcg ? category.data[0].tcg.name : "N/A",
       tcgSlug: category.data[0].tcg ? category.data[0].tcg.slug : "N/A",
