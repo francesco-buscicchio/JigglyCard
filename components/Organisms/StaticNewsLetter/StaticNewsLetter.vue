@@ -42,13 +42,13 @@ const config = useRuntimeConfig();
 const { t, locale } = useI18n();
 const email = ref("");
 
-const titleNewsLetter = t("titleNewsLetter");
-const headerNewsLetter = t("headerNewsLetter");
+const titleNewsLetter = t("newsletter.title");
+const headerNewsLetter = t("newsletter.header");
 
-const captionNewsletterFirst = t("captionNewsletter.first");
-const captionNewsletterBold = t("captionNewsletter.bold");
-const captionNewsletterSecond = t("captionNewsletter.second");
-const buttonNewsLetter = t("buttonNewsLetter");
+const captionNewsletterFirst = t("newsletter.caption.first");
+const captionNewsletterBold = t("newsletter.caption.bold");
+const captionNewsletterSecond = t("newsletter.caption.second");
+const buttonNewsLetter = t("newsletter.button");
 
 const loadTemplates = async () => {
   const customerTemplateModule =

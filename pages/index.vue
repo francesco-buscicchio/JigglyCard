@@ -70,35 +70,52 @@ onMounted(async () => {
   //todo: cercare una soluzione per un'unica query
   let results = await client.searchSingleIndex({
     indexName: PRODUCTS_COLLECTION,
-    searchParams: { query: HIGHLIGHTS_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: HIGHLIGHTS_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: WHATSNEW_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: WHATSNEW_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: DEALS_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
   setProducts(results);
   results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: HEROBANNER_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: HEROBANNER_TAG,
+      hitsPerPage: 3,
+      filters: "hasThumbnailImage:true",
+    },
   });
+  console.log(results);
   setProducts(results);
 });
 
 function setProducts(queryResult: any) {
-  const heroBannerTemp: ProductType[] = [];
+  let heroBannerTemp: ProductType[] = [];
 
   for (let hit of queryResult.hits) {
     const product = createProductObj(hit);
     processTags(hit.tags, product, heroBannerTemp);
   }
 
-  setHeroBanner.value = heroBannerTemp.slice(-3);
+  setHeroBanner.value = heroBannerTemp;
 }
 
 function createProductObj(hit: any): ProductType {

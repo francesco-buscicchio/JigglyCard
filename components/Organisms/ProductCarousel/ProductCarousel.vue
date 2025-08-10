@@ -38,8 +38,9 @@
 </template>
 
 <script setup lang="ts">
+import type { Swiper } from "swiper/types";
 import { ref } from "vue";
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const props = defineProps({
   products: {
@@ -57,7 +58,7 @@ const props = defineProps({
 
 const currentIndex = ref(0);
 const productList = ref(props.products);
-const controlledSwiper = ref(null);
+const controlledSwiper = ref();
 
 const containerClass = computed(() => {
   switch (props.colorScheme) {
@@ -77,7 +78,7 @@ const titleClass = computed(() => {
   return "text-accent-500 text-center w-full pb-4";
 });
 
-const setControlledSwiper = (swiper: any) => {
+const setControlledSwiper = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
 };
 

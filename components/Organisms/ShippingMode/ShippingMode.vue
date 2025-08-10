@@ -1,6 +1,6 @@
 <template>
   <div class="mx-5 py-4">
-    <h5>{{ t("shippingMode.shippingMethod") }}</h5>
+    <h5>{{ t("shippingSection.shippingMethod") }}</h5>
 
     <div class="my-4">
       <AtomsRadioButton
@@ -11,17 +11,17 @@
         :label="SHIPPING_METHOD_STANDARD.label"
       />
       <p class="text-xs py-3">
-        {{ t("shippingMode.message") }}
+        {{ t("shippingSection.message") }}
       </p>
     </div>
 
     <div class="flex justify-between border-t-[2px] border-neutral-200 py-4">
-      <p class="">{{ t("shippingMode.total") }}</p>
+      <p class="">{{ t("shippingSection.total") }}</p>
       <p class="price-tag">{{ totalCart }} €</p>
     </div>
     <!-- Codice promo -->
     <div class="mb-12">
-      <p class="mb-2">{{ t("shippingMode.couponCodeQuestion") }}</p>
+      <p class="mb-2">{{ t("shippingSection.couponCodeQuestion") }}</p>
       <div class="lg:flex w-full lg:gap-3 lg:items-center lg:justify-center">
         <div class="mb-2 lg:mb-0 flex-1">
           <AtomsInputText :placeholder="placeholder" status="newsletter" />
@@ -35,12 +35,12 @@
     <div class="flex flex-col gap-y-4">
       <AtomsButtonCTA
         type="primary"
-        :text="t('shippingMode.buyCTA')"
+        :text="t('shippingSection.buyCTA')"
         @button-clicked="goTo(PATH.CHECKOUT)"
       />
       <AtomsButtonCTA
         type="underline-text"
-        :text="t('shippingMode.goBackProducts')"
+        :text="t('shippingSection.goBackProducts')"
         @button-clicked="goBack"
       />
     </div>
@@ -73,12 +73,12 @@ import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const isDesktopView = isDesktop();
 const placeholder = computed(() => {
-  return isDesktopView.value ? "XXXX" : t("shippingMode.couponCode");
+  return isDesktopView.value ? "XXXX" : t("shippingSection.couponCode");
 });
 const codeApply = computed(() => {
   return isDesktopView.value
-    ? t("shippingMode.codeApplyWeb")
-    : t("shippingMode.codeApply");
+    ? t("shippingSection.codeApplyWeb")
+    : t("shippingSection.codeApply");
 });
 // TODO: rendere di default l'opzione standard
 const selectedOption = ref(SHIPPING_METHOD_STANDARD);

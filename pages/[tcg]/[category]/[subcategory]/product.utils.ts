@@ -7,17 +7,21 @@ import type { Language } from "~/enum/language.enum";
 import { TagType } from "~/enum/tag.enum";
 import type { TagCondition } from "~/enum/tagCondition.enum";
 import type { VariantDetail } from "~/interface/variantDetail.interface";
-import type { ListingTagProps } from "~/types/listingTag.type";
+import type { ListingTag } from "~/types/listingTag.type";
 import type { TagCode } from "~/types/tagCode.type";
 import type { TagStructure } from "~/types/tagStructure.type";
 
 export const createTagLanguage = (
   tagsStructure: TagStructure[]
-): ListingTagProps[] => {
+): ListingTag[] => {
   const languageMap = createLanguageMap();
 
   const sortedLanguages = preferredLanguageOrder
-    .filter((lang) => tagsStructure.some((item) => item.language === lang))
+    .filter((lang) =>
+      tagsStructure.some(
+        (item) => item.language.toLocaleLowerCase() === lang.toLowerCase()
+      )
+    )
     .map((lang) => ({
       code: lang,
       name: languageMap.get(lang) ?? lang,
@@ -35,7 +39,7 @@ export const createTagLanguage = (
 export const createTagCondition = (
   tagsStructure: TagStructure[],
   activeConditions: TagCondition[]
-): ListingTagProps[] => {
+): ListingTag[] => {
   const conditionMap = createConditionMap();
 
   const allConditionsSet = new Set<TagCondition>();
@@ -66,7 +70,7 @@ export const createTagCondition = (
 };
 
 export const findActiveLanguage = (
-  tagLanguage: ListingTagProps[],
+  tagLanguage: ListingTag[],
   tagsStructure: TagStructure[]
 ): TagStructure | undefined => {
   const languageMap = createLanguageMap();
@@ -80,9 +84,9 @@ export const findActiveLanguage = (
 };
 
 export const activateLanguage = (
-  tagLanguage: ListingTagProps[],
+  tagLanguage: ListingTag[],
   code: TagCode
-): ListingTagProps[] => {
+): ListingTag[] => {
   const text = findTextByCode(code);
   return tagLanguage.map((tag) => ({
     ...tag,
