@@ -25,10 +25,10 @@ const variantsIndex = strapiClient.collection("variants");
 const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
-//await syncAlgoliaToStrapiProducts();
-//await syncAlgoliaToStrapiSets();
+await syncAlgoliaToStrapiProducts();
+await syncAlgoliaToStrapiSets();
 //await syncAlgoliaMassimoMinimo();
-await syncAlgoliaToStrapiMenu();
+//await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
   const products = await getProducts();
@@ -187,6 +187,7 @@ async function syncAlgoliaToStrapiSets() {
       name: set.name,
       code: set.code,
       expansion: set.slug,
+      tcg: set.tcg.slug,
       tags: ["HEROBANNER"],
       description: set.description,
       hasThumbnailImage: set.thumbnail ? true : false,
