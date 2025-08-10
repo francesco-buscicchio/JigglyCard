@@ -64,6 +64,10 @@
                 @itemClick="onItemClick"
               />
             </div>
+
+            <div class="flex justify-center w-full">
+              <AtomsButtonCTA text="Vedi tutti" type="text" />
+            </div>
           </div>
         </div>
 
@@ -97,6 +101,7 @@ import type { Hit } from "~/types/product.type";
 import { goTo } from "@/utils/navigationUtils";
 
 const isMenuOpen = ref(false);
+const inputSearch = ref("");
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -135,7 +140,12 @@ const closeSearch = (event: MouseEvent) => {
 
 const onSearchInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
+  inputSearch.value = target.value;
   emit("search", target.value);
+};
+
+const goToSearch = () => {
+  navigateTo(`/search/${inputSearch.value}`);
 };
 
 const onItemClick = (event: Event) => {

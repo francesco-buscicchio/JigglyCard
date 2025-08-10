@@ -78,6 +78,14 @@
                 @itemClick="onItemClick"
               />
             </div>
+
+            <div class="flex justify-center w-full lg:col-span-3">
+              <AtomsButtonCTA
+                text="Vedi tutti"
+                type="text"
+                @click="goToSearch()"
+              />
+            </div>
           </div>
         </div>
 
@@ -132,6 +140,7 @@ import type { Hit } from "~/interface/hit.interface";
 import type { HeaderProps } from "~/types/headerPropsType.type";
 
 const { t } = useI18n();
+const inputSearch = ref("");
 
 const props = defineProps<{
   header: HeaderProps;
@@ -154,7 +163,12 @@ const closeSearch = (event: MouseEvent) => {
 
 const onSearchInput = (event: Event) => {
   const target = event.target as HTMLInputElement;
+  inputSearch.value = target.value;
   emit("search", target.value);
+};
+
+const goToSearch = () => {
+  navigateTo(`/search/${inputSearch.value}`);
 };
 
 const onItemClick = (event: Event) => {
