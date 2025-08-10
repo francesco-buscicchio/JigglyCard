@@ -81,7 +81,7 @@
 
             <div class="flex justify-center w-full lg:col-span-3">
               <AtomsButtonCTA
-                text="Vedi tutti"
+                :text="t('showAll')"
                 type="text"
                 @click="goToSearch()"
               />

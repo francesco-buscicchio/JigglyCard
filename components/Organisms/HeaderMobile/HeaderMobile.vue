@@ -66,7 +66,7 @@
             </div>
 
             <div class="flex justify-center w-full">
-              <AtomsButtonCTA text="Vedi tutti" type="text" />
+              <AtomsButtonCTA :text="t('showAll')" type="text" />
             </div>
           </div>
         </div>
