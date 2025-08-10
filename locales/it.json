@@ -51,6 +51,13 @@
   "apply": "Applica",
   "showDetails": "vedi dettagli",
   "cart": "Carrello",
+  "support": {
+    "title": "Assistenza",
+    "mail": "Puoi contattarci per email a",
+    "message": "o per messaggio/whatsapp al",
+    "form": "Se preferisci, puoi compilare il form sottostante.",
+    "answer": "Riceverai una risposta / Ti risponderemo entro 48 ore."
+  },
   "routes": {
     "cart": "Carrello",
     "/carrello": "Carrello",
@@ -153,6 +160,8 @@
   "shippingInfo": "Informazioni di spedizione",
   "name": "Nome",
   "surname": "Cognome",
+  "message": "Messaggio",
+  "send": "Invia",
   "email": "Email",
   "nation": "Paese",
   "cap": "CAP",
@@ -194,5 +203,9 @@
   "creditCard": "Carta di credito",
   "wireTransfer": "Bonifico",
   "no_results": "Nessun risultato",
-  "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!"
+  "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!",
+  "validation": {
+    "required": "Campo obbligatorio",
+    "invalidEmail": "Inserisci un indirizzo e-mail valido"
+  }
 }

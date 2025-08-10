@@ -12,7 +12,7 @@
     >
     <p v-if="type === 'text' || type === 'underline-text'">{{ text }}</p>
 
-    <slot/>
+    <slot />
   </button>
 </template>
 
@@ -24,7 +24,9 @@ const props = defineProps({
     type: String,
     default: "primary",
     validator: (value: string) =>
-      ["primary", "secondary", "disabled", "text", "underline-text"].includes(value),
+      ["primary", "secondary", "disabled", "text", "underline-text"].includes(
+        value
+      ),
   },
   text: {
     type: String,
@@ -33,19 +35,20 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["buttonClicked"]);
-const ctaButtonDefaultClass = "py-3 px-4 rounded-lg w-full cursor-pointer";
+const ctaButtonDefaultClass = "py-3 px-4 rounded-lg w-full ";
 const disabled = computed(() => {
   return props.type === "disabled";
 });
 
 const baseClasses = {
-  primary: "bg-accent-500 text-accent-50 font-bold active:bg-accent-950",
+  primary:
+    "bg-accent-500 text-accent-50 font-bold active:bg-accent-950 cursor-pointer",
   secondary:
-    "bg-white text-accent-500 border-[2px] border-accent-500 active:text-accent-950 active:border-accent-950",
-  text: "bg-none text-accent-500 font-bold active:text-accent-950",
+    "bg-white text-accent-500 border-[2px] border-accent-500 active:text-accent-950 active:border-accent-950 cursor-pointer",
+  text: "bg-none text-accent-500 font-bold active:text-accent-950 cursor-pointer",
   "underline-text":
-    "bg-none text-accent-500 font-bold underline active:text-accent-950",
-  disabled: "bg-neutrals-200 text-neutrals-500",
+    "bg-none text-accent-500 font-bold underline active:text-accent-950 cursor-pointer",
+  disabled: "bg-neutrals-200 text-neutrals-500 cursor-not-allowed",
 };
 
 const buttonClass = computed(() => {
