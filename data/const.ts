@@ -39,3 +39,70 @@ export const availableConditions = [
   { code: "PO", name: "poor" },
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
+
+export const VIEWPORTS = {
+  SM: 640, // small: >= 640px
+  MD: 768, // medium: >= 768px
+  LG: 1024, // large: >= 1024px
+  XL: 1280, // extra-large: >= 1280px
+  XXL: 1536, // 2x extra-large: >= 1536px
+};
+
+export const HEADER_MENU = [
+  {
+    name: "Pokemon",
+    to: "/pokemon/all",
+    subMenu: [
+      {
+        label: "Booster box",
+        to: "/pokemon/booster-box",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/boosterbox_1085522f93.jpg",
+      },
+      {
+        label: "Mazzi precostruiti",
+        to: "/pokemon/mazzi",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/precostructed_f003e10a67.jpg",
+      },
+      {
+        label: "Tins",
+        to: "/pokemon/tins",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/tins_1c70a3d0aa.jpg",
+      },
+      {
+        label: "Box set",
+        to: "/pokemon/box-set",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/box_set_cfea8afe3e.jpg",
+      },
+      {
+        label: "Bundle",
+        to: "/pokemon/bundle",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/bundle_e72222d39a.jpg",
+      },
+      {
+        label: "Carte singole",
+        to: "/pokemon/singole",
+        image:
+          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/overszed_282600fca5.jpg",
+      },
+    ],
+  },
+  {
+    name: "One Piece",
+    to: "/one-piece/all",
+    subMenu: [],
+  },
+  { name: "Final Fantasy", to: "/final-fantasy/all", subMenu: [] },
+  { name: "Dragon Ball", to: "/dragon-ball/all", subMenu: [] },
+  { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
+];
+
+export enum TcgSlug {
+  "dragon-ball-super" = "Dragon Ball Super",
+  "one-piece" = "One Piece",
+  "pokémon" = "Pokémon",
+}
