@@ -56,7 +56,7 @@
         <MoleculesListingPagination
           :total-items="totalItems"
           :current-page="currentPage"
-          @current-page="($e) => changePage($e)"
+          @current-page="($e: Event) => changePage($e)"
         />
         <div class="pt-2 pb-10">
           <MoleculesListingCounter
@@ -78,6 +78,7 @@ import {
   TcgSlug,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
@@ -89,15 +90,18 @@ const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
-const filtersStringQuery = ref(
-  route.params.category === "all"
+const expansion = route.query.expansion;
+const isDesktopView = isDesktop();
+
+const getBaseQuery = () => {
+  if (route.params.tcg === "search") return "";
+  return route.params.category === "all"
     ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
     : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
         route.params.category
-      }"`
-);
-const expansion = route.query.expansion;
-const isDesktopView = isDesktop();
+      }"`;
+};
+const filtersStringQuery = ref(getBaseQuery());
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -105,12 +109,7 @@ onMounted(async () => {
 });
 
 function calculateFilterString(e?: any) {
-  let filter =
-    route.params.category === "all"
-      ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
-      : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
-          route.params.category
-        }"`;
+  let filter = getBaseQuery();
 
   if (e) {
     let languageFilters = e.language
@@ -180,19 +179,27 @@ const updateFiltersApplied = (newFilters: any) => {
 };
 
 async function fetchData() {
-  let results = await client.search({
-    requests: [
-      {
-        indexName: calculateCollection(),
-        filters: filtersStringQuery.value,
-        hitsPerPage: isDesktopView.value
-          ? ITEMS_FOR_PAGE_DESKTOP
-          : ITEMS_FOR_PAGE_MOBILE,
-        page: currentPage.value - 1,
-      },
-    ],
-  });
-  setProducts(results.results[0]);
+  let results: any =
+    route.params.tcg === "search"
+      ? await client.searchSingleIndex({
+          indexName: calculateCollection(),
+          searchParams: { query: route.params.category as string },
+        })
+      : await client.search({
+          requests: [
+            {
+              indexName: calculateCollection(),
+              filters: filtersStringQuery.value,
+              hitsPerPage: isDesktopView.value
+                ? ITEMS_FOR_PAGE_DESKTOP
+                : ITEMS_FOR_PAGE_MOBILE,
+              page: currentPage.value - 1,
+            },
+          ],
+        });
+  console.log(results);
+  if (route.params.tcg === "search") setProducts(results);
+  else setProducts(results.results[0]);
 }
 
 function setProducts(queryResult: any) {
