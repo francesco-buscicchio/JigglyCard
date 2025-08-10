@@ -51,6 +51,13 @@
   "apply": "Apply",
   "showDetails": "See details",
   "cart": "Cart",
+  "support": {
+    "title": "Support",
+    "mail": "You can contact us by email at",
+    "message": "or by message/WhatsApp at",
+    "form": "If you prefer, you can fill out the form below.",
+    "answer": "You will receive a response / We will reply within 48 hours."
+  },
   "routes": {
     "cart": "Cart",
     "/carrello": "Cart",
@@ -153,6 +160,8 @@
   "shippingInfo": "Shipping information",
   "name": "Name",
   "surname": "Last name",
+  "message": "Message",
+  "send": "Send",
   "email": "Email",
   "nation": "Country",
   "cap": "Postal Code",
@@ -194,5 +203,9 @@
   "creditCard": "Credit Card",
   "wireTransfer": "Bank Transfer",
   "no_results": "No results",
-  "emptyCart": "Your trainer journey hasn't started yet!"
+  "emptyCart": "Your trainer journey hasn't started yet!",
+  "validation": {
+    "required": "Campo obbligatorio",
+    "invalidEmail": "Inserisci un indirizzo e-mail valido"
+  }
 }

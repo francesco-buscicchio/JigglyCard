@@ -2,18 +2,22 @@
   <div>
     <h5 class="pb-2">{{ t("shippingMethod") }}</h5>
     <div v-for="(option, index) in shippingOptions" :key="index" class="py-1">
-      <label class="flex items-center cursor-pointer" for="shippingOptions">
+      <div class="flex items-center cursor-pointer" for="shippingOptions">
         <AtomsRadioButton
+          :id="option.id"
           type="radio"
           :value="option"
           v-model="selectedOption"
           :name="'shippingOptions'"
           @change="emitSelectedOption"
-        />
-        <span class="ml-2 text-base"
-          >{{ option.name }}: {{ option.price }}€</span
         >
-      </label>
+          <template #label>
+            <span class="ml-2 text-base"
+              >{{ option.label }}: {{ option.price }}€</span
+            >
+          </template>
+        </AtomsRadioButton>
+      </div>
     </div>
   </div>
 </template>
@@ -21,12 +25,16 @@
 <script setup lang="ts">
 import { ref, defineEmits, defineProps } from "vue";
 
-const props = defineProps({
-  shippingOptions: {
-    type: Array,
-    required: true,
-  },
-});
+interface ShippingOption {
+  id: string;
+  label: string;
+  price: number;
+  [key: string]: any;
+}
+
+const props = defineProps<{
+  shippingOptions: ShippingOption[];
+}>();
 
 const { t } = useI18n();
 const selectedOption = ref(null);
@@ -35,11 +43,13 @@ const emit =
   defineEmits<
     (
       e: "update:selectedOption",
-      option: { name: string; price: number }
+      option: { id: string; price: number }
     ) => void
   >();
 
 const emitSelectedOption = () => {
-  emit("update:selectedOption", selectedOption.value);
+  if (selectedOption.value) {
+    emit("update:selectedOption", selectedOption.value);
+  }
 };
 </script>

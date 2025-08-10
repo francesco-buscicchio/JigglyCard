@@ -1,18 +1,26 @@
 <template>
-  <input
-    type="radio"
-    :value="value"
-    :name="name"
-    :disabled="disabled"
-    @change="handleChange"
-  />
+  <label :for="id" class="flex items-center cursor-pointer">
+    <input
+      type="radio"
+      :value="value"
+      :name="name"
+      :disabled="disabled"
+      :id="id"
+      @change="handleChange"
+    />
+    <slot name="label">
+      <span v-if="label" class="pl-2 text-base">{{ label }}</span>
+    </slot>
+  </label>
 </template>
 
 <script setup lang="ts">
 const props = defineProps({
+  id: { type: String, required: true },
   value: { type: Object, required: true },
   name: { type: String, required: true },
   disabled: { type: Boolean, default: false },
+  label: { type: String, required: false },
 });
 
 const emit = defineEmits(["update:modelValue"]);

@@ -55,6 +55,7 @@
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
+    cursor: default;
   }
 
   label {
@@ -73,9 +74,14 @@
 
   span {
     font-family: "Roboto Flex", sans-serif;
+    cursor: default;
   }
 
   input[type="text"] {
+    font-family: "Roboto Flex", sans-serif;
+  }
+
+  textarea {
     font-family: "Roboto Flex", sans-serif;
   }
 
