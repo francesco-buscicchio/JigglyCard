@@ -35,7 +35,7 @@
           :type="buttonCtaType"
           :text="t('showDetails')"
           class="mt-2"
-          v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+          v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
         />
       </div>
     </div>
@@ -45,6 +45,7 @@
 <script lang="ts" setup>
 import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
+import { goTo } from "@/utils/navigationUtils";
 import defaultCardImage from "@/assets/img/default-card-image.png";
 
 // TODO: separare le props in un file separato

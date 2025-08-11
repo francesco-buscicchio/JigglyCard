@@ -18,7 +18,7 @@
       <AtomsButtonCTA
         :type="buttonCtaType"
         :text="t('showDetails')"
-        v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+        v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
       />
     </div>
   </div>
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import defaultCardImage from "@/assets/img/default-card-image.png";
+import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const props = defineProps({
   colorScheme: {
