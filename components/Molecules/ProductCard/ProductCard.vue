@@ -11,7 +11,7 @@
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
         <label for="price">{{ t("startingFrom") }}</label>
-        <p class="text-2xl font-bold">{{ price }} €</p>
+        <p class="text-2xl price-tag">{{ price }} €</p>
       </div>
     </div>
     <div class="w-full">

@@ -26,7 +26,7 @@
 
         <label class="text-xs text-center" for="price">
           {{ t("startingFrom") }}
-          <p class="ml-1 font-bold inline text-base xl:text-2xl">
+          <p class="ml-1 price-tag inline text-base xl:text-2xl">
             {{ price }} €
           </p>
         </label>
