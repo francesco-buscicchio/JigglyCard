@@ -18,11 +18,11 @@
       <div
         class="flex flex-col items-center gap-y-2 pt-2 px-2 bg-white -mt-40 relative z-10 rounded-b-2xl"
       >
-        <h5 ref="productNameRef" class="overflow-visible text-center w-full">
+        <h5 ref="productNameRef" class="ellipsis text-center w-full">
           {{ formatProductName(productName) }}
         </h5>
-        <p class="text-lg">{{ code }}</p>
-        <p class="text-lg text-center">{{ expansion }}</p>
+        <p class="text-lg ellipsis w-full text-center">{{ code }}</p>
+        <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
 
         <label class="text-xs text-center" for="price">
           {{ t("startingFrom") }}

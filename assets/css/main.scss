@@ -107,7 +107,12 @@
     z-index: 1000; // Opzionale, assicura che il titolo rimanga sopra altri contenuti
     background-color: white; // Assicura che il testo non sia sovrapposto da altri elementi scrollabili
   }
-
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
   @screen lg {
     h1,
     .title-l {
