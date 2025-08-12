@@ -141,7 +141,7 @@ function calculateFilterString(e?: any) {
     }
   }
 
-  if (expansion) filter += ` AND (expansion:"${expansion}")`;
+  if (expansion) filter += ` AND (setSlug:"${expansion}")`;
 
   filtersStringQuery.value = filter;
   fetchData();

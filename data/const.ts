@@ -120,4 +120,5 @@ export enum TcgSlug {
   "dragon-ball-super" = "Dragon Ball Super",
   "one-piece" = "One Piece",
   "pokémon" = "Pokémon",
+  "pokemon" = "Pokémon",
 }
