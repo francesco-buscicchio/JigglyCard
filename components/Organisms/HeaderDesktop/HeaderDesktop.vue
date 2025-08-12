@@ -80,9 +80,11 @@
             </div>
 
             <div class="flex justify-center w-full lg:col-span-3">
-              <AtomsButtonCTA :text="t('showAll')" type="text" <<<<<<< HEAD
-              @click="goToSearch()" ======= @click="goToSearch($event)" >>>>>>>
-              dev />
+              <AtomsButtonCTA
+                :text="t('showAll')"
+                type="text"
+                @click="goToSearch($event)"
+              />
             </div>
           </div>
         </div>
