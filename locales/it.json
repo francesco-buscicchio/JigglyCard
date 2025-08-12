@@ -139,11 +139,16 @@
   "min": "Min",
   "max": "Max",
   "tag": {
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Excellent",
+    "Moderately Played": "Buone",
+    "Played": "Played",
+    "Poor": "Poor",
+
+    "jp": "Giapponese",
     "it": "Italiano",
     "en": "Inglese",
-    "Near Mint": "Near Mint",
-    "Good": "Good",
-    "Poor": "Poor"
+    "de": "Tedesco"
   },
   "toast": {
     "cart": {
