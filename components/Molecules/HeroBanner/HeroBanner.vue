@@ -43,7 +43,7 @@ const currentIndex = ref(0);
 const controlledSwiper = ref();
 
 const navigateToListing = (slide: ProductType) => {
-  const url = `${slide.tcg}/singole?expansion=${slide.expansion}`;
+  const url = `${slide.tcg}/all?expansion=${slide.expansion}`;
   router.push(url);
 };
 
