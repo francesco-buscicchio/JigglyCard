@@ -36,7 +36,8 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import type { Hit, SearchProductResult } from "~/types/product.type";
+import type { Hit } from "~/interface/hit.interface";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 const client = useAlgolia();
 const isSearchOpen = ref(false);
 const { t } = useI18n();

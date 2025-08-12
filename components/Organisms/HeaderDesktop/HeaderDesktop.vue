@@ -179,10 +179,6 @@ const goToItem = (route: string, event: MouseEvent) => {
   navigateTo(route);
 };
 
-const onItemClick = (event?: Event) => {
-  emit("itemClick", event);
-};
-
 const activeIndex = ref<number | null>(null);
 const headerMenu = ref(await useMenu());
 </script>
