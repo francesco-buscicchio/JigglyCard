@@ -18,15 +18,15 @@
       <div
         class="flex flex-col items-center gap-y-2 pt-2 px-2 bg-white -mt-40 relative z-10 rounded-b-2xl"
       >
-        <h5 ref="productNameRef" class="overflow-visible text-center w-full">
+        <h5 ref="productNameRef" class="ellipsis text-center w-full">
           {{ formatProductName(productName) }}
         </h5>
-        <p class="text-lg">{{ code }}</p>
-        <p class="text-lg text-center">{{ expansion }}</p>
+        <p class="text-lg ellipsis w-full text-center">{{ code }}</p>
+        <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
 
         <label class="text-xs text-center" for="price">
           {{ t("startingFrom") }}
-          <p class="ml-1 font-bold inline text-base xl:text-2xl">
+          <p class="ml-1 price-tag inline text-base xl:text-2xl">
             {{ price }} €
           </p>
         </label>
@@ -35,7 +35,7 @@
           :type="buttonCtaType"
           :text="t('showDetails')"
           class="mt-2"
-          v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+          v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
         />
       </div>
     </div>
@@ -45,6 +45,7 @@
 <script lang="ts" setup>
 import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
+import { goTo } from "@/utils/navigationUtils";
 import defaultCardImage from "@/assets/img/default-card-image.png";
 
 // TODO: separare le props in un file separato
