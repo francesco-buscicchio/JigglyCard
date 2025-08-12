@@ -7,12 +7,13 @@
   >
     <header class="bg-white shadow-md px-18 py-5">
       <div class="flex justify-between items-center">
-        <!-- Logo -->
-        <h2 @click="goTo(PATH.HOME)" class="text-accent-950 cursor-pointer">
+        <h2
+          @click="goToItem(PATH.HOME, $event)"
+          class="text-accent-950 cursor-pointer"
+        >
           Jigglycard
         </h2>
 
-        <!-- Menu -->
         <nav class="flex gap-x-6">
           <div
             v-for="(item, index) in headerMenu"
@@ -20,13 +21,12 @@
             class="relative"
             @mouseenter="activeIndex = index"
           >
-            <button @click="goTo(item.to)">
+            <button @click="goToItem(item.to, $event)">
               <h5 class="text-accent-950 text-lg">{{ item.name }}</h5>
             </button>
           </div>
         </nav>
 
-        <!-- Icon buttons -->
         <div class="flex gap-x-4">
           <button
             class="header-btn"
@@ -39,7 +39,7 @@
             v-for="(button, index) in headerButtons"
             :key="index"
             class="header-btn"
-            @click="goTo(button.to)"
+            @click="goToItem(button.to, $event)"
             :aria-label="button.arialabel"
           >
             <Icon :name="button.icon" size="18" />
@@ -66,7 +66,7 @@
           <div
             class="flex flex-col gap-4 xl:gap-6 w-full lg:grid lg:grid-cols-3"
           >
-            <div v-for="item of productSearch">
+            <div v-for="item of productSearch" :key="item.objectID">
               <MoleculesSearchItemResult
                 :thumbnailImage="item.thumbnailImage"
                 :name="item.name"
@@ -83,7 +83,7 @@
               <AtomsButtonCTA
                 :text="t('showAll')"
                 type="text"
-                @click="goToSearch()"
+                @click="goToSearch($event)"
               />
             </div>
           </div>
@@ -99,7 +99,6 @@
       </div>
     </header>
 
-    <!-- Submenu globale -->
     <transition name="fade">
       <div
         v-if="activeIndex !== null && headerMenu[activeIndex].subMenu.length"
@@ -109,19 +108,19 @@
           <div class="flex justify-center flex-wrap gap-[2.5vw]">
             <div
               v-for="(sub, i) in headerMenu[activeIndex].subMenu"
+              :key="i"
               class="w-min-[10vw] h-min-[10vw]"
             >
               <MoleculesSubMenuItem
-                :key="i"
                 :label="sub.label"
                 :imgUrl="sub.image"
-                @click="goTo(sub.to)"
+                @click="(e: MouseEvent) => goToItem(sub.to, e)"
               />
             </div>
           </div>
           <div
             class="mt-6 cursor-pointer hover:underline"
-            @click="goTo(headerMenu[activeIndex].to)"
+            @click="goToItem(headerMenu[activeIndex].to, $event)"
           >
             <p class="text-center text-accent-950">Tutti i prodotti</p>
           </div>
@@ -132,6 +131,7 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
 import useMenu from "~/data/menu";
@@ -157,8 +157,8 @@ const emit = defineEmits([
   "itemClick",
 ]);
 
-const closeSearch = (event: MouseEvent) => {
-  emit("closeSearch", event);
+const closeSearch = (event?: MouseEvent) => {
+  emit("closeSearch", event as MouseEvent);
 };
 
 const onSearchInput = (event: Event) => {
@@ -167,16 +167,23 @@ const onSearchInput = (event: Event) => {
   emit("search", target.value);
 };
 
-const goToSearch = () => {
+const goToSearch = (event?: MouseEvent) => {
+  closeSearch(event);
+  activeIndex.value = null;
   navigateTo(`/search/${inputSearch.value}`);
 };
 
-const onItemClick = (event: Event) => {
-  emit("itemClick");
+const goToItem = (route: string, event: MouseEvent) => {
+  closeSearch(event);
+  activeIndex.value = null;
+  navigateTo(route);
+};
+
+const onItemClick = (event?: Event) => {
+  emit("itemClick", event);
 };
 
 const activeIndex = ref<number | null>(null);
-
 const headerMenu = ref(await useMenu());
 </script>
 
