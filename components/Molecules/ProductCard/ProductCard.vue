@@ -10,8 +10,13 @@
       <div class="flex flex-col gap-y-2">
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
-        <label for="price">{{ t("startingFrom") }}</label>
-        <p class="text-2xl price-tag">{{ price }} €</p>
+        <div v-if="price === '100000.00'">
+          <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+        </div>
+        <div v-else>
+          <label for="price">{{ t("startingFrom") }}</label>
+          <p class="text-2xl price-tag">{{ price }} €</p>
+        </div>
       </div>
     </div>
     <div class="w-full">

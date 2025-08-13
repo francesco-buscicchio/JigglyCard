@@ -8,21 +8,25 @@
       <MoleculesProductPageHero
         :image="product.imageUrl"
         :title="formatTitle(product.productName)"
-        :code="extractCardCode(product.productName)"
+        :code="extractCardCode(product.code)"
         :expansion="product.expansion"
       />
 
       <!-- Listing tags -->
-      <OrganismsProductsTags :variants="product.variants" />
       <div class="flex flex-col gap-8 mb-7">
-        <OrganismsProductsTags
-          :variants="product.variants"
-          @variantSelected="changedVariant"
-        />
+        <div v-if="product.price === '100000.00'">
+          <h2 class="price-tag text-center">{{ t("soldOut") }}</h2>
+        </div>
+        <div v-else>
+          <OrganismsProductsTags
+            :variants="product.variants"
+            @variantSelected="changedVariant"
+          />
+        </div>
       </div>
 
       <div class="flex flex-col gap-12">
-        <OrganismsProductQuantityActions :variant="selectedVariant.value" />
+        <OrganismsProductQuantityActions :variant="selectedVariant" />
 
         <MoleculesTextViewer>
           <template v-slot:content>
@@ -48,14 +52,21 @@
                 {{ formatTitle(product.productName) }}
               </h1>
               <p v-if="product.productName" class="pt-2">
-                {{ extractCardCode(product.productName) }}
+                {{ extractCardCode(product.code) }}
               </p>
               <p class="pt-2">{{ product.expansion }}</p>
 
-              <OrganismsProductsTags
-                :variants="product.variants"
-                @variantSelected="changedVariant"
-              />
+              <div>
+                <div v-if="product.price === '100000.00'">
+                  <h2 class="price-tag pt-6">{{ t("soldOut") }}</h2>
+                </div>
+                <div v-else>
+                  <OrganismsProductsTags
+                    :variants="product.variants"
+                    @variantSelected="changedVariant"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -108,6 +119,7 @@ import type { TagCode } from "~/types/tagCode.type";
 import type { ProductType } from "~/types/productType.type";
 import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
 import defaultCardImage from "@/assets/img/default-card-image.png";
+import { mapProducts } from "~/mapper/products.mapper";
 
 const product = ref();
 const { t } = useI18n();
@@ -174,28 +186,14 @@ const setProduct = (queryResult: any) => {
     };
   }
 };
-// TODO: refactor mettere setProducts in una utils perchè usata più volte
+
 const setDeals = (queryResult: any) => {
-  for (let hit of queryResult.hits) {
-    const obj = {
-      id: hit.objectID,
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-    };
-    offerte.value.push(obj);
-  }
+  offerte.value = mapProducts(queryResult);
 };
 
 function extractCardCode(input: string): string | undefined {
   const match = input.match(/\(([^)]+)\)/);
-  return match ? match[1] : undefined;
+  return match ? match[1].toUpperCase() : undefined;
 }
 
 function formatTitle(title: string): string {

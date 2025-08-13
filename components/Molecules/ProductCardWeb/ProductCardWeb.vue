@@ -24,12 +24,17 @@
         <p class="text-lg ellipsis w-full text-center">{{ code }}</p>
         <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
 
-        <label class="text-xs text-center" for="price">
-          {{ t("startingFrom") }}
-          <p class="ml-1 price-tag inline text-base xl:text-2xl">
-            {{ price }} €
-          </p>
-        </label>
+        <div v-if="price === '100000.00'">
+          <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+        </div>
+        <div v-else>
+          <label class="text-xs text-center" for="price">
+            {{ t("startingFrom") }}
+            <p class="ml-1 price-tag inline text-base xl:text-2xl">
+              {{ price }} €
+            </p>
+          </label>
+        </div>
 
         <AtomsButtonCTA
           :type="buttonCtaType"

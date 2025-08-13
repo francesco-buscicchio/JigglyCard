@@ -70,6 +70,7 @@
 <script lang="ts" setup>
 import { type CartConfig } from "~/composables/useCart";
 import { DEALS_TAG } from "~/data/const";
+import { mapProducts } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
 
 const isDesktopView = isDesktop();
@@ -93,23 +94,8 @@ const {
   removeCoupon,
 } = useCart(cartConfig);
 
-// TODO: refactor mettere setProducts in una utils perchè usata più volte
 const setDeals = (queryResult: any) => {
-  for (let hit of queryResult.hits) {
-    const obj = {
-      id: hit.objectID,
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-    };
-    dealsProducts.value.push(obj);
-  }
+  dealsProducts.value = mapProducts(queryResult);
 };
 
 const dealsProductsResult = await client.searchSingleIndex({
