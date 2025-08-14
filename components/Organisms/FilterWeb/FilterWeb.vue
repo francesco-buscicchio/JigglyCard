@@ -40,8 +40,8 @@
             :max="maxPrice.value"
             :initialMinPrice="selectedMinPrice"
             :initialMaxPrice="selectedMaxPrice"
-            @update:minPrice="updateMinPrice($event)"
-            @update:maxPrice="updateMaxPrice($event)"
+            @update:minPrice="updateMinPrice"
+            @update:maxPrice="updateMaxPrice"
           />
           <span class="ml-2 w-20">{{ t("a") }} {{ selectedMaxPrice }}</span>
         </div>
@@ -85,7 +85,7 @@
         >
           <p class="text-base">{{ t("clearFilters") }}</p>
         </AtomsButtonCTA>
-        <AtomsButtonCTA @click="applyFilters">
+        <AtomsButtonCTA @click="() => applyFilters(emit)">
           <h5>{{ t("apply") }}</h5>
         </AtomsButtonCTA>
       </div>
@@ -94,163 +94,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue";
-import { FILTERS_COLLECTION } from "~/data/const";
+import { watch } from "vue";
+import { useFilterLogic } from "@/composables/useFilterLogic";
 
 const { t } = useI18n();
+const emit = defineEmits(["filterUpdate"]);
+
 const props = defineProps({
   filters: Array<String>,
 });
-const filterList = ref<String[]>([]);
-const filterCategories = ref();
-const client = useAlgolia();
-const minumPrice = ref(0);
-const maxPrice = ref(0);
-const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(0);
-const selectedFilters = reactive<{ [key: string]: any }>({});
-const inputKey = ref(0);
 
-watch(props, () => {
-  filterList.value = props.filters ?? [];
-  updateSelectedFilters();
-});
-
-const areFiltersSelected = computed(() => {
-  const hasCheckedFilter = filterCategories.value?.some(
-    (category: {
-      name: string;
-      value: { name: string; checked: boolean }[];
-    }) => {
-      return category.value.some((filter) => filter.checked);
-    }
-  );
-
-  const isPriceRangeSelected =
-    selectedMaxPrice.value !== maxPrice.value ||
-    selectedMinPrice.value !== minumPrice.value;
-  return hasCheckedFilter || isPriceRangeSelected;
-});
-
-function updateSelectedFilters() {
-  resetAllFilters();
-  filterList.value.forEach((filterName) => {
-    filterCategories.value.forEach((category: { value: any[] }) => {
-      category.value.forEach((filter) => {
-        if (filter.name === filterName) {
-          filter.checked = true;
-        }
-      });
-    });
-  });
-}
+const {
+  filterCategories,
+  selectedMinPrice,
+  selectedMaxPrice,
+  minumPrice,
+  maxPrice,
+  areFiltersSelected,
+  fetchFilters,
+  updateCheckboxValue,
+  applyFilters,
+  resetAllFilters,
+  updateSelectedFilters,
+  updateMinPrice,
+  updateMaxPrice,
+  onMinPriceInput,
+  onMaxPriceInput,
+} = useFilterLogic(props.filters ?? [], emit);
 
 onMounted(async () => {
-  let results = await client.searchSingleIndex({
-    indexName: FILTERS_COLLECTION,
-  });
-  const excludeMinMaxFilter = results.hits.filter(
-    (filter: any) => !filter.massimo && !filter.minimo
-  );
-
-  filterCategories.value = excludeMinMaxFilter.map((filter: any) => ({
-    ...filter,
-    value: filter.value?.map((language: any) => ({
-      name: language,
-      checked: false,
-    })),
-  }));
-
-  const minMaxItem: any = results.hits.find(
-    (filter: any) => filter.massimo && filter.minimo
-  );
-
-  if (minMaxItem) {
-    selectedMinPrice.value = minMaxItem.minimo;
-    selectedMaxPrice.value =
-      minMaxItem.massimo < 100 ? 100 : minMaxItem.massimo;
-    minumPrice.value = minMaxItem.minimo;
-    maxPrice.value = minMaxItem.massimo < 100 ? 100 : minMaxItem.massimo;
-  }
+  await fetchFilters(); // attendo che i filtri siano pronti
+  updateSelectedFilters(props.filters ?? []);
 });
 
-const emit = defineEmits(["filterUpdate"]);
-
-function updateCheckboxValue(
-  categoryID: string,
-  filterIndex: number,
-  value: boolean
-) {
-  const index = filterCategories.value.findIndex((val: any) => {
-    return val.objectID === categoryID;
-  });
-
-  const category = filterCategories.value[index];
-  const filter = category.value[filterIndex];
-
-  filter.checked = value;
-}
-
-function updateMinPrice(value: number) {
-  selectedMinPrice.value = value;
-  if (selectedMaxPrice.value < value) {
-    selectedMaxPrice.value = value;
+watch(
+  () => props.filters,
+  (newFilters) => {
+    updateSelectedFilters(newFilters ?? []);
   }
-}
-
-function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, maxPrice.value);
-}
-
-function onMinPriceInput(value: string | number) {
-  const numericValue = parseFloat(value as string);
-  if (!isNaN(numericValue)) {
-    selectedMinPrice.value = Math.max(
-      minumPrice.value,
-      Math.min(numericValue, selectedMaxPrice.value)
-    );
-  }
-}
-
-function onMaxPriceInput(value: string | number) {
-  const numericValue = parseFloat(value as string);
-  if (!isNaN(numericValue)) {
-    selectedMaxPrice.value = Math.min(
-      maxPrice.value,
-      Math.max(numericValue, selectedMinPrice.value)
-    );
-  }
-}
-
-function applyFilters() {
-  const result = filterCategories.value.reduce((acc: any, item: any) => {
-    acc[item.name] = item.value
-      .filter((val: any) => val.checked)
-      .map((val: any) => val.name);
-    return acc;
-  }, {});
-
-  result["price"] = {
-    min: selectedMinPrice.value,
-    max: selectedMaxPrice.value,
-  };
-  emit("filterUpdate", result);
-}
-
-function resetAllFilters() {
-  filterCategories.value.forEach((category: any) => {
-    category.value.forEach((filter: any) => {
-      filter.checked = false;
-    });
-  });
-  Object.keys(selectedFilters).forEach((key) => {
-    delete selectedFilters[key];
-  });
-  selectedMinPrice.value = minumPrice.value;
-  selectedMaxPrice.value = maxPrice.value;
-  selectedFilters["Prezzo"] = { min: minumPrice.value, max: maxPrice.value };
-  inputKey.value++; //force rerender
-}
+);
 </script>
 
 <style scoped>

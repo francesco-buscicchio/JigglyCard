@@ -1,20 +1,18 @@
-// composables/useFilterLogic.ts
-import { ref, reactive, computed, onMounted, watch } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { FILTERS_COLLECTION } from "~/data/const";
 import { useAlgolia } from "#imports";
 
-export function useFilterLogic(initialFilters = []) {
+export function useFilterLogic(initialFilters: String[] = [], emit: any) {
+  const { t } = useI18n();
   const client = useAlgolia();
 
-  const filterList = ref<string[]>(initialFilters);
   const filterCategories = ref<any[]>([]);
   const selectedFilters = reactive<{ [key: string]: any }>({});
   const minumPrice = ref(0);
   const maxPrice = ref(0);
   const selectedMinPrice = ref(0);
   const selectedMaxPrice = ref(0);
-  const inputKey = ref(0);
 
   const areFiltersSelected = computed(() => {
     const hasCheckedFilter = filterCategories.value?.some((category) =>
@@ -26,7 +24,7 @@ export function useFilterLogic(initialFilters = []) {
     return hasCheckedFilter || isPriceRangeSelected;
   });
 
-  async function fetchFilters() {
+  async function fetchFilters(): Promise<void> {
     const results = await client.searchSingleIndex({
       indexName: FILTERS_COLLECTION,
     });
@@ -55,6 +53,19 @@ export function useFilterLogic(initialFilters = []) {
     }
   }
 
+  function updateSelectedFilters(filterNames: String[]) {
+    resetAllFilters();
+    filterNames.forEach((filterName) => {
+      filterCategories.value.forEach((category) => {
+        category.value.forEach((filter: any) => {
+          if (filter.name === filterName) {
+            filter.checked = true;
+          }
+        });
+      });
+    });
+  }
+
   function updateCheckboxValue(
     categoryID: string,
     filterIndex: number,
@@ -68,29 +79,65 @@ export function useFilterLogic(initialFilters = []) {
     filter.checked = value;
   }
 
-  function applyFilters(emitFn: (val: any) => void) {
+  function updateMinPrice(value: number) {
+    selectedMinPrice.value = value;
+    if (selectedMaxPrice.value < value) {
+      selectedMaxPrice.value = value;
+    }
+  }
+
+  function updateMaxPrice(value: number) {
+    selectedMaxPrice.value = Math.min(value, maxPrice.value);
+  }
+
+  function onMinPriceInput(value: string | number) {
+    const numericValue = parseFloat(value as string);
+    if (!isNaN(numericValue)) {
+      selectedMinPrice.value = Math.max(
+        minumPrice.value,
+        Math.min(numericValue, selectedMaxPrice.value)
+      );
+    }
+  }
+
+  function onMaxPriceInput(value: string | number) {
+    const numericValue = parseFloat(value as string);
+    if (!isNaN(numericValue)) {
+      selectedMaxPrice.value = Math.min(
+        maxPrice.value,
+        Math.max(numericValue, selectedMinPrice.value)
+      );
+    }
+  }
+
+  function applyFilters(emit: Function) {
     const result = filterCategories.value.reduce((acc: any, item: any) => {
       acc[item.name] = item.value
         .filter((val: any) => val.checked)
         .map((val: any) => val.name);
       return acc;
     }, {});
+
     result["price"] = {
       min: selectedMinPrice.value,
       max: selectedMaxPrice.value,
     };
-    emitFn(result);
+
+    emit("filterUpdate", result);
   }
 
   function resetAllFilters() {
-    filterCategories.value.forEach((category) => {
+    filterCategories.value.forEach((category: any) => {
       category.value.forEach((filter: any) => {
         filter.checked = false;
       });
     });
+    Object.keys(selectedFilters).forEach((key) => {
+      delete selectedFilters[key];
+    });
     selectedMinPrice.value = minumPrice.value;
     selectedMaxPrice.value = maxPrice.value;
-    inputKey.value++;
+    selectedFilters["Prezzo"] = { min: minumPrice.value, max: maxPrice.value };
   }
 
   return {
@@ -101,10 +148,14 @@ export function useFilterLogic(initialFilters = []) {
     minumPrice,
     maxPrice,
     areFiltersSelected,
-    inputKey,
     fetchFilters,
+    updateSelectedFilters,
     updateCheckboxValue,
     applyFilters,
     resetAllFilters,
+    updateMinPrice,
+    updateMaxPrice,
+    onMinPriceInput,
+    onMaxPriceInput,
   };
 }
