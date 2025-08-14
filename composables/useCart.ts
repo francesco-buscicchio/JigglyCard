@@ -17,9 +17,11 @@ export interface CartConfig {
 export function useCart(config: CartConfig) {
   const products = ref<CartItem[]>([]);
   const couponData = ref({ name: "", value: 0, error: "" });
-  const totalCart = computed(() =>
-    products.value.reduce((acc, item) => acc + item.totalPrice, 0).toFixed(2)
-  );
+  const totalCart = computed(() => {
+    return products.value
+      .reduce((acc, item) => acc + item.totalPrice, 0)
+      .toFixed(2);
+  });
 
   let cartService: CartService;
   let variantService: VariantService;

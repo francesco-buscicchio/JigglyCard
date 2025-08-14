@@ -31,10 +31,10 @@
       />
     </div>
 
-    <div class="mb-12 lg:mb-18">
+    <div class="mb-12 lg:mb-18" v-if="totalAmount > 0">
       <OrganismsCheckoutPayment
         :is-checkout-valid="isFormValid"
-        :totalAmount="totalAmount"
+        :totalAmount="totalAmountWithShipment"
       />
     </div>
   </div>
@@ -43,20 +43,23 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { SHIPPING_METHODS } from "~/data/const";
-import type { Product } from "~/interface/product.interface";
 
 const isMobileView = isMobile();
 const runtimeConfig = useRuntimeConfig();
 const { t } = useI18n();
 
-const totalAmount = ref(100);
 const cartConfig: CartConfig = {
   strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
   fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
 };
 const formData = ref({});
 
-const { products } = useCart(cartConfig);
+const { products, totalCart } = useCart(cartConfig);
+
+const totalAmount = computed(() => Number(totalCart.value) * 100);
+const totalAmountWithShipment = computed(
+  () => Number(totalCart.value) + selectedShippingOption.value?.price || 0
+);
 
 type formData = {
   name: string | null;
