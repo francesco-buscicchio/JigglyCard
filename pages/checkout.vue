@@ -67,7 +67,7 @@ function handleFormStatus(payload: { values: FormData; isValid: boolean }) {
 }
 
 const selectedShippingOption = ref(SHIPPING_METHODS[0]);
-function updateSelectedOption(option) {
+function updateSelectedOption(option: any) {
   selectedShippingOption.value = option;
 }
 

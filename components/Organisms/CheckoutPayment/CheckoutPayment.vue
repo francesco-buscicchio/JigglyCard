@@ -83,8 +83,8 @@ onBeforeMount(async () => {
     );
 
     clientSecret.value = res.clientSecret ?? "";
-  } catch (error) {
-    handleError("Error creating payment intent", error);
+  } catch (error: unknown) {
+    handleError("Error creating payment intent", error as Error);
   }
 });
 
