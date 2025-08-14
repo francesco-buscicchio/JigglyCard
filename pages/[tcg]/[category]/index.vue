@@ -38,7 +38,7 @@
         </div>
       </div>
       <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
-      <div class="flex" v-show="isDesktopView">
+      <div class="flex gap-x-4" v-show="isDesktopView">
         <div class="w-[30vw] flex justify-end">
           <!-- filters -->
           <div>

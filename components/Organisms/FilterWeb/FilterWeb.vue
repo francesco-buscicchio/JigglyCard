@@ -50,24 +50,26 @@
       <!-- Input Prezzo -->
       <div class="flex items-center my-6">
         <p class="ml-12 mr-6">{{ t("min") }}</p>
-        <AtomsInputText
-          :key="inputKey"
-          class="w-20"
+        <AtomsInputNumber
           v-model="selectedMinPrice"
-          :placeholder="''"
-          @keydown="validateNumberInput($event)"
-          @input="validatePriceInput('min', $event)"
+          @updateValue="onMinPriceInput"
+          :min="minumPrice"
+          :max="selectedMaxPrice"
+          :step="0.01"
+          status="default"
+          placeholder="Prezzo minimo"
         />
       </div>
       <div class="flex items-center">
         <p class="ml-12 mr-6">{{ t("max") }}</p>
-        <AtomsInputText
-          :key="inputKey + 1"
-          class="w-20"
+        <AtomsInputNumber
           v-model="selectedMaxPrice"
-          :placeholder="''"
-          @keydown="validateNumberInput($event)"
-          @input="validatePriceInput('max', $event)"
+          @updateValue="onMaxPriceInput"
+          :min="minumPrice"
+          :max="selectedMaxPrice"
+          :step="0.01"
+          status="default"
+          placeholder="Prezzo massimo"
         />
       </div>
     </div>
@@ -94,6 +96,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch } from "vue";
 import { FILTERS_COLLECTION } from "~/data/const";
+
 const { t } = useI18n();
 const props = defineProps({
   filters: Array<String>,
@@ -199,29 +202,23 @@ function updateMaxPrice(value: number) {
   selectedMaxPrice.value = Math.min(value, maxPrice.value);
 }
 
-function validateNumberInput(event: KeyboardEvent) {
-  const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
-  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
-    event.preventDefault();
+function onMinPriceInput(value: string | number) {
+  const numericValue = parseFloat(value as string);
+  if (!isNaN(numericValue)) {
+    selectedMinPrice.value = Math.max(
+      minumPrice.value,
+      Math.min(numericValue, selectedMaxPrice.value)
+    );
   }
 }
 
-function validatePriceInput(type: "min" | "max", event: Event) {
-  const input = (event.target as HTMLInputElement).value;
-  const numericValue = parseInt(input, 10);
-
+function onMaxPriceInput(value: string | number) {
+  const numericValue = parseFloat(value as string);
   if (!isNaN(numericValue)) {
-    if (type === "min") {
-      selectedMinPrice.value = Math.max(
-        minumPrice.value,
-        Math.min(numericValue, selectedMaxPrice.value)
-      );
-    } else {
-      selectedMaxPrice.value = Math.min(
-        Math.max(numericValue, selectedMinPrice.value),
-        maxPrice.value
-      );
-    }
+    selectedMaxPrice.value = Math.min(
+      maxPrice.value,
+      Math.max(numericValue, selectedMinPrice.value)
+    );
   }
 }
 
