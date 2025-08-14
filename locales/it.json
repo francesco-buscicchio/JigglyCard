@@ -209,6 +209,7 @@
   "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!",
   "validation": {
     "required": "Campo obbligatorio",
-    "invalidEmail": "Inserisci un indirizzo e-mail valido"
+    "invalidEmail": "Inserisci un indirizzo e-mail valido",
+    "invalidCAP": "Inserisci un CAP valido"
   }
 }
