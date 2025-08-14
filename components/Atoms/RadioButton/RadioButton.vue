@@ -6,6 +6,7 @@
       :name="name"
       :disabled="disabled"
       :id="id"
+      :checked="isChecked"
       @change="handleChange"
     />
     <slot name="label">
@@ -15,12 +16,15 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+
 const props = defineProps({
   id: { type: String, required: true },
-  value: { type: Object, required: true },
+  value: { type: [String, Number, Object], required: true },
   name: { type: String, required: true },
   disabled: { type: Boolean, default: false },
   label: { type: String, required: false },
+  selectedValue: { type: String, required: false },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -28,6 +32,12 @@ const emit = defineEmits(["update:modelValue"]);
 const handleChange = () => {
   emit("update:modelValue", props.value);
 };
+
+const isChecked = computed(() => {
+  if (props.selectedValue) {
+    return props.selectedValue === props.id;
+  }
+});
 </script>
 
 <style>
