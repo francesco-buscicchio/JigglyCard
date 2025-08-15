@@ -12,8 +12,8 @@
       class="flex justify-between border-b py-2 items-end"
     >
       <div>
-        <p class="mb-1">{{ product.nameProduct }}</p>
-        <p>{{ product.codeProduct }}</p>
+        <p class="mb-1">{{ product.title }}</p>
+        <p>{{ product.code }}</p>
       </div>
       <div class="text-right">
         <p>{{ product.price }} €</p>
@@ -34,14 +34,14 @@
 
 <script setup lang="ts">
 import { computed, defineProps, type PropType } from "vue";
-import type { Product } from "~/types/product.type";
+import type { CartItem } from "~/service/CartService";
 
 const { t } = useI18n();
 const props = defineProps({
   products: {
-    type: Array as PropType<Product[]>,
+    type: Array as PropType<CartItem[]>,
     required: true,
-    validator: (value: Product[]) => {
+    validator: (value: CartItem[]) => {
       return Array.isArray(value);
     },
   },

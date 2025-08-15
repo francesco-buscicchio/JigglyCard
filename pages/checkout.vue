@@ -10,7 +10,7 @@
         class="lg:flex-1 mb-12 max-w-[650px]"
       />
       <OrganismsCartSummary
-        :products="mockProducts"
+        :products="products"
         :shipping-cost="selectedShippingOption?.price || 0"
         v-show="!isMobileView"
       />
@@ -18,14 +18,15 @@
 
     <div class="mb-12 lg:mb-18">
       <OrganismsSelectOptions
-        :shipping-options="SHIPPING_METHODS"
+        :shippingOptions="SHIPPING_METHODS"
+        :selectedOption="selectedShippingOption"
         @update:selectedOption="updateSelectedOption"
       />
     </div>
 
     <div class="mb-12 lg:mb-18" v-show="isMobileView">
       <OrganismsCartSummary
-        :products="mockProducts"
+        :products="products"
         :shipping-cost="selectedShippingOption?.price || 0"
       />
     </div>
@@ -42,12 +43,20 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import { SHIPPING_METHODS } from "~/data/const";
-import type { Product } from "~/types/product.type";
+import type { Product } from "~/interface/product.interface";
+
 const isMobileView = isMobile();
-const totalAmount = ref(100); // Example total amount for test, replace with actual calculation
+const runtimeConfig = useRuntimeConfig();
 const { t } = useI18n();
+
+const totalAmount = ref(100);
+const cartConfig: CartConfig = {
+  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
+  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
+};
 const formData = ref({});
 
+const { products } = useCart(cartConfig);
 
 type formData = {
   name: string | null;
@@ -58,16 +67,10 @@ type formData = {
   cap: string | null;
   iWantTheInvoice: boolean;
 };
-const selectedShippingOption = ref(
-  null as { id: string; price: number } | null
-);
+const selectedShippingOption = ref(SHIPPING_METHODS[0]);
 
 function updateFormData(data: formData) {
   formData.value = data;
-}
-
-function updateSelectedOption(option: { id: string; price: number }) {
-  selectedShippingOption.value = option;
 }
 
 const isFormValid = computed(() => {
@@ -93,10 +96,4 @@ function validateForm() {
 definePageMeta({
   layout: "default",
 });
-
-const mockProducts = ref<Product[]>([
-  { nameProduct: "Pikachu", price: 9.99, codeProduct: "PK001", id: "1" },
-  { nameProduct: "Charmander", price: 5.99, codeProduct: "CH002", id: "2" },
-  { nameProduct: "Bulbasaur", price: 8.99, codeProduct: "BL003", id: "3" },
-]);
 </script>
