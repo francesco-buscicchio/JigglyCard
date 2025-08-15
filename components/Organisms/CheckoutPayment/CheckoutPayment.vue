@@ -161,18 +161,18 @@ const confirmAndPay = async () => {
     await orderService.createItem(orderPayload);
 
     // Stripe: validazione UI
-    // const { error: submitError } = await elements.submit();
-    // if (submitError) throw submitError;
+    const { error: submitError } = await elements.submit();
+    if (submitError) throw submitError;
 
-    // // Conferma pagamento
-    // const { error } = await stripeInstance.confirmPayment({
-    //   elements,
-    //   clientSecret: clientSecret.value,
-    //   confirmParams: { return_url: purchaseCompletedUrl },
-    // });
-    // if (error) throw error;
+    // Conferma pagamento
+    const { error } = await stripeInstance.confirmPayment({
+      elements,
+      clientSecret: clientSecret.value,
+      confirmParams: { return_url: purchaseCompletedUrl },
+    });
+    if (error) throw error;
 
-    // emits("submitConfirmAndPay");
+    emits("submitConfirmAndPay");
   } catch (err) {
     handleError("Checkout error", err as Error);
   }

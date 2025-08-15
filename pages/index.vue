@@ -103,7 +103,6 @@ onMounted(async () => {
       filters: "hasThumbnailImage:true",
     },
   });
-  console.log(results);
   setProducts(results);
 });
 
