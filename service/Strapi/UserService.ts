@@ -1,22 +1,17 @@
 import { StrapiCollectionCRUD } from "./StrapiCollectionCRUD";
 
 // Interfaccia che rappresenta la struttura di un utente
-interface User {
-  documentID: string;
+export interface User {
+  documentId: string;
   username: string;
+  name: string;
+  surname: string;
   email: string;
-  provider: string;
-  password: string;
-  resetPasswordToken: string;
-  confirmationToken: string;
-  confirmed: boolean;
-  blocked: boolean;
-  role: string;
 }
 
 class UserStrapiService extends StrapiCollectionCRUD<User> {
   constructor(strapiBaseUrl: string, accessToken: string) {
-    super(strapiBaseUrl, accessToken, "users");
+    super(strapiBaseUrl, accessToken, "customers");
   }
 
   async getAllUsers(): Promise<User[]> {
@@ -27,7 +22,12 @@ class UserStrapiService extends StrapiCollectionCRUD<User> {
     return await this.getItemById(userID);
   }
 
-  async createUser(userData: Omit<User, "documentID">): Promise<User> {
+  async getUserByEmail(email: string): Promise<User[]> {
+    const users = await this.getItemFromProperty("email", email);
+    return users;
+  }
+
+  async createUser(userData: Omit<User, "documentId">): Promise<User> {
     return await this.createItem(userData);
   }
 

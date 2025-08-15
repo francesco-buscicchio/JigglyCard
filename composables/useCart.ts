@@ -3,6 +3,7 @@ import { CartService, type CartItem } from "~/service/CartService";
 import { VariantStrapiService as VariantService } from "~/service/Strapi/VariantService";
 import { ProductStrapiService as ProductService } from "~/service/Strapi/ProductService";
 import { CouponStrapiService } from "~/service/Strapi/CouponService";
+import type { Variant } from "~/types/variant.type";
 
 export interface CartConfig {
   strapiBaseUrl: string;
@@ -50,8 +51,7 @@ export function useCart(config: CartConfig) {
     const cartData = await cartService.getCart();
     if (!cartData) return;
 
-    // Parallel fetch variants e products
-    const variantPromises = cartData.data.variants.map((v) =>
+    const variantPromises = cartData.data.variants.map((v: Variant) =>
       variantService.getVariantById(v.documentId)
     );
     const variantsData = await Promise.all(variantPromises);
@@ -65,7 +65,7 @@ export function useCart(config: CartConfig) {
       const variant = vd.data;
       const prod = productsData[i].data;
       const cartQty = cartData.data.quantity.find(
-        (q) => q.variant === variant.documentId
+        (q: any) => q.variant === variant.documentId
       );
       const selectedQty = cartQty ? cartQty.quantity : 0;
       const price = variant.price / 100;
@@ -94,6 +94,10 @@ export function useCart(config: CartConfig) {
         )
       );
     }
+  }
+
+  async function getCartData() {
+    return await cartService.getCart();
   }
 
   async function changeQuantity(newQty: number, item: CartItem) {
@@ -153,5 +157,6 @@ export function useCart(config: CartConfig) {
     removeItem,
     applyCoupon,
     removeCoupon,
+    getCartData,
   };
 }

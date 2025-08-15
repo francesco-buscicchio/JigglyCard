@@ -6,7 +6,7 @@
 
     <div class="lg:flex lg:gap-[10vw] lg:items-start">
       <OrganismsCheckoutForm
-        @updateFormValues="updateFormData"
+        @updateFormStatus="handleFormStatus"
         class="lg:flex-1 mb-12 max-w-[650px]"
       />
       <OrganismsCartSummary
@@ -35,6 +35,8 @@
       <OrganismsCheckoutPayment
         :is-checkout-valid="isFormValid"
         :totalAmount="totalAmountWithShipment"
+        :userData="formData"
+        :shippingOption="selectedShippingOption"
       />
     </div>
   </div>
@@ -44,57 +46,47 @@
 import { ref, computed } from "vue";
 import { SHIPPING_METHODS } from "~/data/const";
 
+const { t } = useI18n();
 const isMobileView = isMobile();
 const runtimeConfig = useRuntimeConfig();
-const { t } = useI18n();
+
+export type CheckoutFormData = {
+  name: string;
+  surname: string;
+  email: string;
+  cap: string;
+  city: string;
+  streetAndHouseNumber: string;
+  iWantTheInvoice: boolean;
+};
+
+const formData = ref<CheckoutFormData | null>(null);
+const isFormValid = ref(false);
+
+function handleFormStatus(payload: {
+  values: CheckoutFormData;
+  isValid: boolean;
+}) {
+  formData.value = payload.values;
+  isFormValid.value = payload.isValid;
+}
+
+const selectedShippingOption = ref(SHIPPING_METHODS[0]);
+function updateSelectedOption(option: any) {
+  selectedShippingOption.value = option;
+}
 
 const cartConfig: CartConfig = {
   strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
   fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
 };
-const formData = ref({});
 
 const { products, totalCart } = useCart(cartConfig);
 
 const totalAmount = computed(() => Number(totalCart.value) * 100);
-const totalAmountWithShipment = computed(
-  () => Number(totalCart.value) + selectedShippingOption.value?.price || 0
-);
-
-type formData = {
-  name: string | null;
-  surname: string | null;
-  email: string | null;
-  streetAndHouseNumber: string | null;
-  city: string | null;
-  cap: string | null;
-  iWantTheInvoice: boolean;
-};
-const selectedShippingOption = ref(SHIPPING_METHODS[0]);
-
-function updateFormData(data: formData) {
-  formData.value = data;
-}
-
-const isFormValid = computed(() => {
-  const allFieldsFilled = Object.values(formData.value).every(
-    (value) => value !== null && value !== ""
-  );
-  const isShippingSelected = selectedShippingOption.value !== null;
-  return allFieldsFilled && isShippingSelected;
+const totalAmountWithShipment = computed(() => {
+  return Number(totalCart.value) + (selectedShippingOption.value?.price || 0);
 });
-
-function validateForm() {
-  //TODO:log utili solo per carello ecc.. da eliminare
-  console.log("Form Data:", formData.value);
-  console.log("Selected Shipping Option:", selectedShippingOption.value);
-
-  if (isFormValid.value) {
-    console.log("ok");
-  } else {
-    console.log("i campi obbligatori non sono stati compilati");
-  }
-}
 
 definePageMeta({
   layout: "default",
