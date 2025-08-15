@@ -96,6 +96,10 @@ export function useCart(config: CartConfig) {
     }
   }
 
+  async function getCartData() {
+    return await cartService.getCart();
+  }
+
   async function changeQuantity(newQty: number, item: CartItem) {
     const cartData = await cartService.getCart();
     if (!cartData) return;
@@ -153,5 +157,6 @@ export function useCart(config: CartConfig) {
     removeItem,
     applyCoupon,
     removeCoupon,
+    getCartData,
   };
 }

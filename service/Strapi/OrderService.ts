@@ -3,21 +3,21 @@ import { StrapiCollectionCRUD } from "./StrapiCollectionCRUD";
 // Interfaccia che rappresenta la struttura di un ordine
 interface Order {
   documentID: string;
-  user: string;
+  customer: string;
   date: Date;
   shipment_method: string;
-  paid: boolean;
+  paid?: boolean;
   order_value: number;
   shipment_value: number;
   total_value: number;
   variants: string[];
-  country: string;
+  country?: string;
   city: string;
   cap: string;
   street: string;
-  trackingCode: string;
-  shipped: boolean;
-  invoiced: boolean;
+  trackingCode?: string;
+  shipped?: boolean;
+  invoiced?: boolean;
 }
 
 class OrderStrapiService extends StrapiCollectionCRUD<Order> {

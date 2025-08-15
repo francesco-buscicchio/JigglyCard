@@ -35,6 +35,8 @@
       <OrganismsCheckoutPayment
         :is-checkout-valid="isFormValid"
         :totalAmount="totalAmountWithShipment"
+        :userData="formData"
+        :shippingOption="selectedShippingOption"
       />
     </div>
   </div>
@@ -48,7 +50,7 @@ const { t } = useI18n();
 const isMobileView = isMobile();
 const runtimeConfig = useRuntimeConfig();
 
-type FormData = {
+export type CheckoutFormData = {
   name: string;
   surname: string;
   email: string;
@@ -58,10 +60,13 @@ type FormData = {
   iWantTheInvoice: boolean;
 };
 
-const formData = ref<FormData | null>(null);
+const formData = ref<CheckoutFormData | null>(null);
 const isFormValid = ref(false);
 
-function handleFormStatus(payload: { values: FormData; isValid: boolean }) {
+function handleFormStatus(payload: {
+  values: CheckoutFormData;
+  isValid: boolean;
+}) {
   formData.value = payload.values;
   isFormValid.value = payload.isValid;
 }
