@@ -158,17 +158,22 @@ const confirmAndPay = async () => {
     };
 
     // Crea ordine prima del pagamento (valuta idempotenza lato API)
-    await orderService.createItem(orderPayload);
+    const orderResult: any = await orderService.createItem(orderPayload);
 
     // Stripe: validazione UI
     const { error: submitError } = await elements.submit();
     if (submitError) throw submitError;
 
+    // Aggiunge l'ID dell'ordine alla URL di ritorno
+    const url = new URL(purchaseCompletedUrl);
+    url.searchParams.set("orderId", String(orderResult.data.documentId));
+    const returnUrlWithOrder = url.toString();
+
     // Conferma pagamento
     const { error } = await stripeInstance.confirmPayment({
       elements,
       clientSecret: clientSecret.value,
-      confirmParams: { return_url: purchaseCompletedUrl },
+      confirmParams: { return_url: returnUrlWithOrder },
     });
     if (error) throw error;
 
