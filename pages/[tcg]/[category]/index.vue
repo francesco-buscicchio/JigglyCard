@@ -199,7 +199,6 @@ async function fetchData() {
             },
           ],
         });
-  console.log(results);
   if (route.params.tcg === "search") setProducts(results);
   else setProducts(results.results[0]);
 }

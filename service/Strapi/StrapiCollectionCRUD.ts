@@ -42,7 +42,7 @@ class StrapiCollectionCRUD<T> {
   }
 
   // Create a new item in the collection
-  async createItem(itemData: Omit<T, "documentID">): Promise<T> {
+  async createItem(itemData: Omit<T, "documentID" | "documentId">): Promise<T> {
     return (await this.collection.create(itemData)) as T;
   }
 

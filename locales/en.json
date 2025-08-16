@@ -155,6 +155,10 @@
       "success": "Product successfully added to cart",
       "error": "Due to a technical issue the product was not added to the cart",
       "overflow": "The quantity added to the cart exceeds available stock"
+    },
+    "checkout": {
+      "success": "Checkout Completato con Successo",
+      "error": "Per qualche problema tecnico il checkout non e' stato completato"
     }
   },
   "footerLinks": {
@@ -214,6 +218,7 @@
   "emptyCart": "Your trainer journey hasn't started yet!",
   "validation": {
     "required": "Campo obbligatorio",
-    "invalidEmail": "Inserisci un indirizzo e-mail valido"
+    "invalidEmail": "Inserisci un indirizzo e-mail valido",
+    "invalidCAP": "Inserisci un CAP valido"
   }
 }
