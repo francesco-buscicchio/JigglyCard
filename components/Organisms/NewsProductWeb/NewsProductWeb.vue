@@ -22,7 +22,7 @@
       </h5>
       <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
       <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
-      <div v-if="price === '100000.00'">
+      <div v-if="!product.available">
         <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
       </div>
       <div v-else>

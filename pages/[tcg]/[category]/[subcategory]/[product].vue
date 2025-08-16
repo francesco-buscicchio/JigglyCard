@@ -14,7 +14,7 @@
 
       <!-- Listing tags -->
       <div class="flex flex-col gap-8 mb-7">
-        <div v-if="product.price === '100000.00'">
+        <div v-if="product.available === false">
           <h2 class="price-tag text-center">{{ t("soldOut") }}</h2>
         </div>
         <div v-else>
@@ -57,7 +57,7 @@
               <p class="pt-2">{{ product.expansion }}</p>
 
               <div>
-                <div v-if="product.price === '100000.00'">
+                <div v-if="product.available === false">
                   <h2 class="price-tag pt-6">{{ t("soldOut") }}</h2>
                 </div>
                 <div v-else>
@@ -119,7 +119,7 @@ import type { TagCode } from "~/types/tagCode.type";
 import type { ProductType } from "~/types/productType.type";
 import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
 import defaultCardImage from "@/assets/img/default-card-image.png";
-import { mapProducts } from "~/mapper/products.mapper";
+import { mapProductItem, mapProducts } from "~/mapper/products.mapper";
 
 const product = ref();
 const { t } = useI18n();
@@ -166,24 +166,11 @@ const setTags = (tagsStructure: TagStructure[]): void => {
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
   tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
 };
-// TODO: refactor mettere setProducts in una utils perchè usata più volte
+
 const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
     const item = queryResult.hits[0];
-    product.value = {
-      productName: item.name,
-      code: item.code ? `(${item.code})` : "",
-      expansion: item.expansion || "N.A.",
-      price: item.salePrice ? item.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        item.thumbnailImage ||
-        (item.images && item.images.length > 0 ? item.images[0] : null),
-      tcg: item.tcg,
-      category: item.type,
-      id: item.objectID,
-      variants: item.variantsDetails,
-      quantity: item.quantity,
-    };
+    product.value = mapProductItem(item);
   }
 };
 

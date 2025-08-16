@@ -10,6 +10,7 @@
       :category="product.category"
       :id="product.id"
       color-scheme="noBorder"
+      :available="product.available"
     />
   </div>
 </template>

@@ -23,5 +23,6 @@ export function mapProductItem(algoliaProductsItem: any) {
     tcg: algoliaProductsItem.tcg,
     category: algoliaProductsItem.type,
     id: algoliaProductsItem.objectID,
+    available: algoliaProductsItem.available,
   };
 }

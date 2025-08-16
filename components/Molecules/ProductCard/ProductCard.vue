@@ -10,7 +10,7 @@
       <div class="flex flex-col gap-y-2">
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
-        <div v-if="price === '100000.00'">
+        <div v-if="!available">
           <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
         </div>
         <div v-else>
@@ -65,6 +65,10 @@ const props = defineProps({
   imageUrl: {
     type: String,
     required: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
   },
 });
 
