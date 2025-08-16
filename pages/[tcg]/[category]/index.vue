@@ -149,6 +149,7 @@ function calculateFilterString(e?: any) {
 }
 
 function filterUpdate(e: any) {
+  currentPage.value = 1;
   filtersAppliedOrganismsListingFilters.value = e;
   calculateFilterString(e);
 }

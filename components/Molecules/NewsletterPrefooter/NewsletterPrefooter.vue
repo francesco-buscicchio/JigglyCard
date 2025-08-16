@@ -27,7 +27,7 @@
     class="bg-accent-50 flex py-8 xl:px-20 lg:px-12 gap-8 items-center justify-between"
     v-show="!isMobileview"
   >
-    <div class="flex-1">
+    <div class="flex-1 max-w-[40%]">
       <h3 class="mb-4">{{ t("newsletter.title") }}</h3>
       <p class="mb-4">
         {{ t("newsletter.caption.first") }}
@@ -56,9 +56,9 @@
         </div>
       </div>
     </div>
-    <div class="max-w-[60%] min-h-full">
+    <div class="max-w-[50%] min-h-full">
       <img
-        src="~/assets/img/newsletter-footer.png"
+        src="~/assets/img/dragonite-newsletter.avif"
         alt="newsletter"
         class="object-cover w-full h-full"
       />

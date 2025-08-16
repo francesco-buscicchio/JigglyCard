@@ -44,8 +44,17 @@ const useMenu = async () => {
             (item) => item.label === category.name
           );
           if (!exists) {
+            const menuName = key.trim().toLowerCase();
+            let label = category.name.trim();
+            if (label.toLowerCase().startsWith(menuName)) {
+              label = label
+                .slice(menuName.length)
+                .replace(/^[-–—:\s]+/, "")
+                .trim();
+            }
+
             tempMenu[key].subMenu.push({
-              label: category.name,
+              label: label,
               image: category.image,
               to: `/${key.toLowerCase().replace(/\s+/g, "-")}/${category.slug}`,
             });
