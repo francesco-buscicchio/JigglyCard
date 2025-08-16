@@ -234,8 +234,14 @@ function applyFilters() {
   }, {});
 
   result["price"] = {
-    min: selectedMinPrice.value,
-    max: selectedMaxPrice.value,
+    min:
+      selectedMinPrice.value === minumPrice.value
+        ? undefined
+        : selectedMinPrice.value,
+    max:
+      selectedMaxPrice.value === maxPrice.value
+        ? undefined
+        : selectedMaxPrice.value,
   };
   emit("filterUpdate", result);
 }
