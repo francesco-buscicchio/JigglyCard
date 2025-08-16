@@ -47,8 +47,10 @@ const useMenu = async () => {
             const menuName = key.trim().toLowerCase();
             let label = category.name.trim();
             if (label.toLowerCase().startsWith(menuName)) {
-              label = label.slice(menuName.length).trim();
-              label = label.replace(/^[-–—:\s]+/, "").trim();
+              label = label
+                .slice(menuName.length)
+                .replace(/^[-–—:\s]+/, "")
+                .trim();
             }
 
             tempMenu[key].subMenu.push({
