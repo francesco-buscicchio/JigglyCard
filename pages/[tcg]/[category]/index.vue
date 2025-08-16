@@ -79,6 +79,7 @@ import {
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import { mapProducts } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
@@ -204,24 +205,7 @@ async function fetchData() {
 }
 
 function setProducts(queryResult: any) {
-  products.value = [];
-  for (let hit of queryResult.hits) {
-    const obj = {
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-      id: hit.objectID,
-    };
-
-    products.value.push(obj);
-  }
-
+  products.value = mapProducts(queryResult);
   totalItems.value = queryResult.nbHits;
 }
 </script>

@@ -24,12 +24,17 @@
         <p class="text-lg ellipsis w-full text-center">{{ code }}</p>
         <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
 
-        <label class="text-xs text-center" for="price">
-          {{ t("startingFrom") }}
-          <p class="ml-1 price-tag inline text-base xl:text-2xl">
-            {{ price }} €
-          </p>
-        </label>
+        <div v-if="!available">
+          <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+        </div>
+        <div v-else>
+          <label class="text-xs text-center" for="price">
+            {{ t("startingFrom") }}
+            <p class="ml-1 price-tag inline text-base xl:text-2xl">
+              {{ price }} €
+            </p>
+          </label>
+        </div>
 
         <AtomsButtonCTA
           :type="buttonCtaType"
@@ -49,7 +54,44 @@ import { goTo } from "@/utils/navigationUtils";
 import defaultCardImage from "@/assets/img/default-card-image.png";
 
 // TODO: separare le props in un file separato
-const props = defineProps<ProductCard>();
+const props = defineProps({
+  colorScheme: {
+    type: String,
+  },
+  id: {
+    type: String,
+  },
+  tcg: {
+    type: String,
+  },
+  category: {
+    type: String,
+  },
+  productName: {
+    type: String,
+    required: true,
+  },
+  code: {
+    type: String,
+    required: true,
+  },
+  expansion: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 const { t } = useI18n();
 const productNameRef = ref<HTMLElement | null>(null);

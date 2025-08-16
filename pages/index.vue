@@ -54,6 +54,7 @@ import {
   DEALS_TAG,
   HEROBANNER_TAG,
 } from "~/data/const";
+import { mapProductItem } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
@@ -111,26 +112,11 @@ function setProducts(queryResult: any) {
   let heroBannerTemp: ProductType[] = [];
 
   for (let hit of queryResult.hits) {
-    const product = createProductObj(hit);
+    const product = mapProductItem(hit);
     processTags(hit.tags, product, heroBannerTemp);
   }
 
   setHeroBanner.value = heroBannerTemp;
-}
-
-function createProductObj(hit: any): ProductType {
-  return {
-    id: hit.objectID,
-    productName: hit.name,
-    code: hit.code ? `(${hit.code})` : "",
-    expansion: hit.expansion || "N.A.",
-    price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-    imageUrl:
-      hit.thumbnailImage ||
-      (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-    tcg: hit.tcg,
-    category: hit.type,
-  };
 }
 
 function processTags(
