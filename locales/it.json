@@ -150,6 +150,10 @@
       "success": "Prodotto Aggiunto Al Carrello con Successo",
       "error": "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
       "overflow": "La quantità aggiunta al carrello è maggiore della quantità disponibile"
+    },
+    "checkout": {
+      "success": "Checkout Completato con Successo",
+      "error": "Per qualche problema tecnico il checkout non e' stato completato"
     }
   },
   "footerLinks": {

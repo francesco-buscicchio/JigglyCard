@@ -1,4 +1,9 @@
 <template>
+  <MoleculesToastMessage
+    :text="toastData.message"
+    :type="toastData.type"
+    :trigger-key="toastKey"
+  />
   <div class="max-w-[420px]">
     <h5 class="mb-2">{{ t("paymentMethods") }}</h5>
 
@@ -65,6 +70,7 @@ const cartConfig: CartConfig = {
 };
 const { products, getCartData } = useCart(cartConfig);
 const { handleError } = useErrorHandler();
+const toastKey = ref(0);
 
 const props = defineProps({
   shippingOption: { type: Object as PropType<ShippingOption>, required: true },
@@ -175,7 +181,14 @@ const confirmAndPay = async () => {
       clientSecret: clientSecret.value,
       confirmParams: { return_url: returnUrlWithOrder },
     });
-    if (error) throw error;
+    if (error) {
+      const toastMessage = {
+        message: t("toast.checkout.error", { error: error.message }),
+        type: "error",
+      };
+      toastKey.value++;
+      console.error(error);
+    }
 
     emits("submitConfirmAndPay");
   } catch (err) {
