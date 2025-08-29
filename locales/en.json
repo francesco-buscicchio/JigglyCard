@@ -210,5 +210,40 @@
   "validation": {
     "required": "Campo obbligatorio",
     "invalidEmail": "Inserisci un indirizzo e-mail valido"
+  },
+  "teamJiggly": "Jiggly Team",
+  "doYouNeedAssistance": "Do you need assistance?",
+  "collectionValued": "Want to have your collection valued?",
+  "contactUs": "Contact us",
+  "reserveYourSlot": "Reserve your slot",
+  "about": {
+    "ourStory": {
+      "title": "Our story",
+      "body": "We were born in Apulia, inside a software company. Between a deploy and a debug, our chats kept circling back to cards: sets, artworks, print runs, memories. At some point we said: “let’s try”. That’s how Jigglycard started: we bring the same obsessive attention to detail we use in code to the TCG world. The name is a tribute to the universe we fell in love with: Jigglypuff — because why not Jigglypuff."
+    },
+    "whatWeDo": {
+      "title": "What we do",
+      "body": "We run an online store dedicated to trading cards. Every day we expand and curate our catalog by combining sealed — boxes, bundles and packs — with a wide selection of singles for both collectors and players. We offer free appraisals on singles and sealed to estimate real market value. For now we don’t handle consignment or grading services: we prefer to focus on availability, quality and a direct relationship with our customers. We consistently work on Pokémon, Magic, One Piece, Dragon Ball, Yu-Gi-Oh! and Lorcana."
+    },
+    "whyUs": {
+      "title": "Why choose us",
+      "body": "Trust is everything to us: we guarantee authenticity, enable returns when needed, and keep prices competitive, balancing market trends with each card’s actual condition. Every listing is clear and described with uniform criteria: no surprises, just good pulls."
+    },
+    "numbers": {
+      "title": "Our numbers",
+      "body": "We’ve been active for a year on Cardmarket, CardTrader and Vinted, surpassing 1,000 total sales. Our catalog includes over 13,000 distinct singles and keeps growing: each entry is carefully described and checked with consistent standards, because consistency is the foundation of credibility."
+    },
+    "community": {
+      "title": "Community & content",
+      "body": "We believe in sharing. On Instagram and TikTok we post fun, informative content — set deep dives, quick guides to rarities and conditions, storage tips, and behind-the-scenes. A dedicated Telegram group is coming soon for announcements, drops and community updates."
+    },
+    "goals": {
+      "title": "Our goals",
+      "body": "Over the next months we’ll increase the depth and variety of the catalog to cover more products, sets and rarities. We’re working on trade nights and tournaments, and on boosting the channels where we share news, restocks and tips. Growth won’t compromise quality: we’d rather grow well, one step at a time."
+    },
+    "where": {
+      "title": "Where to find us",
+      "body": "We operate online. Explore the catalog, request a free appraisal of your singles or sealed, and stay in touch with us on social. We’re here to help you choose with confidence and give your collection space — with the same care we give to ours."
+    }
   }
 }

@@ -210,5 +210,40 @@
   "validation": {
     "required": "Campo obbligatorio",
     "invalidEmail": "Inserisci un indirizzo e-mail valido"
+  },
+  "teamJiggly": "Il Team Di Jiggly",
+  "doYouNeedAssistance": "Hai bisogno di assistenza?",
+  "collectionValued": "Vuoi far valutare la tua collezione?",
+  "contactUs": "Contattaci",
+  "reserveYourSlot": "Prenota il tuo slot",
+  "about": {
+    "ourStory": {
+      "title": "La nostra storia",
+      "body": "Siamo nati in Puglia, dentro un’azienda informatica. Tra un deploy e un debug, la conversazione finiva sempre sulle carte: set, artwork, tirature, ricordi. A un certo punto ci siamo detti: “proviamoci”. Così è nato Jigglycard: portiamo nel mondo dei TCG la stessa cura maniacale che mettiamo nel codice. Il nome è un omaggio all’universo che ci ha fatto innamorare: Jigglypuff — perché proprio Jigglypuff."
+    },
+    "whatWeDo": {
+      "title": "Cosa facciamo",
+      "body": "Gestiamo un negozio online dedicato alle carte da collezione. Ogni giorno ampliamo e curiamo il catalogo unendo sealed — box, bundle e buste — a una selezione ampia di singole per chi colleziona e per chi gioca. Offriamo valutazioni gratuite su singole e sealed per stimare il valore reale dei prodotti. In questa fase non trattiamo conto vendita né servizi di grading: preferiamo concentrarci su disponibilità, qualità e rapporto diretto con chi ci sceglie. Lavoriamo con costanza su Pokémon, Magic, One Piece, Dragon Ball, Yu-Gi-Oh! e Lorcana."
+    },
+    "whyUs": {
+      "title": "Perché sceglierci",
+      "body": "Per noi la fiducia è tutto: garantiamo l’autenticità di ciò che mettiamo a catalogo, rendiamo possibile il reso quando serve e manteniamo prezzi competitivi, in equilibrio tra andamento di mercato e condizione reale delle carte. Ogni inserzione è chiara e descritta con criteri uniformi: zero sorprese, solo buone pescate."
+    },
+    "numbers": {
+      "title": "I nostri numeri",
+      "body": "Siamo presenti da un anno su Cardmarket, CardTrader e Vinted e abbiamo superato le 1.000 vendite complessive. Il nostro catalogo conta oltre 13.000 singole differenti e continua a crescere: ogni inserimento è descritto con attenzione e controllato con criteri uniformi, perché la consistenza è la base della credibilità."
+    },
+    "community": {
+      "title": "La community e i contenuti",
+      "body": "Crediamo nel valore della condivisione. Su Instagram e TikTok pubblichiamo contenuti divertenti e informativi: approfondimenti sui set, guide rapide su rarità e condizioni, consigli pratici per la conservazione e uno sguardo dietro le quinte del nostro lavoro. A breve apriremo anche un gruppo Telegram dedicato ad annunci, drop e aggiornamenti per la community."
+    },
+    "goals": {
+      "title": "I nostri obiettivi",
+      "body": "Nei prossimi mesi vogliamo aumentare la profondità e la varietà del catalogo, così da coprire sempre più prodotti, set e rarità. Stiamo lavorando per organizzare trade night e tornei, e per potenziare i canali con cui raccontiamo novità, restock e consigli. L’espansione non andrà a scapito della qualità: preferiamo crescere bene, un passo alla volta."
+    },
+    "where": {
+      "title": "Dove trovarci",
+      "body": "Operiamo online. Se vuoi conoscere meglio il nostro lavoro, esplora il catalogo, chiedi una valutazione gratuita delle tue carte o dei tuoi sealed e resta in contatto con noi sui social. Siamo qui per aiutarti a scegliere con consapevolezza e per dare spazio alla tua collezione — con la stessa cura che dedichiamo alla nostra."
+    }
   }
 }
