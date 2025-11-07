@@ -27,8 +27,8 @@ const categoriesIndex = strapiClient.collection("categories");
 
 await syncAlgoliaToStrapiProducts();
 await syncAlgoliaToStrapiSets();
-//await syncAlgoliaMassimoMinimo();
-//await syncAlgoliaToStrapiMenu();
+await syncAlgoliaMassimoMinimo();
+await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
   const products = await getProducts();
