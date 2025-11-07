@@ -13,6 +13,7 @@
           :tcg="product.tcg"
           :category="product.category"
           :id="product.id"
+          :available="product.available"
         />
       </div>
     </div>
@@ -20,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 
 const props = defineProps({
   products: {

@@ -4,29 +4,53 @@
 
     <div class="my-4">
       <AtomsRadioButton
-        :value="{ id: 'standard-1' }"
-        name="Standard-1"
+        :value="SHIPPING_METHOD_STANDARD"
+        :id="SHIPPING_METHOD_STANDARD.id"
+        name="shippingMethod"
         v-model="selectedOption"
+        :label="SHIPPING_METHOD_STANDARD.label"
       />
-      <span class="ml-2 text-base">Standard 1€ </span>
       <p class="text-xs py-3">
         {{ t("shippingSection.message") }}
       </p>
     </div>
 
-    <div class="flex justify-between border-t-[2px] border-neutral-200 py-4">
-      <p class="">{{ t("shippingSection.total") }}</p>
-      <p class="price-tag">{{ totalCart }} €</p>
+    <div class="border-t-[2px] border-neutral-200 py-4">
+      <div class="flex justify-between" v-if="couponData.value > 0">
+        <p>Coupon: {{ couponData.name }}</p>
+        <p>-{{ couponData.value }} €</p>
+      </div>
+      <div v-if="couponData.value > 0">
+        <AtomsButtonCTA
+          type="underline-text"
+          text="Rimuovi coupon"
+          @click="removeCoupon"
+        />
+      </div>
+      <div class="flex justify-between">
+        <p class="">{{ t("shippingSection.total") }}</p>
+        <p class="price-tag">{{ total }} €</p>
+      </div>
     </div>
     <!-- Codice promo -->
     <div class="mb-12">
       <p class="mb-2">{{ t("shippingSection.couponCodeQuestion") }}</p>
-      <div class="lg:flex w-full lg:gap-3 lg:items-center lg:justify-center">
+      <div class="lg:flex w-full lg:gap-3 lg:items-top lg:justify-center">
         <div class="mb-2 lg:mb-0 flex-1">
-          <AtomsInputText :placeholder="placeholder" status="newsletter" />
+          <MoleculesContainerInput
+            :status="couponData.error === '' ? 'newsletter' : 'error'"
+            :placeholder="placeholder"
+            @inputUpdate="updateCouponCode($event)"
+            :notValidMessage="couponData.error"
+            :isValid="couponData.error === ''"
+          />
         </div>
         <div class="lg:max-w-22">
-          <AtomsButtonCTA type="secondary" :text="codeApply" />
+          <AtomsButtonCTA
+            type="secondary"
+            :text="codeApply"
+            @click="applyCoupon()"
+          />
         </div>
       </div>
     </div>
@@ -59,18 +83,39 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  totalCart: {
-    type: String,
-    required: true,
-  },
-});
 import { useI18n } from "vue-i18n";
 import { goBack } from "@/utils/navigationUtils";
-import { PATH } from "~/data/const";
+import { SHIPPING_METHOD_STANDARD, PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
+import { type CartItem } from "~/service/CartService";
+
+const props = defineProps<{
+  cart: CartItem;
+  totalCart: Number;
+  couponData: any;
+}>();
+
+const emit = defineEmits(["couponApplied", "removeCoupon"]);
 const isDesktopView = isDesktop();
+const couponCode = ref("");
+
+const updateCouponCode = (event: string) => {
+  couponCode.value = event;
+};
+
+const total = computed(() => {
+  return (Number(props.totalCart) - Number(props.couponData.value)).toFixed(2);
+});
+
+const applyCoupon = () => {
+  emit("couponApplied", couponCode.value);
+};
+
+const removeCoupon = () => {
+  emit("removeCoupon");
+};
+
 const placeholder = computed(() => {
   return isDesktopView.value ? "XXXX" : t("shippingSection.couponCode");
 });
@@ -79,6 +124,7 @@ const codeApply = computed(() => {
     ? t("shippingSection.codeApplyWeb")
     : t("shippingSection.codeApply");
 });
+
 // TODO: rendere di default l'opzione standard
-const selectedOption = ref({ id: "standard-1" });
+const selectedOption = ref(SHIPPING_METHOD_STANDARD);
 </script>

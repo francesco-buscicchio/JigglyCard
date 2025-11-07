@@ -22,12 +22,17 @@
       </h5>
       <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
       <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
-      <label class="lg:text-xs xl:text-sm" for="product.price"
-        >{{ t("startingFrom") }}
+      <div v-if="!product.available">
+        <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+      </div>
+      <div v-else>
+        <label class="lg:text-xs xl:text-sm" for="product.price"
+          >{{ t("startingFrom") }}
+        </label>
         <p class="ml-5 font-bold inline lg:text-2xl xl:text-3xl">
           {{ product.price }} €
-        </p></label
-      >
+        </p>
+      </div>
       <div
         class="absolute hidden group-hover:block text-accent-500 bg-white text-[2wv] rounded p-1 bottom-1/2 transform max-w-xs whitespace-no-wrap"
       >

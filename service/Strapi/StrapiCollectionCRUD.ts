@@ -31,8 +31,18 @@ class StrapiCollectionCRUD<T> {
     return (await this.collection.findOne(itemId, { populate: "*" })) as T;
   }
 
+  async getItemFromProperty(property: string, value: string): Promise<T[]> {
+    const result = await this.collection.find({
+      filters: {
+        [property]: { $contains: value },
+      },
+      populate: "*",
+    });
+    return result.data as T[];
+  }
+
   // Create a new item in the collection
-  async createItem(itemData: Omit<T, "documentID">): Promise<T> {
+  async createItem(itemData: Omit<T, "documentID" | "documentId">): Promise<T> {
     return (await this.collection.create(itemData)) as T;
   }
 

@@ -14,6 +14,7 @@
       :tcg="product.tcg"
       :category="product.category"
       :id="product.id"
+      :available="product.available"
     />
   </div>
 </template>

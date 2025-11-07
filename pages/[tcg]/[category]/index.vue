@@ -4,7 +4,7 @@
   </div>
   <div class="p-10">
     <MoleculesListingTitle
-      :title="`routes./${route.params.tcg}/${route.params.category}`"
+      :title="`${route.params.tcg}/${route.params.category}`"
     />
   </div>
   <div class="gap-b-4 flex flex-col">
@@ -56,7 +56,7 @@
         <MoleculesListingPagination
           :total-items="totalItems"
           :current-page="currentPage"
-          @current-page="($e) => changePage($e)"
+          @current-page="($e: Event) => changePage($e)"
         />
         <div class="pt-2 pb-10">
           <MoleculesListingCounter
@@ -75,8 +75,11 @@ import {
   PRODUCTS_COLLECTION,
   ITEMS_FOR_PAGE_MOBILE,
   ITEMS_FOR_PAGE_DESKTOP,
+  TcgSlug,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import { mapProducts } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
@@ -88,9 +91,18 @@ const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
-const filtersStringQuery = ref(`type:"${route.params.category}"`);
 const expansion = route.query.expansion;
 const isDesktopView = isDesktop();
+
+const getBaseQuery = () => {
+  if (route.params.tcg === "search") return "";
+  return route.params.category === "all"
+    ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
+    : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
+        route.params.category
+      }"`;
+};
+const filtersStringQuery = ref(getBaseQuery());
 
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
@@ -98,10 +110,9 @@ onMounted(async () => {
 });
 
 function calculateFilterString(e?: any) {
-  let filter = `type:"${route.params.category}"`;
+  let filter = getBaseQuery();
 
   if (e) {
-    console.log("Filter update received:", e);
     let languageFilters = e.language
       ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
       : "";
@@ -131,13 +142,14 @@ function calculateFilterString(e?: any) {
     }
   }
 
-  if (expansion) filter += ` AND (expansion:"${expansion}")`;
+  if (expansion) filter += ` AND (setSlug:"${expansion}")`;
 
   filtersStringQuery.value = filter;
   fetchData();
 }
 
 function filterUpdate(e: any) {
+  currentPage.value = 1;
   filtersAppliedOrganismsListingFilters.value = e;
   calculateFilterString(e);
 }
@@ -169,40 +181,30 @@ const updateFiltersApplied = (newFilters: any) => {
 };
 
 async function fetchData() {
-  let results = await client.search({
-    requests: [
-      {
-        indexName: calculateCollection(),
-        filters: filtersStringQuery.value,
-        hitsPerPage: isDesktopView.value
-          ? ITEMS_FOR_PAGE_DESKTOP
-          : ITEMS_FOR_PAGE_MOBILE,
-        page: currentPage.value - 1,
-      },
-    ],
-  });
-  setProducts(results.results[0]);
+  let results: any =
+    route.params.tcg === "search"
+      ? await client.searchSingleIndex({
+          indexName: calculateCollection(),
+          searchParams: { query: route.params.category as string },
+        })
+      : await client.search({
+          requests: [
+            {
+              indexName: calculateCollection(),
+              filters: filtersStringQuery.value,
+              hitsPerPage: isDesktopView.value
+                ? ITEMS_FOR_PAGE_DESKTOP
+                : ITEMS_FOR_PAGE_MOBILE,
+              page: currentPage.value - 1,
+            },
+          ],
+        });
+  if (route.params.tcg === "search") setProducts(results);
+  else setProducts(results.results[0]);
 }
 
 function setProducts(queryResult: any) {
-  products.value = [];
-  for (let hit of queryResult.hits) {
-    const obj = {
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-      id: hit.objectID,
-    };
-
-    products.value.push(obj);
-  }
-
+  products.value = mapProducts(queryResult);
   totalItems.value = queryResult.nbHits;
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div
     class="flex flex-col items-center gap-2 cursor-pointer w-[10vw] shrink-0"
-    @click="$emit('click')"
+    @click="$emit('click', $event)"
   >
     <p class="text-accent-950 text-center whitespace-nowrap">
       {{ label }}

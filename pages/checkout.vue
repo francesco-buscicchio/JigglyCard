@@ -6,11 +6,11 @@
 
     <div class="lg:flex lg:gap-[10vw] lg:items-start">
       <OrganismsCheckoutForm
-        @updateFormValues="updateFormData"
+        @updateFormStatus="handleFormStatus"
         class="lg:flex-1 mb-12 max-w-[650px]"
       />
       <OrganismsCartSummary
-        :products="mockProducts"
+        :products="products"
         :shipping-cost="selectedShippingOption?.price || 0"
         v-show="!isMobileView"
       />
@@ -18,22 +18,25 @@
 
     <div class="mb-12 lg:mb-18">
       <OrganismsSelectOptions
-        :shipping-options="shippingOptions"
+        :shippingOptions="SHIPPING_METHODS"
+        :selectedOption="selectedShippingOption"
         @update:selectedOption="updateSelectedOption"
       />
     </div>
 
     <div class="mb-12 lg:mb-18" v-show="isMobileView">
       <OrganismsCartSummary
-        :products="mockProducts"
+        :products="products"
         :shipping-cost="selectedShippingOption?.price || 0"
       />
     </div>
 
-    <div class="mb-12 lg:mb-18">
+    <div class="mb-12 lg:mb-18" v-if="totalAmount > 0">
       <OrganismsCheckoutPayment
         :is-checkout-valid="isFormValid"
-        :totalAmount="totalAmount"
+        :totalAmount="totalAmountWithShipment"
+        :userData="formData"
+        :shippingOption="selectedShippingOption"
       />
     </div>
   </div>
@@ -41,65 +44,51 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import type { Product } from "~/types/product.type";
-const isMobileView = isMobile();
-const totalAmount = ref(100); // Example total amount for test, replace with actual calculation
-const { t } = useI18n();
-const formData = ref({});
-const shippingOptions = ref([
-  { name: "Opzione 1", price: 5 },
-  { name: "Opzione 2", price: 10 },
-  { name: "Opzione 3", price: 15 },
-]);
+import { SHIPPING_METHODS } from "~/data/const";
 
-type formData = {
-  name: string | null;
-  surname: string | null;
-  email: string | null;
-  streetAndHouseNumber: string | null;
-  city: string | null;
-  cap: string | null;
+const { t } = useI18n();
+const isMobileView = isMobile();
+const runtimeConfig = useRuntimeConfig();
+
+export type CheckoutFormData = {
+  name: string;
+  surname: string;
+  email: string;
+  cap: string;
+  city: string;
+  streetAndHouseNumber: string;
   iWantTheInvoice: boolean;
 };
-const selectedShippingOption = ref(
-  null as { name: string; price: number } | null
-);
 
-function updateFormData(data: formData) {
-  formData.value = data;
+const formData = ref<CheckoutFormData | null>(null);
+const isFormValid = ref(false);
+
+function handleFormStatus(payload: {
+  values: CheckoutFormData;
+  isValid: boolean;
+}) {
+  formData.value = payload.values;
+  isFormValid.value = payload.isValid;
 }
 
-function updateSelectedOption(option: { name: string; price: number }) {
+const selectedShippingOption = ref(SHIPPING_METHODS[0]);
+function updateSelectedOption(option: any) {
   selectedShippingOption.value = option;
 }
 
-const isFormValid = computed(() => {
-  const allFieldsFilled = Object.values(formData.value).every(
-    (value) => value !== null && value !== ""
-  );
-  const isShippingSelected = selectedShippingOption.value !== null;
-  return allFieldsFilled && isShippingSelected;
+const cartConfig: CartConfig = {
+  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
+  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
+};
+
+const { products, totalCart } = useCart(cartConfig);
+
+const totalAmount = computed(() => Number(totalCart.value) * 100);
+const totalAmountWithShipment = computed(() => {
+  return Number(totalCart.value) + (selectedShippingOption.value?.price || 0);
 });
-
-function validateForm() {
-  //TODO:log utili solo per carello ecc.. da eliminare
-  console.log("Form Data:", formData.value);
-  console.log("Selected Shipping Option:", selectedShippingOption.value);
-
-  if (isFormValid.value) {
-    console.log("ok");
-  } else {
-    console.log("i campi obbligatori non sono stati compilati");
-  }
-}
 
 definePageMeta({
   layout: "default",
 });
-
-const mockProducts = ref<Product[]>([
-  { nameProduct: "Pikachu", price: 9.99, codeProduct: "PK001", id: "1" },
-  { nameProduct: "Charmander", price: 5.99, codeProduct: "CH002", id: "2" },
-  { nameProduct: "Bulbasaur", price: 8.99, codeProduct: "BL003", id: "3" },
-]);
 </script>

@@ -36,6 +36,7 @@
     "toast": "Subscription successful"
   },
   "startingFrom": "starting from",
+  "soldOut": "sold out",
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "terms of use",
@@ -50,7 +51,17 @@
   "price": "Price",
   "apply": "Apply",
   "showDetails": "See details",
+  "resultFor": "Results for",
+  "allOf": "All for",
+  "showAll": "Show all",
   "cart": "Cart",
+  "support": {
+    "title": "Support",
+    "mail": "You can contact us by email at",
+    "message": "or by message/WhatsApp at",
+    "form": "If you prefer, you can fill out the form below.",
+    "answer": "You will receive a response / We will reply within 48 hours."
+  },
   "routes": {
     "cart": "Cart",
     "/carrello": "Cart",
@@ -129,17 +140,25 @@
   "min": "Min",
   "max": "Max",
   "tag": {
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Excellent",
+    "Moderately Played": "Good",
+    "Played": "Played",
+    "Poor": "Poor",
+    "jp": "Japanese",
     "it": "Italian",
     "en": "English",
-    "Near Mint": "Near Mint",
-    "Good": "Good",
-    "Poor": "Poor"
+    "de": "German"
   },
   "toast": {
     "cart": {
       "success": "Product successfully added to cart",
       "error": "Due to a technical issue the product was not added to the cart",
       "overflow": "The quantity added to the cart exceeds available stock"
+    },
+    "checkout": {
+      "success": "Checkout Completato con Successo",
+      "error": "Per qualche problema tecnico il checkout non e' stato completato"
     }
   },
   "footerLinks": {
@@ -153,6 +172,8 @@
   "shippingInfo": "Shipping information",
   "name": "Name",
   "surname": "Last name",
+  "message": "Message",
+  "send": "Send",
   "email": "Email",
   "nation": "Country",
   "cap": "Postal Code",
@@ -194,5 +215,10 @@
   "creditCard": "Credit Card",
   "wireTransfer": "Bank Transfer",
   "no_results": "No results",
-  "emptyCart": "Your trainer journey hasn't started yet!"
+  "emptyCart": "Your trainer journey hasn't started yet!",
+  "validation": {
+    "required": "Campo obbligatorio",
+    "invalidEmail": "Inserisci un indirizzo e-mail valido",
+    "invalidCAP": "Inserisci un CAP valido"
+  }
 }

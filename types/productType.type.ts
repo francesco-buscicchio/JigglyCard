@@ -7,4 +7,5 @@ export type ProductType = {
   imageUrl: string;
   tcg: string;
   category: string;
+  available: boolean;
 };

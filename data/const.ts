@@ -6,6 +6,25 @@ export const WHATSNEW_TAG = "NOVITA";
 export const DEALS_TAG = "OFFERTA";
 export const HEROBANNER_TAG = "HEROBANNER";
 export const SUGGESTED = "SUGGESTED";
+
+export const ITEMS_FOR_PAGE_MOBILE = 9;
+export const ITEMS_FOR_PAGE_DESKTOP = 12;
+
+export const FOOTER_MENU_ITEMS = [
+  { link: "about", route: "/about" },
+  { link: "shipping", route: "/spedizioni" },
+  { link: "support", route: "/assistenza" },
+];
+
+export const PATH = {
+  HOME: "/",
+  CART: "/carrello",
+  CHECKOUT: "/checkout",
+};
+
+export const email = "jigglycard@gmail.com";
+export const phoneNumber = "+39 351 5223779";
+
 export const availableLanguages = [
   { code: "IT", name: "italian" },
   { code: "EN", name: "english" },
@@ -20,20 +39,6 @@ export const availableConditions = [
   { code: "PO", name: "poor" },
 ];
 export const preferredLanguageOrder = ["IT", "EN", "JP"];
-export const ITEMS_FOR_PAGE_MOBILE = 9;
-export const ITEMS_FOR_PAGE_DESKTOP = 12;
-// TODO: controllare se le route sono corrette
-export const FOOTER_MENU_ITEMS = [
-  { link: "about", route: "/about" },
-  { link: "shipping", route: "/spedizioni" },
-  { link: "support", route: "/assistenza" },
-];
-
-export const PATH = {
-  HOME: "/",
-  CART: "/carrello",
-  CHECKOUT: '/checkout'
-};
 
 export const VIEWPORTS = {
   SM: 640, // small: >= 640px
@@ -95,3 +100,25 @@ export const HEADER_MENU = [
   { name: "Dragon Ball", to: "/dragon-ball/all", subMenu: [] },
   { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
 ];
+
+export const SHIPPING_METHOD_STANDARD: {
+  id: string;
+  label: string;
+  price: number;
+} = { id: "standard-1", label: "Standard 1", price: 0 };
+
+export const SHIPPING_METHODS: {
+  id: string;
+  label: string;
+  price: number;
+}[] = [
+  { id: "ship-1", label: "Opzione 1", price: 5 },
+  { id: "ship-2", label: "Opzione 2", price: 10 },
+  { id: "ship-3", label: "Opzione 3", price: 15 },
+];
+export enum TcgSlug {
+  "dragon-ball-super" = "Dragon Ball Super",
+  "one-piece" = "One Piece",
+  "pokémon" = "Pokémon",
+  "pokemon" = "Pokémon",
+}

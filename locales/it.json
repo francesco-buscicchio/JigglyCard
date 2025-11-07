@@ -36,6 +36,7 @@
     "toast": "Iscrizione avvenuta con successo"
   },
   "startingFrom": "a partire da",
+  "soldOut": "esaurito",
   "privacy": "privacy",
   "cookies": "cookies",
   "terminiDiUtilizzo": "termini di utilizzo",
@@ -50,7 +51,17 @@
   "price": "Prezzo",
   "apply": "Applica",
   "showDetails": "vedi dettagli",
+  "resultFor": "Risultati per",
+  "allOf": "Tutti per",
+  "showAll": "Vedi tutti",
   "cart": "Carrello",
+  "support": {
+    "title": "Assistenza",
+    "mail": "Puoi contattarci per email a",
+    "message": "o per messaggio/whatsapp al",
+    "form": "Se preferisci, puoi compilare il form sottostante.",
+    "answer": "Riceverai una risposta / Ti risponderemo entro 48 ore."
+  },
   "routes": {
     "cart": "Carrello",
     "/carrello": "Carrello",
@@ -129,17 +140,26 @@
   "min": "Min",
   "max": "Max",
   "tag": {
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Excellent",
+    "Moderately Played": "Good",
+    "Played": "Played",
+    "Poor": "Poor",
+
+    "jp": "Giapponese",
     "it": "Italiano",
     "en": "Inglese",
-    "Near Mint": "Near Mint",
-    "Good": "Good",
-    "Poor": "Poor"
+    "de": "Tedesco"
   },
   "toast": {
     "cart": {
       "success": "Prodotto Aggiunto Al Carrello con Successo",
       "error": "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
       "overflow": "La quantità aggiunta al carrello è maggiore della quantità disponibile"
+    },
+    "checkout": {
+      "success": "Checkout Completato con Successo",
+      "error": "Per qualche problema tecnico il checkout non e' stato completato"
     }
   },
   "footerLinks": {
@@ -153,6 +173,8 @@
   "shippingInfo": "Informazioni di spedizione",
   "name": "Nome",
   "surname": "Cognome",
+  "message": "Messaggio",
+  "send": "Invia",
   "email": "Email",
   "nation": "Paese",
   "cap": "CAP",
@@ -194,5 +216,10 @@
   "creditCard": "Carta di credito",
   "wireTransfer": "Bonifico",
   "no_results": "Nessun risultato",
-  "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!"
+  "emptyCart": "Il tuo viaggio da allenatore non è ancora cominciato!",
+  "validation": {
+    "required": "Campo obbligatorio",
+    "invalidEmail": "Inserisci un indirizzo e-mail valido",
+    "invalidCAP": "Inserisci un CAP valido"
+  }
 }
