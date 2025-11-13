@@ -2,27 +2,26 @@
   <div class="flex flex-col items-center bg-accent-500 text-white py-30">
     <h2 class="mb-18">{{ t("whatsnew") }}</h2>
     <div class="flex w-[100vw] justify-center">
-      <button
-        @click="prev"
-        class="cursor-pointer mx-10 custom-button-prev"
-        :disabled="currentIndex === 0"
-      >
+      <button class="cursor-pointer mx-10 custom-button-prev">
         <Icon name="jig:arrow-left" size="50" />
       </button>
 
       <div class="flex w-[80vw] justify-center">
         <Swiper
+          :loop="true"
           :slidesPerView="3"
           space-between="100vw"
           :navigation="{
             nextEl: '.custom-button-next',
             prevEl: '.custom-button-prev',
           }"
+          :centered-slides="true"
           :modules="[Navigation, Parallax]"
           :speed="1000"
           :parallax="true"
           ref="swiperRef"
           @swiper="onSwiperUpdate"
+          @slideChange="onSlideChange"
         >
           <SwiperSlide
             v-for="(product, index) in productList"
@@ -43,11 +42,7 @@
         </Swiper>
       </div>
 
-      <button
-        @click="next"
-        class="cursor-pointer mx-10 custom-button-next"
-        :disabled="currentIndex + 3 >= props.products.length"
-      >
+      <button class="cursor-pointer mx-10 custom-button-next">
         <Icon name="jig:arrow-right" size="50" />
       </button>
     </div>
@@ -55,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductType } from "~/types/product.type";
+import type { ProductType } from "~/types/productType.type";
 import { Navigation, Parallax } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -74,25 +69,14 @@ const controlledSwiper = ref<Swiper | null>(null);
 
 const onSwiperUpdate = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
-  currentIndex.value = swiper.activeIndex;
+  currentIndex.value = swiper.realIndex;
 };
 
-const next = () => {
-  if (currentIndex.value + 3 < productList.value.length) {
-    currentIndex.value++;
-  }
-};
-
-const prev = () => {
-  if (currentIndex.value > 0) {
-    currentIndex.value--;
-  }
+const onSlideChange = (swiper: Swiper) => {
+  currentIndex.value = swiper.realIndex;
 };
 
 const isMiddle = (index: number) => {
-  const activeIndex = controlledSwiper?.value?.activeIndex || 0;
-  const slidesPerView = 3; // Numero di slide visibili per volta
-  const middleIndex = activeIndex + Math.floor(slidesPerView / 2);
-  return index === middleIndex;
+  return index === (controlledSwiper.value?.realIndex ?? 0);
 };
 </script>
