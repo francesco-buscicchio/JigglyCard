@@ -3,9 +3,9 @@
     <h2 class="mb-18">{{ t("whatsnew") }}</h2>
     <div class="flex w-[100vw] justify-center">
       <button
+        v-if="!isPrevDisabled"
         @click="prev"
         class="cursor-pointer mx-10 custom-button-prev"
-        :disabled="isPrevDisabled"
       >
         <Icon name="jig:arrow-left" size="50" />
       </button>
@@ -15,7 +15,7 @@
           :slidesPerView="3"
           :centered-slides="true"
           space-between="100vw"
-          :initial-slide="initialSlide"
+          :initial-slide="initialSlideIndex"
           :modules="[Parallax]"
           :speed="1000"
           :parallax="true"
@@ -43,9 +43,9 @@
       </div>
 
       <button
+        v-if="!isNextDisabled"
         @click="next"
         class="cursor-pointer mx-10 custom-button-next"
-        :disabled="isNextDisabled"
       >
         <Icon name="jig:arrow-right" size="50" />
       </button>
@@ -69,9 +69,7 @@ const props = defineProps({
 const currentIndex = ref(0);
 const productList = computed(() => props.products.slice(0, 9));
 const controlledSwiper = ref<Swiper | null>(null);
-const initialSlide = computed(() =>
-  productList.value.length > 1 ? 1 : 0
-);
+const initialSlideIndex = computed(() => 1);
 const lastSlideIndex = computed(() =>
   Math.max(productList.value.length - 1, 0)
 );
@@ -82,6 +80,11 @@ const isNextDisabled = computed(
 
 const onSwiperInit = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
+  if (swiper.activeIndex !== initialSlideIndex.value) {
+    swiper.slideTo(initialSlideIndex.value, 0);
+    currentIndex.value = initialSlideIndex.value;
+    return;
+  }
   currentIndex.value = swiper.activeIndex;
 };
 
