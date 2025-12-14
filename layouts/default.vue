@@ -62,12 +62,13 @@ const onClickItem = () => {
   isSearchOpen.value = false;
 };
 
-const closeSearch = (event: MouseEvent) => {
+const closeSearch = (event?: MouseEvent) => {
   if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
+    !event ||
+    (event.target instanceof HTMLElement &&
+      event.target.classList.contains("overlay-header"))
   ) {
-    isSearchOpen.value = !isSearchOpen.value;
+    isSearchOpen.value = false;
   }
   // Reset research
   productSearch.value = [];

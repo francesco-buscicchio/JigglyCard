@@ -50,6 +50,7 @@
       <div v-show="isSearchOpen" class="mt-4">
         <div class="relative">
           <input
+            v-model="inputSearch"
             type="text"
             :placeholder="$t('search') + '...'"
             @input="onSearchInput($event)"
@@ -83,7 +84,7 @@
               <AtomsButtonCTA
                 :text="t('showAll')"
                 type="text"
-                @click="goToSearch($event)"
+                @click="goToSearch"
               />
             </div>
           </div>
@@ -158,7 +159,7 @@ const emit = defineEmits([
 ]);
 
 const closeSearch = (event?: MouseEvent) => {
-  emit("closeSearch", event as MouseEvent);
+  emit("closeSearch", event);
 };
 
 const onSearchInput = (event: Event) => {
@@ -167,10 +168,22 @@ const onSearchInput = (event: Event) => {
   emit("search", target.value);
 };
 
-const goToSearch = (event?: MouseEvent) => {
-  closeSearch(event);
+const resetSearch = () => {
+  inputSearch.value = "";
+  emit("search", "");
+};
+
+const goToSearch = () => {
+  const searchTerm = inputSearch.value.trim();
+  if (!searchTerm) {
+    resetSearch();
+    closeSearch();
+    return;
+  }
+  closeSearch();
   activeIndex.value = null;
-  navigateTo(`/search/${inputSearch.value}`);
+  navigateTo(`/search/${searchTerm}`);
+  resetSearch();
 };
 
 const goToItem = (route: string, event: MouseEvent) => {
