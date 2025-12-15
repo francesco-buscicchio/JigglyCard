@@ -25,11 +25,11 @@
         <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
 
         <div v-if="!available">
-          <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+          <p class="text-2xl price-tag">{{ t("product.card.soldOut") }}</p>
         </div>
         <div v-else>
           <label class="text-xs text-center" for="price">
-            {{ t("startingFrom") }}
+            {{ t("product.card.startingFrom") }}
             <p class="ml-1 price-tag inline text-base xl:text-2xl">
               {{ price }} €
             </p>
@@ -38,7 +38,7 @@
 
         <AtomsButtonCTA
           :type="buttonCtaType"
-          :text="t('showDetails')"
+          :text="t('catalog.actions.showDetails')"
           class="mt-2"
           v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
         />

@@ -15,7 +15,9 @@
       <!-- Listing tags -->
       <div class="flex flex-col gap-8 mb-7">
         <div v-if="product.available === false">
-          <h2 class="price-tag text-center">{{ t("soldOut") }}</h2>
+          <h2 class="price-tag text-center">
+            {{ t("product.card.soldOut") }}
+          </h2>
         </div>
         <div v-else>
           <OrganismsProductsTags
@@ -30,7 +32,8 @@
 
         <MoleculesTextViewer>
           <template v-slot:content>
-            descrizione: {{ t("defaultDescription") }}
+            {{ t("product.hero.Description") }}:
+            {{ t("product.messages.defaultDescription") }}
           </template>
         </MoleculesTextViewer>
       </div>
@@ -58,7 +61,9 @@
 
               <div>
                 <div v-if="product.available === false">
-                  <h2 class="price-tag pt-6">{{ t("soldOut") }}</h2>
+                  <h2 class="price-tag pt-6">
+                    {{ t("product.card.soldOut") }}
+                  </h2>
                 </div>
                 <div v-else>
                   <OrganismsProductsTags
@@ -76,10 +81,10 @@
       <div class="xl:mx-[14vw] my-18">
         <MoleculesTextViewer>
           <template v-slot:title>
-            {{ t("productHero.Description") }}
+            {{ t("product.hero.Description") }}
           </template>
           <template v-slot:content>
-            {{ t("defaultDescription") }}
+            {{ t("product.messages.defaultDescription") }}
           </template>
         </MoleculesTextViewer>
       </div>
@@ -88,14 +93,14 @@
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
       v-show="!isDesktopView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
       v-show="isDesktopView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
@@ -104,7 +109,6 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
@@ -169,8 +173,10 @@ const setTags = (tagsStructure: TagStructure[]): void => {
 
 const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
+    console.log("Item trovato:", queryResult.hits[0]);
     const item = queryResult.hits[0];
     product.value = mapProductItem(item);
+    console.log("Product mappato:", mapProductItem(item));
   }
 };
 

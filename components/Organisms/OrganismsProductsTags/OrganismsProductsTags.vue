@@ -1,7 +1,9 @@
 <template>
   <div>
     <div>
-      <p class="mb-4 lg:mb-2">Lingua:</p>
+      <p class="mb-4 lg:mb-2">
+        {{ t("catalog.filters.language") }}:
+      </p>
       <div class="flex gap-3 flex-wrap">
         <div
           v-if="languages.length"
@@ -19,7 +21,9 @@
     </div>
 
     <div>
-      <p class="mb-4 lg:mb-2">Condizione:</p>
+      <p class="mb-4 lg:mb-2">
+        {{ t("catalog.filters.condition") }}:
+      </p>
       <div class="flex gap-3 flex-wrap">
         <div
           v-if="conditions.length"
@@ -46,6 +50,8 @@
 
 <script setup lang="ts">
 import type { Variant } from "~/types/variant.type";
+
+const { t } = useI18n();
 
 const selectedLanguage = ref<string | null>(null);
 const selectedCondition = ref<string | null>(null);

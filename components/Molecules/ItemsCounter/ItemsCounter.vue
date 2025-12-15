@@ -1,5 +1,5 @@
 <template>
-  <p>{{ `${startItem}-${endItem} ${t("of")} ${totalItems}` }}</p>
+  <p>{{ `${startItem}-${endItem} ${t("catalog.listing.of")} ${totalItems}` }}</p>
 </template>
 
 <script lang="ts" setup>
