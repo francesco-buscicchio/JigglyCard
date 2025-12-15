@@ -42,7 +42,15 @@
             @click="goToItem(button.to, $event)"
             :aria-label="button.arialabel"
           >
-            <Icon :name="button.icon" size="18" />
+            <span class="relative inline-flex">
+              <Icon :name="button.icon" size="18" />
+              <span
+                v-if="button.to === PATH.CART && cartCount > 0"
+                class="cart-badge"
+              >
+                {{ cartCount }}
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -141,9 +149,11 @@ import useMenu from "~/data/menu";
 import { headerButtons } from "~/data/headerButtons";
 import type { Hit } from "~/interface/hit.interface";
 import type { HeaderProps } from "~/types/headerPropsType.type";
+import { useCartCount } from "~/composables/useCartCount";
 
 const { t } = useI18n();
 const inputSearch = ref("");
+const { cartCount } = useCartCount();
 
 const props = defineProps<{
   header: HeaderProps;
@@ -206,5 +216,20 @@ const headerMenu = ref(await useMenu());
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9999px;
+  background-color: #f04438;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
 }
 </style>

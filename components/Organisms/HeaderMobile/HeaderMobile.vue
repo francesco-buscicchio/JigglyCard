@@ -31,7 +31,12 @@
             <Icon name="jig:cerca-accent" size="25" />
           </button>
           <button class="focus:outline-none" @click="goTo(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25" />
+            <span class="relative inline-flex">
+              <Icon name="jig:cart-accent" size="25" />
+              <span v-if="cartCount > 0" class="cart-badge">
+                {{ cartCount }}
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -104,10 +109,12 @@
 import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
 import { goTo } from "@/utils/navigationUtils";
+import { useCartCount } from "~/composables/useCartCount";
 
 const isMenuOpen = ref(false);
 const inputSearch = ref("");
 const { t } = useI18n();
+const { cartCount } = useCartCount();
 
 const props = defineProps<{
   productSearch: Hit[];
@@ -170,3 +177,20 @@ const onItemClick = (event: Event) => {
   emit("itemClick");
 };
 </script>
+
+<style scoped>
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9999px;
+  background-color: #f04438;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+</style>
