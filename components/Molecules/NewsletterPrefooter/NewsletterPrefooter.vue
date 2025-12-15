@@ -10,7 +10,7 @@
     <p>{{ t("newsletter.short") }}</p>
     <MoleculesContainerInput
       status="newsletter"
-      placeholder="e-mail"
+      :placeholder="t('newsletter.emailPlaceholder')"
       @inputUpdate="email = $event"
       :notValidMessage="t('newsletter.emailValidation')"
       :isValid="isValidEmail"
@@ -40,7 +40,7 @@
         <div class="w-[70%]">
           <MoleculesContainerInput
             status="newsletter"
-            placeholder="e-mail"
+            :placeholder="t('newsletter.emailPlaceholder')"
             @inputUpdate="email = $event"
             :notValidMessage="t('newsletter.emailValidation')"
             :isValid="isValidEmail"
@@ -109,7 +109,7 @@ const sendEmailToSubscriber = (email: string, value: string) => {
   sendMail({
     email: email,
     name: email,
-    subject: "Subscription to Jigglycard newsletter successful",
+    subject: t("emails.newsletter.subscriptionSubject"),
     contentValue: value,
   });
 };
@@ -117,8 +117,8 @@ const sendEmailToSubscriber = (email: string, value: string) => {
 const sendEmailToBackOffice = (value: string) => {
   sendMail({
     email: config.public.ADMIN_MAIL,
-    name: "Jigglycard Store",
-    subject: "Subscription to Jigglycard newsletter successful",
+    name: t("emails.newsletter.storeName"),
+    subject: t("emails.newsletter.adminSubject"),
     contentValue: value,
   });
 };

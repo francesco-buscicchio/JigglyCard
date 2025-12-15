@@ -1,6 +1,6 @@
 <template>
   <div class="mx-5 py-4">
-    <h5>{{ t("shippingSection.shippingMethod") }}</h5>
+    <h5>{{ t("cart.shipping.heading") }}</h5>
 
     <div class="my-4">
       <AtomsRadioButton
@@ -11,30 +11,30 @@
         :label="SHIPPING_METHOD_STANDARD.label"
       />
       <p class="text-xs py-3">
-        {{ t("shippingSection.message") }}
+        {{ t("cart.shipping.note") }}
       </p>
     </div>
 
     <div class="border-t-[2px] border-neutral-200 py-4">
       <div class="flex justify-between" v-if="couponData.value > 0">
-        <p>Coupon: {{ couponData.name }}</p>
+        <p>{{ t("cart.shipping.couponLabel") }}: {{ couponData.name }}</p>
         <p>-{{ couponData.value }} €</p>
       </div>
       <div v-if="couponData.value > 0">
         <AtomsButtonCTA
           type="underline-text"
-          text="Rimuovi coupon"
+          :text="t('cart.shipping.removeCoupon')"
           @click="removeCoupon"
         />
       </div>
       <div class="flex justify-between">
-        <p class="">{{ t("shippingSection.total") }}</p>
+        <p class="">{{ t("cart.shipping.total") }}</p>
         <p class="price-tag">{{ total }} €</p>
       </div>
     </div>
     <!-- Codice promo -->
     <div class="mb-12">
-      <p class="mb-2">{{ t("shippingSection.couponCodeQuestion") }}</p>
+      <p class="mb-2">{{ t("cart.shipping.couponQuestion") }}</p>
       <div class="lg:flex w-full lg:gap-3 lg:items-top lg:justify-center">
         <div class="mb-2 lg:mb-0 flex-1">
           <MoleculesContainerInput
@@ -58,12 +58,12 @@
     <div class="flex flex-col gap-y-4">
       <AtomsButtonCTA
         type="primary"
-        :text="t('shippingSection.buyCTA')"
+        :text="t('cart.shipping.buyCta')"
         @button-clicked="goTo(PATH.CHECKOUT)"
       />
       <AtomsButtonCTA
         type="underline-text"
-        :text="t('shippingSection.goBackProducts')"
+        :text="t('cart.shipping.back')"
         @button-clicked="goBack"
       />
     </div>
@@ -71,11 +71,11 @@
     <div class="my-16">
       <MoleculesTextViewer>
         <template v-slot:title>
-          {{ t("needAssistance") }}
+          {{ t("cart.help.title") }}
         </template>
         <template v-slot:content>
           <!-- TODO mettere descrizione corretta -->
-          {{ t("defaultDescription") }}
+          {{ t("product.messages.defaultDescription") }}
         </template>
       </MoleculesTextViewer>
     </div>
@@ -117,12 +117,12 @@ const removeCoupon = () => {
 };
 
 const placeholder = computed(() => {
-  return isDesktopView.value ? "XXXX" : t("shippingSection.couponCode");
+  return isDesktopView.value ? "XXXX" : t("cart.shipping.couponPlaceholder");
 });
 const codeApply = computed(() => {
   return isDesktopView.value
-    ? t("shippingSection.codeApplyWeb")
-    : t("shippingSection.codeApply");
+    ? t("cart.shipping.applyDesktop")
+    : t("cart.shipping.apply");
 });
 
 // TODO: rendere di default l'opzione standard

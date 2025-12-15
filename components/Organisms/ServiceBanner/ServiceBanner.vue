@@ -86,25 +86,25 @@ const { t } = useI18n();
 const isMobileView = isMobile();
 const sections = [
   {
-    title: t("serviceHomepage.FastShipping"),
+    title: t("home.service.fastShipping.title"),
     sections: [
-      { value: t("serviceHomepage.FastShippingDescription"), link: "" },
+      { value: t("home.service.fastShipping.description"), link: "" },
     ],
     imgUrl: "jig:truck",
   },
   {
-    title: t("serviceHomepage.Prices"),
-    sections: [t("serviceHomepage.PricesDescription")],
+    title: t("home.service.prices.title"),
+    sections: [t("home.service.prices.description")],
     imgUrl: "jig:prices",
   },
   {
-    title: t("serviceHomepage.Security"),
-    sections: [t("serviceHomepage.SecurityDescription")],
+    title: t("home.service.security.title"),
+    sections: [t("home.service.security.description")],
     imgUrl: "jig:security",
   },
   {
-    title: t("serviceHomepage.Support"),
-    sections: [t("serviceHomepage.SupportDescription")],
+    title: t("home.service.support.title"),
+    sections: [t("home.service.support.description")],
     imgUrl: "jig:support",
   },
 ];

@@ -2,7 +2,7 @@
   <div class="lg:max-w-158 w-full px-5">
     <div class="lg:flex w-full gap-4">
       <div class="mb-4 w-full">
-        <p class="mb-1">{{ t("name") }}</p>
+        <p class="mb-1">{{ t("forms.fields.name") }}</p>
         <AtomsInputText
           :status="
             formErrors.name ? 'error' : formValues.name ? 'success' : 'default'
@@ -16,7 +16,7 @@
       </div>
 
       <div class="mb-4 w-full">
-        <p class="mb-1">{{ t("surname") }}</p>
+        <p class="mb-1">{{ t("forms.fields.surname") }}</p>
         <AtomsInputText
           :status="
             formErrors.surname
@@ -35,7 +35,7 @@
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ t("email") }}</p>
+      <p class="mb-1">{{ t("forms.fields.email") }}</p>
       <AtomsInputText
         :status="
           formErrors.email ? 'error' : formValues.email ? 'success' : 'default'
@@ -49,7 +49,7 @@
     </div>
 
     <div class="mb-4 mr-2">
-      <p class="mb-1">{{ t("message") }}</p>
+      <p class="mb-1">{{ t("forms.fields.message") }}</p>
       <AtomsInputText
         :status="
           formErrors.message
@@ -69,7 +69,7 @@
 
     <div class="w-40 mx-auto lg:mx-0">
       <AtomsButtonCTA
-        :text="t('send')"
+        :text="t('forms.actions.submit')"
         :type="isFormValid === true ? 'primary' : 'disabled'"
         @click="confirmForm"
       />
@@ -115,9 +115,9 @@ function validateField(field: keyof FormValues) {
   const value = formValues[field].trim();
 
   if (!value) {
-    formErrors[field] = t("validation.required");
+    formErrors[field] = t("forms.validation.required");
   } else if (field === "email" && !isValidEmail(value)) {
-    formErrors.email = t("validation.invalidEmail");
+    formErrors.email = t("forms.validation.invalidEmail");
   } else {
     formErrors[field] = "";
   }
@@ -163,7 +163,7 @@ const sendEmailToCustomer = (email: string, name: string, value: string) => {
   sendMail({
     email,
     name,
-    subject: "Support Ticket",
+    subject: t("emails.support.subject"),
     contentValue: value,
   });
 };
@@ -171,8 +171,8 @@ const sendEmailToCustomer = (email: string, name: string, value: string) => {
 const sendEmailToBackOffice = (email: string, name: string, value: string) => {
   sendMail({
     email: config.public.ADMIN_MAIL,
-    name: "Jigglycard Store",
-    subject: `Support Ticket From: ${name} - Mail: ${email}`,
+    name: t("emails.newsletter.storeName"),
+    subject: t("emails.support.adminSubject", { name, email }),
     contentValue: value,
   });
 };

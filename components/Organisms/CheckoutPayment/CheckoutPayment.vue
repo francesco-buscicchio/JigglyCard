@@ -5,7 +5,7 @@
     :trigger-key="toastKey"
   />
   <div class="max-w-[420px]">
-    <h5 class="mb-2">{{ t("paymentMethods") }}</h5>
+    <h5 class="mb-2">{{ t("payments.methodsTitle") }}</h5>
 
     <div v-if="clientSecret">
       <StripeElements
@@ -27,7 +27,7 @@
         @click="confirmAndPay"
         :type="isCheckoutValid ? 'primary' : 'disabled'"
         :class="['rounded']"
-        :text="t('confirmAndPay')"
+        :text="t('checkout.actions.confirmAndPay')"
       />
     </div>
   </div>

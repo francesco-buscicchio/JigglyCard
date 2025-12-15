@@ -3,7 +3,7 @@
     class="lg:bg-accent-50 lg:rounded-lg lg:w-[30vw] lg:max-w-[420px] lg:p-6"
   >
     <div class="border-b pb-2">
-      <h5>{{ t("cartSummary") }}</h5>
+      <h5>{{ t("cart.summary.title") }}</h5>
     </div>
 
     <div
@@ -21,12 +21,12 @@
     </div>
 
     <div class="flex justify-between pt-2">
-      <p>{{ t("shipping") }}</p>
+      <p>{{ t("cart.summary.shipping") }}</p>
       <p>{{ shippingCost }}</p>
     </div>
 
     <div class="flex justify-between pt-2 font-bold border-t mt-2">
-      <p class="bold text-lg">{{ t("total") }}</p>
+      <p class="bold text-lg">{{ t("cart.summary.total") }}</p>
       <p class="bold text-lg">{{ finalTotal }} €</p>
     </div>
   </div>
@@ -63,6 +63,8 @@ const finalTotal = computed(() => {
 });
 
 const shippingCost = computed(() => {
-  return props.shippingCost > 0 ? `${props.shippingCost} €` : t("gratis");
+  return props.shippingCost > 0
+    ? `${props.shippingCost} €`
+    : t("cart.summary.free");
 });
 </script>

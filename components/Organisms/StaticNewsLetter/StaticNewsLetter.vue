@@ -19,7 +19,7 @@
       <div class="mt-6 w-full flex flex-col gap-y-4">
         <MoleculesContainerInput
           status="default"
-          placeholder="e-mail"
+          :placeholder="t('newsletter.emailPlaceholder')"
           @inputUpdate="email = $event"
         />
         <AtomsButtonCTA
@@ -76,17 +76,17 @@ const mailAction = async () => {
   sendMail({
     email: email.value,
     name: email.value,
-    subject: "Subscription to Jigglycard newsletter successful",
+    subject: t("emails.newsletter.subscriptionSubject"),
     contentValue: newsletterToCustomer(userName),
-  }).then((val) => {
+  }).then(() => {
     emit("mailSended");
   });
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: "jigglycard@gmail.com",
-    name: "Jigglycard Store",
-    subject: "Subscription to Jigglycard newsletter successful",
+    email: config.public.ADMIN_MAIL,
+    name: t("emails.newsletter.storeName"),
+    subject: t("emails.newsletter.adminSubject"),
     contentValue: newsletterToAdmin(userName, email.value),
   });
 

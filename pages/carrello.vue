@@ -2,7 +2,7 @@
   <div class="gap-b-4 flex flex-col px-4">
     <MoleculesBreadcrumb />
   </div>
-  <h1 class="text-accent-500 text-center pb-8">{{ t("cart") }}</h1>
+  <h1 class="text-accent-500 text-center pb-8">{{ t("cart.title") }}</h1>
   <div v-if="products.length > 0">
     <div class="lg:flex lg:gap-20 lg:mx-20">
       <div class="lg:flex-1">
@@ -50,18 +50,26 @@
   </div>
   <div v-else class="w-full px-4">
     <h5 class="text-center">
-      {{ "Il tuo viaggio da allenatore non è ancora cominciato!" }}
+      {{ t("cart.empty") }}
     </h5>
   </div>
   <OrganismsProductCarouselWeb
     v-if="isDesktopView"
-    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :title="
+      dealsProducts.length > 0
+        ? t('product.messages.suggested')
+        : t('cart.startExploring')
+    "
     :products="dealsProducts"
     colorScheme="lightHome"
   />
   <OrganismsProductCarousel
     v-if="isMobileView"
-    :title="dealsProducts.length > 0 ? t('suggested') : 'Inizia da qui'"
+    :title="
+      dealsProducts.length > 0
+        ? t('product.messages.suggested')
+        : t('cart.startExploring')
+    "
     :products="dealsProducts"
     colorScheme="lightHome"
   />

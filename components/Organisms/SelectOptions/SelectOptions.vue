@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="pb-2">{{ t("shippingMethod") }}</h5>
+    <h5 class="pb-2">{{ t("cart.shipping.heading") }}</h5>
     <div v-for="(option, index) in shippingOptions" :key="index" class="py-1">
       <div class="flex items-center cursor-pointer">
         <AtomsRadioButton
