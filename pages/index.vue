@@ -58,7 +58,6 @@ import { mapProductItem } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
 
 const { t } = useI18n();
-const config = useRuntimeConfig();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
@@ -68,44 +67,51 @@ const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 
 onMounted(async () => {
-  //todo: cercare una soluzione per un'unica query
-  let results = await client.searchSingleIndex({
-    indexName: PRODUCTS_COLLECTION,
-    searchParams: {
-      query: HIGHLIGHTS_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
-  setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: WHATSNEW_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
-  setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: DEALS_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
-  setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: HEROBANNER_TAG,
-      hitsPerPage: 3,
-      filters: "hasThumbnailImage:true",
-    },
-  });
-  setProducts(results);
+  await fetchHomeSections();
 });
+
+async function fetchHomeSections() {
+  try {
+    const tagRequests = [
+      {
+        tag: HIGHLIGHTS_TAG,
+        hitsPerPage: 5,
+        filters: "available:true",
+        indexName: PRODUCTS_COLLECTION,
+      },
+      {
+        tag: WHATSNEW_TAG,
+        hitsPerPage: 5,
+        filters: "available:true",
+      },
+      {
+        tag: DEALS_TAG,
+        hitsPerPage: 5,
+        filters: "available:true",
+      },
+      {
+        tag: HEROBANNER_TAG,
+        hitsPerPage: 3,
+        filters: "hasThumbnailImage:true",
+      },
+    ];
+
+    const { results } = await client.search({
+      requests: tagRequests.map(
+        ({ tag, hitsPerPage, filters, indexName = "ecommerce" }) => ({
+          indexName,
+          query: tag,
+          hitsPerPage,
+          filters,
+        })
+      ),
+    });
+
+    results.forEach((result: any) => setProducts(result));
+  } catch (error) {
+    console.error("Failed to fetch home sections", error);
+  }
+}
 
 function setProducts(queryResult: any) {
   let heroBannerTemp: ProductType[] = [];
