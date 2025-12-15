@@ -169,8 +169,10 @@ const setTags = (tagsStructure: TagStructure[]): void => {
 
 const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
+    console.log("Item trovato:", queryResult.hits[0]);
     const item = queryResult.hits[0];
     product.value = mapProductItem(item);
+    console.log("Product mappato:", mapProductItem(item));
   }
 };
 
