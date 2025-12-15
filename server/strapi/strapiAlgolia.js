@@ -25,9 +25,9 @@ const variantsIndex = strapiClient.collection("variants");
 const setIndex = strapiClient.collection("sets");
 const categoriesIndex = strapiClient.collection("categories");
 
-await syncAlgoliaToStrapiProducts();
-await syncAlgoliaToStrapiSets();
-await syncAlgoliaMassimoMinimo();
+//await syncAlgoliaToStrapiProducts();
+//await syncAlgoliaToStrapiSets();
+//await syncAlgoliaMassimoMinimo();
 await syncAlgoliaToStrapiMenu();
 
 async function syncAlgoliaMassimoMinimo() {
@@ -269,7 +269,10 @@ async function getCategory(categoryID) {
 
 async function getCategories() {
   return await categoriesIndex.find({
-    populate: "*",
+    populate: {
+      image: { fields: ["url"] },
+      tcg: { fields: ["name", "slug"] },
+    },
   });
 }
 
