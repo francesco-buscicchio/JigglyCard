@@ -6,17 +6,19 @@
       class="error-image"
     />
     <h1 v-if="isDevMode">{{ error?.message }}</h1>
-    <h1 class="pt-10">404 - Pagina Non Trovata</h1>
+    <h1 class="pt-10">{{ t("common.errors.notFoundTitle") }}</h1>
     <p class="text-l">
-      Sembra che tu ti sia perso nel bosco delle illusioni... cerca di ritrovare
-      la strada!
+      {{ t("common.errors.notFoundDescription") }}
     </p>
-    <nuxt-link to="/" class="home-link">Torna alla Home</nuxt-link>
+    <nuxt-link to="/" class="home-link">
+      {{ t("common.errors.backHome") }}
+    </nuxt-link>
   </div>
 </template>
 
 <script setup lang="ts">
 import type { NuxtError } from "#app";
+const { t } = useI18n();
 
 const props = defineProps({
   error: Object as () => NuxtError,

@@ -11,10 +11,10 @@
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
         <div v-if="!available">
-          <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+          <p class="text-2xl price-tag">{{ t("product.card.soldOut") }}</p>
         </div>
         <div v-else>
-          <label for="price">{{ t("startingFrom") }}</label>
+          <label for="price">{{ t("product.card.startingFrom") }}</label>
           <p class="text-2xl price-tag">{{ price }} €</p>
         </div>
       </div>
@@ -22,7 +22,7 @@
     <div class="w-full">
       <AtomsButtonCTA
         :type="buttonCtaType"
-        :text="t('showDetails')"
+        :text="t('catalog.actions.showDetails')"
         v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
       />
     </div>

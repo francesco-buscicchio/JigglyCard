@@ -4,17 +4,11 @@
       <MoleculesHeroBanner :slides="setHeroBanner" />
     </div>
 
-    <OrganismsProductCarouselWeb
-      v-if="isDesktopView"
-      :title="t('highlights')"
+    <OrganismsResponsiveProductCarousel
+      :title="t('home.sections.highlights')"
       :products="evidenza"
-      colorScheme="lightHome"
-    />
-    <OrganismsProductCarousel
-      v-if="isMobileView"
-      :title="t('highlights')"
-      :products="evidenza"
-      colorScheme="lightHome"
+      colorSchemeDesktop="lightHome"
+      colorSchemeMobile="lightHome"
     />
     <OrganismsNewsCarouselDesktop
       v-if="isDesktopView"
@@ -23,23 +17,14 @@
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="t('whatsnew')"
+      :title="t('home.sections.whatsNew')"
       :products="novita"
       colorScheme="primaryHome"
     />
 
-    <OrganismsProductCarousel
-      v-if="isMobileView"
-      :title="t('deals')"
+    <OrganismsResponsiveProductCarousel
+      :title="t('home.sections.deals')"
       :products="offerte"
-      colorScheme="lightHome"
-    />
-
-    <OrganismsProductCarouselWeb
-      v-if="isDesktopView"
-      :title="t('deals')"
-      :products="offerte"
-      colorScheme="lightHome"
     />
 
     <OrganismsServiceBanner />
@@ -56,9 +41,9 @@ import {
 } from "~/data/const";
 import { mapProductItem } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
+import { fetchTaggedProducts } from "~/utils/fetchTaggedProducts";
 
 const { t } = useI18n();
-const config = useRuntimeConfig();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
@@ -68,41 +53,20 @@ const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 
 onMounted(async () => {
-  //todo: cercare una soluzione per un'unica query
-  let results = await client.searchSingleIndex({
+  let results = await fetchTaggedProducts(client, HIGHLIGHTS_TAG, {
     indexName: PRODUCTS_COLLECTION,
-    searchParams: {
-      query: HIGHLIGHTS_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
   });
   setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: WHATSNEW_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
+
+  results = await fetchTaggedProducts(client, WHATSNEW_TAG);
   setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: DEALS_TAG,
-      hitsPerPage: 5,
-      filters: "available:true",
-    },
-  });
+
+  results = await fetchTaggedProducts(client, DEALS_TAG);
   setProducts(results);
-  results = await client.searchSingleIndex({
-    indexName: "ecommerce",
-    searchParams: {
-      query: HEROBANNER_TAG,
-      hitsPerPage: 3,
-      filters: "hasThumbnailImage:true",
-    },
+
+  results = await fetchTaggedProducts(client, HEROBANNER_TAG, {
+    hitsPerPage: 3,
+    filters: "hasThumbnailImage:true",
   });
   setProducts(results);
 });

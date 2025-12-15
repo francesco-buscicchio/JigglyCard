@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { usePolicyLinks } from "~/composables/usePolicyLinks";
 import type { Hit } from "~/interface/hit.interface";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 const client = useAlgolia();
@@ -48,11 +49,7 @@ const noResults = computed(
   () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
 );
 
-const policyLinks = [
-  { label: t("privacy"), link: "/privacy-policy" },
-  { label: t("cookies"), link: "/cookies" },
-  { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
-];
+const policyLinks = usePolicyLinks();
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
@@ -62,12 +59,13 @@ const onClickItem = () => {
   isSearchOpen.value = false;
 };
 
-const closeSearch = (event: MouseEvent) => {
+const closeSearch = (event?: MouseEvent) => {
   if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
+    !event ||
+    (event.target instanceof HTMLElement &&
+      event.target.classList.contains("overlay-header"))
   ) {
-    isSearchOpen.value = !isSearchOpen.value;
+    isSearchOpen.value = false;
   }
   // Reset research
   productSearch.value = [];
