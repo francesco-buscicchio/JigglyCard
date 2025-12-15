@@ -1,3 +1,5 @@
+import type { Variant } from "./variant.type";
+
 export type ProductType = {
   id: string;
   productName: string;
@@ -8,4 +10,5 @@ export type ProductType = {
   tcg: string;
   category: string;
   available: boolean;
+  variants: Variant[];
 };

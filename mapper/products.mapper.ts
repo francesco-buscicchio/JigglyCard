@@ -1,3 +1,5 @@
+import type { Variant } from "~/types/variant.type";
+
 export function mapProducts(algoliaProducts: any) {
   const products = [];
   for (let hit of algoliaProducts.hits) {
@@ -24,5 +26,19 @@ export function mapProductItem(algoliaProductsItem: any) {
     category: algoliaProductsItem.type,
     id: algoliaProductsItem.objectID,
     available: algoliaProductsItem.available,
+    variants: mapVariants(algoliaProductsItem.variantsDetails),
   };
+}
+
+function mapVariants(variants: any): Variant[] {
+  if (!Array.isArray(variants)) return [];
+
+  return variants.map((variant) => ({
+    id: String(variant.id ?? ""),
+    documentId: variant.documentId ?? "",
+    language: variant.language ?? "",
+    condition: variant.condition ?? "",
+    price: Number(variant.price ?? 0),
+    quantity: Number(variant.quantity ?? 0),
+  }));
 }
