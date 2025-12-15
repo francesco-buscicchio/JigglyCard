@@ -11,7 +11,7 @@
           @click="goToItem(PATH.HOME, $event)"
           class="text-accent-950 cursor-pointer"
         >
-          Jigglycard
+          {{ t("brand.name") }}
         </h2>
 
         <nav class="flex gap-x-6">
@@ -52,7 +52,7 @@
           <input
             v-model="inputSearch"
             type="text"
-            :placeholder="$t('search') + '...'"
+            :placeholder="$t('catalog.controls.search') + '...'"
             @input="onSearchInput($event)"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
           />
@@ -82,7 +82,7 @@
 
             <div class="flex justify-center w-full lg:col-span-3">
               <AtomsButtonCTA
-                :text="t('showAll')"
+                :text="t('catalog.actions.showAll')"
                 type="text"
                 @click="goToSearch"
               />
@@ -94,7 +94,7 @@
           <p
             class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
           >
-            {{ t("no_results") }}
+            {{ t("common.messages.noResults") }}
           </p>
         </div>
       </div>
@@ -123,7 +123,9 @@
             class="mt-6 cursor-pointer hover:underline"
             @click="goToItem(headerMenu[activeIndex].to, $event)"
           >
-            <p class="text-center text-accent-950">Tutti i prodotti</p>
+            <p class="text-center text-accent-950">
+              {{ t("layout.header.allProductsLink") }}
+            </p>
           </div>
         </div>
       </div>

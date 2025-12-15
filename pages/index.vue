@@ -6,13 +6,13 @@
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="t('highlights')"
+      :title="t('home.sections.highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="t('highlights')"
+      :title="t('home.sections.highlights')"
       :products="evidenza"
       colorScheme="lightHome"
     />
@@ -23,21 +23,21 @@
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="t('whatsnew')"
+      :title="t('home.sections.whatsNew')"
       :products="novita"
       colorScheme="primaryHome"
     />
 
     <OrganismsProductCarousel
       v-if="isMobileView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
 
     <OrganismsProductCarouselWeb
       v-if="isDesktopView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
     />

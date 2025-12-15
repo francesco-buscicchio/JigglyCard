@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-7 lg:items-center p-6">
     <div v-for="link of links">
       <AtomsLink :to="link.route" class="footer-link">
-        {{ $t(`footerLinks.${link.link}`) }}</AtomsLink
+        {{ $t(`layout.footer.links.${link.link}`) }}</AtomsLink
       >
     </div>
   </div>

@@ -23,11 +23,11 @@
       <p class="xl:text-lg lg:text-base">{{ product.code }}</p>
       <p class="xl:text-lg lg:text-base">{{ product.expansion }}</p>
       <div v-if="!product.available">
-        <p class="text-2xl price-tag">{{ t("soldOut") }}</p>
+        <p class="text-2xl price-tag">{{ t("product.card.soldOut") }}</p>
       </div>
       <div v-else>
         <label class="lg:text-xs xl:text-sm" for="product.price"
-          >{{ t("startingFrom") }}
+          >{{ t("product.card.startingFrom") }}
         </label>
         <p class="ml-5 font-bold inline lg:text-2xl xl:text-3xl">
           {{ product.price }} €
@@ -42,7 +42,7 @@
 
     <AtomsButtonCTA
       type="secondary"
-      :text="t('showDetails')"
+      :text="t('catalog.actions.showDetails')"
       v-on:button-clicked="
         navigateTo(`/${product.tcg}/${product.category}/${product.id}`)
       "

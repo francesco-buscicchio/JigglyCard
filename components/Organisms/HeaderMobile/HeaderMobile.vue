@@ -18,7 +18,7 @@
             class="text-accent-950 text-center cursor-pointer"
             @click="goTo(PATH.HOME)"
           >
-            Jigglycard
+            {{ t("brand.name") }}
           </h2>
         </div>
 
@@ -42,7 +42,7 @@
             v-model="inputSearch"
             type="text"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-            :placeholder="t('search') + '...'"
+            :placeholder="t('catalog.controls.search') + '...'"
             @input="onSearchInput($event)"
           />
           <span
@@ -68,7 +68,7 @@
 
             <div class="flex justify-center w-full">
               <AtomsButtonCTA
-                :text="t('showAll')"
+                :text="t('catalog.actions.showAll')"
                 type="text"
                 @click="goToSearch"
               />
@@ -80,7 +80,7 @@
           <p
             class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
           >
-            {{ t("no_results") }}
+            {{ t("common.messages.noResults") }}
           </p>
         </div>
       </div>

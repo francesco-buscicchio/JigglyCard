@@ -49,9 +49,9 @@ const noResults = computed(
 );
 
 const policyLinks = [
-  { label: t("privacy"), link: "/privacy-policy" },
-  { label: t("cookies"), link: "/cookies" },
-  { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
+  { label: t("common.links.privacy"), link: "/privacy-policy" },
+  { label: t("common.links.cookies"), link: "/cookies" },
+  { label: t("common.links.terms"), link: "/terms-of-use" },
 ];
 
 const toggleSearch = () => {

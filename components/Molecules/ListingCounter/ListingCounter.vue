@@ -2,9 +2,9 @@
   <div class="flex justify-center">
     <p>
       {{
-        `${$t("listingCounter.youHaveViewed")} ${startItem}-${endItem} ${$t(
-          "listingCounter.of"
-        )} ${totalItems} ${$t("listingCounter.products")}`
+        `${$t("catalog.listing.counter.viewed")} ${startItem}-${endItem} ${$t(
+          "catalog.listing.counter.of"
+        )} ${totalItems} ${$t("catalog.listing.counter.products")}`
       }}
     </p>
   </div>
