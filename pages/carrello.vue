@@ -53,25 +53,13 @@
       {{ t("cart.empty") }}
     </h5>
   </div>
-  <OrganismsProductCarouselWeb
-    v-if="isDesktopView"
+  <OrganismsResponsiveProductCarousel
     :title="
       dealsProducts.length > 0
         ? t('product.messages.suggested')
         : t('cart.startExploring')
     "
     :products="dealsProducts"
-    colorScheme="lightHome"
-  />
-  <OrganismsProductCarousel
-    v-if="isMobileView"
-    :title="
-      dealsProducts.length > 0
-        ? t('product.messages.suggested')
-        : t('cart.startExploring')
-    "
-    :products="dealsProducts"
-    colorScheme="lightHome"
   />
 </template>
 
@@ -80,6 +68,7 @@ import { type CartConfig } from "~/composables/useCart";
 import { DEALS_TAG } from "~/data/const";
 import { mapProducts } from "~/mapper/products.mapper";
 import type { ProductType } from "~/types/productType.type";
+import { fetchTaggedProducts } from "~/utils/fetchTaggedProducts";
 
 const isDesktopView = isDesktop();
 const isMobileView = isMobile();
@@ -106,14 +95,6 @@ const setDeals = (queryResult: any) => {
   dealsProducts.value = mapProducts(queryResult);
 };
 
-const dealsProductsResult = await client.searchSingleIndex({
-  indexName: "ecommerce",
-  searchParams: {
-    query: DEALS_TAG,
-    hitsPerPage: 5,
-    filters: "available:true",
-  },
-});
-
+const dealsProductsResult = await fetchTaggedProducts(client, DEALS_TAG);
 setDeals(dealsProductsResult);
 </script>

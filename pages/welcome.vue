@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { usePolicyLinks } from "~/composables/usePolicyLinks";
 import facebookLogo from "~/assets/icons/facebook.svg";
 import instagramLogo from "~/assets/icons/instagram.svg";
 import youtubeLogo from "~/assets/icons/youtube.svg";
@@ -82,9 +83,5 @@ const footerData = {
   ],
 };
 
-const policyLinks = [
-  { label: t("common.links.privacy"), link: "/privacy-policy" },
-  { label: t("common.links.cookies"), link: "/cookies" },
-  { label: t("common.links.terms"), link: "/terms-of-use" },
-];
+const policyLinks = usePolicyLinks();
 </script>

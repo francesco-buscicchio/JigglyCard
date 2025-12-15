@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
+import { usePolicyLinks } from "~/composables/usePolicyLinks";
 import type { Hit } from "~/interface/hit.interface";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 const client = useAlgolia();
@@ -48,11 +49,7 @@ const noResults = computed(
   () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
 );
 
-const policyLinks = [
-  { label: t("common.links.privacy"), link: "/privacy-policy" },
-  { label: t("common.links.cookies"), link: "/cookies" },
-  { label: t("common.links.terms"), link: "/terms-of-use" },
-];
+const policyLinks = usePolicyLinks();
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
