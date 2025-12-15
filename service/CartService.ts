@@ -84,6 +84,12 @@ class CartService {
     localStorage.setItem("jiggly_cart_session_id", sessionID);
   }
 
+  private notifyCartUpdated() {
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("cart:update"));
+    }
+  }
+
   public async getCart() {
     return this.cartService.getCartById(this.jiggly_cart_id);
   }
@@ -108,6 +114,7 @@ class CartService {
           quantity: JSON.stringify(quantityData),
         });
         this.setToken(result, sessionID);
+        this.notifyCartUpdated();
         return {
           text: "toast.cart.success",
           type: ToastMessageType.SUCCESS,
@@ -149,6 +156,7 @@ class CartService {
           }
           cartData.quantity = JSON.stringify(quantity);
           await this.cartService.updateCart(this.jiggly_cart_id, cartData);
+          this.notifyCartUpdated();
           return {
             text: "toast.cart.success",
             type: ToastMessageType.SUCCESS,
@@ -193,7 +201,12 @@ class CartService {
     const newCartData = {
       quantity: JSON.stringify(quantityData),
     };
-    return await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
+    const updated = await this.cartService.updateCart(
+      this.jiggly_cart_id,
+      newCartData
+    );
+    this.notifyCartUpdated();
+    return updated;
   }
 
   public async removeItem(cartData: Cart, item: CartItem) {
@@ -224,6 +237,7 @@ class CartService {
     };
 
     await this.cartService.updateCart(this.jiggly_cart_id, newCartData);
+    this.notifyCartUpdated();
   }
 }
 
