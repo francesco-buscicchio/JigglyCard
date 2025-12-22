@@ -13,6 +13,8 @@
         <OrganismsFilter
           @filterUpdate="filterUpdate"
           :filters="filtersAppliedOrganismFilter"
+          :facets="facets"
+          :priceStats="priceStats"
         />
       </div>
 
@@ -57,6 +59,8 @@
             <OrganismsFilterWeb
               @filterUpdate="filterUpdate"
               :filters="filtersAppliedOrganismFilter"
+              :facets="facets"
+              :priceStats="priceStats"
             />
           </div>
         </div>
@@ -115,6 +119,17 @@ const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
 const expansion = route.query.expansion;
 const isDesktopView = isDesktop();
+const facets = ref<Record<string, Record<string, number>> | null>(null);
+const priceStats = ref<{ min: number; max: number } | null>(null);
+const facetAttributes = [
+  "languages",
+  "conditions",
+  "tcg",
+  "type",
+  "setSlug",
+  "available",
+  "salePrice",
+];
 const isLoading = ref(true);
 const skeletonItems = computed(() => {
   const count = isDesktopView.value
@@ -151,6 +166,12 @@ function calculateFilterString(e?: any) {
     let brandFilter = e.brand
       ? e.brand.map((brand: string) => `tcg:"${brand}"`).join(" OR ")
       : "";
+    let typeFilter = e.type
+      ? e.type.map((type: string) => `type:"${type}"`).join(" OR ")
+      : "";
+    let expansionFilter = e.expansion
+      ? e.expansion.map((exp: string) => `setSlug:"${exp}"`).join(" OR ")
+      : "";
     let availableFilter = e.available
       ? e.available
           .map((available: string) => `available:"${available}"`)
@@ -162,6 +183,8 @@ function calculateFilterString(e?: any) {
     languageFilters.length && (filter += ` AND (${languageFilters})`);
     conditionFilters.length && (filter += ` AND (${conditionFilters})`);
     brandFilter.length && (filter += ` AND (${brandFilter})`);
+    typeFilter.length && (filter += ` AND (${typeFilter})`);
+    expansionFilter.length && (filter += ` AND (${expansionFilter})`);
     availableFilter.length && (filter += ` AND (${availableFilter})`);
     if (minPriceFilter !== undefined) {
       filter += ` AND salePrice >= ${minPriceFilter}`;
@@ -179,8 +202,7 @@ function calculateFilterString(e?: any) {
 
 function filterUpdate(e: any) {
   currentPage.value = 1;
-  filtersAppliedOrganismsListingFilters.value = e;
-  calculateFilterString(e);
+  updateFiltersApplied(e);
 }
 
 function changePage(event: number) {
@@ -198,6 +220,7 @@ function calculateCollection() {
 }
 
 const updateFiltersApplied = (newFilters: any) => {
+  filtersAppliedOrganismsListingFilters.value = newFilters;
   let allValues: string[] = [];
 
   for (const key in newFilters) {
@@ -216,7 +239,10 @@ async function fetchData() {
       route.params.tcg === "search"
         ? await client.searchSingleIndex({
             indexName: calculateCollection(),
-            searchParams: { query: route.params.category as string },
+            searchParams: {
+              query: route.params.category as string,
+              facets: facetAttributes,
+            },
           })
         : await client.search({
             requests: [
@@ -226,6 +252,7 @@ async function fetchData() {
                 hitsPerPage: isDesktopView.value
                   ? ITEMS_FOR_PAGE_DESKTOP
                   : ITEMS_FOR_PAGE_MOBILE,
+                facets: facetAttributes,
                 page: currentPage.value - 1,
               },
             ],
@@ -240,5 +267,7 @@ async function fetchData() {
 function setProducts(queryResult: any) {
   products.value = mapProducts(queryResult);
   totalItems.value = queryResult.nbHits;
+  facets.value = queryResult.facets || null;
+  priceStats.value = queryResult.facets_stats?.salePrice || null;
 }
 </script>

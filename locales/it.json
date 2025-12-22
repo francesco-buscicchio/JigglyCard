@@ -230,6 +230,42 @@
       "title": "Hai bisogno di assistenza?"
     }
   },
+  "filter": {
+    "language": "Lingua",
+    "condition": "Condizione",
+    "brand": "Brand",
+    "type": "Tipologia",
+    "expansion": "Espansione",
+    "available": "Disponibile",
+    "IT": "italiano",
+    "EN": "inglese",
+    "NM": "near mint",
+    "EX": "excellent",
+    "PL": "played",
+    "PO": "poor",
+    "GD": "good",
+    "true": "disponibile",
+    "false": "non disponibile",
+    "NA": "altro",
+    "pokemon": "pokemon"
+  },
+  "filterType": {
+    "singles": "Carte singole",
+    "single-card": "Carta singola",
+    "preconstructed-deck": "Mazzi precostruiti",
+    "booster": "Booster",
+    "boosters": "Booster",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Hai visualizzato",
+    "of": "di",
+    "products": "prodotti"
+  },
   "checkout": {
     "title": "Checkout",
     "shippingInfo": "Informazioni di spedizione",
