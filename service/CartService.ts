@@ -163,7 +163,7 @@ class CartService {
           };
         }
         return {
-          text: "toast.cart.success",
+          text: "toast.cart.error",
           type: ToastMessageType.ERROR,
         };
       }

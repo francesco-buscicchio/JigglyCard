@@ -95,6 +95,9 @@ export const activateLanguage = (
 };
 
 export const createTagsStructure = (query: any): TagStructure[] => {
+  if (query.hits.length === 0) {
+    return [];
+  }
   const variantsDetails: VariantDetail[] = query.hits[0].variantsDetails;
   const grouped: {
     [key in TagStructure["language"]]?: Set<VariantDetail["condition"]>;

@@ -1,5 +1,7 @@
 <template>
-  <p>{{ `${startItem}-${endItem} ${t("catalog.listing.of")} ${totalItems}` }}</p>
+  <p>
+    {{ `${startItem}-${endItem} ${t("catalog.listing.of")} ${totalItems}` }}
+  </p>
 </template>
 
 <script lang="ts" setup>
@@ -8,7 +10,7 @@ const { t } = useI18n();
 const isDesktopView = isDesktop();
 
 const itemsForPage = computed(() => {
-  return isDesktopView ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
+  return isDesktopView.value ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
 });
 
 const props = defineProps({
