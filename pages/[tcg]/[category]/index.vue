@@ -30,7 +30,7 @@
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
         <div class="flex flex-row items-center gap-x-2 lg:mr-27">
-          <p>{{ t("pageSorting.sortBy") }}</p>
+          <p>{{ t("catalog.sorting.sortBy") }}</p>
           <div class="max-w-40">
             <MoleculesPageSorter
               :sortingItems="sortingItems"
@@ -39,7 +39,19 @@
           </div>
         </div>
       </div>
-      <OrganismsListingProducts :products="products" v-if="!isDesktopView" />
+      <template v-if="!isDesktopView">
+        <OrganismsListingProducts
+          v-if="!isLoading"
+          :products="products"
+        />
+        <div v-else class="grid grid-cols-2 gap-4">
+          <div
+            v-for="item in skeletonItems"
+            :key="`mobile-skeleton-${item}`"
+            class="h-60 rounded-2xl bg-neutral-200 animate-pulse"
+          ></div>
+        </div>
+      </template>
       <div class="flex" v-show="isDesktopView">
         <div class="w-[30vw] flex justify-end">
           <!-- filters -->
@@ -53,7 +65,17 @@
           </div>
         </div>
         <div class="grid grid-cols-4 gap-4 w-[70vw]">
-          <OrganismsListingProductsWeb :products="products" />
+          <OrganismsListingProductsWeb
+            v-if="!isLoading"
+            :products="products"
+          />
+          <template v-else>
+            <div
+              v-for="item in skeletonItems"
+              :key="`desktop-skeleton-${item}`"
+              class="h-72 rounded-2xl bg-neutral-200 animate-pulse"
+            ></div>
+          </template>
         </div>
       </div>
       <div class="pt-10">
@@ -108,6 +130,13 @@ const facetAttributes = [
   "available",
   "salePrice",
 ];
+const isLoading = ref(true);
+const skeletonItems = computed(() => {
+  const count = isDesktopView.value
+    ? ITEMS_FOR_PAGE_DESKTOP
+    : ITEMS_FOR_PAGE_MOBILE;
+  return Array.from({ length: count }, (_, index) => index);
+});
 
 const getBaseQuery = () => {
   if (route.params.tcg === "search") return "";
@@ -204,30 +233,35 @@ const updateFiltersApplied = (newFilters: any) => {
 };
 
 async function fetchData() {
-  let results: any =
-    route.params.tcg === "search"
-      ? await client.searchSingleIndex({
-          indexName: calculateCollection(),
-          searchParams: {
-            query: route.params.category as string,
-            facets: facetAttributes,
-          },
-        })
-      : await client.search({
-          requests: [
-            {
-              indexName: calculateCollection(),
-              filters: filtersStringQuery.value,
-              hitsPerPage: isDesktopView.value
-                ? ITEMS_FOR_PAGE_DESKTOP
-                : ITEMS_FOR_PAGE_MOBILE,
+  isLoading.value = true;
+  try {
+    let results: any =
+      route.params.tcg === "search"
+        ? await client.searchSingleIndex({
+            indexName: calculateCollection(),
+            searchParams: {
+              query: route.params.category as string,
               facets: facetAttributes,
-              page: currentPage.value - 1,
             },
-          ],
-        });
-  if (route.params.tcg === "search") setProducts(results);
-  else setProducts(results.results[0]);
+          })
+        : await client.search({
+            requests: [
+              {
+                indexName: calculateCollection(),
+                filters: filtersStringQuery.value,
+                hitsPerPage: isDesktopView.value
+                  ? ITEMS_FOR_PAGE_DESKTOP
+                  : ITEMS_FOR_PAGE_MOBILE,
+                facets: facetAttributes,
+                page: currentPage.value - 1,
+              },
+            ],
+          });
+    if (route.params.tcg === "search") setProducts(results);
+    else setProducts(results.results[0]);
+  } finally {
+    isLoading.value = false;
+  }
 }
 
 function setProducts(queryResult: any) {

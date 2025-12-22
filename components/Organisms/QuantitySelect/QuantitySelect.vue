@@ -4,7 +4,7 @@
       <div
         class="flex mr-6 items-center lg:flex-col lg:mr-0 justify-center lg:gap-2"
       >
-        <p class="mr-6 lg:mr-0">{{ t("quantitySelect.quantity") }}:</p>
+        <p class="mr-6 lg:mr-0">{{ t("product.quantity.quantity") }}:</p>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
           :selected="quantity"

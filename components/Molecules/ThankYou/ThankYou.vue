@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col items-center justify-center p-5">
-    <h1 class="text-accent-500">{{ t("thanks.main") }}</h1>
-    <p class="pt-5">{{ t(`thanks.${props.type}`) }}</p>
+    <h1 class="text-accent-500">{{ t("checkout.thanks.main") }}</h1>
+    <p class="pt-5">{{ t(`checkout.thanks.${props.type}`) }}</p>
     <img class="lg:w-103 w-62 pt-10" :src="thanksSrc" alt="Thank You" />
     <AtomsButtonCTA
       type="underline-text"
-      :text="t('thanks.backHome')"
+      :text="t('checkout.thanks.backHome')"
       @button-clicked="goTo(PATH.HOME)"
     />
   </div>

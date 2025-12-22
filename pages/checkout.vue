@@ -1,8 +1,8 @@
 <template>
   <div class="px-[4vw]">
     <MoleculesBreadcrumb />
-    <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-    <h4 class="py-4">{{ t("shippingInfo") }}</h4>
+    <h1 class="text-accent-500 text-center pb-4">{{ t("checkout.title") }}</h1>
+    <h4 class="py-4">{{ t("checkout.shippingInfo") }}</h4>
 
     <div class="lg:flex lg:gap-[10vw] lg:items-start">
       <OrganismsCheckoutForm

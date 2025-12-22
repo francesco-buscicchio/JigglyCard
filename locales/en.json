@@ -1,26 +1,104 @@
 {
-  "FeaturedProducts": "Featured Products",
-  "Conditions": "Conditions",
-  "WeeklyOffers": "Weekly Offers",
-  "PreOrders": "Pre-orders",
-  "serviceHomepage": {
-    "FastShipping": "Fast and secure shipping",
-    "FastShippingDescription": "Orders are shipped within two business days and shipments are always protected.",
-    "Support": "24/7 Support",
-    "SupportDescription": "We're always available when you need help.",
-    "Prices": "Best price on the market",
-    "PricesDescription": "Take advantage of our unbeatable deals: the most affordable price, guaranteed for high-quality products.",
-    "Security": "Protected data",
-    "SecurityDescription": "Your personal and payment data are protected with industry-standard encryption."
+  "brand": {
+    "name": "Jigglycard"
   },
-  "productHero": {
-    "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
-    "Language": "Language",
-    "Quantity": "Quantity",
-    "AddToCart": "Add to cart",
-    "BuyWithPaypal": "Buy with PayPal",
-    "Description": "Description",
-    "addToCartToast": "Product successfully added to cart"
+  "common": {
+    "links": {
+      "privacy": "privacy",
+      "cookies": "cookies",
+      "terms": "terms of use"
+    },
+    "messages": {
+      "noResults": "No results"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Page Not Found",
+      "notFoundDescription": "It seems you've gotten lost in the forest of illusions... try to find your way back!",
+      "backHome": "Back to homepage"
+    }
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "All products"
+    },
+    "footer": {
+      "links": {
+        "about": "About",
+        "shipping": "Shipping, returns and refunds",
+        "support": "Support"
+      }
+    },
+    "routes": {
+      "cart": "Cart",
+      "/carrello": "Cart",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Singles",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Prebuilt Decks",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - All Products",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Singles",
+      "/one-piece/mazzi-precostruiti": "One Piece - Prebuilt Decks",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - All Products",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Singles",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Prebuilt Decks",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - All Products",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Singles",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Prebuilt Decks",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - All Products",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Singles",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Prebuilt Decks",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - All Products",
+      "/servizi": "Services",
+      "/contatti": "Contacts",
+      "/": "Homepage"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Featured Products",
+      "conditions": "Conditions",
+      "weeklyOffers": "Weekly Offers",
+      "preOrders": "Pre-orders",
+      "highlights": "Highlights",
+      "whatsNew": "What's New",
+      "deals": "Deals"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Fast and secure shipping",
+        "description": "Orders are shipped within two business days and shipments are always protected."
+      },
+      "support": {
+        "title": "24/7 Support",
+        "description": "We're always available when you need help."
+      },
+      "prices": {
+        "title": "Best price on the market",
+        "description": "Take advantage of our unbeatable deals: the most affordable price, guaranteed for high-quality products."
+      },
+      "security": {
+        "title": "Protected data",
+        "description": "Your personal and payment data are protected with industry-standard encryption."
+      }
+    }
   },
   "newsletter": {
     "title": "Gotta catch us!",
@@ -33,87 +111,124 @@
     "emailValidation": "Please enter a valid email address.",
     "short": "Stay updated with one click without cluttering your inbox. Sign up for a 15% discount on your first non-sale purchase!",
     "button": "Subscribe",
-    "toast": "Subscription successful"
+    "toast": "Subscription successful",
+    "emailPlaceholder": "Email"
   },
-  "startingFrom": "starting from",
-  "soldOut": "sold out",
-  "privacy": "privacy",
-  "cookies": "cookies",
-  "terminiDiUtilizzo": "terms of use",
-  "highlights": "Highlights",
-  "whatsnew": "What's New",
-  "deals": "Deals",
-  "clearFilters": "Clear all filters",
-  "filters": "Filters",
-  "search": "Search",
-  "da": "from",
-  "a": "to",
-  "price": "Price",
-  "apply": "Apply",
-  "showDetails": "See details",
-  "resultFor": "Results for",
-  "allOf": "All for",
-  "showAll": "Show all",
-  "cart": "Cart",
-  "support": {
-    "title": "Support",
-    "mail": "You can contact us by email at",
-    "message": "or by message/WhatsApp at",
-    "form": "If you prefer, you can fill out the form below.",
-    "answer": "You will receive a response / We will reply within 48 hours."
+  "catalog": {
+    "controls": {
+      "filters": "Filters",
+      "search": "Search",
+      "price": "Price",
+      "from": "from",
+      "to": "to",
+      "apply": "Apply",
+      "clear": "Clear all filters",
+      "min": "Min",
+      "max": "Max"
+    },
+    "actions": {
+      "showDetails": "See details",
+      "showAll": "Show all"
+    },
+    "listing": {
+      "resultFor": "Results for",
+      "allOf": "All for",
+      "of": "of",
+      "counter": {
+        "viewed": "You have viewed",
+        "of": "of",
+        "products": "products"
+      }
+    },
+    "sorting": {
+      "sortBy": "Sort by",
+      "mostPopular": "Most Popular",
+      "priceCheapest": "Cheapest",
+      "priceExpensive": "Most Expensive",
+      "nameAtoZ": "Name (A - Z)",
+      "nameZtoA": "Name (Z - A)",
+      "collectorsNumberLowest": "By collection number (lowest first)",
+      "collectorsNumberHighest": "By collection number (highest first)"
+    },
+    "filters": {
+      "language": "Language",
+      "condition": "Condition",
+      "brand": "Brand",
+      "available": "Available",
+      "IT": "Italian",
+      "EN": "English",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "In stock",
+      "false": "Out of stock",
+      "NA": "Other",
+      "pokemon": "Pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japanese",
+      "it": "Italian",
+      "en": "English",
+      "de": "German"
+    }
   },
-  "routes": {
-    "cart": "Cart",
-    "/carrello": "Cart",
-    "/pokemon/booster-box": "Pokemon - Booster Box",
-    "/pokemon/box-set": "Pokemon - Box Set",
-    "/pokemon/bundle": "Pokemon - Bundle",
-    "/pokemon/singole": "Pokemon - Singles",
-    "/pokemon/mazzi-precostruiti": "Pokemon - Prebuilt Decks",
-    "/pokemon/tins": "Pokemon - Tins",
-    "/pokemon/all": "Pokemon - All Products",
-    "/one-piece/booster-box": "One Piece - Booster Box",
-    "/one-piece/box-set": "One Piece - Box Set",
-    "/one-piece/bundle": "One Piece - Bundle",
-    "/one-piece/singole": "One Piece - Singles",
-    "/one-piece/mazzi-precostruiti": "One Piece - Prebuilt Decks",
-    "/one-piece/tins": "One Piece - Tins",
-    "/one-piece/all": "One Piece - All Products",
-    "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
-    "/final-fantasy/box-set": "Final Fantasy - Box Set",
-    "/final-fantasy/bundle": "Final Fantasy - Bundle",
-    "/final-fantasy/singole": "Final Fantasy - Singles",
-    "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Prebuilt Decks",
-    "/final-fantasy/tins": "Final Fantasy - Tins",
-    "/final-fantasy/all": "Final Fantasy - All Products",
-    "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
-    "/dragon-ball/box-set": "Dragon Ball - Box Set",
-    "/dragon-ball/bundle": "Dragon Ball - Bundle",
-    "/dragon-ball/singole": "Dragon Ball - Singles",
-    "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Prebuilt Decks",
-    "/dragon-ball/tins": "Dragon Ball - Tins",
-    "/dragon-ball/all": "Dragon Ball - All Products",
-    "/lorcana/booster-box": "Lorcana - Booster Box",
-    "/lorcana/box-set": "Lorcana - Box Set",
-    "/lorcana/bundle": "Lorcana - Bundle",
-    "/lorcana/singole": "Lorcana - Singles",
-    "/lorcana/mazzi-precostruiti": "Lorcana - Prebuilt Decks",
-    "/lorcana/tins": "Lorcana - Tins",
-    "/lorcana/all": "Lorcana - All Products",
-    "/servizi": "Services",
-    "/contatti": "Contacts",
-    "/": "Homepage"
+  "product": {
+    "card": {
+      "startingFrom": "starting from",
+      "soldOut": "sold out"
+    },
+    "hero": {
+      "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
+      "Language": "Language",
+      "Quantity": "Quantity",
+      "AddToCart": "Add to cart",
+      "BuyWithPaypal": "Buy with PayPal",
+      "Description": "Description",
+      "addToCartToast": "Product successfully added to cart"
+    },
+    "quantity": {
+      "quantity": "Quantity",
+      "availability": "Availability",
+      "pieces": "pieces"
+    },
+    "messages": {
+      "defaultDescription": "This is a sample text. It can be as long as you want and the component will adapt to screen size. The layout has been optimized to be readable and clear on devices of various sizes.",
+      "suggested": "Have you seen these?"
+    }
   },
-  "of": "of",
-  "pageSorting": {
-    "sortBy": "Sort by",
-    "mostPopular": "Most Popular",
-    "priceCheapest": "Cheapest",
-    "priceExpensive": "Most Expensive",
-    "nameAtoZ": "Name (A - Z)",
-    "nameZtoA": "Name (Z - A)",
-    "collectorsNumberLowest": "By collection number (lowest first)",
-    "collectorsNumberHighest": "By collection number (highest first)"
+  "cart": {
+    "title": "Cart",
+    "empty": "Your trainer journey hasn't started yet!",
+    "startExploring": "Start here",
+    "summary": {
+      "title": "Cart summary",
+      "shipping": "Shipping",
+      "total": "Total",
+      "free": "Free"
+    },
+    "shipping": {
+      "heading": "Shipping Method",
+      "note": "*you can choose another method during checkout",
+      "couponPlaceholder": "Enter the X-digit code",
+      "total": "Total",
+      "couponQuestion": "Do you have a coupon code?",
+      "apply": "Apply code",
+      "applyDesktop": "apply",
+      "buyCta": "Proceed to purchase",
+      "back": "Back to products",
+      "couponLabel": "Coupon",
+      "removeCoupon": "Remove coupon"
+    },
+    "help": {
+      "title": "Need assistance?"
+    }
   },
   "filter": {
     "language": "Language",
@@ -151,18 +266,65 @@
     "of": "of",
     "products": "products"
   },
-  "min": "Min",
-  "max": "Max",
-  "tag": {
-    "Near Mint": "Near Mint",
-    "Slightly Played": "Excellent",
-    "Moderately Played": "Good",
-    "Played": "Played",
-    "Poor": "Poor",
-    "jp": "Japanese",
-    "it": "Italian",
-    "en": "English",
-    "de": "German"
+  "checkout": {
+    "title": "Checkout",
+    "shippingInfo": "Shipping information",
+    "actions": {
+      "confirmAndPay": "Confirm and pay"
+    },
+    "thanks": {
+      "main": "Thank you!",
+      "newsletter": "Thank you for subscribing to our newsletter! You'll receive an email soon with all the details.",
+      "order": "Your order has been successfully confirmed. We'll send you an email shortly with all the details.",
+      "backHome": "Back to homepage"
+    }
+  },
+  "forms": {
+    "fields": {
+      "name": "Name",
+      "surname": "Last name",
+      "email": "Email",
+      "message": "Message",
+      "nation": "Country",
+      "cap": "Postal Code",
+      "city": "City",
+      "streetAndHouseNumber": "Street and house number",
+      "iWantTheInvoice": "I want an invoice"
+    },
+    "actions": {
+      "submit": "Send"
+    },
+    "contact": {
+      "title": "Contact form",
+      "placeholders": {
+        "name": "Name",
+        "email": "Email address",
+        "phone": "Phone number",
+        "message": "Write your message"
+      },
+      "phoneValidation": "Phone number must be written in the xxxxxxxxx format",
+      "submit": "Send"
+    },
+    "support": {
+      "title": "Support",
+      "mail": "You can contact us by email at",
+      "message": "or by message/WhatsApp at",
+      "form": "If you prefer, you can fill out the form below.",
+      "answer": "You will receive a response / We will reply within 48 hours."
+    },
+    "validation": {
+      "required": "Campo obbligatorio",
+      "invalidEmail": "Inserisci un indirizzo e-mail valido",
+      "invalidCAP": "Inserisci un CAP valido"
+    }
+  },
+  "payments": {
+    "terms": "payments with",
+    "methodsTitle": "Payment Methods",
+    "options": {
+      "creditCard": "Credit Card",
+      "wireTransfer": "Bank Transfer"
+    }
   },
   "toast": {
     "cart": {
@@ -175,64 +337,321 @@
       "error": "Per qualche problema tecnico il checkout non e' stato completato"
     }
   },
-  "footerLinks": {
-    "about": "About",
-    "shipping": "Shipping, returns and refunds",
-    "support": "Support"
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Subscription to the Jigglycard newsletter successful",
+      "adminSubject": "New subscriber to the Jigglycard newsletter",
+      "storeName": "Jigglycard Store",
+      "plainText": "You received a new message from the newsletter."
+    },
+    "support": {
+      "subject": "Support Ticket",
+      "adminSubject": "Support Ticket From: {name} - Email: {email}",
+      "plainText": "You received a new support ticket."
+    }
   },
-  "payments": {
-    "terms": "payments with"
-  },
-  "shippingInfo": "Shipping information",
-  "name": "Name",
-  "surname": "Last name",
-  "message": "Message",
-  "send": "Send",
-  "email": "Email",
-  "nation": "Country",
-  "cap": "Postal Code",
-  "city": "City",
-  "streetAndHouseNumber": "Street and house number",
-  "iWantTheInvoice": "I want an invoice",
-  "shippingMethod": "Shipping Method",
-  "cartSummary": "Cart summary",
-  "shipping": "Shipping",
-  "total": "Total",
-  "confirmAndPay": "Confirm and pay",
-  "thanks": {
-    "main": "Thank you!",
-    "newsletter": "Thank you for subscribing to our newsletter! You'll receive an email soon with all the details.",
-    "order": "Your order has been successfully confirmed. We'll send you an email shortly with all the details.",
-    "backHome": "Back to homepage"
-  },
-  "quantitySelect": {
-    "quantity": "Quantity",
-    "availability": "Availability",
-    "pieces": "pieces"
-  },
-  "defaultDescription": "This is a sample text. It can be as long as you want and the component will adapt to screen size. The layout has been optimized to be readable and clear on devices of various sizes.",
-  "suggested": "Have you seen these?",
-  "gratis": "Free",
-  "needAssistance": "Need assistance?",
-  "shippingSection": {
-    "shippingMethod": "Shipping Method",
-    "message": "*you can choose another method during checkout",
-    "couponCode": "Enter the X-digit code",
-    "total": "Total",
-    "couponCodeQuestion": "Do you have a coupon code?",
-    "codeApply": "Apply code",
-    "codeApplyWeb": "apply",
-    "buyCTA": "Proceed to purchase",
-    "goBackProducts": "Back to products"
-  },
-  "paymentMethods": "Payment Methods",
-  "creditCard": "Credit Card",
-  "wireTransfer": "Bank Transfer",
-  "no_results": "No results",
-  "emptyCart": "Your trainer journey hasn't started yet!",
-  "validation": {
-    "required": "Campo obbligatorio",
-    "invalidEmail": "Inserisci un indirizzo e-mail valido",
-    "invalidCAP": "Inserisci un CAP valido"
+  "legal": {
+    "cookiePolicy": {
+      "introduction": {
+        "title": "Introduction",
+        "paragraphs": [
+          "This document contains information about the technologies that allow this Application to achieve the purposes described below. These technologies allow the Owner to collect and store information (for example by using cookies) or to use resources (for example by running a script) on the User's device when the latter interacts with this Application.",
+          "For simplicity, in this document such technologies are collectively defined as “Tracking Tools”, unless there is reason to differentiate.",
+          "Some of the purposes for which Tracking Tools are used may also require the User's consent. If consent is given, it can be withdrawn at any time by following the instructions contained in this document.",
+          "This Application uses only Tracking Tools managed directly by the Owner (commonly known as “first-party” Tracking Tools)."
+        ]
+      },
+      "dataController": {
+        "title": "Data Controller",
+        "paragraphs": [
+          "Jigglycard di Francesco Buscicchio - Via Principe Amedeo 94, Taranto<br />Owner email address: jigglycard@gmail.com"
+        ]
+      },
+      "usage": {
+        "title": "How this Application uses Tracking Tools",
+        "sections": [
+          {
+            "subtitle": "Necessary",
+            "paragraphs": [
+              "This Application uses so-called “technical” cookies or other similar Tracking Tools to carry out activities strictly necessary to ensure the functioning or provision of the Service."
+            ]
+          }
+        ]
+      },
+      "consent": {
+        "title": "How to manage preferences and give or withdraw consent",
+        "paragraphs": [
+          "When Tracking Tools are used based on consent, the User can give or withdraw such consent by setting or updating their preferences through the dedicated privacy choices panel available on this Application."
+        ]
+      },
+      "deviceSettings": {
+        "title": "How to control or delete cookies and similar technologies",
+        "intro": "Users can use their browser settings to:",
+        "list": [
+          "See which cookies or other similar technologies have been set on the device;",
+          "Block cookies or similar technologies;",
+          "Delete cookies or similar technologies from the browser."
+        ],
+        "note": "Browser settings, however, do not allow granular consent control by category.",
+        "linksIntro": "Users can, for example, find information on how to manage cookies in some of the most popular browsers at the following addresses:",
+        "links": [
+          {
+            "label": "Google Chrome",
+            "href": "https://support.google.com/chrome/answer/95647?hl=en"
+          },
+          {
+            "label": "Mozilla Firefox",
+            "href": "https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer"
+          },
+          {
+            "label": "Apple Safari",
+            "href": "https://support.apple.com/guide/safari/manage-cookies-and-website-data-sfri11471/mac"
+          },
+          {
+            "label": "Microsoft Internet Explorer",
+            "href": "https://support.microsoft.com/en-us/help/17442/windows-internet-explorer-delete-manage-cookies"
+          },
+          {
+            "label": "Microsoft Edge",
+            "href": "https://support.microsoft.com/en-us/microsoft-edge"
+          },
+          {
+            "label": "Brave",
+            "href": "https://support.brave.com/hc/en-us/articles/360018121951-How-do-I-manage-cookies-within-Brave"
+          },
+          {
+            "label": "Opera",
+            "href": "https://help.opera.com/en/latest/web-preferences/#cookies"
+          }
+        ],
+        "extraParagraphs": [
+          "Users can also manage certain Tracking Tools for mobile applications by disabling them through the relevant device settings, such as advertising settings for mobile devices or the general tracking settings."
+        ]
+      },
+      "consequences": {
+        "title": "Consequences related to refusing Tracking Tools",
+        "paragraphs": [
+          "Users are free to decide whether to allow the use of Tracking Tools. However, please note that these tools allow this Application to provide a better experience and advanced features. Therefore, if the User decides to block their use, the Owner may be unable to provide the related functionality."
+        ]
+      },
+      "definitions": {
+        "title": "Definitions and legal references",
+        "items": [
+          {
+            "term": "Personal Data (or Data)",
+            "description": "Any information that, directly or indirectly, makes it possible to identify a natural person."
+          },
+          {
+            "term": "Usage Data",
+            "description": "Information collected automatically through this Application (also by third-party applications integrated into this Application), including IP addresses, URI addresses, time of request, method used, file size obtained, numerical code indicating the status of the server response, country of origin, browser and operating system characteristics, time details of the visit and path followed within the Application."
+          },
+          {
+            "term": "User",
+            "description": "The individual using this Application who, unless otherwise specified, coincides with the Data Subject."
+          },
+          {
+            "term": "Data Subject",
+            "description": "The natural person to whom the Personal Data refers."
+          },
+          {
+            "term": "Data Processor",
+            "description": "The natural or legal person, public authority, agency or other body that processes Personal Data on behalf of the Controller."
+          },
+          {
+            "term": "Data Controller",
+            "description": "The natural or legal person, public authority, agency or other body which determines the purposes and means of the processing of Personal Data."
+          },
+          {
+            "term": "This Application",
+            "description": "The hardware or software tool by which the Personal Data of Users are collected and processed."
+          },
+          {
+            "term": "Service",
+            "description": "The service provided by this Application as described in the relevant terms."
+          },
+          {
+            "term": "European Union (or EU)",
+            "description": "Unless otherwise specified, any reference to the European Union extends to all current member states of the European Union and the European Economic Area."
+          },
+          {
+            "term": "Legal references",
+            "description": "Unless otherwise specified, this privacy statement concerns this Application only."
+          }
+        ]
+      }
+    },
+    "privacyPolicy": {
+      "owner": {
+        "title": "Data Controller",
+        "paragraphs": [
+          "Jigglycard di Francesco Buscicchio - Via Principe Amedeo 94, Taranto<br />Owner email address: jigglycard@gmail.com"
+        ]
+      },
+      "dataTypes": {
+        "title": "Types of data collected",
+        "paragraphs": [
+          "The Owner does not provide a list of types of Personal Data collected.",
+          "Full details on each type of Personal Data collected are provided in the dedicated sections of this privacy policy or through specific information texts displayed before the data collection.",
+          "Personal Data may be freely provided by the User or, in the case of Usage Data, collected automatically when using this Application.",
+          "Unless otherwise specified, all Data requested by this Application are mandatory. If the User refuses to provide them, it may be impossible for this Application to provide the Service. Where this Application indicates certain Data as optional, Users are free not to communicate such Data without consequences.",
+          "Users who have doubts about which Data are mandatory are encouraged to contact the Owner.",
+          "Any use of Cookies – or other tracking tools – by this Application or the owners of third-party services used by this Application serves to provide the Service requested by the User, as well as the additional purposes described in this document and in the Cookie Policy.",
+          "The User is responsible for third-party Personal Data obtained, published or shared through this Application."
+        ]
+      },
+      "processing": {
+        "title": "Methods and place of processing the collected Data",
+        "sections": [
+          {
+            "title": "Methods of processing",
+            "paragraphs": [
+              "The Owner takes appropriate security measures to prevent unauthorized access, disclosure, modification or destruction of Personal Data.",
+              "Processing is carried out using IT and/or telematic tools, following organizational methods and logic strictly related to the purposes indicated. In addition to the Owner, other parties involved in the organization of this Application or external parties (such as third-party technical service providers, mail carriers, hosting providers, IT companies, communication agencies) may have access to the Data and may be appointed, if necessary, as Data Processors."
+            ]
+          },
+          {
+            "title": "Place",
+            "paragraphs": [
+              "The Data is processed at the operating offices of the Owner and in any other place where the parties involved in the processing are located. For further information, contact the Owner.",
+              "The User's Personal Data may be transferred to a country other than the one in which the User is located. For information on the processing location, the User can refer to the section containing details on the processing of Personal Data."
+            ]
+          },
+          {
+            "title": "Retention time",
+            "paragraphs": [
+              "Unless otherwise indicated in this document, Personal Data are processed and stored for the time required by the purpose for which they were collected and may be kept for a longer period due to legal obligations or based on the Users' consent."
+            ]
+          }
+        ]
+      },
+      "cookiePolicy": {
+        "title": "Cookie Policy",
+        "description": "This Application makes use of Tracking Tools. For more information, Users can consult the",
+        "linkLabel": "Cookie Policy"
+      },
+      "euSection": {
+        "title": "Additional information for Users in the European Union",
+        "legalBasis": {
+          "title": "Legal basis of processing",
+          "intro": "The Owner may process Personal Data relating to the User if one of the following applies:",
+          "list": [
+            "the User has given consent for one or more specific purposes;",
+            "processing is necessary for the performance of a contract with the User and/or for any pre-contractual obligations thereof;",
+            "processing is necessary for compliance with a legal obligation to which the Owner is subject;",
+            "processing is related to a task that is carried out in the public interest or in the exercise of official authority vested in the Owner;",
+            "processing is necessary for the purposes of the legitimate interests pursued by the Owner or by a third party."
+          ],
+          "conclusion": "Users can always ask the Owner to clarify the specific legal basis for each processing and to specify whether it is based on statutory law, provided for by a contract or necessary to enter into a contract."
+        },
+        "retention": {
+          "title": "Information on retention time",
+          "paragraphs": [
+            "Unless otherwise indicated, Personal Data are processed and stored for the time required by the purpose for which they were collected and may be kept for a longer period for legal obligations or based on consent.",
+            "Therefore:"
+          ],
+          "list": [
+            "Personal Data collected for purposes related to the performance of a contract between the Owner and the User shall be retained until such contract has been fully performed.",
+            "Personal Data collected for purposes related to the legitimate interests of the Owner shall be retained as long as needed to fulfill such purposes.",
+            "When processing is based on the User's consent, the Owner may retain Personal Data for a longer period until such consent is withdrawn."
+          ]
+        }
+      },
+      "userRights": {
+        "title": "Users’ rights under GDPR",
+        "intro": "Users may exercise certain rights regarding their Data processed by the Owner.",
+        "list": [
+          "withdraw consent at any time;",
+          "object to processing of their Data;",
+          "access their Data;",
+          "verify and seek rectification;",
+          "restrict the processing of their Data;",
+          "obtain the erasure or removal of their Personal Data;",
+          "receive their Data and have it transferred to another controller;",
+          "lodge a complaint."
+        ]
+      },
+      "exercise": {
+        "title": "How to exercise these rights",
+        "paragraphs": [
+          "Any requests can be addressed to the Owner through the contact details provided in this document. Such requests are free of charge and will be processed by the Owner as early as possible and always within one month."
+        ]
+      },
+      "additional": {
+        "title": "Additional information about Data processing",
+        "sections": [
+          {
+            "title": "Legal action",
+            "paragraphs": [
+              "The User's Personal Data may be used for legal purposes by the Owner in Court or in the stages leading to possible legal action arising from improper use of this Application or the related Services."
+            ]
+          },
+          {
+            "title": "Additional information",
+            "paragraphs": [
+              "Upon request, this Application may provide the User with additional and contextual information concerning specific Services or the collection and processing of Personal Data."
+            ]
+          },
+          {
+            "title": "System logs and maintenance",
+            "paragraphs": [
+              "For operation and maintenance purposes, this Application and any third-party services may collect system logs, i.e., files that record interactions and may also contain Personal Data, such as the User's IP address."
+            ]
+          },
+          {
+            "title": "Information not contained in this policy",
+            "paragraphs": [
+              "More details concerning the processing of Personal Data may be requested from the Owner at any time."
+            ]
+          },
+          {
+            "title": "Changes to this privacy policy",
+            "paragraphs": [
+              "The Owner reserves the right to make changes to this privacy policy at any time by notifying Users on this page and, if possible, on this Application."
+            ]
+          }
+        ]
+      },
+      "definitions": {
+        "title": "Definitions and legal references",
+        "items": [
+          {
+            "term": "Personal Data (or Data)",
+            "description": "Any information that determines or makes identifiable a natural person."
+          },
+          {
+            "term": "Usage Data",
+            "description": "Information collected automatically through this Application."
+          },
+          {
+            "term": "User",
+            "description": "The individual using this Application."
+          },
+          {
+            "term": "Data Subject",
+            "description": "The natural person to whom the Personal Data refers."
+          },
+          {
+            "term": "Data Processor",
+            "description": "The natural or legal person who processes Personal Data on behalf of the Controller."
+          },
+          {
+            "term": "Data Controller",
+            "description": "The person who determines the purposes and means of the processing of Personal Data."
+          },
+          {
+            "term": "This Application",
+            "description": "The hardware or software tool by which the Personal Data of Users are collected."
+          },
+          {
+            "term": "Service",
+            "description": "The service provided by this Application."
+          },
+          {
+            "term": "European Union (or EU)",
+            "description": "Any reference to the European Union in this document extends to all current member states and the European Economic Area."
+          }
+        ]
+      }
+    }
   }
 }
