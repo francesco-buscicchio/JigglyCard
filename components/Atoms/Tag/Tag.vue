@@ -4,7 +4,7 @@
     class="rounded-lg px-4 py-2 min-w-25"
     @click="emitClick"
   >
-    <p>{{ $t(`tag.${text}`) }}</p>
+    <p>{{ $t(`catalog.tags.${text}`) }}</p>
   </button>
 </template>
 
