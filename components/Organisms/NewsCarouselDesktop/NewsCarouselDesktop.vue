@@ -6,12 +6,24 @@
         v-if="!isPrevDisabled"
         @click="prev"
         class="cursor-pointer mx-10 custom-button-prev"
+        :disabled="loading"
       >
         <Icon name="jig:arrow-left" size="50" />
       </button>
 
       <div class="flex w-[80vw] justify-center">
+        <div
+          v-if="loading || !productList.length"
+          class="flex gap-6 w-full justify-center"
+        >
+          <div
+            v-for="item in skeletonItems"
+            :key="item"
+            class="w-64 h-96 bg-white/20 rounded-2xl animate-pulse"
+          ></div>
+        </div>
         <Swiper
+          v-else
           :slidesPerView="3"
           :centered-slides="true"
           space-between="100vw"
@@ -46,6 +58,7 @@
         v-if="!isNextDisabled"
         @click="next"
         class="cursor-pointer mx-10 custom-button-next"
+        :disabled="loading"
       >
         <Icon name="jig:arrow-right" size="50" />
       </button>
@@ -65,6 +78,10 @@ const props = defineProps({
     type: Array<ProductType>,
     required: true,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 const currentIndex = ref(0);
 const productList = computed(() => props.products.slice(0, 9));
@@ -77,6 +94,7 @@ const isPrevDisabled = computed(() => currentIndex.value <= 0);
 const isNextDisabled = computed(
   () => currentIndex.value >= lastSlideIndex.value
 );
+const skeletonItems = [0, 1, 2];
 
 const onSwiperInit = (swiper: Swiper) => {
   controlledSwiper.value = swiper;

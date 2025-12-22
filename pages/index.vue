@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col gap-y-6">
     <div class="mx-[4vw] mt-7">
-      <MoleculesHeroBanner :slides="setHeroBanner" />
+      <MoleculesHeroBanner
+        :slides="setHeroBanner"
+        :loading="heroBannerLoading"
+      />
     </div>
 
     <OrganismsProductCarouselWeb
@@ -9,16 +12,19 @@
       :title="t('home.sections.highlights')"
       :products="evidenza"
       colorScheme="lightHome"
+      :loading="highlightsLoading"
     />
     <OrganismsProductCarousel
       v-if="isMobileView"
       :title="t('home.sections.highlights')"
       :products="evidenza"
       colorScheme="lightHome"
+      :loading="highlightsLoading"
     />
     <OrganismsNewsCarouselDesktop
       v-if="isDesktopView"
       :products="novita"
+      :loading="whatsNewLoading"
     ></OrganismsNewsCarouselDesktop>
 
     <OrganismsProductCarousel
@@ -26,6 +32,7 @@
       :title="t('home.sections.whatsNew')"
       :products="novita"
       colorScheme="primaryHome"
+      :loading="whatsNewLoading"
     />
 
     <OrganismsProductCarousel
@@ -33,6 +40,7 @@
       :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
+      :loading="dealsLoading"
     />
 
     <OrganismsProductCarouselWeb
@@ -40,6 +48,7 @@
       :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
+      :loading="dealsLoading"
     />
 
     <OrganismsServiceBanner />
@@ -65,104 +74,76 @@ const setHeroBanner: Ref<ProductType[]> = ref([]);
 const client = useAlgolia();
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
+const highlightsLoading = ref(true);
+const whatsNewLoading = ref(true);
+const dealsLoading = ref(true);
+const heroBannerLoading = ref(true);
 
 onMounted(async () => {
-  await fetchHomeSections();
+  await fetchHomeData();
 });
 
-async function fetchHomeSections() {
-  try {
-    const tagRequests = [
-      {
-        tag: HIGHLIGHTS_TAG,
-        hitsPerPage: 5,
-        filters: "available:true",
-        indexName: PRODUCTS_COLLECTION,
-      },
-      {
-        tag: WHATSNEW_TAG,
-        hitsPerPage: 5,
-        filters: "available:true",
-      },
-      {
-        tag: DEALS_TAG,
-        hitsPerPage: 5,
-        filters: "available:true",
-      },
-      {
-        tag: HEROBANNER_TAG,
-        hitsPerPage: 3,
-        filters: "hasThumbnailImage:true",
-      },
-    ];
+async function fetchHomeData() {
+  evidenza.value = [];
+  novita.value = [];
+  offerte.value = [];
+  setHeroBanner.value = [];
 
-    const { results } = await client.search({
-      requests: tagRequests.map(
-        ({ tag, hitsPerPage, filters, indexName = "ecommerce" }) => ({
-          indexName,
-          query: tag,
-          hitsPerPage,
-          filters,
-        })
-      ),
+  try {
+    const response = await client.search({
+      requests: [
+        {
+          indexName: PRODUCTS_COLLECTION,
+          query: HIGHLIGHTS_TAG,
+          hitsPerPage: 5,
+          filters: "available:true",
+        },
+        {
+          indexName: PRODUCTS_COLLECTION,
+          query: WHATSNEW_TAG,
+          hitsPerPage: 5,
+          filters: "available:true",
+        },
+        {
+          indexName: PRODUCTS_COLLECTION,
+          query: DEALS_TAG,
+          hitsPerPage: 5,
+          filters: "available:true",
+        },
+        {
+          indexName: PRODUCTS_COLLECTION,
+          query: HEROBANNER_TAG,
+          hitsPerPage: 3,
+          filters: "hasThumbnailImage:true",
+        },
+      ],
     });
 
-    results.forEach((result: any) => setProducts(result));
-  } catch (error) {
-    console.error("Failed to fetch home sections", error);
+    const [
+      highlightsResult,
+      whatsNewResult,
+      dealsResult,
+      heroResult,
+    ] = response.results || [];
+
+    evidenza.value = mapHitsToProducts(highlightsResult?.hits, 5);
+    novita.value = mapHitsToProducts(whatsNewResult?.hits, 5);
+    offerte.value = mapHitsToProducts(dealsResult?.hits, 5);
+    setHeroBanner.value = mapHitsToProducts(heroResult?.hits, 3);
+  } finally {
+    highlightsLoading.value = false;
+    whatsNewLoading.value = false;
+    dealsLoading.value = false;
+    heroBannerLoading.value = false;
   }
 }
 
-function setProducts(queryResult: any) {
-  let heroBannerTemp: ProductType[] = [];
-
-  for (let hit of queryResult.hits) {
-    const product = mapProductItem(hit);
-    processTags(hit.tags, product, heroBannerTemp);
-  }
-
-  setHeroBanner.value = heroBannerTemp;
-}
-
-function processTags(
-  tags: string[],
-  product: ProductType,
-  heroBannerTemp: ProductType[]
-) {
-  for (let tag of tags) {
-    switch (tag) {
-      case HIGHLIGHTS_TAG:
-        addToEvidenza(product);
-        break;
-      case WHATSNEW_TAG:
-        addToNovita(product);
-        break;
-      case DEALS_TAG:
-        addToOfferte(product);
-        break;
-      case HEROBANNER_TAG:
-        heroBannerTemp.push(product);
-        break;
-    }
-  }
-}
-
-function addToEvidenza(product: ProductType) {
-  if (evidenza.value.length < 5) {
-    evidenza.value.push(product);
-  }
-}
-
-function addToNovita(product: ProductType) {
-  if (novita.value.length < 5) {
-    novita.value.push(product);
-  }
-}
-
-function addToOfferte(product: ProductType) {
-  if (offerte.value.length < 5) {
-    offerte.value.push(product);
-  }
+function mapHitsToProducts(
+  hits: any[] | undefined,
+  limit: number
+): ProductType[] {
+  if (!hits?.length) return [];
+  return hits.slice(0, limit).map((hit) => mapProductItem(hit));
 }
 
 useHead({
