@@ -23,6 +23,7 @@ export function useCart(config: CartConfig) {
       .reduce((acc, item) => acc + item.totalPrice, 0)
       .toFixed(2);
   });
+  const isLoading = ref(true);
 
   let cartService: CartService;
   let variantService: VariantService;
@@ -49,7 +50,10 @@ export function useCart(config: CartConfig) {
     );
 
     const cartData = await cartService.getCart();
-    if (!cartData) return;
+    if (!cartData) {
+      isLoading.value = false;
+      return;
+    }
 
     const variantPromises = cartData.data.variants.map((v: Variant) =>
       variantService.getVariantById(v.documentId)
@@ -94,6 +98,8 @@ export function useCart(config: CartConfig) {
         )
       );
     }
+
+    isLoading.value = false;
   }
 
   async function getCartData() {
@@ -153,6 +159,7 @@ export function useCart(config: CartConfig) {
     products,
     totalCart,
     couponData,
+    isLoading,
     changeQuantity,
     removeItem,
     applyCoupon,

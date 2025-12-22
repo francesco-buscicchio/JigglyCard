@@ -11,7 +11,7 @@
           @click="goToItem(PATH.HOME, $event)"
           class="text-accent-950 cursor-pointer"
         >
-          Jigglycard
+          {{ t("brand.name") }}
         </h2>
 
         <nav class="flex gap-x-6">
@@ -42,7 +42,15 @@
             @click="goToItem(button.to, $event)"
             :aria-label="button.arialabel"
           >
-            <Icon :name="button.icon" size="18" />
+            <span class="relative inline-flex">
+              <Icon :name="button.icon" size="18" />
+              <span
+                v-if="button.to === PATH.CART && cartCount > 0"
+                class="cart-badge"
+              >
+                {{ cartCount }}
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -50,8 +58,9 @@
       <div v-show="isSearchOpen" class="mt-4">
         <div class="relative">
           <input
+            v-model="inputSearch"
             type="text"
-            :placeholder="$t('search') + '...'"
+            :placeholder="$t('catalog.controls.search') + '...'"
             @input="onSearchInput($event)"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
           />
@@ -81,9 +90,9 @@
 
             <div class="flex justify-center w-full lg:col-span-3">
               <AtomsButtonCTA
-                :text="t('showAll')"
+                :text="t('catalog.actions.showAll')"
                 type="text"
-                @click="goToSearch($event)"
+                @click="goToSearch"
               />
             </div>
           </div>
@@ -93,7 +102,7 @@
           <p
             class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
           >
-            {{ t("no_results") }}
+            {{ t("common.messages.noResults") }}
           </p>
         </div>
       </div>
@@ -122,7 +131,9 @@
             class="mt-6 cursor-pointer hover:underline"
             @click="goToItem(headerMenu[activeIndex].to, $event)"
           >
-            <p class="text-center text-accent-950">Tutti i prodotti</p>
+            <p class="text-center text-accent-950">
+              {{ t("layout.header.allProductsLink") }}
+            </p>
           </div>
         </div>
       </div>
@@ -138,9 +149,11 @@ import useMenu from "~/data/menu";
 import { headerButtons } from "~/data/headerButtons";
 import type { Hit } from "~/interface/hit.interface";
 import type { HeaderProps } from "~/types/headerPropsType.type";
+import { useCartCount } from "~/composables/useCartCount";
 
 const { t } = useI18n();
 const inputSearch = ref("");
+const { cartCount } = useCartCount();
 
 const props = defineProps<{
   header: HeaderProps;
@@ -158,7 +171,7 @@ const emit = defineEmits([
 ]);
 
 const closeSearch = (event?: MouseEvent) => {
-  emit("closeSearch", event as MouseEvent);
+  emit("closeSearch", event);
 };
 
 const onSearchInput = (event: Event) => {
@@ -167,10 +180,22 @@ const onSearchInput = (event: Event) => {
   emit("search", target.value);
 };
 
-const goToSearch = (event?: MouseEvent) => {
-  closeSearch(event);
+const resetSearch = () => {
+  inputSearch.value = "";
+  emit("search", "");
+};
+
+const goToSearch = () => {
+  const searchTerm = inputSearch.value.trim();
+  if (!searchTerm) {
+    resetSearch();
+    closeSearch();
+    return;
+  }
+  closeSearch();
   activeIndex.value = null;
-  navigateTo(`/search/${inputSearch.value}`);
+  navigateTo(`/search/${searchTerm}`);
+  resetSearch();
 };
 
 const goToItem = (route: string, event: MouseEvent) => {
@@ -191,5 +216,20 @@ const headerMenu = ref(await useMenu());
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9999px;
+  background-color: #f04438;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
 }
 </style>

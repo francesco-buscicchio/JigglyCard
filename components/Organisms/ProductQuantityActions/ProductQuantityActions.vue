@@ -9,7 +9,7 @@
     <div v-show="!isDesktopView">
       <div class="flex items-center gap-14">
         <div class="flex items-center">
-          <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
+          <p class="mr-6">{{ t("product.quantity.quantity") }}:</p>
           <MoleculesPageSorter
             :sortingItems="quantityOptions"
             :selected="quantityRef"
@@ -20,14 +20,14 @@
         <h2 class="price-tag">{{ totalPrice }} €</h2>
       </div>
       <p class="my-2">
-        {{ t("quantitySelect.availability") }}:
+        {{ t("product.quantity.availability") }}:
         {{ quantityOptions.length }}
-        {{ t("quantitySelect.pieces") }}
+        {{ t("product.quantity.pieces") }}
       </p>
 
       <AtomsButtonCTA
         type="primary"
-        :text="t('productHero.AddToCart')"
+        :text="t('product.hero.AddToCart')"
         class="max-w-[30rem] mt-12"
         @click="addToCart"
       >
@@ -39,10 +39,10 @@
     <div v-show="isDesktopView">
       <div class="flex mr-6 my-7 items-center gap-7">
         <div class="">
-          <p>{{ t("quantitySelect.quantity") }}:</p>
+          <p>{{ t("product.quantity.quantity") }}:</p>
           <p class="my-1 text-xs">
-            ({{ t("quantitySelect.availability") }}:
-            {{ quantityOptions.length }} {{ t("quantitySelect.pieces") }} )
+            ({{ t("product.quantity.availability") }}:
+            {{ quantityOptions.length }} {{ t("product.quantity.pieces") }} )
           </p>
         </div>
         <MoleculesPageSorter
@@ -56,7 +56,7 @@
         <h2 class="whitespace-nowrap price-tag text-3xl">{{ totalPrice }} €</h2>
         <AtomsButtonCTA
           type="primary"
-          :text="t('productHero.AddToCart')"
+          :text="t('product.hero.AddToCart')"
           class="max-w-[30rem]"
           @click="addToCart()"
         >

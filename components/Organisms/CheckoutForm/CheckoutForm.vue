@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mb-4">
-      <p class="mb-1">{{ t("name") }}</p>
+      <p class="mb-1">{{ t("forms.fields.name") }}</p>
       <AtomsInputText
         :modelValue="formValues.name"
         @updateValue="updateField('name', $event)"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ t("surname") }}</p>
+      <p class="mb-1">{{ t("forms.fields.surname") }}</p>
       <AtomsInputText
         :modelValue="formValues.surname"
         @updateValue="updateField('surname', $event)"
@@ -31,7 +31,7 @@
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ t("email") }}</p>
+      <p class="mb-1">{{ t("forms.fields.email") }}</p>
       <AtomsInputText
         :modelValue="formValues.email"
         @updateValue="updateField('email', $event)"
@@ -47,7 +47,7 @@
 
     <div class="flex">
       <div class="mb-4 mr-2 w-1/2">
-        <p class="mb-1">{{ t("cap") }}</p>
+        <p class="mb-1">{{ t("forms.fields.cap") }}</p>
         <AtomsInputText
           :modelValue="formValues.cap"
           @updateValue="updateField('cap', $event)"
@@ -62,7 +62,7 @@
       </div>
 
       <div class="mb-4 ml-2 w-1/2">
-        <p class="mb-1">{{ t("city") }}</p>
+        <p class="mb-1">{{ t("forms.fields.city") }}</p>
         <AtomsInputText
           :modelValue="formValues.city"
           @updateValue="updateField('city', $event)"
@@ -78,7 +78,7 @@
     </div>
 
     <div class="mb-4">
-      <p class="mb-1">{{ t("streetAndHouseNumber") }}</p>
+      <p class="mb-1">{{ t("forms.fields.streetAndHouseNumber") }}</p>
       <AtomsInputText
         :modelValue="formValues.streetAndHouseNumber"
         @updateValue="updateField('streetAndHouseNumber', $event)"
@@ -100,7 +100,7 @@
         :modelValue="formValues.iWantTheInvoice"
         @click="toggleCheckbox"
       />
-      <p class="text-left">{{ t("iWantTheInvoice") }}</p>
+      <p class="text-left">{{ t("forms.fields.iWantTheInvoice") }}</p>
     </div>
   </div>
 </template>
@@ -162,22 +162,26 @@ function validateField<K extends keyof FormValues>(
 ): string | null {
   if (["name", "surname", "streetAndHouseNumber", "city"].includes(field)) {
     return !value || String(value).trim() === ""
-      ? t("validation.required")
+      ? t("forms.validation.required")
       : null;
   }
 
   if (field === "email") {
-    if (!value || String(value).trim() === "") return t("validation.required");
+    if (!value || String(value).trim() === "")
+      return t("forms.validation.required");
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return !emailRegex.test(String(value))
-      ? t("validation.invalidEmail")
+      ? t("forms.validation.invalidEmail")
       : null;
   }
 
   if (field === "cap") {
-    if (!value || String(value).trim() === "") return t("validation.required");
+    if (!value || String(value).trim() === "")
+      return t("forms.validation.required");
     const capRegex = /^\d{5}$/;
-    return !capRegex.test(String(value)) ? t("validation.invalidCAP") : null;
+    return !capRegex.test(String(value))
+      ? t("forms.validation.invalidCAP")
+      : null;
   }
 
   return null;

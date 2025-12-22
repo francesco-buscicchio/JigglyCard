@@ -1,5 +1,5 @@
 <template>
-  <h4 class="pb-6">Modulo di contatto</h4>
+  <h4 class="pb-6">{{ t("forms.contact.title") }}</h4>
 
   <FormKit type="form" class="w-full" :actions="false">
     <div class="w-full flex flex-row gap-x-5">
@@ -8,22 +8,22 @@
         name="name"
         id="name"
         validation="required|not:Admin"
-        placeholder="Nome”"
+        :placeholder="t('forms.contact.placeholders.name')"
       />
 
       <FormKit
         type="email"
         validation-visibility="blur"
         validation="required|email"
-        placeholder="Indirizzo mail"
+        :placeholder="t('forms.contact.placeholders.email')"
       />
     </div>
     <FormKit
       type="tel"
-      placeholder="Numero di telefono"
+      :placeholder="t('forms.contact.placeholders.phone')"
       validation="matches:/^[0-9]{3}[0-9]{3}[0-9]{4}$/"
       :validation-messages="{
-        matches: 'Il numero di telefono deve essere nel formato xxxxxxxxx',
+        matches: t('forms.contact.phoneValidation'),
       }"
       validation-visibility="dirty"
       style="min-width: 100%"
@@ -32,7 +32,7 @@
     <FormKit
       type="textarea"
       name="instructions"
-      placeholder="Commenta"
+      :placeholder="t('forms.contact.placeholders.message')"
       style="resize: none"
     />
 
@@ -47,12 +47,13 @@
         },
       }"
       @click="submitForm"
-      >Invia</FormKit
+      >{{ t("forms.contact.submit") }}</FormKit
     >
   </FormKit>
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const submitForm = () => {};
 </script>
 

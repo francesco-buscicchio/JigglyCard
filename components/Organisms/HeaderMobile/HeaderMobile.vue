@@ -18,7 +18,7 @@
             class="text-accent-950 text-center cursor-pointer"
             @click="goTo(PATH.HOME)"
           >
-            Jigglycard
+            {{ t("brand.name") }}
           </h2>
         </div>
 
@@ -31,7 +31,12 @@
             <Icon name="jig:cerca-accent" size="25" />
           </button>
           <button class="focus:outline-none" @click="goTo(PATH.CART)">
-            <Icon name="jig:cart-accent" size="25" />
+            <span class="relative inline-flex">
+              <Icon name="jig:cart-accent" size="25" />
+              <span v-if="cartCount > 0" class="cart-badge">
+                {{ cartCount }}
+              </span>
+            </span>
           </button>
         </div>
       </div>
@@ -39,9 +44,10 @@
       <div v-if="isSearchOpen" class="mt-4">
         <div class="relative">
           <input
+            v-model="inputSearch"
             type="text"
             class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
-            :placeholder="t('search') + '...'"
+            :placeholder="t('catalog.controls.search') + '...'"
             @input="onSearchInput($event)"
           />
           <span
@@ -66,7 +72,11 @@
             </div>
 
             <div class="flex justify-center w-full">
-              <AtomsButtonCTA :text="t('showAll')" type="text" />
+              <AtomsButtonCTA
+                :text="t('catalog.actions.showAll')"
+                type="text"
+                @click="goToSearch"
+              />
             </div>
           </div>
         </div>
@@ -75,7 +85,7 @@
           <p
             class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
           >
-            {{ t("no_results") }}
+            {{ t("common.messages.noResults") }}
           </p>
         </div>
       </div>
@@ -99,10 +109,12 @@
 import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
 import { goTo } from "@/utils/navigationUtils";
+import { useCartCount } from "~/composables/useCartCount";
 
 const isMenuOpen = ref(false);
 const inputSearch = ref("");
 const { t } = useI18n();
+const { cartCount } = useCartCount();
 
 const props = defineProps<{
   productSearch: Hit[];
@@ -134,7 +146,7 @@ const toggleSearch = () => {
   emit("toggleSearch");
 };
 
-const closeSearch = (event: MouseEvent) => {
+const closeSearch = (event?: MouseEvent) => {
   emit("closeSearch", event);
 };
 
@@ -144,11 +156,41 @@ const onSearchInput = (event: Event) => {
   emit("search", target.value);
 };
 
+const resetSearch = () => {
+  inputSearch.value = "";
+  emit("search", "");
+};
+
 const goToSearch = () => {
-  navigateTo(`/search/${inputSearch.value}`);
+  const searchTerm = inputSearch.value.trim();
+  if (!searchTerm) {
+    resetSearch();
+    closeSearch();
+    return;
+  }
+  closeSearch();
+  navigateTo(`/search/${searchTerm}`);
+  resetSearch();
 };
 
 const onItemClick = (event: Event) => {
   emit("itemClick");
 };
 </script>
+
+<style scoped>
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: 9999px;
+  background-color: #f04438;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+</style>

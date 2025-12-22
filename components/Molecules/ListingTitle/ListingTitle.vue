@@ -17,11 +17,19 @@ const currentMenuItem = computed(() => {
   const targetTo = `/${props.title}`;
 
   if (props.title!.split("/")[0].includes("search")) {
-    return { label: `${t("resultFor")}: ${props.title!.split("/")[1]}` };
+    return {
+      label: `${t("catalog.listing.resultFor")}: ${
+        props.title!.split("/")[1]
+      }`,
+    };
   }
 
   if (props.title!.split("/")[1].includes("all")) {
-    return { label: `${t("resultFor")}: ${props.title!.split("/")[0]}` };
+    return {
+      label: `${t("catalog.listing.resultFor")}: ${
+        props.title!.split("/")[0]
+      }`,
+    };
   }
 
   for (const item of menuItems.value) {
