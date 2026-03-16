@@ -4,20 +4,18 @@
     class="rounded-lg px-4 py-2 min-w-25"
     @click="emitClick"
   >
-    <p>{{ $t(`tag.${text}`) }}</p>
+    <p>{{ $t(`catalog.tags.${text}`) }}</p>
   </button>
 </template>
 
 <!-- TODO mettere traduzioni per le lingue -->
 <script setup lang="ts">
-import type { TagCode } from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "./tag.types";
-
-type TagTypeValues = `${TagType}`;
+import { TagType } from "~/enum/tag.enum";
+import type { TagCode } from "~/types/tagCode.type";
 
 const props = defineProps({
   type: {
-    type: String as () => TagTypeValues,
+    type: String as () => TagType,
     default: "active",
     validator: (value: TagType) =>
       [TagType.ACTIVE, TagType.INACTIVE, TagType.DISABLED].includes(value),
@@ -48,6 +46,6 @@ const typeClass = computed(() => {
 });
 
 const emitClick = () => {
-  emit("tagClicked", props.code);
+  if (props.type !== TagType.DISABLED) emit("tagClicked", props.code);
 };
 </script>

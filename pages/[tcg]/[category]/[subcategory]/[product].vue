@@ -2,105 +2,152 @@
   <div class="w-full px-[4%]" v-if="product">
     <MoleculesBreadcrumb />
 
-    <!-- Product -->
-    <MoleculesProductPageHero
-      :image="product.imageUrl"
-      :title="formatTitle(product.productName)"
-      :code="extractCardCode(product.productName)"
-      :expansion="product.expansion"
-    />
+    <!-- Mobile -->
+    <div v-if="isMobileView">
+      <!-- Product -->
+      <MoleculesProductPageHero
+        :image="product.imageUrl"
+        :title="formatTitle(product.productName)"
+        :code="extractCardCode(product.code)"
+        :expansion="product.expansion"
+      />
 
-    <!-- Listing tags -->
-    <div class="flex flex-col gap-8 mb-7">
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickLanguage"
-        :tags="tagsLanguage"
-        :title="t('filter.language')"
-        v-if="tagsLanguage.length"
-      />
-      <MoleculesListingTag
-        @handle-tag-click="handleTagClickCondition"
-        :tags="tagsCondition"
-        :title="t('filter.condition')"
-        v-if="tagsCondition.length"
-      />
+      <!-- Listing tags -->
+      <div class="flex flex-col gap-8 mb-7">
+        <div v-if="product.available === false">
+          <h2 class="price-tag text-center">
+            {{ t("product.card.soldOut") }}
+          </h2>
+        </div>
+        <div v-else>
+          <OrganismsProductsTags
+            :variants="product.variants"
+            @variantSelected="changedVariant"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-12">
+        <OrganismsProductQuantityActions :variant="selectedVariant" />
+
+        <MoleculesTextViewer>
+          <template v-slot:content>
+            {{ t("product.hero.Description") }}:
+            {{ t("product.messages.defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
 
-    <!-- Select quantity, Add to Cart CTA  and Description-->
-    <div class="flex flex-col gap-12">
-      <OrganismsQuantitySelect
-        :price="product.price"
-        :quantity="product.quantity"
-      />
+    <!-- Desktop -->
+    <div v-if="isDesktopView">
+      <div class="flex gap-20 my-12 xl:ml-[14vw]">
+        <div>
+          <img
+            :src="product.imageUrl ?? defaultCardImage"
+            class="w-[400px] shadow-xl rounded-2xl"
+          />
+        </div>
+        <div class="flex flex-col">
+          <div class="flex flex-col gap-8 lg:gap-4 mb-7 w-full">
+            <div>
+              <h1 class="text-accent-500">
+                {{ formatTitle(product.productName) }}
+              </h1>
+              <p v-if="product.productName" class="pt-2">
+                {{ extractCardCode(product.code) }}
+              </p>
+              <p class="pt-2">{{ product.expansion }}</p>
 
-      <AtomsButtonCTA type="primary" :text="t('productHero.AddToCart')">
-        <Icon name="jig:cart-white" size="30"></Icon>
-      </AtomsButtonCTA>
+              <div>
+                <div v-if="product.available === false">
+                  <h2 class="price-tag pt-6">
+                    {{ t("product.card.soldOut") }}
+                  </h2>
+                </div>
+                <div v-else>
+                  <OrganismsProductsTags
+                    :variants="product.variants"
+                    @variantSelected="changedVariant"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <MoleculesTextViewer>
-        <template v-slot:content>
-          descrizione: {{ t("defaultDescription") }}
-        </template>
-      </MoleculesTextViewer>
+          <OrganismsProductQuantityActions :variant="selectedVariant" />
+        </div>
+      </div>
+      <div class="xl:mx-[14vw] my-18">
+        <MoleculesTextViewer>
+          <template v-slot:title>
+            {{ t("product.hero.Description") }}
+          </template>
+          <template v-slot:content>
+            {{ t("product.messages.defaultDescription") }}
+          </template>
+        </MoleculesTextViewer>
+      </div>
     </div>
 
     <!-- Deals Carousel -->
     <OrganismsProductCarousel
       v-show="!isDesktopView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
       class="my-14"
     />
     <OrganismsProductCarouselWeb
       v-show="isDesktopView"
-      :title="t('deals')"
+      :title="t('home.sections.deals')"
       :products="offerte"
       colorScheme="lightHome"
     />
-
-    <OrganismsServiceBanner class="mb-18" />
   </div>
+  <OrganismsServiceBanner />
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
 const isDesktopView = isDesktop();
-import { algoliasearch } from "algoliasearch";
 import { DEALS_TAG, PRODUCTS_COLLECTION } from "~/data/const";
 import {
-  type ListingTagProps,
-  type TagCode,
-  type TagStructure,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
-import { TagType } from "~/components/Atoms/Tag/tag.types";
-import {
-  activateLanguage,
   createTagCondition,
   createTagLanguage,
   createTagsStructure,
   findActiveLanguage,
 } from "./product.utils";
-import type { ProductType } from "~/types/product.type";
+import type { ListingTag } from "~/types/listingTag.type";
+import type { TagStructure } from "~/types/tagStructure.type";
+import type { TagCode } from "~/types/tagCode.type";
+import type { ProductType } from "~/types/productType.type";
+import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
+import defaultCardImage from "@/assets/img/default-card-image.png";
+import { mapProductItem, mapProducts } from "~/mapper/products.mapper";
 
 const product = ref();
 const { t } = useI18n();
-const config = useRuntimeConfig();
 const route = useRoute();
 const client = useAlgolia();
 const offerte: Ref<ProductType[]> = ref([]);
+const isMobileView = isMobile();
+const selectedVariant = ref(null);
 
 onMounted(async () => {
   fetchData();
   const results = await client.searchSingleIndex({
     indexName: "ecommerce",
-    searchParams: { query: DEALS_TAG, hitsPerPage: 5 },
+    searchParams: {
+      query: DEALS_TAG,
+      hitsPerPage: 5,
+      filters: "available:true",
+    },
   });
   setDeals(results);
 });
 
-const tagsLanguage = ref<ListingTagProps[]>([]);
-const tagsCondition = ref<ListingTagProps[]>([]);
+const tagsLanguage = ref<ListingTag[]>([]);
+const tagsCondition = ref<ListingTag[]>([]);
 let tagsStructure: TagStructure[];
 
 async function fetchData() {
@@ -123,82 +170,32 @@ const setTags = (tagsStructure: TagStructure[]): void => {
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
   tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
 };
-// TODO: refactor mettere setProducts in una utils perchè usata più volte
+
 const setProduct = (queryResult: any) => {
   if (queryResult.hits) {
+    console.log("Item trovato:", queryResult.hits[0]);
     const item = queryResult.hits[0];
-    product.value = {
-      productName: item.name,
-      code: item.code ? `(${item.code})` : "",
-      expansion: item.expansion || "N.A.",
-      price: item.salePrice ? item.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        item.thumbnailImage ||
-        (item.images && item.images.length > 0 ? item.images[0] : null),
-      tcg: item.tcg,
-      category: item.type,
-      id: item.objectID,
-      variants: item.variantsDetails,
-      quantity: item.quantity,
-    };
+    product.value = mapProductItem(item);
+    console.log("Product mappato:", mapProductItem(item));
   }
 };
-// TODO: refactor mettere setProducts in una utils perchè usata più volte
+
 const setDeals = (queryResult: any) => {
-  for (let hit of queryResult.hits) {
-    const obj = {
-      id: hit.objectID,
-      productName: hit.name,
-      code: hit.code ? `(${hit.code})` : "",
-      expansion: hit.expansion || "N.A.",
-      price: hit.salePrice ? hit.salePrice.toFixed(2) : "0.00",
-      imageUrl:
-        hit.thumbnailImage ||
-        (hit.images && hit.images.length > 0 ? hit.images[0] : null),
-      tcg: hit.tcg,
-      category: hit.type,
-    };
-    offerte.value.push(obj);
-  }
+  offerte.value = mapProducts(queryResult);
 };
 
 function extractCardCode(input: string): string | undefined {
   const match = input.match(/\(([^)]+)\)/);
-  return match ? match[1] : undefined;
+  return match ? match[1].toUpperCase() : undefined;
 }
 
 function formatTitle(title: string): string {
   return title.replace(/\s*\([^)]*\)/, "");
 }
 
-const handleTagClickLanguage = (code: TagCode): void => {
-  const activeConditions = tagsStructure.find(
-    (tag) => tag.language === code
-  )?.conditions;
-  if (activeConditions) {
-    tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
-  }
-  tagsLanguage.value = activateLanguage(tagsLanguage.value, code);
-};
-
-const handleTagClickCondition = (code: TagCode): void => {
-  const conditionSelected = tagsCondition.value.find(
-    (tag) => tag.code === code
-  );
-  if (conditionSelected?.type === TagType.DISABLED) {
-    const tagContainThisCondition = tagsStructure.find((tag) =>
-      tag.conditions.some((cond) => cond === conditionSelected?.code)
-    );
-    handleTagClickLanguage(tagContainThisCondition?.language as TagCode);
-  }
-  tagsCondition.value = tagsCondition.value.map((tag) => ({
-    ...tag,
-    type:
-      tag.type === TagType.DISABLED
-        ? TagType.DISABLED
-        : tag.code === code
-        ? TagType.ACTIVE
-        : TagType.INACTIVE,
-  }));
+const changedVariant = (variantID: TagCode): void => {
+  selectedVariant.value = product.value.variants.filter((val: any) => {
+    return val.documentId === variantID;
+  })[0];
 };
 </script>

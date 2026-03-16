@@ -60,7 +60,7 @@ function handleClick() {
   @apply underline;
 }
 .atoms-link:active {
-  @apply bg-accent-500;
+  @apply text-[#124453]
 }
 .visited-link {
   @apply text-[#0EA5E9];

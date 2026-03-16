@@ -3,7 +3,7 @@
     <div class="flex-grow flex flex-col items-center mt-4 sticky-top py-4">
       <div class="w-full flex items-center justify-center relative">
         <div>
-          <h1 class="text-accent-500">Jigglycard</h1>
+          <h1 class="text-accent-500">{{ t("brand.name") }}</h1>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
       <div class="px-5 lg:pr-20 order-1 lg:order-2 w-full lg:w-2/3">
         <img
           :src="Mainimg"
-          alt="Main Image"
+          alt="Team Rocket Jigglypuff"
           class="w-full h-auto object-contain"
         />
       </div>
@@ -83,8 +83,8 @@ const footerData = {
 };
 
 const policyLinks = [
-  { label: t("privacy"), link: "/privacy-policy" },
-  { label: t("cookies"), link: "/cookies" },
-  { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
+  { label: t("common.links.privacy"), link: "/privacy-policy" },
+  { label: t("common.links.cookies"), link: "/cookies" },
+  { label: t("common.links.terms"), link: "/terms-of-use" },
 ];
 </script>

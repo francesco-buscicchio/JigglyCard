@@ -3,30 +3,35 @@
     <h5>{{ productName }}</h5>
     <div class="flex">
       <img
-        :src="imageUrl"
+        :src="imageUrl ?? defaultCardImage"
         :alt="productName"
         class="max-h-38 object-cover mr-4"
       />
       <div class="flex flex-col gap-y-2">
         <p>{{ code }}</p>
         <p>{{ expansion }}</p>
-        <label>{{ t("startingFrom") }}</label>
-        <p class="text-2xl font-bold">{{ price }} €</p>
+        <div v-if="!available">
+          <p class="text-2xl price-tag">{{ t("product.card.soldOut") }}</p>
+        </div>
+        <div v-else>
+          <label for="price">{{ t("product.card.startingFrom") }}</label>
+          <p class="text-2xl price-tag">{{ price }} €</p>
+        </div>
       </div>
     </div>
     <div class="w-full">
       <AtomsButtonCTA
         :type="buttonCtaType"
-        :text="t('showDetails')"
-        v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+        :text="t('catalog.actions.showDetails')"
+        v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import type { PropType } from "vue";
-
+import defaultCardImage from "@/assets/img/default-card-image.png";
+import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const props = defineProps({
   colorScheme: {
@@ -60,6 +65,10 @@ const props = defineProps({
   imageUrl: {
     type: String,
     required: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
   },
 });
 

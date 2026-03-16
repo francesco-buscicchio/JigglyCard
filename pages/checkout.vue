@@ -1,78 +1,94 @@
 <template>
-  <MoleculesBreadcrumb />
-  <h1 class="text-accent-500 text-center pb-4">Checkout</h1>
-  <h4 class="py-4 ml-4">{{ t("shippingInfo") }}</h4>
+  <div class="px-[4vw]">
+    <MoleculesBreadcrumb />
+    <h1 class="text-accent-500 text-center pb-4">{{ t("checkout.title") }}</h1>
+    <h4 class="py-4">{{ t("checkout.shippingInfo") }}</h4>
 
-  <OrganismsCheckoutForm @updateFormValues="updateFormData" />
-  <OrganismsSelectOptions
-    :shipping-options="shippingOptions"
-    @update:selectedOption="updateSelectedOption"
-  />
-  <OrganismsCartSummary
-    :products="mockProducts"
-    :shipping-cost="selectedShippingOption?.price || 0"
-  />
+    <div class="lg:flex lg:gap-[10vw] lg:items-start">
+      <OrganismsCheckoutForm
+        @updateFormStatus="handleFormStatus"
+        class="lg:flex-1 mb-12 max-w-[650px]"
+      />
+      <OrganismsCartSummary
+        :products="products"
+        :shipping-cost="selectedShippingOption?.price || 0"
+        v-show="!isMobileView"
+      />
+    </div>
 
-  <!-- TODO da rivedere  -->
-  <div class="mx-4 my-2">
-    <AtomsButtonCTA
-      @click="validateForm"
-      :type="isFormValid ? 'primary' : 'disabled'"
-      :class="['rounded']"
-      :text="t('confirmAndPay')"
-    >
-    </AtomsButtonCTA>
+    <div class="mb-12 lg:mb-18">
+      <OrganismsSelectOptions
+        :shippingOptions="SHIPPING_METHODS"
+        :selectedOption="selectedShippingOption"
+        @update:selectedOption="updateSelectedOption"
+      />
+    </div>
+
+    <div class="mb-12 lg:mb-18" v-show="isMobileView">
+      <OrganismsCartSummary
+        :products="products"
+        :shipping-cost="selectedShippingOption?.price || 0"
+      />
+    </div>
+
+    <div class="mb-12 lg:mb-18" v-if="totalAmount > 0">
+      <OrganismsCheckoutPayment
+        :is-checkout-valid="isFormValid"
+        :totalAmount="totalAmountWithShipment"
+        :userData="formData"
+        :shippingOption="selectedShippingOption"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import type { Product } from "~/types/product.type";
+import { SHIPPING_METHODS } from "~/data/const";
 
 const { t } = useI18n();
-const formData = ref({});
-const shippingOptions = ref([
-  { name: "Opzione 1", price: 5 },
-  { name: "Opzione 2", price: 10 },
-  { name: "Opzione 3", price: 15 },
-]);
-const selectedShippingOption = ref(null);
+const isMobileView = isMobile();
+const runtimeConfig = useRuntimeConfig();
 
-function updateFormData(data) {
-  formData.value = data;
+export type CheckoutFormData = {
+  name: string;
+  surname: string;
+  email: string;
+  cap: string;
+  city: string;
+  streetAndHouseNumber: string;
+  iWantTheInvoice: boolean;
+};
+
+const formData = ref<CheckoutFormData | null>(null);
+const isFormValid = ref(false);
+
+function handleFormStatus(payload: {
+  values: CheckoutFormData;
+  isValid: boolean;
+}) {
+  formData.value = payload.values;
+  isFormValid.value = payload.isValid;
 }
 
-function updateSelectedOption(option) {
+const selectedShippingOption = ref(SHIPPING_METHODS[0]);
+function updateSelectedOption(option: any) {
   selectedShippingOption.value = option;
 }
 
-const isFormValid = computed(() => {
-  const allFieldsFilled = Object.values(formData.value).every(
-    (value) => value !== null && value !== ""
-  );
-  const isShippingSelected = selectedShippingOption.value !== null;
-  return allFieldsFilled && isShippingSelected;
+const cartConfig: CartConfig = {
+  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
+  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
+};
+
+const { products, totalCart } = useCart(cartConfig);
+
+const totalAmount = computed(() => Number(totalCart.value) * 100);
+const totalAmountWithShipment = computed(() => {
+  return Number(totalCart.value) + (selectedShippingOption.value?.price || 0);
 });
-
-function validateForm() {
-  //TODO:log utili solo per carello ecc.. da eliminare
-  console.log("Form Data:", formData.value);
-  console.log("Selected Shipping Option:", selectedShippingOption.value);
-
-  if (isFormValid.value) {
-    console.log("ok");
-  } else {
-    console.log("i campi obbligatori non sono stati compilati");
-  }
-}
 
 definePageMeta({
   layout: "default",
 });
-
-const mockProducts = ref<Product[]>([
-  { nameProduct: "Pikachu", price: 9.99, codeProduct: "PK001", id: "1" },
-  { nameProduct: "Charmander", price: 5.99, codeProduct: "CH002", id: "2" },
-  { nameProduct: "Bulbasaur", price: 8.99, codeProduct: "BL003", id: "3" },
-]);
 </script>

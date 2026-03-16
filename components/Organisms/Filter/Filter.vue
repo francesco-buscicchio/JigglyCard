@@ -1,7 +1,7 @@
 <template>
   <div>
     <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5>{{ t("filters") }}</h5>
+      <h5>{{ t("catalog.controls.filters") }}</h5>
     </AtomsButtonCTA>
 
     <transition name="fade">
@@ -18,7 +18,7 @@
             @click="togglePanel"
           ></Icon>
           <h5 class="text-center w-full mr-18">
-            {{ t("filters") }}
+            {{ t("catalog.controls.filters") }}
           </h5>
         </div>
 
@@ -26,7 +26,7 @@
           <div v-for="category of filterCategories" :key="category.objectID">
             <MoleculesAccordion>
               <template #header>
-                <p>{{ t(`filter.${category.name}`) }}</p>
+                <p>{{ translateCategoryLabel(category.name) }}</p>
               </template>
               <div
                 v-for="(item, index) of category.value"
@@ -42,38 +42,43 @@
                     "
                     class="mr-6 bg-white custom-checkbox"
                   />
-                  <p class="text-left">{{ t(`filter.${item.name}`) }}</p>
+                  <p class="text-left">
+                    {{ translateFilterValue(item.name, category.name) }}
+                  </p>
                 </div>
               </div>
             </MoleculesAccordion>
           </div>
 
-          <!-- Slider Prezzo -->
+          <!-- Prezzo temporaneamente disabilitato -->
+          <!--
           <div class="mx-6 mt-4">
-            <p>{{ t("price") }}</p>
+            <p>{{ t("catalog.controls.price") }}</p>
             <div
               class="flex items-center justify-center whitespace-nowrap mt-2"
             >
               <span class="mr-2 w-20"
-                >{{ t("da") }} {{ selectedMinPrice }}</span
+                >{{ t("catalog.controls.from") }} {{ selectedMinPrice }}</span
               >
               <MoleculesSlider
-                :min="0"
-                :max="5000"
+                :min="minumPrice"
+                :max="maxPrice"
                 :initialMinPrice="selectedMinPrice"
                 :initialMaxPrice="selectedMaxPrice"
                 @update:minPrice="updateMinPrice($event)"
                 @update:maxPrice="updateMaxPrice($event)"
               />
-              <span class="ml-2 w-20">{{ t("a") }} {{ selectedMaxPrice }}</span>
+              <span class="ml-2 w-20"
+                >{{ t("catalog.controls.to") }} {{ selectedMaxPrice }}</span
+              >
             </div>
           </div>
 
-          <!-- Input Prezzo -->
           <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">{{ t("min") }}</p>
+            <p class="ml-12 mr-6">{{ t("catalog.controls.min") }}</p>
             <AtomsInputText
               class="w-20"
+              :key="inputKey"
               v-model="selectedMinPrice"
               :placeholder="''"
               @keydown="validateNumberInput($event)"
@@ -81,8 +86,9 @@
             />
           </div>
           <div class="flex items-center">
-            <p class="ml-12 mr-6">{{ t("max") }}</p>
+            <p class="ml-12 mr-6">{{ t("catalog.controls.max") }}</p>
             <AtomsInputText
+              :key="inputKey + 1"
               class="w-20"
               v-model="selectedMaxPrice"
               :placeholder="''"
@@ -90,6 +96,7 @@
               @input="validatePriceInput('max', $event)"
             />
           </div>
+          -->
         </div>
 
         <!-- Pulsanti -->
@@ -99,11 +106,12 @@
               class="text-underlined"
               type="text"
               @click="resetAllFilters"
+              :class="areFiltersSelected ? 'visible' : 'invisible'"
             >
-              <p>{{ t("deleteAllFilters") }}</p>
+              <p>{{ t("catalog.controls.clear") }}</p>
             </AtomsButtonCTA>
             <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ t("apply") }}</h5>
+              <h5>{{ t("catalog.controls.apply") }}</h5>
             </AtomsButtonCTA>
           </div>
         </div>
@@ -113,51 +121,120 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from "vue";
-import { FILTERS_COLLECTION } from "~/data/const";
+import { ref, watch, computed, type PropType } from "vue";
+import { getTypeTranslationKey } from "~/utils/filterTranslation";
+
 const props = defineProps({
-  filters: Array<String>,
+  filters: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+  },
+  facets: {
+    type: Object as PropType<Record<string, Record<string, number>> | null>,
+    default: null,
+  },
+  priceStats: {
+    type: Object as PropType<{ min: number; max: number } | null>,
+    default: null,
+  },
 });
 
-const { t } = useI18n();
-const config = useRuntimeConfig();
-const filterList = ref<String[]>([]);
-const filterCategories = ref();
-const client = useAlgolia();
-
+const { t, te } = useI18n();
+const filterList = ref<string[]>([]);
+const filterCategories = ref<
+  {
+    objectID: string;
+    name: string;
+    value: { id: string; name: string; checked: boolean }[];
+  }[]
+>([]);
+const facetOptionCache = ref<Record<string, Set<string>>>({});
 const isOpen = ref(false);
+const minumPrice = ref(0);
+const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(5000);
-const selectedFilters = reactive<{ [key: string]: any }>({});
+const selectedMaxPrice = ref(0);
+const inputKey = ref(0);
+const facetDefinitions = [
+  { facetKey: "languages", category: "language" },
+  { facetKey: "conditions", category: "condition" },
+  { facetKey: "tcg", category: "brand" },
+  { facetKey: "type", category: "type" },
+  { facetKey: "setSlug", category: "expansion" },
+  { facetKey: "available", category: "available" },
+];
 
-watch(props, () => {
-  filterList.value = props.filters ?? [];
-  updateSelectedFilters();
-});
-function updateSelectedFilters() {
-  resetAllFilters();
-  if (filterList.value.length) {
-    for (let filter of filterCategories.value) {
-      for (let value of filter.value) {
-        if (filterList.value.includes(value.name)) {
-          value.checked = true;
-        }
-      }
+watch(
+  () => props.filters,
+  (newFilters) => {
+    filterList.value = newFilters ?? [];
+    updateSelectedFilters();
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.facets,
+  (newFacets) => {
+    buildFilterCategories(newFacets);
+    updateSelectedFilters();
+  },
+  { immediate: true }
+);
+
+watch(
+  () => props.priceStats,
+  (stats) => {
+    if (!stats) {
+      minumPrice.value = 0;
+      maxPrice.value = 0;
+      selectedMinPrice.value = 0;
+      selectedMaxPrice.value = 0;
+      inputKey.value++;
+      return;
     }
-  }
-}
 
-onMounted(async () => {
-  let results = await client.searchSingleIndex({
-    indexName: FILTERS_COLLECTION,
-  });
-  filterCategories.value = results.hits.map((filter: any) => ({
-    ...filter,
-    value: filter.value.map((language: any) => ({
-      name: language,
-      checked: false,
-    })),
-  }));
+    const normalizedMin = Math.floor(stats.min ?? 0);
+    const normalizedMax = Math.ceil(stats.max ?? 0);
+    const safeMax = Math.max(normalizedMin, normalizedMax);
+
+    minumPrice.value = normalizedMin;
+    maxPrice.value = safeMax;
+
+    selectedMinPrice.value = Math.max(
+      normalizedMin,
+      Math.min(
+        selectedMinPrice.value || normalizedMin,
+        safeMax
+      )
+    );
+
+    selectedMaxPrice.value = Math.min(
+      safeMax,
+      Math.max(
+        selectedMaxPrice.value || safeMax,
+        selectedMinPrice.value
+      )
+    );
+    inputKey.value++;
+  },
+  { immediate: true }
+);
+
+const areFiltersSelected = computed(() => {
+  const hasCheckedFilter = filterCategories.value?.some(
+    (category: {
+      name: string;
+      value: { name: string; checked: boolean }[];
+    }) => {
+      return category.value.some((filter) => filter.checked);
+    }
+  );
+
+  const isPriceRangeSelected =
+    selectedMaxPrice.value !== maxPrice.value ||
+    selectedMinPrice.value !== minumPrice.value;
+  return hasCheckedFilter || isPriceRangeSelected;
 });
 
 const emit = defineEmits(["filterUpdate"]);
@@ -179,21 +256,6 @@ function updateCheckboxValue(
   const filter = category.value[filterIndex];
 
   filter.checked = value;
-
-  // if (value) {
-  //   if (!selectedFilters[category.name]) {
-  //     selectedFilters[category.name] = [];
-  //   }
-  //   selectedFilters[category.name].push(filter.name);
-  // } else {
-  //   const index = selectedFilters[category.name]?.indexOf(filter.name);
-  //   if (index > -1) {
-  //     selectedFilters[category.name].splice(index, 1);
-  //   }
-  //   if (selectedFilters[category.name]?.length === 0) {
-  //     delete selectedFilters[category.name];
-  //   }
-  // }
 }
 
 function updateMinPrice(value: number) {
@@ -204,12 +266,12 @@ function updateMinPrice(value: number) {
 }
 
 function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, 5000);
+  selectedMaxPrice.value = Math.min(value, maxPrice.value);
 }
 
 function validateNumberInput(event: KeyboardEvent) {
   const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
-  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
+  if (!/\d/.test(event.key) && !allowedKeys.includes(event.key)) {
     event.preventDefault();
   }
 }
@@ -221,23 +283,19 @@ function validatePriceInput(type: "min" | "max", event: Event) {
   if (!isNaN(numericValue)) {
     if (type === "min") {
       selectedMinPrice.value = Math.max(
-        0,
+        minumPrice.value,
         Math.min(numericValue, selectedMaxPrice.value)
       );
     } else {
       selectedMaxPrice.value = Math.min(
         Math.max(numericValue, selectedMinPrice.value),
-        5000
+        maxPrice.value
       );
     }
   }
 }
 
 function applyFilters() {
-  selectedFilters["Prezzo"] = {
-    min: selectedMinPrice.value,
-    max: selectedMaxPrice.value,
-  };
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
@@ -245,6 +303,17 @@ function applyFilters() {
     return acc;
   }, {});
   togglePanel();
+
+  result["price"] = {
+    min:
+      selectedMinPrice.value === minumPrice.value
+        ? undefined
+        : selectedMinPrice.value,
+    max:
+      selectedMaxPrice.value === maxPrice.value
+        ? undefined
+        : selectedMaxPrice.value,
+  };
   emit("filterUpdate", result);
 }
 
@@ -254,12 +323,93 @@ function resetAllFilters() {
       filter.checked = false;
     });
   });
-  Object.keys(selectedFilters).forEach((key) => {
-    delete selectedFilters[key];
+  selectedMinPrice.value = minumPrice.value;
+  selectedMaxPrice.value = maxPrice.value;
+  inputKey.value++; //force rerender
+}
+
+function buildFilterCategories(
+  facetsData: Record<string, Record<string, number>> | null
+) {
+  const hasExistingCache = Object.keys(facetOptionCache.value).length > 0;
+
+  if (!facetsData && !hasExistingCache) {
+    filterCategories.value = [];
+    return;
+  }
+
+  if (facetsData) {
+    facetDefinitions.forEach(({ facetKey, category }) => {
+      const facetValues = facetsData[facetKey];
+      if (!facetOptionCache.value[category]) {
+        facetOptionCache.value[category] = new Set();
+      }
+      if (!facetValues) return;
+
+      Object.keys(facetValues)
+        .filter((valueKey) => valueKey !== "__empty__" && valueKey !== "")
+        .forEach((valueKey) => {
+          facetOptionCache.value[category]?.add(valueKey);
+        });
+    });
+  }
+
+  const categories = facetDefinitions
+    .map(({ facetKey, category }) => {
+      const cachedValues = facetOptionCache.value[category];
+      if (!cachedValues || cachedValues.size === 0) return null;
+
+      const values = Array.from(cachedValues)
+        .sort((a, b) => a.localeCompare(b))
+        .map((valueKey) => ({
+          id: `${facetKey}-${valueKey}`,
+          name: valueKey,
+          checked: false,
+        }));
+
+      if (!values.length) return null;
+
+      return {
+        objectID: facetKey,
+        name: category,
+        value: values,
+      };
+    })
+    .filter(Boolean);
+
+  filterCategories.value = categories as {
+    objectID: string;
+    name: string;
+    value: { id: string; name: string; checked: boolean }[];
+  }[];
+}
+
+function updateSelectedFilters() {
+  if (!filterCategories.value?.length) return;
+
+  filterCategories.value.forEach((category) => {
+    category.value.forEach((filter) => {
+      filter.checked = filterList.value.includes(filter.name);
+    });
   });
-  selectedMinPrice.value = 0;
-  selectedMaxPrice.value = 5000;
-  selectedFilters["Prezzo"] = { min: 0, max: 5000 };
+}
+
+function translateFilterValue(value: string, categoryName?: string) {
+  if (categoryName === "type") {
+    const typeKey = getTypeTranslationKey(value);
+    if (typeKey) {
+      const translationKey = `filterType.${typeKey}`;
+      if (te(translationKey)) return t(translationKey);
+    }
+  }
+
+  const key = `filter.${value}`;
+  return te(key) ? t(key) : value;
+}
+
+function translateCategoryLabel(value: string) {
+  const key = `filter.${value}`;
+  return te(key) ? t(key) : value;
 }
 
 watch(isOpen, (newValue) => {

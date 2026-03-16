@@ -1,22 +1,20 @@
 <template>
   <div>
-    <div class="flex items-center gap-13">
-      <div class="flex mr-6 items-center">
-        <p class="mr-6">{{ t("quantitySelect.quantity") }}:</p>
+    <div class="flex items-center gap-13 lg:gap-4 lg:flex-col">
+      <div
+        class="flex mr-6 items-center lg:flex-col lg:mr-0 justify-center lg:gap-2"
+      >
+        <p class="mr-6 lg:mr-0">{{ t("product.quantity.quantity") }}:</p>
         <MoleculesPageSorter
           :sortingItems="quantityOptions"
           :selected="quantity"
           @handleSorting="updateQuantity"
+          type="slim"
         />
       </div>
 
-      <h2 :class="!isCart ? 'mr-10' : ''">{{ totalPrice }} €</h2>
+      <h2 class="mr-10 lg:mr-0 lg:text-2xl">{{ totalPrice }} €</h2>
     </div>
-
-    <p class="my-2" v-if="!isCart">
-      {{ t("quantitySelect.availability") }}: {{ quantity }}
-      {{ t("quantitySelect.pieces") }}
-    </p>
   </div>
 </template>
 
@@ -24,10 +22,12 @@
 const props = defineProps<{
   quantity: number;
   price: number;
-  isCart: boolean;
+  selectedQuantity: number;
 }>();
 
-const quantity = ref(1);
+const emit = defineEmits(["quantityChanged"]);
+
+const quantity = ref(props.selectedQuantity);
 const { t } = useI18n();
 const quantityOptions = computed(() => {
   return Array.from({ length: props.quantity }, (_, i) => ({
@@ -40,12 +40,6 @@ const totalPrice = computed(() => (quantity.value * props.price).toFixed(2));
 
 function updateQuantity(newQuantity: string) {
   quantity.value = Number(newQuantity);
+  emit("quantityChanged", Number(newQuantity));
 }
 </script>
-
-<style scoped>
-.price {
-  font-family: "Roboto Flex";
-  font-weight: 600;
-}
-</style>

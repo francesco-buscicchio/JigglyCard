@@ -1,30 +1,30 @@
 export default [
   {
-    name: "pageSorting.mostPopular",
+    name: "catalog.sorting.mostPopular",
     value: "",
   },
   {
-    name: "pageSorting.priceCheapest",
+    name: "catalog.sorting.priceCheapest",
     value: "_price_asc",
   },
   {
-    name: "pageSorting.priceExpensive",
+    name: "catalog.sorting.priceExpensive",
     value: "_price_desc",
   },
   {
-    name: "pageSorting.nameAtoZ",
+    name: "catalog.sorting.nameAtoZ",
     value: "_name_asc",
   },
   {
-    name: "pageSorting.nameZtoA",
+    name: "catalog.sorting.nameZtoA",
     value: "_name_desc",
   },
   {
-    name: "pageSorting.collecorsNumberLowest",
-    value: "_number_asc",
+    name: "catalog.sorting.collectorsNumberLowest",
+    value: "_number_lowest",
   },
   {
-    name: "pageSorting.collecorsNumberHighest",
-    value: "_number_desc",
+    name: "catalog.sorting.collectorsNumberHighest",
+    value: "_number_highest",
   },
 ];

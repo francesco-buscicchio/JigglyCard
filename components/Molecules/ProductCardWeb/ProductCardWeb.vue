@@ -1,47 +1,46 @@
 <template>
   <div>
-    <div class="flex relative flex-col cursor-pointer">
+    <div class="flex relative flex-col cursor-pointer w-[13vw]">
+      <!-- Immagine -->
       <img
-        :src="imageUrl"
+        :src="imageUrl ?? defaultCardImage"
         :alt="productName"
-        class="max-h-[20vw] w-[13vw] object-cover rounded-2xl"
+        class="w-full object-cover rounded-2xl"
+        :style="{ maxHeight: '20vw' }"
       />
 
-      <!-- da correggere -->
-      <div class="w-[13vw] h-[20vw] px-2 pt-[10vw] absolute layer">
-        <div
-          class="relative group flex flex-col gap-y-2 items-center cursor-default pt-2"
-        >
-          <h5
-            ref="productNameRef"
-            class="overflow-hidden whitespace-nowrap text-ellipsis w-full text-center"
-          >
-            {{ formatProductName(productName) }}
-          </h5>
-          <p class="text-lg">{{ code }}</p>
-          <p class="text-lg">{{ expansion }}</p>
-          <label class="text-xs"
-            >{{ t("startingFrom") }}
-            <p
-              class="ml-1 xl:ml-4 lg:ml-2 font-bold inline text-base xl:text-2xl"
-            >
-              {{ price }} €
-            </p></label
-          >
-          <div
-            v-if="isProductNameOverflowing"
-            class="absolute hidden group-hover:block bg-accent-500 text-white text-[10px] rounded p-1 bottom-full transform max-w-xs whitespace-no-wrap"
-          >
-            {{ formatProductName(productName) }}
-          </div>
-        </div>
-      </div>
+      <!-- Overlay sfumato sopra l’immagine -->
+      <div
+        class="absolute top-0 w-full h-full layer pointer-events-none rounded-2xl"
+      ></div>
 
-      <div class="mt-12">
+      <!-- Contenuto -->
+      <div
+        class="flex flex-col items-center gap-y-2 pt-2 px-2 bg-white -mt-40 relative z-10 rounded-b-2xl"
+      >
+        <h5 ref="productNameRef" class="ellipsis text-center w-full">
+          {{ formatProductName(productName) }}
+        </h5>
+        <p class="text-lg ellipsis w-full text-center">{{ code }}</p>
+        <p class="text-lg ellipsis w-full text-center">{{ expansion }}</p>
+
+        <div v-if="!available">
+          <p class="text-2xl price-tag">{{ t("product.card.soldOut") }}</p>
+        </div>
+        <div v-else>
+          <label class="text-xs text-center" for="price">
+            {{ t("product.card.startingFrom") }}
+            <p class="ml-1 price-tag inline text-base xl:text-2xl">
+              {{ price }} €
+            </p>
+          </label>
+        </div>
+
         <AtomsButtonCTA
           :type="buttonCtaType"
-          :text="t('showDetails')"
-          v-on:button-clicked="navigateTo(`/${tcg}/${category}/${id}`)"
+          :text="t('catalog.actions.showDetails')"
+          class="mt-2"
+          v-on:button-clicked="goTo(`/${tcg}/${category}/${id}`)"
         />
       </div>
     </div>
@@ -49,10 +48,50 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProductCard } from "~/types/product.type";
+import type { ProductCard } from "~/types/productCard.type";
 import { formatProductName } from "~/utils/productUtils";
+import { goTo } from "@/utils/navigationUtils";
+import defaultCardImage from "@/assets/img/default-card-image.png";
+
 // TODO: separare le props in un file separato
-const props = defineProps<ProductCard>();
+const props = defineProps({
+  colorScheme: {
+    type: String,
+  },
+  id: {
+    type: String,
+  },
+  tcg: {
+    type: String,
+  },
+  category: {
+    type: String,
+  },
+  productName: {
+    type: String,
+    required: true,
+  },
+  code: {
+    type: String,
+    required: true,
+  },
+  expansion: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 const { t } = useI18n();
 const productNameRef = ref<HTMLElement | null>(null);
@@ -90,11 +129,10 @@ const buttonCtaType = computed(() => {
 
 <style scoped>
 .layer {
-  background-image: -webkit-linear-gradient(
-    0deg,
-    #ffffff 10%,
-    rgba(0, 0, 0, 0) 50%
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    #fff 40%
   );
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 10%, #fff 50%);
 }
 </style>

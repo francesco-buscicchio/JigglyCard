@@ -1,5 +1,6 @@
 <template>
   <OrganismsHeaderMobile
+    v-if="!isLandingPage"
     class="w-full"
     :header="{ cartCount: 9 }"
     :productSearch="productSearch"
@@ -8,9 +9,10 @@
     @toggleSearch="toggleSearch"
     @closeSearch="closeSearch"
     @search="searchProducts"
+    @itemClick="onClickItem"
   />
 
-  <div class="hidden w-full lg:block sticky-header">
+  <div v-if="!isLandingPage" class="hidden w-full lg:block fixed-header">
     <OrganismsHeaderDesktop
       class="w-full"
       :header="{ cartCount: 9 }"
@@ -20,70 +22,76 @@
       @toggleSearch="toggleSearch"
       @closeSearch="closeSearch"
       @search="searchProducts"
+      @itemClick="onClickItem"
     />
   </div>
+
+  <div v-else class="w-full bg-white shadow-md px-18 py-5 fixed-header">
+    <div class="flex justify-between items-center">
+      <div
+        class="flex items-center gap-2 cursor-pointer"
+        @click="navigateTo('/')"
+      >
+        <img
+          :src="logoNew"
+          alt="Jigglycard logo"
+          class="w-12 h-12 object-contain"
+        />
+        <h2 class="text-accent-950">Jigglycard</h2>
+      </div>
+    </div>
+  </div>
+
+  <MoleculesCookieBanner />
   <slot />
 
-  <footer>
+  <footer v-if="!isLandingPage">
     <OrganismsPreFooter />
-    <OrganismsFooter :footer="footerData" :policyLinks="policyLinks" />
+    <OrganismsFooter :policyLinks="policyLinks" />
   </footer>
 </template>
 
 <script setup lang="ts">
-import facebookLogo from "~/assets/icons/facebook.svg";
-import instagramLogo from "~/assets/icons/instagram.svg";
-import youtubeLogo from "~/assets/icons/youtube.svg";
-import tiktokLogo from "~/assets/icons/tiktok.png";
 import { useI18n } from "vue-i18n";
-import type { Hit, SearchProductResult } from "~/types/product.type";
+import type { Hit } from "~/interface/hit.interface";
+import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import logoNew from "~/assets/logo/logo_new.png";
 const client = useAlgolia();
 const isSearchOpen = ref(false);
 const { t } = useI18n();
+const { host } = useRequestURL();
+const isProductionSite = host === "jigglycard.com";
+const route = useRoute();
+const isHomePage = route.path === "/";
+const isLandingPage = route.path === "/landing";
 const productSearch = ref<Hit[]>([]);
 const searchValue = ref<string>("");
 
 const noResults = computed(
-  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
+  () => !(productSearch.value.length > 0 || searchValue.value.length < 3),
 );
 
-const footerData = {
-  imgs: [
-    {
-      img: instagramLogo,
-      url: "https://www.instagram.com/jigglycard/",
-    },
-    {
-      img: tiktokLogo,
-      url: "https://www.tiktok.com/@jigglycard",
-    },
-    {
-      img: facebookLogo,
-      url: "#",
-    },
-    {
-      img: youtubeLogo,
-      url: "#",
-    },
-  ],
-};
-
 const policyLinks = [
-  { label: t("privacy"), link: "/privacy-policy" },
-  { label: t("cookies"), link: "/cookies" },
-  { label: t("terminiDiUtilizzo"), link: "/terms-of-use" },
+  { label: t("common.links.privacy"), link: "/privacy-policy" },
+  { label: t("common.links.cookies"), link: "/cookies" },
+  { label: t("common.links.terms"), link: "/terms-of-use" },
 ];
 
 const toggleSearch = () => {
   isSearchOpen.value = !isSearchOpen.value;
 };
 
-const closeSearch = (event: MouseEvent) => {
+const onClickItem = () => {
+  isSearchOpen.value = false;
+};
+
+const closeSearch = (event?: MouseEvent) => {
   if (
-    event.target instanceof HTMLElement &&
-    event.target.classList.contains("overlay-header")
+    !event ||
+    (event.target instanceof HTMLElement &&
+      event.target.classList.contains("overlay-header"))
   ) {
-    isSearchOpen.value = !isSearchOpen.value;
+    isSearchOpen.value = false;
   }
   // Reset research
   productSearch.value = [];
@@ -95,7 +103,7 @@ const searchProducts = async (data: string) => {
   if (data.length > 2) {
     const results = await client.searchSingleIndex<SearchProductResult>({
       indexName: "ecommerce",
-      searchParams: { query: data, hitsPerPage: 4 },
+      searchParams: { query: data, hitsPerPage: 6 },
     });
     productSearch.value = results.hits as unknown as Hit[];
   } else productSearch.value = [];

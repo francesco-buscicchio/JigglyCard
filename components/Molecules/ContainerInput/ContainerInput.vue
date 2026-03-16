@@ -26,7 +26,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["inputUpdate", "inputBlur"]);
-const handleInput = (value: String) => {
+const handleInput = (value: string) => {
   emit("inputUpdate", value);
 };
 

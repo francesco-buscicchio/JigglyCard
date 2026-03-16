@@ -1,28 +1,30 @@
-import { TagType } from "~/components/Atoms/Tag/tag.types";
-import type {
-  Language,
-  ListingTagProps,
-  TagCode,
-  TagCondition,
-  TagStructure,
-  VariantDetail,
-} from "~/components/Molecules/ListingTag/ListingTag.types";
 import {
   availableConditions,
   availableLanguages,
   preferredLanguageOrder,
 } from "~/data/const";
+import type { Language } from "~/enum/language.enum";
+import { TagType } from "~/enum/tag.enum";
+import type { TagCondition } from "~/enum/tagCondition.enum";
+import type { VariantDetail } from "~/interface/variantDetail.interface";
+import type { ListingTag } from "~/types/listingTag.type";
+import type { TagCode } from "~/types/tagCode.type";
+import type { TagStructure } from "~/types/tagStructure.type";
 
 export const createTagLanguage = (
   tagsStructure: TagStructure[]
-): ListingTagProps[] => {
+): ListingTag[] => {
   const languageMap = createLanguageMap();
 
   const sortedLanguages = preferredLanguageOrder
-    .filter((lang) => tagsStructure.some((item) => item.language === lang))
+    .filter((lang) =>
+      tagsStructure.some(
+        (item) => item.language.toLocaleLowerCase() === lang.toLowerCase()
+      )
+    )
     .map((lang) => ({
       code: lang,
-      name: languageMap.get(lang) || lang,
+      name: languageMap.get(lang) ?? lang,
       conditions:
         tagsStructure.find((item) => item.language === lang)?.conditions || [],
     }));
@@ -37,7 +39,7 @@ export const createTagLanguage = (
 export const createTagCondition = (
   tagsStructure: TagStructure[],
   activeConditions: TagCondition[]
-): ListingTagProps[] => {
+): ListingTag[] => {
   const conditionMap = createConditionMap();
 
   const allConditionsSet = new Set<TagCondition>();
@@ -52,14 +54,14 @@ export const createTagCondition = (
       const index = activeConditions.indexOf(cond);
       return {
         type: index === 0 ? TagType.ACTIVE : TagType.INACTIVE,
-        text: conditionMap.get(cond) || cond,
-        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
+        text: conditionMap.get(cond) ?? cond,
+        code: findCodeByText(conditionMap.get(cond) ?? cond) as TagCondition,
       };
     } else {
       return {
         type: TagType.DISABLED,
-        text: conditionMap.get(cond) || cond,
-        code: findCodeByText(conditionMap.get(cond) || cond) as TagCondition,
+        text: conditionMap.get(cond) ?? cond,
+        code: findCodeByText(conditionMap.get(cond) ?? cond) as TagCondition,
       };
     }
   });
@@ -68,7 +70,7 @@ export const createTagCondition = (
 };
 
 export const findActiveLanguage = (
-  tagLanguage: ListingTagProps[],
+  tagLanguage: ListingTag[],
   tagsStructure: TagStructure[]
 ): TagStructure | undefined => {
   const languageMap = createLanguageMap();
@@ -82,9 +84,9 @@ export const findActiveLanguage = (
 };
 
 export const activateLanguage = (
-  tagLanguage: ListingTagProps[],
+  tagLanguage: ListingTag[],
   code: TagCode
-): ListingTagProps[] => {
+): ListingTag[] => {
   const text = findTextByCode(code);
   return tagLanguage.map((tag) => ({
     ...tag,
@@ -93,6 +95,9 @@ export const activateLanguage = (
 };
 
 export const createTagsStructure = (query: any): TagStructure[] => {
+  if (query.hits.length === 0) {
+    return [];
+  }
   const variantsDetails: VariantDetail[] = query.hits[0].variantsDetails;
   const grouped: {
     [key in TagStructure["language"]]?: Set<VariantDetail["condition"]>;
@@ -111,7 +116,7 @@ export const createTagsStructure = (query: any): TagStructure[] => {
   const tagStructures: TagStructure[] = Object.entries(grouped).map(
     ([lang, conditionsSet]) => ({
       language: lang as TagStructure["language"],
-      conditions: Array.from(conditionsSet!) as TagStructure["conditions"],
+      conditions: Array.from(conditionsSet),
     })
   );
 

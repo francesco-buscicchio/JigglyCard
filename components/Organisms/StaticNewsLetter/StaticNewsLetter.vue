@@ -19,7 +19,7 @@
       <div class="mt-6 w-full flex flex-col gap-y-4">
         <MoleculesContainerInput
           status="default"
-          placeholder="e-mail"
+          :placeholder="t('newsletter.emailPlaceholder')"
           @inputUpdate="email = $event"
         />
         <AtomsButtonCTA
@@ -37,20 +37,18 @@
 import { useI18n } from "vue-i18n";
 import { sendMail } from "~/utils/sendMail";
 import getUsernameFromMail from "~/utils/getUsernameFromMail";
-
-const client = useMedusaClient();
 const emit = defineEmits(["mailSended"]);
 const config = useRuntimeConfig();
 const { t, locale } = useI18n();
 const email = ref("");
 
-const titleNewsLetter = t("titleNewsLetter");
-const headerNewsLetter = t("headerNewsLetter");
+const titleNewsLetter = t("newsletter.title");
+const headerNewsLetter = t("newsletter.header");
 
-const captionNewsletterFirst = t("captionNewsletter.first");
-const captionNewsletterBold = t("captionNewsletter.bold");
-const captionNewsletterSecond = t("captionNewsletter.second");
-const buttonNewsLetter = t("buttonNewsLetter");
+const captionNewsletterFirst = t("newsletter.caption.first");
+const captionNewsletterBold = t("newsletter.caption.bold");
+const captionNewsletterSecond = t("newsletter.caption.second");
+const buttonNewsLetter = t("newsletter.button");
 
 const loadTemplates = async () => {
   const customerTemplateModule =
@@ -78,17 +76,17 @@ const mailAction = async () => {
   sendMail({
     email: email.value,
     name: email.value,
-    subject: "Subscription to Jigglycard newsletter successful",
+    subject: t("emails.newsletter.subscriptionSubject"),
     contentValue: newsletterToCustomer(userName),
-  }).then((val) => {
+  }).then(() => {
     emit("mailSended");
   });
 
   // SEND MAIL TO BACKOFFICE
   sendMail({
-    email: "jigglycard@gmail.com",
-    name: "Jigglycard Store",
-    subject: "Subscription to Jigglycard newsletter successful",
+    email: config.public.ADMIN_MAIL,
+    name: t("emails.newsletter.storeName"),
+    subject: t("emails.newsletter.adminSubject"),
     contentValue: newsletterToAdmin(userName, email.value),
   });
 

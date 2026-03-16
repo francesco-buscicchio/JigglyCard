@@ -7,7 +7,6 @@
       class="absolute inset-y-0 right-0 flex items-center pr-4"
       @click="emitClick"
       aria-label="Remove filter"
-      role="button"
     >
       <Icon name="jig:close-filter" size="10" />
     </button>
