@@ -119,12 +119,8 @@ async function fetchHomeData() {
       ],
     });
 
-    const [
-      highlightsResult,
-      whatsNewResult,
-      dealsResult,
-      heroResult,
-    ] = response.results || [];
+    const [highlightsResult, whatsNewResult, dealsResult, heroResult] =
+      response.results || [];
 
     evidenza.value = mapHitsToProducts(highlightsResult?.hits, 5);
     novita.value = mapHitsToProducts(whatsNewResult?.hits, 5);
@@ -140,7 +136,7 @@ async function fetchHomeData() {
 
 function mapHitsToProducts(
   hits: any[] | undefined,
-  limit: number
+  limit: number,
 ): ProductType[] {
   if (!hits?.length) return [];
   return hits.slice(0, limit).map((hit) => mapProductItem(hit));

@@ -7,12 +7,19 @@
   >
     <header class="bg-white shadow-md px-18 py-5">
       <div class="flex justify-between items-center">
-        <h2
+        <div
           @click="goToItem(PATH.HOME, $event)"
-          class="text-accent-950 cursor-pointer"
+          class="flex items-center gap-2 cursor-pointer"
         >
-          {{ t("brand.name") }}
-        </h2>
+          <img
+            :src="logoNew"
+            alt="Jigglycard logo"
+            class="w-12 h-12 object-contain"
+          />
+          <h2 class="text-accent-950">
+            {{ t("brand.name") }}
+          </h2>
+        </div>
 
         <nav class="flex gap-x-6">
           <div
@@ -147,6 +154,7 @@ import { PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
 import useMenu from "~/data/menu";
 import { headerButtons } from "~/data/headerButtons";
+import logoNew from "~/assets/logo/logo_new.png";
 import type { Hit } from "~/interface/hit.interface";
 import type { HeaderProps } from "~/types/headerPropsType.type";
 import { useCartCount } from "~/composables/useCartCount";

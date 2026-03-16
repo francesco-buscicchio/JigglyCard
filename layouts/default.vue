@@ -1,5 +1,6 @@
 <template>
   <OrganismsHeaderMobile
+    v-if="!isLandingPage"
     class="w-full"
     :header="{ cartCount: 9 }"
     :productSearch="productSearch"
@@ -11,7 +12,7 @@
     @itemClick="onClickItem"
   />
 
-  <div class="hidden w-full lg:block fixed-header">
+  <div v-if="!isLandingPage" class="hidden w-full lg:block fixed-header">
     <OrganismsHeaderDesktop
       class="w-full"
       :header="{ cartCount: 9 }"
@@ -25,10 +26,26 @@
     />
   </div>
 
+  <div v-else class="w-full bg-white shadow-md px-18 py-5 fixed-header">
+    <div class="flex justify-between items-center">
+      <div
+        class="flex items-center gap-2 cursor-pointer"
+        @click="navigateTo('/')"
+      >
+        <img
+          :src="logoNew"
+          alt="Jigglycard logo"
+          class="w-12 h-12 object-contain"
+        />
+        <h2 class="text-accent-950">Jigglycard</h2>
+      </div>
+    </div>
+  </div>
+
   <MoleculesCookieBanner />
   <slot />
 
-  <footer>
+  <footer v-if="!isLandingPage">
     <OrganismsPreFooter />
     <OrganismsFooter :policyLinks="policyLinks" />
   </footer>
@@ -38,14 +55,20 @@
 import { useI18n } from "vue-i18n";
 import type { Hit } from "~/interface/hit.interface";
 import type { SearchProductResult } from "~/interface/searchProductResult.interface";
+import logoNew from "~/assets/logo/logo_new.png";
 const client = useAlgolia();
 const isSearchOpen = ref(false);
 const { t } = useI18n();
+const { host } = useRequestURL();
+const isProductionSite = host === "jigglycard.com";
+const route = useRoute();
+const isHomePage = route.path === "/";
+const isLandingPage = route.path === "/landing";
 const productSearch = ref<Hit[]>([]);
 const searchValue = ref<string>("");
 
 const noResults = computed(
-  () => !(productSearch.value.length > 0 || searchValue.value.length < 3)
+  () => !(productSearch.value.length > 0 || searchValue.value.length < 3),
 );
 
 const policyLinks = [

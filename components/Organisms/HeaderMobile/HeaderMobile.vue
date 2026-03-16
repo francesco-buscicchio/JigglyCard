@@ -14,12 +14,19 @@
         </div>
 
         <div class="relative w-[70%]">
-          <h2
-            class="text-accent-950 text-center cursor-pointer"
+          <div
+            class="flex items-center justify-center gap-2 cursor-pointer"
             @click="goTo(PATH.HOME)"
           >
-            {{ t("brand.name") }}
-          </h2>
+            <img
+              :src="logoNew"
+              alt="Jigglycard logo"
+              class="w-7 h-7 object-contain"
+            />
+            <h2 class="text-accent-950 text-center">
+              {{ t("brand.name") }}
+            </h2>
+          </div>
         </div>
 
         <div class="items-center space-x-4">
@@ -110,6 +117,7 @@ import { PATH } from "~/data/const";
 import type { Hit } from "~/types/product.type";
 import { goTo } from "@/utils/navigationUtils";
 import { useCartCount } from "~/composables/useCartCount";
+import logoNew from "~/assets/logo/logo_new.png";
 
 const isMenuOpen = ref(false);
 const inputSearch = ref("");
