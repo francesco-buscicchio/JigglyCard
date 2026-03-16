@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware((to) => {
   const { host } = useRequestURL();
   console.log("Host: ", host);
-  if (host === "localhost:3010" || host === "jigglycard.com") {
+  if (host === "localhost:3010" || host === "www.jigglycard.com") {
     console.log("Host giusto");
     if (
       to.path !== "/landing" &&
