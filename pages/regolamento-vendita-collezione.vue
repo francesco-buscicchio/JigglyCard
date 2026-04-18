@@ -190,15 +190,15 @@
                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                       Contanti o Bonifico
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-900">4 €/kg</td>
-                    <td class="px-4 py-3 text-sm text-gray-900">6 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">5 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">10 €/kg</td>
                   </tr>
                   <tr class="bg-gray-50">
                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                       Buono Sconto
                     </td>
                     <td class="px-4 py-3 text-sm text-gray-900">6 €/kg</td>
-                    <td class="px-4 py-3 text-sm text-gray-900">8 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">12 €/kg</td>
                   </tr>
                 </tbody>
               </table>
@@ -215,9 +215,7 @@
               Valutazione per Carte a Peso in Giapponese
             </h3>
             <p class="text-gray-700 leading-relaxed mb-4">
-              Le carte giapponesi hanno generalmente un valore superiore
-              rispetto a quelle italiane. Di seguito la tabella dei prezzi per
-              carte giapponesi bulk:
+              Di seguito la tabella dei prezzi per carte giapponesi bulk:
             </p>
             <div class="overflow-x-auto">
               <table
@@ -247,15 +245,15 @@
                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                       Contanti o Bonifico
                     </td>
-                    <td class="px-4 py-3 text-sm text-gray-900">3 €/kg</td>
-                    <td class="px-4 py-3 text-sm text-gray-900">5 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">4 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">8 €/kg</td>
                   </tr>
                   <tr class="bg-gray-50">
                     <td class="px-4 py-3 text-sm font-medium text-gray-900">
                       Buono Sconto
                     </td>
                     <td class="px-4 py-3 text-sm text-gray-900">5 €/kg</td>
-                    <td class="px-4 py-3 text-sm text-gray-900">7 €/kg</td>
+                    <td class="px-4 py-3 text-sm text-gray-900">10 €/kg</td>
                   </tr>
                 </tbody>
               </table>
@@ -278,19 +276,19 @@
             <ul class="text-gray-700 leading-relaxed space-y-2 ml-6">
               <li class="list-disc">
                 <strong>Near Mint (NM):</strong> Come nuove, senza segni
-                visibili - valore pieno.
+                visibili - 70% del valore di mercato .
               </li>
               <li class="list-disc">
                 <strong>Lightly Played (LP):</strong> Segni minimi d'uso -
-                valore 80-90%.
+                valore 60%.
               </li>
               <li class="list-disc">
                 <strong>Moderately Played (MP):</strong> Segni evidenti d'uso -
-                valore 60-70%.
+                valore 50%.
               </li>
               <li class="list-disc">
                 <strong>Heavily Played (HP):</strong> Molto usurate - valore
-                30-50%.
+                40%.
               </li>
               <li class="list-disc">
                 <strong>Damaged (D):</strong> Danneggiate o incomplete - valore
