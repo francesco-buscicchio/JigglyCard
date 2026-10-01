@@ -56,22 +56,17 @@
 </template>
 
 <script setup lang="ts">
-import {
-  PRODUCTS_COLLECTION,
-  HIGHLIGHTS_TAG,
-  WHATSNEW_TAG,
-  DEALS_TAG,
-  HEROBANNER_TAG,
-} from "~/data/const";
-import { mapProductItem } from "~/mapper/products.mapper";
+import { mapStorefrontProducts } from "~/mapper/storefront.mapper";
 import type { ProductType } from "~/types/productType.type";
+import type { CmsExpansion } from "~/types/shop";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const { getHome, getExpansions } = useShop();
 const offerte: Ref<ProductType[]> = ref([]);
 const novita: Ref<ProductType[]> = ref([]);
 const evidenza: Ref<ProductType[]> = ref([]);
-const setHeroBanner: Ref<ProductType[]> = ref([]);
-const client = useAlgolia();
+// In vetrina vanno le espansioni, non i singoli prodotti.
+const setHeroBanner: Ref<CmsExpansion[]> = ref([]);
 const isMobileView = isMobile();
 const isDesktopView = isDesktop();
 const highlightsLoading = ref(true);
@@ -90,56 +85,22 @@ async function fetchHomeData() {
   setHeroBanner.value = [];
 
   try {
-    const response = await client.search({
-      requests: [
-        {
-          indexName: PRODUCTS_COLLECTION,
-          query: HIGHLIGHTS_TAG,
-          hitsPerPage: 5,
-          filters: "available:true",
-        },
-        {
-          indexName: PRODUCTS_COLLECTION,
-          query: WHATSNEW_TAG,
-          hitsPerPage: 5,
-          filters: "available:true",
-        },
-        {
-          indexName: PRODUCTS_COLLECTION,
-          query: DEALS_TAG,
-          hitsPerPage: 5,
-          filters: "available:true",
-        },
-        {
-          indexName: PRODUCTS_COLLECTION,
-          query: HEROBANNER_TAG,
-          hitsPerPage: 3,
-          filters: "hasThumbnailImage:true",
-        },
-      ],
-    });
+    const [home, expansions] = await Promise.all([
+      getHome(),
+      // In vetrina i set di uscita più recente, esclusi quelli con pochi pezzi.
+      getExpansions({ limit: 6, minProducts: 20 }),
+    ]);
 
-    const [highlightsResult, whatsNewResult, dealsResult, heroResult] =
-      response.results || [];
-
-    evidenza.value = mapHitsToProducts(highlightsResult?.hits, 5);
-    novita.value = mapHitsToProducts(whatsNewResult?.hits, 5);
-    offerte.value = mapHitsToProducts(dealsResult?.hits, 5);
-    setHeroBanner.value = mapHitsToProducts(heroResult?.hits, 3);
+    evidenza.value = mapStorefrontProducts(home.highlights, locale.value);
+    novita.value = mapStorefrontProducts(home.whatsNew, locale.value);
+    offerte.value = mapStorefrontProducts(home.deals, locale.value);
+    setHeroBanner.value = expansions.items;
   } finally {
     highlightsLoading.value = false;
     whatsNewLoading.value = false;
     dealsLoading.value = false;
     heroBannerLoading.value = false;
   }
-}
-
-function mapHitsToProducts(
-  hits: any[] | undefined,
-  limit: number,
-): ProductType[] {
-  if (!hits?.length) return [];
-  return hits.slice(0, limit).map((hit) => mapProductItem(hit));
 }
 
 useHead({

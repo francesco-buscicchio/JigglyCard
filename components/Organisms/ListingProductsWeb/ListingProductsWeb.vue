@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-for="product of products"
-    :key="product.id"
-    class="flex justify-center"
-  >
+  <div v-for="product of products" :key="product.id" class="h-full">
     <MoleculesProductCardWeb
       :productName="product.productName"
       :code="product.code"
@@ -11,10 +7,13 @@
       :price="product.price"
       :imageUrl="product.imageUrl"
       color-scheme="lightHome"
-      :tcg="product.tcg"
-      :category="product.category"
+      :tcgSlug="product.tcgSlug"
+      :categorySlug="product.categorySlug"
       :id="product.id"
       :available="product.available"
+      :languages="product.languages"
+      :conditions="product.conditions"
+      :quantity="product.quantity"
     />
   </div>
 </template>

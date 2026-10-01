@@ -68,27 +68,25 @@
 </template>
 
 <script setup lang="ts">
-import { CartService } from "~/service/CartService";
+import { useCartStore } from "~/stores/cart";
+import { ToastMessageType } from "~/types/toastMessage.type";
+import type { ProductType } from "~/types/productType.type";
 import type { Variant } from "~/types/variant.type";
 
-const config = useRuntimeConfig();
 const { t } = useI18n();
+const cart = useCartStore();
 
 const isDesktopView = isDesktop();
 const quantityRef = ref(1);
 const toastKey = ref(0);
 const props = defineProps<{
   variant: Variant;
+  product: ProductType;
 }>();
 const toastData = {
   message: "",
   type: "",
 };
-
-const cartService = CartService.getInstance(
-  config.public.STRAPI_BASE_URL,
-  config.public.FULL_ACCESS_TOKEN
-);
 
 const quantityOptions = computed(() => {
   if (!props.variant) return null;
@@ -107,14 +105,27 @@ function updateQuantity(newQuantity: string) {
   quantityRef.value = Number(newQuantity);
 }
 
-async function addToCart() {
-  const toastMessage = await cartService.addToCart(
-    props.variant.documentId,
+function addToCart() {
+  if (!props.variant || !props.product) return;
+
+  cart.addLine(
+    {
+      variantId: props.variant.id,
+      blueprintId: props.product.blueprintId ?? 0,
+      productSlug: props.product.id,
+      name: props.product.productName,
+      imageUrl: props.product.imageUrl,
+      language: props.variant.language,
+      condition: props.variant.condition,
+      // Lo store lavora in centesimi: il prezzo della variante è in euro.
+      priceCents: Math.round(props.variant.price * 100),
+      availableQuantity: props.variant.quantity,
+    },
     quantityRef.value,
-    quantityOptions.value?.length ?? 0
   );
-  toastData.message = t(toastMessage.text);
-  toastData.type = toastMessage.type;
+
+  toastData.message = t("toast.cart.success");
+  toastData.type = ToastMessageType.SUCCESS;
   toastKey.value++;
 }
 </script>

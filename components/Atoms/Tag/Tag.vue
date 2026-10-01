@@ -1,14 +1,14 @@
 <template>
   <button
+    v-if="label"
     :class="typeClass"
     class="rounded-lg px-4 py-2 min-w-25"
     @click="emitClick"
   >
-    <p>{{ $t(`catalog.tags.${text}`) }}</p>
+    <p>{{ label }}</p>
   </button>
 </template>
 
-<!-- TODO mettere traduzioni per le lingue -->
 <script setup lang="ts">
 import { TagType } from "~/enum/tag.enum";
 import type { TagCode } from "~/types/tagCode.type";
@@ -31,6 +31,23 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["tagClicked"]);
+const { t, te } = useI18n();
+
+/**
+ * Etichetta del tag.
+ *
+ * I prodotti sigillati non hanno lingua né condizione: senza controllo il tag
+ * mostrava la chiave di traduzione grezza ("catalog.tags."). Un valore nuovo
+ * arrivato da CardTrader e non ancora tradotto viene mostrato com'è, invece di
+ * far affiorare la chiave.
+ */
+const label = computed(() => {
+  const value = props.text?.trim();
+  if (!value) return "";
+
+  const key = `catalog.tags.${value}`;
+  return te(key) ? t(key) : value;
+});
 
 const typeClass = computed(() => {
   switch (props.type) {

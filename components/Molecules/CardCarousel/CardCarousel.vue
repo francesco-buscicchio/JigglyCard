@@ -8,11 +8,11 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted, watch } from "vue";
 import type { PropType } from "vue";
-import type { ProductType } from "~/types/product.type";
 
 const props = defineProps({
   items: {
-    type: Array as PropType<ProductType[]>,
+    // Il carosello usa solo il numero di elementi: resta agnostico sul tipo.
+    type: Array as PropType<unknown[]>,
     required: true,
   },
   activeIndex: {

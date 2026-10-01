@@ -133,6 +133,11 @@ const props = defineProps({
     type: Object as PropType<Record<string, Record<string, number>> | null>,
     default: null,
   },
+  facetLabels: {
+    // Slug -> nome leggibile, per le faccette che filtrano per slug.
+    type: Object as PropType<Record<string, Record<string, string>>>,
+    default: () => ({}),
+  },
   priceStats: {
     type: Object as PropType<{ min: number; max: number } | null>,
     default: null,
@@ -145,7 +150,7 @@ const filterCategories = ref<
   {
     objectID: string;
     name: string;
-    value: { id: string; name: string; checked: boolean }[];
+    value: { id: string; name: string; checked: boolean; count: number }[];
   }[]
 >([]);
 const facetOptionCache = ref<Record<string, Set<string>>>({});
@@ -155,6 +160,13 @@ const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(0);
 const inputKey = ref(0);
+/** categoria del pannello filtri -> chiave del dizionario etichette */
+const FACET_LABEL_KEYS: Record<string, string> = {
+  brand: "tcg",
+  type: "type",
+  expansion: "setSlug",
+};
+
 const facetDefinitions = [
   { facetKey: "languages", category: "language" },
   { facetKey: "conditions", category: "condition" },
@@ -365,6 +377,9 @@ function buildFilterCategories(
           id: `${facetKey}-${valueKey}`,
           name: valueKey,
           checked: false,
+          // Il conteggio arriva dal CMS insieme alla faccetta: mostrarlo evita
+          // di applicare filtri che porterebbero a zero risultati.
+          count: facetsData?.[facetKey]?.[valueKey] ?? 0,
         }));
 
       if (!values.length) return null;
@@ -380,7 +395,7 @@ function buildFilterCategories(
   filterCategories.value = categories as {
     objectID: string;
     name: string;
-    value: { id: string; name: string; checked: boolean }[];
+    value: { id: string; name: string; checked: boolean; count: number }[];
   }[];
 }
 
@@ -395,6 +410,13 @@ function updateSelectedFilters() {
 }
 
 function translateFilterValue(value: string, categoryName?: string) {
+  // Nome fornito dal catalogo (giochi, categorie, espansioni): il filtro
+  // continua a inviare lo slug, qui si mostra l'etichetta leggibile.
+  const facetLabel = categoryName
+    ? props.facetLabels?.[FACET_LABEL_KEYS[categoryName] ?? ""]?.[value]
+    : undefined;
+  if (facetLabel && !te(`category.${value}`)) return facetLabel;
+
   if (categoryName === "type") {
     const typeKey = getTypeTranslationKey(value);
     if (typeKey) {

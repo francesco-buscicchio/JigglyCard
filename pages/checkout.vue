@@ -18,10 +18,27 @@
 
     <div class="mb-12 lg:mb-18">
       <OrganismsSelectOptions
-        :shippingOptions="SHIPPING_METHODS"
+        :shippingOptions="shippingOptions"
         :selectedOption="selectedShippingOption"
         @update:selectedOption="updateSelectedOption"
       />
+    </div>
+
+    <div
+      v-if="stockIssues.length"
+      class="mb-12 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm"
+    >
+      <p class="pb-2 font-semibold">{{ t("cart.stockChanged") }}</p>
+      <ul class="list-disc pl-5">
+        <li v-for="issue in stockIssues" :key="issue.variantId">
+          {{ issue.variantId }} — {{ t("cart.stockRequested") }}
+          {{ issue.requested }}, {{ t("cart.stockAvailable") }}
+          {{ issue.available }}
+        </li>
+      </ul>
+      <NuxtLink :to="PATH.CART" class="mt-3 inline-block underline">
+        {{ t("cart.shipping.back") }}
+      </NuxtLink>
     </div>
 
     <div class="mb-12 lg:mb-18" v-show="isMobileView">
@@ -37,6 +54,7 @@
         :totalAmount="totalAmountWithShipment"
         :userData="formData"
         :shippingOption="selectedShippingOption"
+        @stockIssues="stockIssues = $event"
       />
     </div>
   </div>
@@ -44,11 +62,12 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
-import { SHIPPING_METHODS } from "~/data/const";
+import { PATH } from "~/data/const";
+import type { CheckoutLineIssue } from "~/types/shop";
 
 const { t } = useI18n();
 const isMobileView = isMobile();
-const runtimeConfig = useRuntimeConfig();
+const { getShippingMethods } = useShop();
 
 export type CheckoutFormData = {
   name: string;
@@ -71,17 +90,23 @@ function handleFormStatus(payload: {
   isFormValid.value = payload.isValid;
 }
 
-const selectedShippingOption = ref(SHIPPING_METHODS[0]);
+// I metodi di spedizione arrivano dal CMS: unica fonte, condivisa con la
+// pagina carrello, che prima usava una lista diversa da quella hardcoded qui.
+const { items: shippingMethods } = await getShippingMethods();
+const shippingOptions = shippingMethods.map((method) => ({
+  id: method.id,
+  label: method.name,
+  price: method.priceCents / 100,
+}));
+
+const selectedShippingOption = ref(shippingOptions[0]);
+const stockIssues = ref<CheckoutLineIssue[]>([]);
+
 function updateSelectedOption(option: any) {
   selectedShippingOption.value = option;
 }
 
-const cartConfig: CartConfig = {
-  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
-  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
-};
-
-const { products, totalCart } = useCart(cartConfig);
+const { products, totalCart } = useCart();
 
 const totalAmount = computed(() => Number(totalCart.value) * 100);
 const totalAmountWithShipment = computed(() => {

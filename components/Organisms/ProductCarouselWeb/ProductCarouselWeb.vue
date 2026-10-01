@@ -1,16 +1,21 @@
 <template>
   <div :class="containerClass">
     <h3 :class="titleClass">{{ title }}</h3>
-    <div class="flex flex-row m-4 justify-between px-20 gap-x-[4vw]">
+    <!-- Le card hanno una larghezza propria e la riga è centrata: con una
+         griglia a colonne fisse, quando i prodotti sono meno delle colonne
+         restava metà schermo vuoto. -->
+    <div
+      class="m-4 flex flex-wrap items-stretch justify-center gap-5 px-6 lg:px-20 [&>*]:w-[calc(50%-0.625rem)] [&>*]:md:w-[calc(33.333%-0.834rem)] [&>*]:xl:w-56"
+    >
       <template v-if="loading || !productList.length">
         <div
           v-for="item in skeletonItems"
           :key="item"
-          class="w-64 h-96 bg-neutral-100 rounded-2xl animate-pulse"
+          class="aspect-[63/88] bg-neutrals-100 rounded-2xl animate-pulse"
         ></div>
       </template>
       <template v-else>
-        <div v-for="product in productList" :key="product.id">
+        <div v-for="product in productList" :key="product.id" class="h-full">
           <MoleculesProductCardWeb
             :productName="product.productName"
             :code="product.code"
@@ -18,10 +23,13 @@
             :price="product.price"
             :imageUrl="product.imageUrl"
             :color-scheme="colorScheme"
-            :tcg="product.tcg"
-            :category="product.category"
+            :tcgSlug="product.tcgSlug"
+            :categorySlug="product.categorySlug"
             :id="product.id"
             :available="product.available"
+            :languages="product.languages"
+            :conditions="product.conditions"
+            :quantity="product.quantity"
           />
         </div>
       </template>
@@ -50,7 +58,7 @@ const props = defineProps({
   },
 });
 const productList = computed(() => props.products ?? []);
-const skeletonItems = [0, 1, 2, 3];
+const skeletonItems = [0, 1, 2, 3, 4];
 const containerClass = computed(() => {
   switch (props.colorScheme) {
     case "primaryHome":

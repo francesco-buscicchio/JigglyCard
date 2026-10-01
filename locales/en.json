@@ -98,6 +98,11 @@
         "title": "Protected data",
         "description": "Your personal and payment data are protected with industry-standard encryption."
       }
+    },
+    "hero": {
+      "products": "products",
+      "from": "from",
+      "explore": "Explore the set"
     }
   },
   "newsletter": {
@@ -124,7 +129,9 @@
       "apply": "Apply",
       "clear": "Clear all filters",
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "searchOption": "Search…",
+      "noOption": "No matching option"
     },
     "actions": {
       "showDetails": "See details",
@@ -177,12 +184,19 @@
       "it": "Italian",
       "en": "English",
       "de": "German"
+    },
+    "empty": {
+      "title": "No products found",
+      "subtitle": "Try widening your search by removing some filters.",
+      "clearFilters": "Clear all filters",
+      "backHome": "Back to home"
     }
   },
   "product": {
     "card": {
       "startingFrom": "starting from",
-      "soldOut": "sold out"
+      "soldOut": "sold out",
+      "lastUnits": "Last one available | Last {count} left"
     },
     "hero": {
       "TaxesAndShipping": "Taxes included. Shipping calculated at checkout",
@@ -199,8 +213,18 @@
       "pieces": "pieces"
     },
     "messages": {
-      "defaultDescription": "This is a sample text. It can be as long as you want and the component will adapt to screen size. The layout has been optimized to be readable and clear on devices of various sizes.",
       "suggested": "Have you seen these?"
+    },
+    "description": {
+      "fromSet": "{name} is a card from the {expansion} set.",
+      "number": "Collector number {number}.",
+      "rarity": "Rarity: {rarity}.",
+      "languages": "Available in: {languages}.",
+      "conditions": "Available conditions: {conditions}.",
+      "fromSetProduct": "{name} is a product from the {expansion} set."
+    },
+    "sections": {
+      "recommended": "You might also like"
     }
   },
   "cart": {
@@ -227,8 +251,13 @@
       "removeCoupon": "Remove coupon"
     },
     "help": {
-      "title": "Need assistance?"
-    }
+      "title": "Need assistance?",
+      "content": "We ship across Italy with a tracked courier. Cards are sleeved, put in a toploader and packed so they arrive in the condition you saw described. If you have any doubts about your order, contact us from the Support page."
+    },
+    "stockChanged": "Some items are no longer available in the requested quantity:",
+    "stockRequested": "requested",
+    "stockAvailable": "available",
+    "recommended": "Complete your collection"
   },
   "filter": {
     "language": "Language",
@@ -247,7 +276,26 @@
     "true": "In stock",
     "false": "Out of stock",
     "NA": "Other",
-    "pokemon": "Pokemon"
+    "pokemon": "Pokemon",
+    "it": "Italian",
+    "en": "English",
+    "jp": "Japanese",
+    "de": "German",
+    "fr": "French",
+    "es": "Spanish",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ko": "Korean",
+    "zh": "Chinese",
+    "zh-CN": "Simplified Chinese",
+    "zh-TW": "Traditional Chinese",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Rarity"
   },
   "filterType": {
     "singles": "Singles",
@@ -277,7 +325,11 @@
       "newsletter": "Thank you for subscribing to our newsletter! You'll receive an email soon with all the details.",
       "order": "Your order has been successfully confirmed. We'll send you an email shortly with all the details.",
       "backHome": "Back to homepage"
-    }
+    },
+    "confirming": "We're confirming your order…",
+    "confirmFailed": "We couldn't confirm your order",
+    "orderNumber": "Order number",
+    "genericError": "Something went wrong. Please contact support with the time of your purchase."
   },
   "forms": {
     "fields": {
@@ -653,5 +705,19 @@
         ]
       }
     }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosters",
+    "dragon-ball-super-singles": "Single cards",
+    "ff-single-card": "Single cards",
+    "magic-booster-boxes": "Booster boxes",
+    "one-piece-single-card": "Single cards",
+    "pokemon-blisters": "Blisters",
+    "pokemon-booster": "Boosters",
+    "pokemon-box-set": "Box sets",
+    "pokemon-empty-boxes-storage": "Empty boxes & storage",
+    "pokemon-preconstructed-deck": "Preconstructed decks",
+    "pokemon-singles": "Single cards",
+    "yu-gi-oh-boosters": "Boosters"
   }
 }

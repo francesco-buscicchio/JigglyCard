@@ -32,10 +32,13 @@
               :price="product.price"
               :imageUrl="product.imageUrl"
               :color-scheme="colorScheme"
-              :tcg="product.tcg"
-              :category="product.category"
+              :tcgSlug="product.tcgSlug"
+              :categorySlug="product.categorySlug"
               :id="product.id"
               :available="product.available"
+            :languages="product.languages"
+            :conditions="product.conditions"
+            :quantity="product.quantity"
             />
           </SwiperSlide>
         </Swiper>

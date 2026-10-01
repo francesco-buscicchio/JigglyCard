@@ -88,8 +88,7 @@
           {{ t("cart.help.title") }}
         </template>
         <template v-slot:content>
-          <!-- TODO mettere descrizione corretta -->
-          {{ t("product.messages.defaultDescription") }}
+          {{ t("cart.help.content") }}
         </template>
       </MoleculesTextViewer>
     </div>
@@ -101,9 +100,9 @@ import { useI18n } from "vue-i18n";
 import { goBack } from "@/utils/navigationUtils";
 import { PATH } from "~/data/const";
 import { goTo } from "@/utils/navigationUtils";
-import { ShippingMethodStrapiService } from "~/service/Strapi/ShippingMethodService";
 const { t } = useI18n();
-import { type CartItem } from "~/service/CartService";
+const { getShippingMethods } = useShop();
+import { type CartItem } from "~/composables/useCart";
 
 type ShippingOption = {
   id: string;
@@ -252,11 +251,16 @@ function updateSelectedOption(option: ShippingOption) {
 
 async function loadShippingMethods() {
   try {
-    const service = new ShippingMethodStrapiService(
-      runtimeConfig.public.STRAPI_BASE_URL,
-      runtimeConfig.public.FULL_ACCESS_TOKEN
-    );
-    shippingMethods.value = await service.getAllShippingMethods();
+    const { items } = await getShippingMethods();
+    // `normalizeShippingMethod` lavora in euro; il CMS espone i centesimi.
+    shippingMethods.value = items.map((method) => ({
+      id: method.id,
+      name: method.name,
+      price: method.priceCents / 100,
+      max_weight: method.maxWeight ?? 0,
+      max_value: (method.maxValueCents ?? 0) / 100,
+      international: method.international,
+    }));
   } catch (_) {
     shippingMethods.value = [];
   }

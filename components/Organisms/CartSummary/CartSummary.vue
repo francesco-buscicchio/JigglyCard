@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps, type PropType } from "vue";
-import type { CartItem } from "~/service/CartService";
+import type { CartItem } from "~/composables/useCart";
 
 const { t } = useI18n();
 const props = defineProps({

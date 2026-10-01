@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div v-if="languages.length">
       <p class="mb-4 lg:mb-2">
         {{ t("catalog.filters.language") }}:
       </p>
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <div>
+    <div v-if="conditions.length">
       <p class="mb-4 lg:mb-2">
         {{ t("catalog.filters.condition") }}:
       </p>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-accent-50 rounded-lg w-[400px]">
+  <div class="bg-accent-50 rounded-lg w-full">
     <div class="flex items-center justify-center py-10">
       <h5>{{ t("catalog.controls.filters") }}</h5>
     </div>
@@ -10,30 +10,54 @@
           <template #header>
             <p>{{ translateCategoryLabel(category.name) }}</p>
           </template>
+
+          <!-- Le espansioni sono circa 200: senza un campo di ricerca la lista
+               è di fatto inutilizzabile. -->
+          <div v-if="isSearchableCategory(category)" class="mb-3 px-6">
+            <input
+              v-model="optionSearch[category.objectID]"
+              type="search"
+              :placeholder="t('catalog.controls.searchOption')"
+              class="w-full rounded border border-neutrals-300 px-3 py-2 text-sm"
+            />
+          </div>
+
           <div
-            v-for="(item, index) of category.value"
+            v-for="item of visibleOptions(category)"
             :key="item.id"
             class="mb-4"
           >
-            <div class="flex items-center ml-6">
+            <label class="ml-6 flex cursor-pointer items-center">
               <AtomsCheckbox
-                :id="`${category.objectID}-${index}`"
+                :id="item.id"
                 :modelValue="item.checked"
                 @update:modelValue="
-                  updateCheckboxValue(category.objectID, index, $event)
+                  updateCheckboxValue(
+                    category.objectID,
+                    category.value.indexOf(item),
+                    $event,
+                  )
                 "
                 class="mr-6 bg-white custom-checkbox"
               />
-              <p class="text-left">
+              <span class="text-left">
                 {{ translateFilterValue(item.name, category.name) }}
-              </p>
-            </div>
+              </span>
+              <span class="ml-2 text-sm text-neutrals-500">
+                ({{ item.count }})
+              </span>
+            </label>
           </div>
+
+          <p
+            v-if="!visibleOptions(category).length"
+            class="ml-6 text-sm text-neutrals-500"
+          >
+            {{ t("catalog.controls.noOption") }}
+          </p>
         </MoleculesAccordion>
       </div>
 
-      <!-- Prezzo temporaneamente disabilitato -->
-      <!--
       <div class="mx-6 mt-4">
         <p>{{ t("catalog.controls.price") }}</p>
         <div class="flex items-center justify-center whitespace-nowrap mt-2">
@@ -76,22 +100,17 @@
           @input="validatePriceInput('max', $event)"
         />
       </div>
-      -->
     </div>
 
-    <!-- Pulsanti -->
+    <!-- I filtri si applicano da soli: resta solo l'azzeramento. -->
     <div class="bottom-container">
-      <div class="flex mt-4 mb-6 mr-6">
+      <div v-show="areFiltersSelected" class="mb-2 mt-4 flex justify-center">
         <AtomsButtonCTA
           class="text-underlined"
-          :class="areFiltersSelected ? 'visible' : 'invisible'"
           type="text"
           @click="resetAllFilters"
         >
           <p class="text-base">{{ t("catalog.controls.clear") }}</p>
-        </AtomsButtonCTA>
-        <AtomsButtonCTA @click="applyFilters">
-          <h5>{{ t("catalog.controls.apply") }}</h5>
         </AtomsButtonCTA>
       </div>
     </div>
@@ -110,6 +129,11 @@ const props = defineProps({
     type: Object as PropType<Record<string, Record<string, number>> | null>,
     default: null,
   },
+  facetLabels: {
+    // Slug -> nome leggibile, per le faccette che filtrano per slug.
+    type: Object as PropType<Record<string, Record<string, string>>>,
+    default: () => ({}),
+  },
   priceStats: {
     type: Object as PropType<{ min: number; max: number } | null>,
     default: null,
@@ -121,7 +145,7 @@ const filterCategories = ref<
   {
     objectID: string;
     name: string;
-    value: { id: string; name: string; checked: boolean }[];
+    value: { id: string; name: string; checked: boolean; count: number }[];
   }[]
 >([]);
 const facetOptionCache = ref<Record<string, Set<string>>>({});
@@ -130,6 +154,13 @@ const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(0);
 const inputKey = ref(0);
+/** categoria del pannello filtri -> chiave del dizionario etichette */
+const FACET_LABEL_KEYS: Record<string, string> = {
+  brand: "tcg",
+  type: "type",
+  expansion: "setSlug",
+};
+
 const facetDefinitions = [
   { facetKey: "languages", category: "language" },
   { facetKey: "conditions", category: "condition" },
@@ -214,6 +245,24 @@ const areFiltersSelected = computed(() => {
 
 const emit = defineEmits(["filterUpdate"]);
 
+/** Categorie con troppe voci per essere scorse a occhio. */
+const SEARCHABLE_THRESHOLD = 12;
+const optionSearch = ref<Record<string, string>>({});
+
+const isSearchableCategory = (category: { value: unknown[] }) =>
+  category.value.length > SEARCHABLE_THRESHOLD;
+
+const visibleOptions = (category: {
+  objectID: string;
+  value: { name: string; count: number }[];
+}) => {
+  const term = (optionSearch.value[category.objectID] ?? "").trim().toLowerCase();
+  if (!term) return category.value;
+  return category.value.filter((item) =>
+    item.name.toLowerCase().includes(term),
+  );
+};
+
 function updateCheckboxValue(
   categoryID: string,
   filterIndex: number,
@@ -227,17 +276,32 @@ function updateCheckboxValue(
   const filter = category.value[filterIndex];
 
   filter.checked = value;
+  // I filtri si applicano alla spunta: il pulsante "Applica" costringeva a un
+  // passaggio in più e non dava riscontro immediato.
+  applyFilters();
 }
+
+/**
+ * Il prezzo si applica con un ritardo: lo slider emette a ogni scatto e senza
+ * attesa partirebbe una richiesta per pixel trascinato.
+ */
+let priceTimer: ReturnType<typeof setTimeout> | null = null;
+const applyPriceSoon = () => {
+  if (priceTimer) clearTimeout(priceTimer);
+  priceTimer = setTimeout(() => applyFilters(), 400);
+};
 
 function updateMinPrice(value: number) {
   selectedMinPrice.value = value;
   if (selectedMaxPrice.value < value) {
     selectedMaxPrice.value = value;
   }
+  applyPriceSoon();
 }
 
 function updateMaxPrice(value: number) {
   selectedMaxPrice.value = Math.min(value, maxPrice.value);
+  applyPriceSoon();
 }
 
 function validateNumberInput(event: KeyboardEvent) {
@@ -335,6 +399,9 @@ function buildFilterCategories(
           id: `${facetKey}-${valueKey}`,
           name: valueKey,
           checked: false,
+          // Il conteggio arriva dal CMS insieme alla faccetta: mostrarlo evita
+          // di applicare filtri che porterebbero a zero risultati.
+          count: facetsData?.[facetKey]?.[valueKey] ?? 0,
         }));
 
       if (!values.length) return null;
@@ -350,7 +417,7 @@ function buildFilterCategories(
   filterCategories.value = categories as {
     objectID: string;
     name: string;
-    value: { id: string; name: string; checked: boolean }[];
+    value: { id: string; name: string; checked: boolean; count: number }[];
   }[];
 }
 
@@ -365,7 +432,19 @@ function updateSelectedFilters() {
 }
 
 function translateFilterValue(value: string, categoryName?: string) {
+  // Nome fornito dal catalogo (giochi, categorie, espansioni): il filtro
+  // continua a inviare lo slug, qui si mostra l'etichetta leggibile.
+  const facetLabel = categoryName
+    ? props.facetLabels?.[FACET_LABEL_KEYS[categoryName] ?? ""]?.[value]
+    : undefined;
+  if (facetLabel && !te(`category.${value}`)) return facetLabel;
+
   if (categoryName === "type") {
+    // Le tipologie sono gli slug di categoria del catalogo: tradotti per slug,
+    // con il vecchio dizionario `filterType` come ripiego.
+    const categoryKey = `category.${value}`;
+    if (te(categoryKey)) return t(categoryKey);
+
     const typeKey = getTypeTranslationKey(value);
     if (typeKey) {
       const translationKey = `filterType.${typeKey}`;

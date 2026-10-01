@@ -8,7 +8,7 @@
         <AtomsFilterTag
           v-for="item of key"
           :key="item"
-          :text="t(`filter.${item}`)"
+          :text="labelFor(item)"
           @remove-filter="removeFilter(item)"
         />
       </div>
@@ -23,12 +23,34 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n();
+const { t, te } = useI18n();
 const emit = defineEmits(["update-filters"]);
 
 const props = defineProps({
   filters: Object as () => any,
+  /** Slug -> nome leggibile, per espansioni, giochi e categorie. */
+  filterLabels: {
+    type: Object as () => Record<string, Record<string, string>>,
+    default: () => ({}),
+  },
 });
+
+/**
+ * I valori attivi sono slug tecnici: qui si risolvono nel nome mostrato,
+ * altrimenti la pillola direbbe "ascended-heroes".
+ */
+const labelFor = (value: string) => {
+  const key = `filter.${value}`;
+  if (te(key)) return t(key);
+
+  const categoryKey = `category.${value}`;
+  if (te(categoryKey)) return t(categoryKey);
+
+  for (const group of Object.values(props.filterLabels ?? {})) {
+    if (group?.[value]) return group[value];
+  }
+  return value;
+};
 
 const allFilters = computed(() => props.filters);
 const removeAllFilters = () => {

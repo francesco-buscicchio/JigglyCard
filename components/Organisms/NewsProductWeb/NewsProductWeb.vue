@@ -6,13 +6,20 @@
     class="flex flex-col items-center relative transition-transform duration-200 ease-in-out"
     :class="containerClass"
   >
-    <img
-      :src="product.imageUrl ?? defaultCardImage"
-      :alt="product.productName"
-      class="rounded-2xl min-w-47 w-full h-auto"
-    />
+    <!-- Riquadro a proporzioni fisse: le immagini vanno dalla carta verticale
+         alla bustina orizzontale, e senza un'area prevedibile la scritta in
+         sovrimpressione finiva sopra l'illustrazione. -->
     <div
-      class="absolute layer w-full h-full top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-2xl group px-4 pb-4"
+      class="flex aspect-[63/88] w-full min-w-47 items-center justify-center overflow-hidden rounded-2xl bg-accent-950"
+    >
+      <img
+        :src="product.imageUrl || defaultCardImage"
+        :alt="product.productName"
+        class="max-h-full max-w-full object-contain"
+      />
+    </div>
+    <div
+      class="absolute layer w-full aspect-[63/88] top-0 flex flex-col lg:gap-[2%] xl:gap-[5%] justify-end items-center border-[3px] border-white rounded-2xl group px-4 pb-4"
       :class="layerClass"
     >
       <h5
@@ -40,15 +47,16 @@
       </div>
     </div>
 
-    <AtomsButtonCTA
-      type="secondary"
-      :text="t('catalog.actions.showDetails')"
-      v-on:button-clicked="
-        navigateTo(`/${product.tcg}/${product.category}/${product.id}`)
-      "
+    <NuxtLink
+      :to="`/${product.tcgSlug}/${product.categorySlug}/${product.id}`"
       class="relative"
       :class="{ hidden: !isMiddle }"
-    />
+    >
+      <AtomsButtonCTA
+        type="secondary"
+        :text="t('catalog.actions.showDetails')"
+      />
+    </NuxtLink>
   </div>
 </template>
 
@@ -79,7 +87,14 @@ const layerClass = computed(() => ({
 </script>
 
 <style scoped>
+/* Sfumatura più estesa e opaca: il testo va letto anche sopra le carte
+   dall'illustrazione chiara. */
 .layer {
-  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, #006482 60%);
+  background-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 56, 73, 0.85) 55%,
+    #003849 75%
+  );
 }
 </style>

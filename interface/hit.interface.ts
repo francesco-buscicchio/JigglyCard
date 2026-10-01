@@ -1,22 +1,16 @@
-import type { HighlightResult } from "./highlightResult.interface";
-import type { VariantDetail } from "./variantDetail.interface";
-
+/**
+ * Risultato della ricerca rapida nell'header.
+ *
+ * Era la forma dei record Algolia; ora è solo il contratto fra il layout e i
+ * due header, riempito a partire dai prodotti del CMS.
+ */
 export interface Hit {
+  /** Slug del prodotto, usato per costruire il link alla scheda. */
+  objectID: string;
   name: string;
-  code: string;
-  shortDescription: string | null;
   thumbnailImage: string;
   salePrice: number;
+  expansion: string;
   tcg: string;
   type: string;
-  images: string[];
-  expansion: string;
-  tags: string[];
-  variantsDetails: VariantDetail[];
-  languages: string[];
-  conditions: string[];
-  quantity: number;
-  available: boolean;
-  objectID: string;
-  _highlightResult: HighlightResult;
 }

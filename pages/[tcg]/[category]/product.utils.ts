@@ -44,7 +44,11 @@ export const createTagCondition = (
 
   const allConditionsSet = new Set<TagCondition>();
   tagsStructure.forEach((item) => {
-    item.conditions.forEach((cond) => allConditionsSet.add(cond));
+    // I sigillati non hanno condizione: un valore vuoto genererebbe un tag
+    // senza etichetta.
+    item.conditions
+      .filter((cond) => String(cond ?? "").trim().length > 0)
+      .forEach((cond) => allConditionsSet.add(cond));
   });
 
   const allConditions = Array.from(allConditionsSet);
@@ -94,11 +98,16 @@ export const activateLanguage = (
   }));
 };
 
-export const createTagsStructure = (query: any): TagStructure[] => {
-  if (query.hits.length === 0) {
+export const createTagsStructure = (
+  variantsDetails: VariantDetail[],
+): TagStructure[] => {
+  if (!variantsDetails?.length) {
     return [];
   }
-  const variantsDetails: VariantDetail[] = query.hits[0].variantsDetails;
+  // Scarta le varianti senza lingua: darebbero un selettore vuoto.
+  variantsDetails = variantsDetails.filter(
+    (variant) => String(variant.language ?? "").trim().length > 0,
+  );
   const grouped: {
     [key in TagStructure["language"]]?: Set<VariantDetail["condition"]>;
   } = {};

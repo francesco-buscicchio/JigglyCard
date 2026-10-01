@@ -14,18 +14,21 @@
           @filterUpdate="filterUpdate"
           :filters="filtersAppliedOrganismFilter"
           :facets="facets"
+          :facetLabels="facetLabels"
           :priceStats="priceStats"
         />
       </div>
 
+      <!-- Anche su desktop: prima era `v-show="!isDesktopView"`, quindi da
+           desktop non c'era modo di vedere quali filtri fossero attivi. -->
       <OrganismsListingFilters
         :filters="filtersAppliedOrganismsListingFilters"
+        :filterLabels="facetLabels"
         @update-filters="updateFiltersApplied"
-        v-show="!isDesktopView"
       />
 
       <div
-        class="pb-6 flex flex-row justify-between items-center lg:w-[70vw] lg:ml-[31vw]"
+        class="pb-6 flex flex-row justify-between items-center lg:ml-[19rem]"
       >
         <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
 
@@ -39,7 +42,14 @@
           </div>
         </div>
       </div>
-      <template v-if="!isDesktopView">
+      <MoleculesEmptyResults
+        v-if="!isLoading && !products.length"
+        :hasFilters="hasActiveFilters"
+        @clearFilters="clearAllFilters"
+        class="my-10"
+      />
+
+      <template v-if="!isDesktopView && (isLoading || products.length)">
         <OrganismsListingProducts
           v-if="!isLoading"
           :products="products"
@@ -52,19 +62,25 @@
           ></div>
         </div>
       </template>
-      <div class="flex" v-show="isDesktopView">
-        <div class="w-[30vw] flex justify-end">
-          <!-- filters -->
-          <div>
+      <!-- Larghezze fluide invece dei vecchi 30vw/70vw fissi: la barra filtri
+           resta leggibile e la griglia guadagna una colonna sugli schermi
+           grandi invece di comprimere le card. -->
+      <div class="flex gap-8" v-show="isDesktopView">
+        <aside v-if="isLoading || products.length" class="w-72 shrink-0">
+          <div class="sticky top-24">
             <OrganismsFilterWeb
               @filterUpdate="filterUpdate"
               :filters="filtersAppliedOrganismFilter"
               :facets="facets"
+              :facetLabels="facetLabels"
               :priceStats="priceStats"
             />
           </div>
-        </div>
-        <div class="grid grid-cols-4 gap-4 w-[70vw]">
+        </aside>
+        <div
+          v-if="isLoading || products.length"
+          class="grid flex-1 grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
+        >
           <OrganismsListingProductsWeb
             v-if="!isLoading"
             :products="products"
@@ -73,12 +89,12 @@
             <div
               v-for="item in skeletonItems"
               :key="`desktop-skeleton-${item}`"
-              class="h-72 rounded-2xl bg-neutral-200 animate-pulse"
+              class="aspect-[63/88] rounded-2xl bg-neutrals-200 animate-pulse"
             ></div>
           </template>
         </div>
       </div>
-      <div class="pt-10">
+      <div v-if="products.length" class="pt-10">
         <MoleculesListingPagination
           :total-items="totalItems"
           :current-page="currentPage"
@@ -98,38 +114,34 @@
 
 <script setup lang="ts">
 import {
-  PRODUCTS_COLLECTION,
   ITEMS_FOR_PAGE_MOBILE,
   ITEMS_FOR_PAGE_DESKTOP,
-  TcgSlug,
 } from "~/data/const";
 import sortingItems from "~/data/sorting";
-import type { SearchProductResult } from "~/interface/searchProductResult.interface";
-import { mapProducts } from "~/mapper/products.mapper";
+import {
+  SORT_MAP,
+  mapStorefrontFacetLabels,
+  mapStorefrontFacets,
+  mapStorefrontPriceStats,
+  mapStorefrontProducts,
+} from "~/mapper/storefront.mapper";
+import type { ShopCatalogFilters } from "~/composables/useShop";
 import type { ProductType } from "~/types/productType.type";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
+const { getProducts } = useShop();
 const products: Ref<ProductType[]> = ref([]);
-const client = useAlgolia();
 const route = useRoute();
 const totalItems = ref(0);
 const currentPage = ref(1);
 const currentSorting = ref("");
 const filtersAppliedOrganismsListingFilters = ref<string[]>([]);
 const filtersAppliedOrganismFilter = ref<string[]>([]);
-const expansion = route.query.expansion;
+const expansion = computed(() => route.query.expansion);
 const isDesktopView = isDesktop();
 const facets = ref<Record<string, Record<string, number>> | null>(null);
 const priceStats = ref<{ min: number; max: number } | null>(null);
-const facetAttributes = [
-  "languages",
-  "conditions",
-  "tcg",
-  "type",
-  "setSlug",
-  "available",
-  "salePrice",
-];
+const facetLabels = ref<Record<string, Record<string, string>>>({});
 const isLoading = ref(true);
 const skeletonItems = computed(() => {
   const count = isDesktopView.value
@@ -138,71 +150,94 @@ const skeletonItems = computed(() => {
   return Array.from({ length: count }, (_, index) => index);
 });
 
-const getBaseQuery = () => {
-  if (route.params.tcg === "search") return "";
-  return route.params.category === "all"
-    ? `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}"`
-    : `tcg:"${TcgSlug[route.params.tcg as keyof typeof TcgSlug]}" AND type:"${
-        route.params.category
-      }"`;
-};
-const filtersStringQuery = ref(getBaseQuery());
+const isSearchRoute = computed(() => route.params.tcg === "search");
 
-onMounted(async () => {
-  if (route.query.page) currentPage.value = Number(route.query.page);
-  calculateFilterString();
-});
+/**
+ * Il CMS accetta un oggetto di filtri, non la stringa in sintassi Algolia che
+ * si costruiva prima: i valori dei filtri arrivano già come slug dalle faccette.
+ */
+const activeFilters = ref<ShopCatalogFilters>({});
 
-function calculateFilterString(e?: any) {
-  let filter = getBaseQuery();
+const buildFilters = (): ShopCatalogFilters => {
+  const base: ShopCatalogFilters = {
+    ...activeFilters.value,
+    page: currentPage.value,
+    perPage: isDesktopView.value ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE,
+    sort: SORT_MAP[currentSorting.value] ?? "relevance",
+  };
 
-  if (e) {
-    let languageFilters = e.language
-      ? e.language.map((lang: string) => `languages:"${lang}"`).join(" OR ")
-      : "";
-    let conditionFilters = e.condition
-      ? e.condition.map((cond: string) => `conditions:"${cond}"`).join(" OR ")
-      : "";
-    let brandFilter = e.brand
-      ? e.brand.map((brand: string) => `tcg:"${brand}"`).join(" OR ")
-      : "";
-    let typeFilter = e.type
-      ? e.type.map((type: string) => `type:"${type}"`).join(" OR ")
-      : "";
-    let expansionFilter = e.expansion
-      ? e.expansion.map((exp: string) => `setSlug:"${exp}"`).join(" OR ")
-      : "";
-    let availableFilter = e.available
-      ? e.available
-          .map((available: string) => `available:"${available}"`)
-          .join(" OR ")
-      : "";
-    let minPriceFilter = e.price?.min;
-    let maxPriceFilter = e.price?.max;
-
-    languageFilters.length && (filter += ` AND (${languageFilters})`);
-    conditionFilters.length && (filter += ` AND (${conditionFilters})`);
-    brandFilter.length && (filter += ` AND (${brandFilter})`);
-    typeFilter.length && (filter += ` AND (${typeFilter})`);
-    expansionFilter.length && (filter += ` AND (${expansionFilter})`);
-    availableFilter.length && (filter += ` AND (${availableFilter})`);
-    if (minPriceFilter !== undefined) {
-      filter += ` AND salePrice >= ${minPriceFilter}`;
-    }
-    if (maxPriceFilter !== undefined) {
-      filter += ` AND salePrice <= ${maxPriceFilter}`;
+  if (isSearchRoute.value) {
+    base.search = String(route.params.category ?? "");
+  } else {
+    base.game = String(route.params.tcg ?? "");
+    if (route.params.category !== "all") {
+      base.category = String(route.params.category ?? "");
     }
   }
 
-  if (expansion) filter += ` AND (setSlug:"${expansion}")`;
+  if (expansion.value) base.expansion = String(expansion.value);
 
-  filtersStringQuery.value = filter;
+  return base;
+};
+
+onMounted(async () => {
+  if (route.query.page) currentPage.value = Number(route.query.page);
+  fetchData();
+});
+
+watch(() => route.query.expansion, () => {
+  currentPage.value = 1;
+  fetchData();
+});
+
+function applyFilters(e?: any) {
+  activeFilters.value = e
+    ? {
+        language: e.language,
+        condition: e.condition,
+        game: e.brand?.[0],
+        category: e.type?.[0],
+        expansion: e.expansion?.[0],
+        available: e.available?.length ? e.available.includes("true") : undefined,
+        // Il pannello filtri ragiona in euro, il CMS in centesimi.
+        minPriceCents:
+          e.price?.min !== undefined ? Math.round(e.price.min * 100) : undefined,
+        maxPriceCents:
+          e.price?.max !== undefined ? Math.round(e.price.max * 100) : undefined,
+      }
+    : {};
+
   fetchData();
 }
 
 function filterUpdate(e: any) {
   currentPage.value = 1;
   updateFiltersApplied(e);
+}
+
+const hasActiveFilters = computed(
+  () =>
+    // L'espansione può arrivare dalla URL (link dalla vetrina), non solo dal
+    // pannello filtri: va contata, altrimenti da un set senza risultati non
+    // comparirebbe alcuna via d'uscita.
+    Boolean(route.query.expansion) ||
+    Object.values(activeFilters.value).some((value) =>
+      Array.isArray(value) ? value.length > 0 : value !== undefined,
+    ),
+);
+
+const router = useRouter();
+
+function clearAllFilters() {
+  filtersAppliedOrganismsListingFilters.value = [];
+  filtersAppliedOrganismFilter.value = [];
+  currentPage.value = 1;
+
+  if (route.query.expansion) {
+    router.replace({ query: {} });
+    return;
+  }
+  applyFilters();
 }
 
 function changePage(event: number) {
@@ -215,10 +250,6 @@ function handleSorting(event: string) {
   fetchData();
 }
 
-function calculateCollection() {
-  return `${PRODUCTS_COLLECTION}${currentSorting.value}`;
-}
-
 const updateFiltersApplied = (newFilters: any) => {
   filtersAppliedOrganismsListingFilters.value = newFilters;
   let allValues: string[] = [];
@@ -229,45 +260,21 @@ const updateFiltersApplied = (newFilters: any) => {
     }
   }
   filtersAppliedOrganismFilter.value = allValues;
-  calculateFilterString(newFilters);
+  applyFilters(newFilters);
 };
 
 async function fetchData() {
   isLoading.value = true;
   try {
-    let results: any =
-      route.params.tcg === "search"
-        ? await client.searchSingleIndex({
-            indexName: calculateCollection(),
-            searchParams: {
-              query: route.params.category as string,
-              facets: facetAttributes,
-            },
-          })
-        : await client.search({
-            requests: [
-              {
-                indexName: calculateCollection(),
-                filters: filtersStringQuery.value,
-                hitsPerPage: isDesktopView.value
-                  ? ITEMS_FOR_PAGE_DESKTOP
-                  : ITEMS_FOR_PAGE_MOBILE,
-                facets: facetAttributes,
-                page: currentPage.value - 1,
-              },
-            ],
-          });
-    if (route.params.tcg === "search") setProducts(results);
-    else setProducts(results.results[0]);
+    const result = await getProducts(buildFilters());
+
+    products.value = mapStorefrontProducts(result.items, locale.value);
+    totalItems.value = result.total;
+    facets.value = mapStorefrontFacets(result.facets);
+    facetLabels.value = mapStorefrontFacetLabels(result.facets);
+    priceStats.value = mapStorefrontPriceStats(result.facets);
   } finally {
     isLoading.value = false;
   }
-}
-
-function setProducts(queryResult: any) {
-  products.value = mapProducts(queryResult);
-  totalItems.value = queryResult.nbHits;
-  facets.value = queryResult.facets || null;
-  priceStats.value = queryResult.facets_stats?.salePrice || null;
 }
 </script>

@@ -1,10 +1,29 @@
 export const PRODUCTS_COLLECTION = "ecommerce";
 export const FILTERS_COLLECTION = "filters";
 
+/** Sezione "In evidenza": selezione curata, marcata con questo tag nel CMS. */
 export const HIGHLIGHTS_TAG = "EVIDENZA";
-export const WHATSNEW_TAG = "NOVITA";
-export const DEALS_TAG = "OFFERTA";
-export const HEROBANNER_TAG = "HEROBANNER";
+
+/**
+ * Fascia di prezzo della vetrina automatica, usata quando nessun prodotto è
+ * marcato in evidenza.
+ *
+ * Il minimo tiene fuori le carte comuni da pochi centesimi; il massimo esclude
+ * i prezzi di parcheggio (migliaia di euro) con cui su CardTrader si tiene un
+ * pezzo fuori mercato senza rimuoverlo.
+ */
+/** Quanti set recenti alimentano la vetrina "In evidenza". */
+export const HIGHLIGHT_RECENT_SETS = 40;
+
+export const HIGHLIGHT_MIN_PRICE_CENTS = 500;
+export const HIGHLIGHT_MAX_PRICE_CENTS = 50000;
+
+/**
+ * Sezione "Offerte": rarità mostrata in vetrina, dalla più economica.
+ * Le altre sezioni non usano tag — "Novità" ordina per data di ingresso a
+ * magazzino e la vetrina in cima mostra i set di uscita più recente.
+ */
+export const DEALS_RARITY = "Illustration Rare";
 export const SUGGESTED = "SUGGESTED";
 
 export const ITEMS_FOR_PAGE_MOBILE = 9;
@@ -48,77 +67,19 @@ export const VIEWPORTS = {
   XXL: 1536, // 2x extra-large: >= 1536px
 };
 
-export const HEADER_MENU = [
-  {
-    name: "Pokemon",
-    to: "/pokemon/all",
-    subMenu: [
-      {
-        label: "Booster box",
-        to: "/pokemon/booster-box",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/boosterbox_1085522f93.jpg",
-      },
-      {
-        label: "Mazzi precostruiti",
-        to: "/pokemon/mazzi",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/precostructed_f003e10a67.jpg",
-      },
-      {
-        label: "Tins",
-        to: "/pokemon/tins",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/tins_1c70a3d0aa.jpg",
-      },
-      {
-        label: "Box set",
-        to: "/pokemon/box-set",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/box_set_cfea8afe3e.jpg",
-      },
-      {
-        label: "Bundle",
-        to: "/pokemon/bundle",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/bundle_e72222d39a.jpg",
-      },
-      {
-        label: "Carte singole",
-        to: "/pokemon/singole",
-        image:
-          "https://honorable-belief-ab1c5a7281.media.strapiapp.com/overszed_282600fca5.jpg",
-      },
-    ],
-  },
-  {
-    name: "One Piece",
-    to: "/one-piece/all",
-    subMenu: [],
-  },
-  { name: "Final Fantasy", to: "/final-fantasy/all", subMenu: [] },
-  { name: "Dragon Ball", to: "/dragon-ball/all", subMenu: [] },
-  { name: "Lorcana", to: "/lorcana/all", subMenu: [] },
-];
 
-export const SHIPPING_METHOD_STANDARD: {
-  id: string;
-  label: string;
-  price: number;
-} = { id: "standard-1", label: "Standard 1", price: 0 };
-
-export const SHIPPING_METHODS: {
-  id: string;
-  label: string;
-  price: number;
-}[] = [
-  { id: "ship-1", label: "Opzione 1", price: 5 },
-  { id: "ship-2", label: "Opzione 2", price: 10 },
-  { id: "ship-3", label: "Opzione 3", price: 15 },
-];
 export enum TcgSlug {
   "dragon-ball-super" = "Dragon Ball Super",
   "one-piece" = "One Piece",
   "pokémon" = "Pokémon",
   "pokemon" = "Pokémon",
 }
+
+/**
+ * Chiave in sessionStorage con i dati dell'ordine in attesa di conferma.
+ *
+ * Il pagamento Stripe porta l'utente fuori dal sito e lo riporta sulla pagina
+ * di acquisto completato: il payload dell'ordine deve sopravvivere a quel
+ * viaggio per poter essere inviato al CMS solo a pagamento riuscito.
+ */
+export const PENDING_ORDER_STORAGE_KEY = "jigglycard_pending_order";

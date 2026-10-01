@@ -6,11 +6,14 @@
       :expansion="product.expansion"
       :price="product.price"
       :imageUrl="product.imageUrl"
-      :tcg="product.tcg"
-      :category="product.category"
+      :tcgSlug="product.tcgSlug"
+      :categorySlug="product.categorySlug"
       :id="product.id"
       color-scheme="noBorder"
       :available="product.available"
+      :languages="product.languages"
+      :conditions="product.conditions"
+      :quantity="product.quantity"
     />
   </div>
 </template>

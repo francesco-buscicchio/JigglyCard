@@ -98,6 +98,11 @@
         "title": "Dati protetti",
         "description": "I tuoi dati personali e di pagamento sono protetti con..."
       }
+    },
+    "hero": {
+      "products": "prodotti",
+      "from": "da",
+      "explore": "Esplora il set"
     }
   },
   "newsletter": {
@@ -124,7 +129,9 @@
       "apply": "Applica",
       "clear": "Cancella tutti i filtri",
       "min": "Min",
-      "max": "Max"
+      "max": "Max",
+      "searchOption": "Cerca…",
+      "noOption": "Nessuna voce corrisponde"
     },
     "actions": {
       "showDetails": "vedi dettagli",
@@ -177,12 +184,19 @@
       "it": "Italiano",
       "en": "Inglese",
       "de": "Tedesco"
+    },
+    "empty": {
+      "title": "Nessun prodotto trovato",
+      "subtitle": "Prova ad allargare la ricerca togliendo qualche filtro.",
+      "clearFilters": "Rimuovi tutti i filtri",
+      "backHome": "Torna alla home"
     }
   },
   "product": {
     "card": {
       "startingFrom": "a partire da",
-      "soldOut": "esaurito"
+      "soldOut": "esaurito",
+      "lastUnits": "Ultimo pezzo disponibile | Ultimi {count} pezzi"
     },
     "hero": {
       "TaxesAndShipping": "Tasse incluse. Spedizione calcolata al momento del pagamento",
@@ -199,8 +213,18 @@
       "pieces": "pezzi"
     },
     "messages": {
-      "defaultDescription": "Questo è un testo di esempio. Può essere lungo quanto vuoi e il componente si adatterà alle dimensioni dello schermo. Il layout è stato ottimizzato per essere leggibile e chiaro su dispositivi di varie dimensioni.",
       "suggested": "Questi li hai visti?"
+    },
+    "description": {
+      "fromSet": "{name} è una carta dell'espansione {expansion}.",
+      "number": "Numero da collezione {number}.",
+      "rarity": "Rarità: {rarity}.",
+      "languages": "Disponibile nelle lingue: {languages}.",
+      "conditions": "Condizioni disponibili: {conditions}.",
+      "fromSetProduct": "{name} è un prodotto dell'espansione {expansion}."
+    },
+    "sections": {
+      "recommended": "Ti potrebbero interessare"
     }
   },
   "cart": {
@@ -227,8 +251,13 @@
       "removeCoupon": "Rimuovi coupon"
     },
     "help": {
-      "title": "Hai bisogno di assistenza?"
-    }
+      "title": "Hai bisogno di assistenza?",
+      "content": "Spediamo in tutta Italia con corriere tracciato. Le carte vengono protette in bustina e toploader, e imballate in modo da arrivare nelle stesse condizioni in cui le vedi descritte. Per qualsiasi dubbio sull'ordine puoi scriverci dalla pagina Assistenza."
+    },
+    "stockChanged": "Alcuni articoli non sono più disponibili nella quantità richiesta:",
+    "stockRequested": "richiesti",
+    "stockAvailable": "disponibili",
+    "recommended": "Completa la collezione"
   },
   "filter": {
     "language": "Lingua",
@@ -247,7 +276,26 @@
     "true": "disponibile",
     "false": "non disponibile",
     "NA": "altro",
-    "pokemon": "pokemon"
+    "pokemon": "pokemon",
+    "it": "Italiano",
+    "en": "Inglese",
+    "jp": "Giapponese",
+    "de": "Tedesco",
+    "fr": "Francese",
+    "es": "Spagnolo",
+    "pt": "Portoghese",
+    "ru": "Russo",
+    "ko": "Coreano",
+    "zh": "Cinese",
+    "zh-CN": "Cinese semplificato",
+    "zh-TW": "Cinese tradizionale",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Lievemente giocata",
+    "Moderately Played": "Mediamente giocata",
+    "Played": "Giocata",
+    "Poor": "Rovinata",
+    "rarity": "Rarità"
   },
   "filterType": {
     "singles": "Carte singole",
@@ -277,7 +325,11 @@
       "newsletter": "Grazie per esserti iscritto alla nostra newsletter! Riceverai presto un'email con tutti i dettagli.",
       "order": "Il tuo ordine è stato confermato con successo. Ti invieremo presto un'email con tutti i dettagli.",
       "backHome": "Torna alla homepage"
-    }
+    },
+    "confirming": "Stiamo confermando il tuo ordine…",
+    "confirmFailed": "Non siamo riusciti a confermare l'ordine",
+    "orderNumber": "Numero ordine",
+    "genericError": "Si è verificato un errore. Contatta l'assistenza indicando l'orario dell'acquisto."
   },
   "forms": {
     "fields": {
@@ -653,5 +705,19 @@
         ]
       }
     }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Booster",
+    "dragon-ball-super-singles": "Carte singole",
+    "ff-single-card": "Carte singole",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Carte singole",
+    "pokemon-blisters": "Blister",
+    "pokemon-booster": "Booster",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Box vuoti e contenitori",
+    "pokemon-preconstructed-deck": "Mazzi precostruiti",
+    "pokemon-singles": "Carte singole",
+    "yu-gi-oh-boosters": "Booster"
   }
 }

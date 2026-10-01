@@ -11,6 +11,21 @@
     ></div>
   </div>
   <div v-else-if="products.length > 0">
+    <div
+      v-if="stockIssues.length"
+      class="mx-5 mb-6 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm"
+    >
+      <p class="pb-2 font-semibold">
+        {{ t("cart.stockChanged") }}
+      </p>
+      <ul class="list-disc pl-5">
+        <li v-for="issue in stockIssues" :key="issue.variantId">
+          {{ issue.name }} — {{ t("cart.stockRequested") }}
+          {{ issue.requested }}, {{ t("cart.stockAvailable") }}
+          {{ issue.available }}
+        </li>
+      </ul>
+    </div>
     <div class="lg:flex lg:gap-20 lg:mx-20">
       <div class="lg:flex-1">
         <div
@@ -83,20 +98,16 @@
 </template>
 
 <script lang="ts" setup>
-import { type CartConfig } from "~/composables/useCart";
-import { DEALS_TAG } from "~/data/const";
-import { mapProducts } from "~/mapper/products.mapper";
+import { mapStorefrontProducts } from "~/mapper/storefront.mapper";
+import { useCartStore } from "~/stores/cart";
 import type { ProductType } from "~/types/productType.type";
 
 const isDesktopView = isDesktop();
 const isMobileView = isMobile();
-const { t } = useI18n();
-const client = useAlgolia();
-const runtimeConfig = useRuntimeConfig();
-const cartConfig: CartConfig = {
-  strapiBaseUrl: runtimeConfig.public.STRAPI_BASE_URL,
-  fullAccessToken: runtimeConfig.public.FULL_ACCESS_TOKEN,
-};
+const { t, locale } = useI18n();
+const { getRecommended } = useShop();
+const { recentlyViewed } = useRecentlyViewed();
+const cartStore = useCartStore();
 
 const dealsProducts: Ref<ProductType[]> = ref([]);
 const {
@@ -104,24 +115,24 @@ const {
   totalCart,
   couponData,
   isLoading,
+  stockIssues,
   changeQuantity,
   removeItem,
   applyCoupon,
   removeCoupon,
-} = useCart(cartConfig);
+} = useCart();
 
-const setDeals = (queryResult: any) => {
-  dealsProducts.value = mapProducts(queryResult);
-};
-
-const dealsProductsResult = await client.searchSingleIndex({
-  indexName: "ecommerce",
-  searchParams: {
-    query: DEALS_TAG,
-    hitsPerPage: 5,
-    filters: "available:true",
-  },
+// Suggeriti in base a cosa c'è nel carrello e a cosa è stato guardato.
+onMounted(async () => {
+  cartStore.hydrate();
+  const suggested = await getRecommended({
+    seedSlugs: [
+      ...cartStore.lines.map((line) => line.productSlug),
+      ...recentlyViewed(),
+    ],
+    excludeSlugs: cartStore.lines.map((line) => line.productSlug),
+    limit: 5,
+  });
+  dealsProducts.value = mapStorefrontProducts(suggested.items, locale.value);
 });
-
-setDeals(dealsProductsResult);
 </script>

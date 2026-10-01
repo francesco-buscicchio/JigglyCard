@@ -28,9 +28,9 @@
             class="relative"
             @mouseenter="activeIndex = index"
           >
-            <button @click="goToItem(item.to, $event)">
+            <NuxtLink :to="item.to" @click="closeMenu">
               <h5 class="text-accent-950 text-lg">{{ item.name }}</h5>
-            </button>
+            </NuxtLink>
           </div>
         </nav>
 
@@ -121,27 +121,27 @@
         class="absolute left-0 w-full bg-white shadow-lg z-50 py-6"
       >
         <div class="max-w-screen-xl mx-auto px-12">
-          <div class="flex justify-center flex-wrap gap-[2.5vw]">
-            <div
-              v-for="(sub, i) in headerMenu[activeIndex].subMenu"
-              :key="i"
-              class="w-min-[10vw] h-min-[10vw]"
-            >
+          <!-- `items-end`: non tutte le categorie hanno un'anteprima, così le
+               etichette restano comunque allineate sulla stessa linea. -->
+          <div class="flex flex-wrap items-end justify-center gap-8">
+            <div v-for="(sub, i) in headerMenu[activeIndex].subMenu" :key="i">
               <MoleculesSubMenuItem
                 :label="sub.label"
+                :to="sub.to"
                 :imgUrl="sub.image"
-                @click="(e: MouseEvent) => goToItem(sub.to, e)"
+                @click="closeMenu"
               />
             </div>
           </div>
-          <div
-            class="mt-6 cursor-pointer hover:underline"
-            @click="goToItem(headerMenu[activeIndex].to, $event)"
+          <NuxtLink
+            :to="headerMenu[activeIndex].to"
+            class="mt-6 block hover:underline"
+            @click="closeMenu"
           >
             <p class="text-center text-accent-950">
               {{ t("layout.header.allProductsLink") }}
             </p>
-          </div>
+          </NuxtLink>
         </div>
       </div>
     </transition>
@@ -210,6 +210,11 @@ const goToItem = (route: string, event: MouseEvent) => {
   closeSearch(event);
   activeIndex.value = null;
   navigateTo(route);
+};
+
+/** Il NuxtLink naviga da solo: qui basta richiudere la tendina. */
+const closeMenu = () => {
+  activeIndex.value = null;
 };
 
 const activeIndex = ref<number | null>(null);

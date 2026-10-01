@@ -1,4 +1,10 @@
 export default defineNuxtConfig({
+  // Permettono di isolare build e dev l'una dall'altra, e di lavorare anche
+  // quando `.nuxt` o `node_modules` non sono scrivibili dall'utente corrente.
+  buildDir: process.env.NUXT_BUILD_DIR || ".nuxt",
+  vite: {
+    cacheDir: process.env.NUXT_VITE_CACHE_DIR || undefined,
+  },
   devtools: { enabled: true },
   colorMode: {
     preference: "light",
@@ -23,22 +29,18 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    paypalClientSecret: process.env.NUXT_PAYPAL_CLIENT_SECRET,
+    // Segreti: restano lato server. Il browser non deve poter parlare né con
+    // il CMS né con Stripe in scrittura.
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    CMS_STOREFRONT_URL: process.env.CMS_STOREFRONT_URL,
+    CMS_STOREFRONT_KEY: process.env.CMS_STOREFRONT_KEY,
+    SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
     public: {
-      SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
       NEWSLETTER_TO_MAIL: process.env.NEWSLETTER_TO_MAIL,
       NEWSLETTER_TO_NAME: process.env.NEWSLETTER_TO_NAME,
-      ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
-      ALGOLIA_APPLICATION_ID: process.env.ALGOLIA_APPLICATION_ID,
-      SENDGRID_API_TOKEN: process.env.SENDGRID_API_TOKEN,
       ADMIN_MAIL: process.env.ADMIN_MAIL,
-      paypalClientId: process.env.NUXT_PUBLIC_PAYPAL_CLIENT_ID,
       STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
       PURCHASE_COMPLETED_URL: process.env.PURCHASE_COMPLETED_URL,
-      STRAPI_BASE_URL: process.env.STRAPI_BASE_URL,
-      STRAPI_API_TOKEN_READ_ONLY: process.env.STRAPI_API_TOKEN_READ_ONLY,
-      FULL_ACCESS_TOKEN: process.env.FULL_ACCESS_TOKEN,
     },
   },
 

@@ -54,11 +54,10 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import type { Hit } from "~/interface/hit.interface";
-import type { SearchProductResult } from "~/interface/searchProductResult.interface";
 import logoNew from "~/assets/logo/logo_new.png";
-const client = useAlgolia();
+const { getProducts } = useShop();
 const isSearchOpen = ref(false);
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { host } = useRequestURL();
 const isProductionSite = host === "jigglycard.com";
 const route = useRoute();
@@ -100,13 +99,31 @@ const closeSearch = (event?: MouseEvent) => {
 
 const searchProducts = async (data: string) => {
   searchValue.value = data;
-  if (data.length > 2) {
-    const results = await client.searchSingleIndex<SearchProductResult>({
-      indexName: "ecommerce",
-      searchParams: { query: data, hitsPerPage: 6 },
-    });
-    productSearch.value = results.hits as unknown as Hit[];
-  } else productSearch.value = [];
+
+  if (data.length <= 2) {
+    productSearch.value = [];
+    return;
+  }
+
+  const results = await getProducts({ search: data, perPage: 6 });
+
+  // I due header consumano ancora la forma `Hit`: qui si adattano i prodotti
+  // del CMS a quel contratto, così i componenti restano invariati.
+  productSearch.value = results.items.map((product) => ({
+    name:
+      locale.value.startsWith("it") && product.nameIt
+        ? product.nameIt
+        : product.name,
+    thumbnailImage: product.images?.[0] ?? "",
+    salePrice: product.minPriceCents / 100,
+    tcg: product.gameSlug,
+    type: product.categorySlug,
+    expansion:
+      locale.value.startsWith("it") && product.expansionIt
+        ? product.expansionIt
+        : product.expansion,
+    objectID: product.slug,
+  }));
 };
 </script>
 
