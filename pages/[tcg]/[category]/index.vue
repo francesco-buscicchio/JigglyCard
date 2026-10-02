@@ -393,7 +393,7 @@ const seoDescription = computed(() => {
   }
   const label = categoryLabel.value;
   if (seoExpansion.value) {
-    const code = seoExpansion.value.code ? ` (${seoExpansion.value.code})` : "";
+    const code = seoExpansion.value.code ? ` (${seoExpansion.value.code.toUpperCase()})` : "";
     return truncateDescription(
       `${label} Pokémon del set ${seoExpansion.value.name}${code} su Jigglycard, con filtri per lingua, condizione e prezzo. ${closing}`,
     );
@@ -417,7 +417,9 @@ const seoDescription = computed(() => {
 usePageSeo({
   title: seoTitle,
   description: seoDescription,
-  image: () => seoCategory.value?.coverImage,
+  // La copertina della categoria (la stessa del menu) non rappresenta un set
+  // preciso: sulle pagine di un set resta l'immagine del sito.
+  image: () => (seoExpansion.value ? undefined : seoCategory.value?.coverImage),
   canonical: () =>
     isSearchRoute.value
       ? null

@@ -182,9 +182,10 @@ if (!raw.value) {
   // o di altri giochi; un CMS irraggiungibile resta un errore del server, non
   // deve far sparire la scheda dall'indice.
   const status = productError.value?.statusCode;
+  const notFound = !productError.value || status === 404 || status === 400;
   throw createError({
-    statusCode: status && status >= 500 ? status : 404,
-    statusMessage: status && status >= 500 ? "Catalogo non disponibile" : "Prodotto non trovato",
+    statusCode: notFound ? 404 : status && status >= 500 ? status : 500,
+    statusMessage: notFound ? "Prodotto non trovato" : "Catalogo non disponibile",
     fatal: true,
   });
 }

@@ -24,6 +24,7 @@ type PageSeo = {
  * generici del sito.
  */
 export function usePageSeo(seo: PageSeo) {
+  const route = useRoute();
   const canonicalUrl = computed(() => {
     const path = toValue(seo.canonical);
     return path ? `${SITE_URL}${canonicalPath(path)}` : undefined;
@@ -35,7 +36,9 @@ export function usePageSeo(seo: PageSeo) {
     ogTitle: () => toValue(seo.title),
     ogDescription: () => toValue(seo.description),
     ogImage: () => absoluteUrl(toValue(seo.image) || DEFAULT_OG_IMAGE),
-    ogUrl: () => canonicalUrl.value,
+    // Sempre valorizzato: un meta vuoto qui cancellerebbe anche l'og:url
+    // predefinito di app.vue invece di lasciarlo valere.
+    ogUrl: () => canonicalUrl.value ?? `${SITE_URL}${canonicalPath(route.path)}`,
     robots: () => toValue(seo.robots),
   });
 
