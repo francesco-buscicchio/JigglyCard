@@ -130,9 +130,11 @@ import {
 } from "~/mapper/storefront.mapper";
 import type { ShopCatalogFilters } from "~/composables/useShop";
 import type { ProductType } from "~/types/productType.type";
+import { translateCategory } from "~/data/menu";
+import { truncateDescription } from "~/utils/seo";
 
-const { t, locale } = useI18n();
-const { getProducts } = useShop();
+const { t, te, locale } = useI18n();
+const { getProducts, getMenu } = useShop();
 const products: Ref<ProductType[]> = ref([]);
 const route = useRoute();
 const totalItems = ref(0);
@@ -314,6 +316,116 @@ async function fetchData() {
     isLoading.value = false;
   }
 }
+
+/* ---- SEO ---- */
+
+/*
+ * Titolo e descrizione si ricavano dal menu, che si carica durante il
+ * rendering sul server (lato server è già in cache) così i meta arrivano
+ * nell'HTML. I prodotti invece restano caricati al montaggio: quanti per
+ * pagina lo decide la larghezza reale della griglia (useListingGrid), che sul
+ * server non si conosce. Tutte le schede sono comunque nella sitemap.
+ *
+ * Sul client il menu già scaricato si riusa fra un catalogo e l'altro: cambia
+ * solo dopo un sync del catalogo.
+ */
+const { data: seoMenu } = await useAsyncData("shop-menu", () => getMenu(), {
+  getCachedData: (key, nuxtApp) => nuxtApp.payload.data[key] ?? nuxtApp.static.data[key],
+});
+
+const seoGame = computed(
+  () =>
+    seoMenu.value?.tree?.find((game) => game.slug === route.params.tcg) ??
+    seoMenu.value?.tree?.[0],
+);
+const seoCategory = computed(() =>
+  seoGame.value?.categories.find((category) => category.slug === route.params.category),
+);
+
+/** Set scelto dalla vetrina o dal menu (`?expansion=slug`). */
+const expansionSlug = computed(() =>
+  typeof route.query.expansion === "string" ? route.query.expansion : "",
+);
+const seoExpansion = computed(() => {
+  if (!expansionSlug.value) return null;
+  const categories = seoCategory.value
+    ? [seoCategory.value]
+    : (seoGame.value?.categories ?? []);
+  for (const category of categories) {
+    const found = category.expansions.find((item) => item.slug === expansionSlug.value);
+    if (found) return found;
+  }
+  return null;
+});
+
+const categoryLabel = computed(() => {
+  const slug = String(route.params.category ?? "");
+  if (seoCategory.value) {
+    return translateCategory(
+      slug,
+      seoCategory.value.name,
+      seoGame.value?.name ?? "",
+      t,
+      te,
+    );
+  }
+  // Menu non disponibile: lo stesso ripiego del breadcrumb.
+  if (te(`category.${slug}`)) return t(`category.${slug}`);
+  const words = slug.replace(/^pokemon-/, "").replace(/-/g, " ");
+  return words.charAt(0).toUpperCase() + words.slice(1);
+});
+
+const seoTitle = computed(() => {
+  if (isSearchRoute.value) {
+    return t("layout.breadcrumb.search", { term: String(route.params.category ?? "") });
+  }
+  if (route.params.category === "all") return "Tutte le carte e i prodotti Pokémon";
+  const base = `${categoryLabel.value} Pokémon`;
+  return seoExpansion.value ? `${seoExpansion.value.name} – ${base}` : base;
+});
+
+const seoDescription = computed(() => {
+  const closing = "Ordini spediti in 2 giorni lavorativi.";
+  if (route.params.category === "all" || isSearchRoute.value) {
+    return truncateDescription(
+      `Carte Pokémon singole, buste, box e prodotti sigillati su Jigglycard, con filtri per set, lingua, condizione e prezzo. ${closing}`,
+    );
+  }
+  const label = categoryLabel.value;
+  if (seoExpansion.value) {
+    const code = seoExpansion.value.code ? ` (${seoExpansion.value.code})` : "";
+    return truncateDescription(
+      `${label} Pokémon del set ${seoExpansion.value.name}${code} su Jigglycard, con filtri per lingua, condizione e prezzo. ${closing}`,
+    );
+  }
+  return truncateDescription(
+    `${label} Pokémon su Jigglycard, divise per set, con filtri per lingua, condizione e prezzo. ${closing}`,
+  );
+});
+
+/*
+ * Canonical: il percorso più il solo `?expansion=`, che cambia davvero il
+ * contenuto (un set è una pagina a sé). `?page=` resta fuori di proposito:
+ * i prodotti per pagina dipendono dalla larghezza dello schermo, quindi
+ * "pagina 3" non è un contenuto stabile da indicizzare; le schede arrivano
+ * ai motori dalla sitemap, non dalla paginazione. I filtri non stanno
+ * nell'indirizzo, e altri parametri (es. utm_) non devono creare copie.
+ *
+ * La ricerca non va indicizzata (risultati potenzialmente infiniti e
+ * sottili): noindex, ma i link alle schede si seguono.
+ */
+usePageSeo({
+  title: seoTitle,
+  description: seoDescription,
+  image: () => seoCategory.value?.coverImage,
+  canonical: () =>
+    isSearchRoute.value
+      ? null
+      : expansionSlug.value
+        ? `${route.path}?expansion=${encodeURIComponent(expansionSlug.value)}`
+        : route.path,
+  robots: () => (isSearchRoute.value ? "noindex, follow" : undefined),
+});
 </script>
 
 <style scoped>

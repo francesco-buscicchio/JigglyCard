@@ -81,25 +81,45 @@
       </p>
     </div>
 
+    <!-- Campo trappola per i bot: nascosto alle persone e ai lettori di
+         schermo, chi lo compila viene scartato dal server. -->
+    <input
+      v-model="honeypot"
+      type="text"
+      name="website"
+      class="support-form__trap"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    />
+
     <div class="support-form__actions">
       <AtomsButtonCTA
-        :text="t('forms.actions.submit')"
-        :type="isFormValid === true ? 'primary' : 'disabled'"
+        :text="sending ? t('forms.support.sending') : t('forms.actions.submit')"
+        :type="isFormValid === true && !sending ? 'primary' : 'disabled'"
         @click="confirmForm"
       >
         <Icon name="heroicons:paper-airplane-20-solid" size="18" />
       </AtomsButtonCTA>
     </div>
+
+    <p
+      v-if="status"
+      class="support-form__status"
+      :class="`support-form__status--${status}`"
+      role="status"
+    >
+      {{ status === "sent" ? t("forms.support.sent") : t("forms.support.failed") }}
+    </p>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, computed } from "vue";
+import { reactive, computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const emit = defineEmits(["updateFormValues"]);
-const config = useRuntimeConfig();
 
 interface FormValues {
   name: string;
@@ -147,50 +167,36 @@ const isFormValid = computed(() => {
   );
 });
 
-const confirmForm = () => {
-  // validate all fields before sending
+const honeypot = ref("");
+const sending = ref(false);
+const status = ref<"" | "sent" | "failed">("");
+
+// Il messaggio va solo alla casella del negozio, tramite il server del sito:
+// il browser non sceglie né mittente né destinatario.
+const confirmForm = async () => {
   (Object.keys(formValues) as (keyof FormValues)[]).forEach((field) =>
     validateField(field)
   );
 
-  if (!isFormValid.value) return;
+  if (!isFormValid.value || sending.value) return;
 
-  // send emails
-  sendEmailToCustomer(
-    formValues.email,
-    `${formValues.name} ${formValues.surname}`,
-    formValues.message
-  );
-  sendEmailToBackOffice(
-    formValues.email,
-    `${formValues.name} ${formValues.surname}`,
-    formValues.message
-  );
-
-  // reset form
-  (Object.keys(formValues) as (keyof FormValues)[]).forEach((field) => {
-    formValues[field] = "";
-  });
-
-  emit("updateFormValues", { ...formValues });
-};
-
-const sendEmailToCustomer = (email: string, name: string, value: string) => {
-  sendMail({
-    email,
-    name,
-    subject: t("emails.support.subject"),
-    contentValue: value,
-  });
-};
-
-const sendEmailToBackOffice = (email: string, name: string, value: string) => {
-  sendMail({
-    email: config.public.ADMIN_MAIL,
-    name: t("emails.newsletter.storeName"),
-    subject: t("emails.support.adminSubject", { name, email }),
-    contentValue: value,
-  });
+  sending.value = true;
+  status.value = "";
+  try {
+    await $fetch("/api/support", {
+      method: "POST",
+      body: { ...formValues, website: honeypot.value },
+    });
+    status.value = "sent";
+    (Object.keys(formValues) as (keyof FormValues)[]).forEach((field) => {
+      formValues[field] = "";
+    });
+    emit("updateFormValues", { ...formValues });
+  } catch {
+    status.value = "failed";
+  } finally {
+    sending.value = false;
+  }
 };
 
 function updateField(field: keyof FormValues, value: string) {
@@ -256,6 +262,27 @@ function updateField(field: keyof FormValues, value: string) {
 
 .support-form__actions {
   padding-top: 4px;
+}
+
+.support-form__trap {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.support-form__status {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.support-form__status--sent {
+  color: #5ee0a0;
+}
+
+.support-form__status--failed {
+  color: #fca5a5;
 }
 
 /* Su mobile l'invio occupa tutta la riga, da tablet in su torna una pillola. */

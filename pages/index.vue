@@ -43,6 +43,7 @@ import { translateCategory } from "~/data/menu";
 import { productToShowcaseCard } from "~/utils/showcaseCards";
 import { PACK_HAND_SIZE, useBoosterPacks } from "~/composables/useBoosterPacks";
 import { INTRO_HEAD_SCRIPT } from "~/utils/homeIntro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "~/utils/seo";
 import type { CmsExpansion, CmsMenu, CmsProduct } from "~/types/shop";
 import type { HomeCategory } from "~/types/homeCategory.type";
 import type { ShowcaseCard } from "~/types/showcaseCard.type";
@@ -197,15 +198,9 @@ onMounted(() => {
     .catch(() => {});
 });
 
+usePageSeo({ title: SITE_TITLE, description: SITE_DESCRIPTION });
+
 useHead({
-  title: "Jigglycard",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Entra nel magico mondo Pokemon, carte singole, prodotti sealed, permuta collezioni...",
-    },
-  ],
   script: [{ key: "jc-intro", innerHTML: INTRO_HEAD_SCRIPT, tagPosition: "head" }],
 });
 </script>

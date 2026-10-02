@@ -14,13 +14,6 @@
             {{ $t("home.immersive.hero.titleLine1") }}
             {{ $t("home.immersive.hero.titleLine2") }}
           </p>
-          <p
-            v-if="showInformationSite && config.public.ADMIN_MAIL"
-            class="site-footer__mail"
-          >
-            <Icon name="heroicons:envelope-20-solid" size="16" aria-hidden="true" />
-            {{ config.public.ADMIN_MAIL }}
-          </p>
           <MoleculesSocialLinks />
         </div>
 
@@ -30,10 +23,29 @@
       </div>
 
       <div class="site-footer__bottom">
-        <p class="site-footer__copyright">© {{ year }} {{ $t("brand.name") }}</p>
-        <ul v-if="policyLinks?.length" class="site-footer__policies">
+        <div>
+          <p class="site-footer__copyright">© {{ year }} {{ $t("brand.name") }}</p>
+          <!-- Identificazione del venditore, obbligatoria per il commercio
+               elettronico (D.Lgs. 70/2003, art. 7). -->
+          <p class="site-footer__seller">
+            {{ SELLER.name }} · {{ SELLER_ADDRESS }} · P.IVA {{ SELLER.vatNumber }}
+          </p>
+          <!-- Si vendono prodotti originali di terzi: il marchio non è nostro e
+               il sito non è affiliato a chi lo detiene. -->
+          <p class="site-footer__disclaimer">{{ $t("footer.trademarkDisclaimer") }}</p>
+        </div>
+        <ul class="site-footer__policies">
           <li v-for="(policy, index) in policyLinks" :key="index">
             <a :href="policy.link" class="site-footer__policy">{{ policy.label }}</a>
+          </li>
+          <li>
+            <button
+              type="button"
+              class="site-footer__policy site-footer__policy--button"
+              @click="openPreferences"
+            >
+              {{ $t("common.links.cookiePreferences") }}
+            </button>
           </li>
         </ul>
       </div>
@@ -154,14 +166,6 @@
   color: var(--im-muted);
 }
 
-.site-footer__mail {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--im-ink);
-}
-
 .site-footer__bottom {
   position: relative;
   display: flex;
@@ -194,6 +198,31 @@
   font-size: 13px;
   line-height: 1.5;
   color: var(--im-muted);
+}
+
+.site-footer__seller {
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--im-muted);
+  opacity: 0.8;
+}
+
+.site-footer__disclaimer {
+  max-width: 640px;
+  margin-top: 8px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--im-muted);
+  opacity: 0.7;
+}
+
+.site-footer__policy--button {
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
 }
 
 .site-footer__policies {
@@ -237,20 +266,16 @@
 </style>
 
 <script setup lang="ts">
-import { FOOTER_MENU_ITEMS } from "~/data/const";
+import { FOOTER_MENU_ITEMS, SELLER, SELLER_ADDRESS } from "~/data/const";
 import logoNew from "~/assets/logo/logo_new.png";
 
-const config = useRuntimeConfig();
+const { openPreferences } = useCookiePreferences();
 const year = new Date().getFullYear();
 const props = defineProps({
   policyLinks: {
     type: Array as PropType<Array<{ label: string; link: string }>>,
   },
   hidePayments: {
-    type: Boolean,
-    default: false,
-  },
-  showInformationSite: {
     type: Boolean,
     default: false,
   },

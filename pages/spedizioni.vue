@@ -94,9 +94,10 @@ onMounted(async () => {
   }
 });
 
-useHead({
-  title: `${t("layout.footer.links.shipping")} · Jigglycard`,
-  meta: [{ name: "description", content: t("home.service.fastShipping.description") }],
+usePageSeo({
+  title: t("layout.footer.links.shipping"),
+  description:
+    "Metodi e costi di spedizione di Jigglycard, come imballiamo le carte e come chiedere un reso o un rimborso. Ordini spediti in 2 giorni lavorativi, sempre protetti.",
 });
 </script>
 

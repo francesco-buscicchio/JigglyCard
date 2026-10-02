@@ -45,10 +45,15 @@
   </div>
 
   <MoleculesCookieBanner />
+  <!-- Toast unico per i messaggi all'utente (useErrorHandler). -->
+  <MoleculesToastMessage
+    :text="appToast.text"
+    :type="appToast.type"
+    :trigger-key="appToast.key || undefined"
+  />
   <slot />
 
   <footer v-if="!isLandingPage">
-    <OrganismsPreFooter />
     <OrganismsFooter :policyLinks="policyLinks" />
   </footer>
 </template>
@@ -58,6 +63,7 @@ import { useI18n } from "vue-i18n";
 import type { Hit } from "~/interface/hit.interface";
 import logoNew from "~/assets/logo/logo_new.png";
 const { getProducts } = useShop();
+const { toast: appToast } = useErrorHandler();
 const isSearchOpen = ref(false);
 const { t, locale } = useI18n();
 const { host } = useRequestURL();
@@ -77,7 +83,7 @@ const noResults = computed(
 const policyLinks = [
   { label: t("common.links.privacy"), link: "/privacy-policy" },
   { label: t("common.links.cookies"), link: "/cookies" },
-  { label: t("common.links.terms"), link: "/terms-of-use" },
+  { label: t("common.links.terms"), link: "/condizioni-di-vendita" },
 ];
 
 const toggleSearch = () => {

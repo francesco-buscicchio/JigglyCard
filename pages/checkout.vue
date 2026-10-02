@@ -32,7 +32,7 @@
             <Icon name="heroicons:map-pin-20-solid" size="20" class="co-panel__icon" />
             {{ t("checkout.shippingInfo") }}
           </h2>
-          <OrganismsCheckoutForm @updateFormStatus="handleFormStatus" />
+          <OrganismsCheckoutForm ref="checkoutForm" @updateFormStatus="handleFormStatus" />
         </section>
 
         <section class="co-panel">
@@ -51,7 +51,7 @@
             <p class="stock-alert__title">{{ t("cart.stockChanged") }}</p>
             <ul class="stock-alert__list">
               <li v-for="issue in stockIssues" :key="issue.variantId">
-                <span class="stock-alert__name">{{ issue.variantId }}</span> —
+                <span class="stock-alert__name">{{ issue.name || issue.variantId }}</span> —
                 {{ t("cart.stockRequested") }} {{ issue.requested }},
                 {{ t("cart.stockAvailable") }} {{ issue.available }}
               </li>
@@ -66,16 +66,19 @@
         <div v-show="isMobileView">
           <OrganismsCartSummary
             :products="products"
-            :shipping-cost="selectedShippingOption?.price || 0"
+            :shipping-cost="shippingCents / 100"
+            :discount="discountCents / 100"
+            :coupon-code="cart.couponCode"
           />
         </div>
 
-        <section class="co-panel co-panel--pay" v-if="totalAmount > 0">
+        <section class="co-panel co-panel--pay" v-if="itemsTotalCents > 0">
           <OrganismsCheckoutPayment
             :is-checkout-valid="isFormValid"
-            :totalAmount="totalAmountWithShipment"
+            :amount-cents="amountCents"
             :userData="formData"
             :shippingOption="selectedShippingOption"
+            @invalidForm="checkoutForm?.revealErrors()"
             @stockIssues="stockIssues = $event"
           />
         </section>
@@ -85,7 +88,9 @@
       <div class="co-aside" v-show="!isMobileView">
         <OrganismsCartSummary
           :products="products"
-          :shipping-cost="selectedShippingOption?.price || 0"
+          :shipping-cost="shippingCents / 100"
+          :discount="discountCents / 100"
+          :coupon-code="cart.couponCode"
         />
       </div>
     </div>
@@ -96,6 +101,7 @@
 import { ref, computed } from "vue";
 import { PATH } from "~/data/const";
 import type { CheckoutLineIssue } from "~/types/shop";
+import { useCartStore } from "~/stores/cart";
 
 const { t } = useI18n();
 const isMobileView = isMobile();
@@ -105,12 +111,22 @@ export type CheckoutFormData = {
   name: string;
   surname: string;
   email: string;
+  phone: string;
+  streetAndHouseNumber: string;
   cap: string;
   city: string;
-  streetAndHouseNumber: string;
+  province: string;
   iWantTheInvoice: boolean;
+  invoiceKind: "private" | "company";
+  invoiceTaxCode: string;
+  invoiceCompanyName: string;
+  invoiceVatNumber: string;
+  invoiceSdiCode: string;
+  invoicePec: string;
+  acceptTerms: boolean;
 };
 
+const checkoutForm = ref<{ revealErrors: () => boolean } | null>(null);
 const formData = ref<CheckoutFormData | null>(null);
 const isFormValid = ref(false);
 
@@ -129,6 +145,7 @@ const shippingOptions = shippingMethods.map((method) => ({
   id: method.id,
   label: method.name,
   price: method.priceCents / 100,
+  priceCents: method.priceCents,
 }));
 
 const selectedShippingOption = ref(shippingOptions[0]);
@@ -138,16 +155,29 @@ function updateSelectedOption(option: any) {
   selectedShippingOption.value = option;
 }
 
-const { products, totalCart } = useCart();
+const cart = useCartStore();
+const { products } = useCart();
 
-const totalAmount = computed(() => Number(totalCart.value) * 100);
-const totalAmountWithShipment = computed(() => {
-  return Number(totalCart.value) + (selectedShippingOption.value?.price || 0);
-});
+// Stessi conti del CMS, in centesimi: è l'importo che si chiede a Stripe, e
+// se il CMS ne calcola uno diverso il pagamento non parte.
+const itemsTotalCents = computed(() => cart.itemsTotalCents);
+const discountCents = computed(() =>
+  cart.couponCode ? Math.min(cart.couponDiscountCents, itemsTotalCents.value) : 0,
+);
+const shippingCents = computed(() =>
+  cart.couponCode && cart.couponFreeShipping
+    ? 0
+    : (selectedShippingOption.value?.priceCents ?? 0),
+);
+const amountCents = computed(() =>
+  Math.max(0, itemsTotalCents.value - discountCents.value + shippingCents.value),
+);
 
 definePageMeta({
   layout: "default",
 });
+
+useSeoMeta({ title: () => t("checkout.title"), robots: "noindex, nofollow" });
 </script>
 
 <style scoped>

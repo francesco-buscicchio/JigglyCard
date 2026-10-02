@@ -80,6 +80,14 @@ export const useCartStore = defineStore("cart", {
         const parsed = raw ? JSON.parse(raw) : null;
         if (Array.isArray(parsed?.lines)) this.lines = parsed.lines;
         this.couponCode = String(parsed?.couponCode ?? "");
+        // Lo sconto si conserva per mostrarlo subito al ricaricamento;
+        // `revalidate()` lo ricalcola comunque sul carrello aggiornato.
+        this.couponDiscountCents = this.couponCode
+          ? Math.max(0, Number(parsed?.couponDiscountCents ?? 0))
+          : 0;
+        this.couponFreeShipping = Boolean(
+          this.couponCode && parsed?.couponFreeShipping,
+        );
       } catch {
         this.lines = [];
       }
@@ -89,7 +97,12 @@ export const useCartStore = defineStore("cart", {
       if (!import.meta.client) return;
       localStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ lines: this.lines, couponCode: this.couponCode }),
+        JSON.stringify({
+          lines: this.lines,
+          couponCode: this.couponCode,
+          couponDiscountCents: this.couponDiscountCents,
+          couponFreeShipping: this.couponFreeShipping,
+        }),
       );
     },
 
@@ -127,11 +140,13 @@ export const useCartStore = defineStore("cart", {
 
       line.quantity = Math.min(quantity, line.availableQuantity);
       this.persist();
+      this.refreshCoupon();
     },
 
     removeLine(variantId: string) {
       this.lines = this.lines.filter((entry) => entry.variantId !== variantId);
       this.persist();
+      this.refreshCoupon();
     },
 
     clear() {
@@ -158,8 +173,18 @@ export const useCartStore = defineStore("cart", {
       const issues: CartStockIssue[] = [];
       const slugs = Array.from(new Set(this.lines.map((line) => line.productSlug)));
 
+      // Solo un 404 vuol dire "prodotto sparito". Un CMS lento o irraggiungibile
+      // non deve svuotare il carrello: quelle righe restano come sono e si
+      // ricontrollano al prossimo giro (e comunque al pagamento).
+      const unreachable = new Set<string>();
       const products = await Promise.all(
-        slugs.map((slug) => getProduct(slug).catch(() => null)),
+        slugs.map((slug) =>
+          getProduct(slug).catch((error: any) => {
+            const status = error?.statusCode ?? error?.response?.status;
+            if (status !== 404) unreachable.add(slug);
+            return null;
+          }),
+        ),
       );
 
       const urls = new Map<string, string>();
@@ -180,6 +205,7 @@ export const useCartStore = defineStore("cart", {
       }
 
       for (const line of [...this.lines]) {
+        if (unreachable.has(line.productSlug)) continue;
         const live = variants.get(line.variantId);
 
         if (!live || live.quantity <= 0) {
@@ -209,7 +235,38 @@ export const useCartStore = defineStore("cart", {
       }
 
       this.persist();
+      await this.refreshCoupon();
       return issues;
+    },
+
+    /**
+     * Ricalcola lo sconto sul carrello attuale: un coupon in percentuale cambia
+     * con le quantità, e uno con ordine minimo può smettere di valere.
+     */
+    async refreshCoupon() {
+      if (!this.couponCode) return;
+      if (!this.lines.length) {
+        this.removeCoupon();
+        return;
+      }
+
+      const { validateCoupon } = useShop();
+      const code = this.couponCode;
+      try {
+        const result = await validateCoupon(code, this.itemsTotalCents);
+        if (this.couponCode !== code) return;
+        if (!result.valid) {
+          this.removeCoupon();
+          this.couponError = result.reason;
+          return;
+        }
+        this.couponDiscountCents = result.discountCents;
+        this.couponFreeShipping = result.freeShipping;
+        this.persist();
+      } catch {
+        // CMS non raggiungibile: si tiene lo sconto noto, il pagamento lo
+        // ricalcola comunque lato server.
+      }
     },
 
     async applyCoupon(code: string) {

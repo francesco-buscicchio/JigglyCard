@@ -18,7 +18,7 @@
         >
           <template #label>
             <span class="ship-option__name">{{ option.label }}</span>
-            <span class="ship-option__price">{{ option.price }}€</span>
+            <span class="ship-option__price">{{ Number(option.price).toFixed(2) }} €</span>
           </template>
         </AtomsRadioButton>
       </div>

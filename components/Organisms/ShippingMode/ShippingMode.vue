@@ -274,7 +274,9 @@ const removeCoupon = () => {
 };
 
 const placeholder = computed(() => {
-  return isDesktopView.value ? "XXXX" : t("cart.shipping.couponPlaceholder");
+  return isDesktopView.value
+    ? t("cart.shipping.couponLabel")
+    : t("cart.shipping.couponPlaceholder");
 });
 const codeApply = computed(() => {
   return isDesktopView.value

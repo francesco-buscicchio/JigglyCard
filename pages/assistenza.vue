@@ -33,7 +33,7 @@
           <p class="support__intro">{{ t("forms.support.form") }}</p>
         </div>
         <div class="support__rule" aria-hidden="true"></div>
-        <OrganismsSupportForm @updateFormValues="updateFormData" />
+        <OrganismsSupportForm />
       </section>
     </div>
   </div>
@@ -42,6 +42,12 @@
 <script setup lang="ts">
 import { email, phoneNumber } from "~/data/const";
 const { t } = useI18n();
+
+usePageSeo({
+  title: "Assistenza",
+  description:
+    "Hai bisogno di aiuto con un ordine, una spedizione o un reso? Contatta l'assistenza Jigglycard via email, WhatsApp o dal modulo: rispondiamo entro 48 ore.",
+});
 </script>
 
 <style scoped>

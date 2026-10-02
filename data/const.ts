@@ -52,8 +52,29 @@ export const PATH = {
   CHECKOUT: "/checkout",
 };
 
-export const email = "jigglycard@gmail.com";
-export const phoneNumber = "+39 351 5223779";
+/**
+ * Dati del venditore: un'unica fonte per footer, condizioni di vendita,
+ * informative ed email d'ordine (identificazione obbligatoria per il commercio
+ * elettronico, D.Lgs. 70/2003 art. 7 e Codice del Consumo art. 49).
+ */
+export const SELLER = {
+  name: "Jigglycard di Francesco Buscicchio",
+  street: "Via Principe Amedeo 94",
+  zip: "74123",
+  city: "Taranto",
+  province: "TA",
+  country: "Italia",
+  vatNumber: "IT03416880734",
+  taxCode: "BSCFNC00P06L049C",
+  email: "jigglycard@gmail.com",
+  phone: "+39 351 522 3779",
+  website: "https://www.jigglycard.com",
+} as const;
+
+export const SELLER_ADDRESS = `${SELLER.street}, ${SELLER.zip} ${SELLER.city} (${SELLER.province})`;
+
+export const email = SELLER.email;
+export const phoneNumber = SELLER.phone;
 
 export const availableLanguages = [
   { code: "IT", name: "italian" },

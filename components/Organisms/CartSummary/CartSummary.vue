@@ -24,6 +24,15 @@
 
     <div class="sum__divider" aria-hidden="true"></div>
 
+    <div v-if="props.discount > 0" class="sum__row">
+      <p class="sum__row-label">
+        <Icon name="heroicons:ticket-20-solid" size="16" class="sum__row-icon" />
+        {{ t("cart.shipping.couponLabel") }}
+        <span v-if="props.couponCode" class="sum__coupon">{{ props.couponCode }}</span>
+      </p>
+      <p class="sum__row-value is-free">-{{ props.discount.toFixed(2) }} €</p>
+    </div>
+
     <div class="sum__row">
       <p class="sum__row-label">
         <Icon name="heroicons:truck-20-solid" size="16" class="sum__row-icon" />
@@ -65,6 +74,16 @@ const props = defineProps({
       return value >= 0;
     },
   },
+  // Sconto del coupon in euro: senza, il totale mostrato al checkout era più
+  // alto di quello che si paga.
+  discount: {
+    type: Number,
+    default: 0,
+  },
+  couponCode: {
+    type: String,
+    default: "",
+  },
 });
 
 // Prezzo per quantità: sommando solo i prezzi unitari il totale mostrato al
@@ -76,13 +95,13 @@ const totalPrice = computed(() =>
   props.products.reduce((sum, product) => sum + lineTotal(product), 0),
 );
 
-const finalTotal = computed(() => {
-  return (totalPrice.value + props.shippingCost).toFixed(2);
-});
+const finalTotal = computed(() =>
+  Math.max(0, totalPrice.value - props.discount + props.shippingCost).toFixed(2),
+);
 
 const shippingCost = computed(() => {
   return props.shippingCost > 0
-    ? `${props.shippingCost} €`
+    ? `${props.shippingCost.toFixed(2)} €`
     : t("cart.summary.free");
 });
 </script>
@@ -268,6 +287,16 @@ const shippingCost = computed(() => {
 }
 
 /* "Gratis" in evidenza, come un chip. */
+.sum__coupon {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px dashed rgba(247, 210, 216, 0.45);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--im-ink);
+}
+
 .sum__row-value.is-free {
   padding: 2px 10px;
   border-radius: 999px;

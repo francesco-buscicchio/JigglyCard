@@ -1,47 +1,73 @@
 <template>
-  <a
-    href="https://www.iubenda.com/privacy-policy/94013012"
-    class="text-accent-500 hover:text-accent-500"
-    title="Privacy Policy"
-    target="_blank"
-  >
-  </a>
+  <!-- Il banner lo inietta lo script di iubenda: qui solo la sua configurazione
+       e, più sotto, lo stile notturno. -->
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { onMounted } from "vue";
+
+/*
+ * Banner cookie di iubenda e caricamento di Google Analytics.
+ *
+ * iubenda si carica sempre, anche quando una scelta è già salvata: così il
+ * pannello delle preferenze resta disponibile (link "Preferenze cookie" nel
+ * footer) e la scelta si può cambiare in qualsiasi momento.
+ *
+ * Google Analytics è in modalità manuale (nuxt.config.ts, gtag.initMode):
+ * lo script parte solo da qui, quando iubenda conferma il consenso alle
+ * statistiche. Senza consenso non viene mai caricato.
+ */
+const nuxtApp = useNuxtApp();
+const { gtag, initialize } = useGtag();
+let analyticsStarted = false;
+
+// Con il consenso per finalità iubenda riporta `purposes` (4 = misurazione);
+// con il consenso semplice solo `consent`.
+const hasStatisticsConsent = (preference) =>
+  preference?.purposes ? preference.purposes[4] === true : preference?.consent === true;
+
+const applyPreference = (preference) => {
+  if (hasStatisticsConsent(preference)) {
+    gtag("consent", "update", { analytics_storage: "granted" });
+    if (!analyticsStarted) {
+      analyticsStarted = true;
+      // Il callback arriva fuori dal setup: initialize() usa useHead e ha
+      // bisogno del contesto dell'app.
+      nuxtApp.runWithContext(() => initialize());
+    }
+  } else {
+    gtag("consent", "update", { analytics_storage: "denied" });
+  }
+};
 
 onMounted(() => {
-  const hasAcceptedCookies = localStorage.getItem(
-    "_iub_previous_preference_id"
-  );
+  window._iub = window._iub || [];
+  window._iub.csConfiguration = {
+    siteId: 4175415,
+    cookiePolicyId: 94013012,
+    cookiePolicyUrl: `${window.location.origin}/cookies`,
+    lang: "it",
+    storage: { type: "local_storage", useSiteId: true },
+    // Rifiutare dev'essere facile quanto accettare (Garante, 10/6/2021): il
+    // bottone "Rifiuta" accanto ad "Accetta", e la X vale come rifiuto.
+    banner: {
+      acceptButtonDisplay: true,
+      rejectButtonDisplay: true,
+      customizeButtonDisplay: true,
+      closeButtonRejects: true,
+    },
+    callback: {
+      onPreferenceExpressedOrNotNeeded: applyPreference,
+      onPreferenceExpressed: applyPreference,
+    },
+  };
 
-  if (hasAcceptedCookies) {
-    return;
-  }
-
-  // Aggiungi il primo script di configurazione Iubenda
-  const iubConfigScript = document.createElement("script");
-  iubConfigScript.type = "text/javascript";
-  iubConfigScript.innerHTML = `
-    var _iub = _iub || [];
-    _iub.csConfiguration = {"siteId":4175415,"cookiePolicyId":94013012,"lang":"it","storage":{"type":"local_storage","useSiteId":true}};
-  `;
-  document.head.appendChild(iubConfigScript);
-
-  // Carica il secondo script di Iubenda
-  const iubScript1 = document.createElement("script");
-  iubScript1.type = "text/javascript";
-  iubScript1.src = "https://cs.iubenda.com/autoblocking/4175415.js";
-  document.body.appendChild(iubScript1);
-
-  // Carica il terzo script di Iubenda
-  const iubScript2 = document.createElement("script");
-  iubScript2.type = "text/javascript";
-  iubScript2.src = "//cdn.iubenda.com/cs/iubenda_cs.js";
-  iubScript2.charset = "UTF-8";
-  iubScript2.async = true;
-  document.body.appendChild(iubScript2);
+  const iubScript = document.createElement("script");
+  iubScript.type = "text/javascript";
+  iubScript.src = "//cdn.iubenda.com/cs/iubenda_cs.js";
+  iubScript.charset = "UTF-8";
+  iubScript.async = true;
+  document.body.appendChild(iubScript);
 });
 </script>
 

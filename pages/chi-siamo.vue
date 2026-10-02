@@ -38,6 +38,12 @@ import logo from "~/assets/logo/logo_new.png";
 
 const { t } = useI18n();
 
+usePageSeo({
+  title: "Chi siamo",
+  description:
+    "Jigglycard: carte Pokémon singole, buste e box sigillati, scelti da collezionisti per collezionisti. Ci trovi anche su Cardmarket e Cardtrader. Scrivici dal modulo.",
+});
+
 // Accanto al modulo, le stesse garanzie della hero in home.
 const facts = computed(() => [
   {

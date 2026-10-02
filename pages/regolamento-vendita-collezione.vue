@@ -286,11 +286,11 @@
             contattaci:
           </p>
           <div class="rules__ctas">
-            <NuxtLink to="/contatti" class="im-btn im-btn--primary">
+            <NuxtLink to="/assistenza" class="im-btn im-btn--primary">
               <Icon name="heroicons:phone" size="20" />
               Contattaci
             </NuxtLink>
-            <NuxtLink to="/vendi-la-tua-collezione" class="im-btn im-btn--ghost">
+            <NuxtLink to="/valuta-la-tua-collezione" class="im-btn im-btn--ghost">
               <Icon name="heroicons:calendar" size="20" />
               Prenota appuntamento
             </NuxtLink>
@@ -302,15 +302,10 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: "Regolamento Vendita Collezioni - Jigglycard",
-  meta: [
-    {
-      name: "description",
-      content:
-        "Regolamento completo per la vendita di collezioni di carte Pokémon presso Jigglycard.",
-    },
-  ],
+usePageSeo({
+  title: "Regolamento vendita collezioni",
+  description:
+    "Come funziona la vendita della tua collezione di carte Pokémon a Jigglycard: valutazione, condizioni delle carte e percentuali sul valore di mercato.",
 });
 
 // Condizioni delle carte (sezione 7): testi del regolamento e quota del

@@ -1,60 +1,52 @@
-import { createError, readBody } from "h3";
-import { cmsFetch } from "~/server/utils/cms";
+import { createError, readBody, setResponseStatus } from "h3";
 import { getStripe } from "~/server/utils/stripe";
+import { finalizePaidOrder } from "~/server/utils/orderFinalization";
+
+/** Mostra l'email quel tanto che basta a riconoscerla: m***@gmail.com. */
+const maskEmail = (email: string) => {
+  const [user, domain] = email.split("@");
+  if (!user || !domain) return "";
+  return `${user.slice(0, 1)}***@${domain}`;
+};
 
 /**
- * Crea l'ordine nel CMS **dopo** che il pagamento è andato a buon fine.
+ * Pagina di ritorno da Stripe: verifica il pagamento e chiude l'ordine.
  *
- * Prima della migrazione l'ordine veniva creato su Strapi prima di pagare e
- * marcato come pagato da un parametro in query letto dal browser: bastava
- * visitare l'URL per avere un ordine pagato. Qui il PaymentIntent viene
- * recuperato lato server da Stripe e si pretende `succeeded` e un importo
- * coerente con le righe.
+ * Il browser passa solo l'id del PaymentIntent (lo stesso che Stripe mette
+ * nell'URL di ritorno). Stato e importo si leggono da Stripe, righe e dati del
+ * cliente dalla prenotazione sul CMS: visitare l'URL non basta a creare un
+ * ordine pagato, e un carrello manomesso non cambia cosa viene ordinato.
  *
- * La creazione è idempotente sul PaymentIntent, quindi ricaricare la pagina di
- * conferma non genera un secondo ordine.
+ * Lo stesso lavoro lo fa il webhook di Stripe, anche se il cliente chiude la
+ * scheda prima di tornare qui: la creazione è idempotente sul PaymentIntent.
  */
 export default defineEventHandler(async (event) => {
-  const body = await readBody<any>(event);
+  const body = await readBody<{ paymentIntentId?: string }>(event);
 
   const paymentIntentId = String(body?.paymentIntentId ?? "").trim();
-  if (!paymentIntentId) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: "PaymentIntent mancante",
-    });
+  if (!/^pi_[A-Za-z0-9]+$/.test(paymentIntentId)) {
+    throw createError({ statusCode: 400, statusMessage: "PaymentIntent mancante" });
   }
 
-  const stripe = getStripe(event);
-  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+  const paymentIntent = await getStripe(event).paymentIntents.retrieve(paymentIntentId);
+
+  // Bonifici e addebiti SEPA restano "in elaborazione" anche per giorni:
+  // l'ordine lo creerà il webhook quando l'incasso arriva.
+  if (paymentIntent.status === "processing") {
+    setResponseStatus(event, 202);
+    return { status: "processing" as const };
+  }
 
   if (paymentIntent.status !== "succeeded") {
-    throw createError({
-      statusCode: 402,
-      statusMessage: `Pagamento non completato (${paymentIntent.status})`,
-    });
+    return { status: "failed" as const, paymentStatus: paymentIntent.status };
   }
 
-  const lines = Array.isArray(body?.lines) ? body.lines : [];
-  const expectedAmount =
-    lines.reduce(
-      (sum: number, line: any) =>
-        sum + Number(line.unitPriceCents ?? 0) * Number(line.quantity ?? 0),
-      0,
-    ) -
-    Number(body?.discountCents ?? 0) +
-    Number(body?.shippingMethod?.priceCents ?? 0);
+  const { result } = await finalizePaidOrder(event, paymentIntent);
 
-  if (paymentIntent.amount_received !== expectedAmount) {
-    throw createError({
-      statusCode: 409,
-      statusMessage:
-        "L'importo pagato non corrisponde all'ordine: contattare l'assistenza",
-    });
-  }
-
-  return cmsFetch(event, "/orders", {
-    method: "POST",
-    body: { ...body, paymentIntentId },
-  });
+  return {
+    status: "confirmed" as const,
+    orderNumber: result.orderNumber,
+    email: maskEmail(result.order.customer.email),
+    totalCents: paymentIntent.amount_received,
+  };
 });

@@ -177,6 +177,9 @@ const { getRecommended } = useShop();
 const { recentlyViewed } = useRecentlyViewed();
 const cartStore = useCartStore();
 
+// Il carrello è diverso per ogni visitatore: niente da indicizzare.
+useSeoMeta({ title: () => t("cart.title"), robots: "noindex, nofollow" });
+
 const dealsProducts: Ref<ProductType[]> = ref([]);
 const {
   products,

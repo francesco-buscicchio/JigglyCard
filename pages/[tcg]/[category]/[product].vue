@@ -4,8 +4,12 @@
     <MoleculesProductNeighbors v-if="product.code" :slug="product.id" />
 
     <!-- Mobile: immagine e titolo in testa, poi lo stesso box d'acquisto
-         del desktop e la descrizione, uno sotto l'altro. -->
-    <div v-if="isMobileView" class="product-stack">
+         del desktop e la descrizione, uno sotto l'altro.
+         `!isDesktopView` e non `isMobile()`: sul server la larghezza non si
+         conosce e i due test sono entrambi falsi. Così l'HTML del server
+         contiene la versione mobile (quella che Google indicizza); su desktop
+         la nasconde il CSS finché l'idratazione non la sostituisce. -->
+    <div v-if="!isDesktopView" class="product-stack">
       <MoleculesProductPageHero
         :image="product.imageUrlLarge || product.imageUrl"
         :title="formatTitle(product.productName)"
@@ -133,11 +137,14 @@ import {
   createTagLanguage,
   createTagsStructure,
   findActiveLanguage,
-} from "./product.utils";
+} from "~/utils/productTags";
+import { formatProductName } from "~/utils/productUtils";
+import { SITE_NAME, SITE_URL, absoluteUrl, truncateDescription } from "~/utils/seo";
 import type { ListingTag } from "~/types/listingTag.type";
 import type { TagStructure } from "~/types/tagStructure.type";
 import type { TagCode } from "~/types/tagCode.type";
 import type { ProductType } from "~/types/productType.type";
+import type { CmsProduct } from "~/types/shop";
 import OrganismsProductsTags from "~/components/Organisms/OrganismsProductsTags/OrganismsProductsTags.vue";
 import defaultCardImage from "@/assets/img/default-card-image.png";
 import { mapStorefrontProduct, mapStorefrontProducts } from "~/mapper/storefront.mapper";
@@ -147,21 +154,42 @@ const product = ref();
 const isSingle = computed(() =>
   /single/.test(product.value?.categorySlug ?? ""),
 );
-// Prodotto grezzo dal CMS: serve per la descrizione, che usa campi non
-// presenti nella forma mappata per le card.
-const raw = ref<any>(null);
 const { t, te, locale } = useI18n();
 const route = useRoute();
 const { getProduct, getRecommended } = useShop();
 const { recentlyViewed, remember } = useRecentlyViewed();
 const cart = useCartStore();
 const offerte: Ref<ProductType[]> = ref([]);
-const isMobileView = isMobile();
 const selectedVariant = ref(null);
 
-onMounted(async () => {
-  await fetchData();
+/**
+ * Il prodotto si carica durante il rendering sul server, non al montaggio:
+ * titolo, meta, JSON-LD e testo della scheda devono essere già nell'HTML che
+ * ricevono i motori di ricerca e le anteprime dei social. Sul client i dati
+ * arrivano dal payload, senza una seconda richiesta.
+ *
+ * `raw` è il prodotto grezzo dal CMS: serve per la descrizione e la SEO, che
+ * usano campi non presenti nella forma mappata per le card.
+ */
+const slug = String(route.params.product);
+const { data: raw, error: productError } = await useAsyncData<CmsProduct>(
+  `product:${slug}`,
+  () => getProduct(slug),
+);
 
+if (!raw.value) {
+  // 404 vero (non una pagina vuota con stato 200) per i prodotti inesistenti
+  // o di altri giochi; un CMS irraggiungibile resta un errore del server, non
+  // deve far sparire la scheda dall'indice.
+  const status = productError.value?.statusCode;
+  throw createError({
+    statusCode: status && status >= 500 ? status : 404,
+    statusMessage: status && status >= 500 ? "Catalogo non disponibile" : "Prodotto non trovato",
+    fatal: true,
+  });
+}
+
+onMounted(async () => {
   // La scheda appena aperta entra nella cronologia e fa da riferimento
   // principale per i suggerimenti.
   remember(String(route.params.product));
@@ -183,10 +211,8 @@ const tagsLanguage = ref<ListingTag[]>([]);
 const tagsCondition = ref<ListingTag[]>([]);
 let tagsStructure: TagStructure[];
 
-async function fetchData() {
-  // La rotta usa lo slug del prodotto come identificativo pubblico.
-  const item = await getProduct(String(route.params.product));
-  raw.value = item;
+/** Ex `fetchData`: ora i dati ci sono già, resta da prepararli per la pagina. */
+function initProduct(item: CmsProduct) {
   product.value = mapStorefrontProduct(item, locale.value);
 
   tagsStructure = createTagsStructure(
@@ -211,6 +237,9 @@ const setTags = (tagsStructure: TagStructure[]): void => {
   const activeConditions = activeLanguage ? activeLanguage.conditions : [];
   tagsCondition.value = createTagCondition(tagsStructure, activeConditions);
 };
+
+// Qui e non subito dopo il caricamento: `setTags` deve essere già definita.
+initProduct(raw.value);
 
 function extractCardCode(input: string): string | undefined {
   const match = input.match(/\(([^)]+)\)/);
@@ -284,6 +313,125 @@ const changedVariant = (variantID: TagCode): void => {
     return val.documentId === variantID;
   })[0];
 };
+
+/* ---- SEO ---- */
+
+/*
+ * Testi per i motori di ricerca sempre in italiano, con i nomi italiani
+ * quando il set è uscito anche da noi: è la lingua del sito indicizzato, a
+ * prescindere da quella scelta nell'interfaccia.
+ */
+const seoName = computed(() => {
+  const item = raw.value;
+  if (!item) return "";
+  const name = formatProductName(item.nameIt || item.name);
+  return item.collectorNumber ? `${name} ${item.collectorNumber}` : name;
+});
+const seoExpansion = computed(() => raw.value?.expansionIt || raw.value?.expansion || "");
+
+// "Carta – Set"; i sigillati spesso hanno già il set nel nome e non lo ripetono.
+const seoTitle = computed(() => {
+  const expansion = seoExpansion.value;
+  return expansion && !seoName.value.toLowerCase().includes(expansion.toLowerCase())
+    ? `${seoName.value} – ${expansion}`
+    : seoName.value;
+});
+
+const hasPrice = computed(() => (raw.value?.minPriceCents ?? 0) > 0);
+const isInStock = computed(() => Boolean(raw.value?.available) && hasPrice.value);
+
+const seoDescription = computed(() => {
+  const item = raw.value;
+  if (!item) return "";
+  let intro = seoName.value;
+  if (seoExpansion.value) intro += ` dell'espansione ${seoExpansion.value}`;
+  if (item.rarity) intro += `, rarità ${item.rarity}`;
+
+  const price = (item.minPriceCents / 100).toLocaleString("it-IT", {
+    style: "currency",
+    currency: "EUR",
+  });
+  const offer = isInStock.value
+    ? `Disponibile da ${price} su ${SITE_NAME}, spedizione in 2 giorni lavorativi.`
+    : `Al momento non disponibile su ${SITE_NAME}.`;
+
+  return truncateDescription(`${intro}. ${offer}`);
+});
+
+// Gioco e categoria dal prodotto, non dall'indirizzo: chi arriva da un link
+// con la categoria sbagliata trova comunque l'indirizzo giusto nel canonical.
+// Stessa forma della sitemap (server/utils/sitemap.ts).
+const productPath = computed(() =>
+  raw.value
+    ? [raw.value.gameSlug, raw.value.categorySlug, raw.value.slug]
+        .map((segment) => `/${encodeURIComponent(segment)}`)
+        .join("")
+    : "",
+);
+
+const productImages = computed(() => {
+  const item = raw.value;
+  const images = item?.imagesLarge?.length ? item.imagesLarge : (item?.images ?? []);
+  return images.filter(Boolean).map(absoluteUrl);
+});
+
+usePageSeo({
+  title: seoTitle,
+  description: seoDescription,
+  image: () => productImages.value[0],
+  canonical: productPath,
+});
+
+/**
+ * Dati strutturati schema.org/Product: nome, immagini e prezzo "a partire
+ * da" (la variante più economica) per i risultati arricchiti di Google.
+ * Senza prezzo l'offerta non si dichiara: un Offer senza `price` è un errore
+ * per Google, peggio che non averlo.
+ */
+const productJsonLd = computed(() => {
+  const item = raw.value;
+  if (!item) return null;
+  const url = `${SITE_URL}${productPath.value}`;
+  const data: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: seoTitle.value,
+    description: seoDescription.value,
+    sku: item.slug,
+    url,
+    category: item.category,
+    brand: { "@type": "Brand", name: item.game || "Pokémon" },
+  };
+  if (productImages.value.length) data.image = productImages.value;
+  if (hasPrice.value) {
+    data.offers = {
+      "@type": "Offer",
+      url,
+      priceCurrency: "EUR",
+      price: (item.minPriceCents / 100).toFixed(2),
+      availability: isInStock.value
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: SITE_NAME },
+    };
+  }
+  return data;
+});
+
+useHead({
+  script: () =>
+    productJsonLd.value
+      ? [
+          {
+            key: "product-jsonld",
+            type: "application/ld+json",
+            // `<` escapato: un nome con un tag di chiusura dello script non
+            // deve poter chiudere il blocco JSON-LD.
+            innerHTML: JSON.stringify(productJsonLd.value).replace(/</g, "\\u003c"),
+          },
+        ]
+      : [],
+});
 </script>
 
 <style scoped>
@@ -299,6 +447,15 @@ const changedVariant = (variantID: TagCode): void => {
   flex-direction: column;
   gap: 20px;
   margin-top: 8px;
+}
+
+/* Conta solo prima dell'idratazione: sul desktop il server manda comunque la
+   versione mobile (vedi il template), e senza questa regola comparirebbe
+   per un attimo al posto di quella desktop. */
+@media (min-width: 1024px) {
+  .product-stack {
+    display: none;
+  }
 }
 
 /* ---- Desktop ---- */

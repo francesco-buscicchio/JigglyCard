@@ -119,6 +119,8 @@ export type CmsCouponValidation =
 
 export type CheckoutLineIssue = {
   variantId: string;
+  /** Nome della carta, quando il CMS la conosce ancora. */
+  name?: string;
   reason: "not_found" | "insufficient_stock";
   requested: number;
   available: number;
@@ -153,4 +155,36 @@ export type CheckoutReservation = {
 export type CheckoutReservationFailure = {
   ok: false;
   issues: CheckoutLineIssue[];
+  /** Il coupon non vale più: il pagamento non parte. */
+  couponError?: string | null;
+  /** Il totale del CMS è diverso da quello mostrato: nuovi importi. */
+  priceChanged?: boolean;
+  totals?: CheckoutReservation["totals"];
+  /** Il pagamento precedente era già andato a buon fine. */
+  alreadyPaid?: boolean;
+  paymentIntentId?: string;
 };
+
+export type CheckoutCustomerPayload = {
+  customer: { name: string; surname: string; email: string; phone: string };
+  address: {
+    street: string;
+    city: string;
+    zip: string;
+    province: string;
+    country: string;
+  };
+  invoice: {
+    kind: "private" | "company";
+    companyName: string;
+    taxCode: string;
+    vatNumber: string;
+    sdiCode: string;
+    pec: string;
+  } | null;
+};
+
+export type OrderConfirmation =
+  | { status: "confirmed"; orderNumber: string; email: string; totalCents: number }
+  | { status: "processing" }
+  | { status: "failed"; paymentStatus: string };

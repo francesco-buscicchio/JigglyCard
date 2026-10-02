@@ -13,11 +13,15 @@
     <!-- Altrimenti, usa un input singola riga -->
     <input
       v-else
-      type="text"
+      :type="type"
       :class="inputClass"
       v-model="inputValue"
       :disabled="status === 'disabled'"
       :placeholder="placeholder"
+      :autocomplete="autocomplete || undefined"
+      :inputmode="inputmode || undefined"
+      :maxlength="maxlength || undefined"
+      :name="name || undefined"
       @blur="handleBlur"
     />
     <span
@@ -46,10 +50,45 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // Attributi del campo vero e proprio: senza, finirebbero sul <div> esterno
+  // e il browser non saprebbe come compilare il modulo da solo.
+  type: {
+    type: String,
+    default: "text",
+  },
+  autocomplete: {
+    type: String,
+    default: "",
+  },
+  inputmode: {
+    type: String,
+    default: "",
+  },
+  maxlength: {
+    type: Number,
+    default: 0,
+  },
+  name: {
+    type: String,
+    default: "",
+  },
+  // Valore iniziale: serve quando il campo ricompare (per esempio i dati di
+  // fatturazione nascosti e riaperti) e deve mostrare quanto già scritto.
+  modelValue: {
+    type: String,
+    default: "",
+  },
 });
 
 const slots = useSlots();
-const inputValue = ref("");
+const inputValue = ref(props.modelValue ?? "");
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if ((value ?? "") !== inputValue.value) inputValue.value = value ?? "";
+  },
+);
 
 const hasSlotContent = computed(() => !!slots.default);
 

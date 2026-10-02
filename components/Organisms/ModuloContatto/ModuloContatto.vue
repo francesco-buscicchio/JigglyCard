@@ -13,6 +13,8 @@
       type="form"
       :classes="{ form: { contact__form: true } }"
       :actions="false"
+      :disabled="isSending"
+      @submit="submitForm"
     >
       <div class="contact__row">
         <FormKit
@@ -27,6 +29,7 @@
 
         <FormKit
           type="email"
+          name="email"
           validation-visibility="blur"
           validation="required|email"
           :label="t('forms.fields.email')"
@@ -36,9 +39,10 @@
       </div>
       <FormKit
         type="tel"
+        name="phone"
         :label="t('forms.contact.placeholders.phone')"
         :placeholder="t('forms.contact.placeholders.phone')"
-        validation="matches:/^[0-9]{3}[0-9]{3}[0-9]{4}$/"
+        validation="matches:/^\+?[0-9 ]{6,20}$/"
         :validation-messages="{
           matches: t('forms.contact.phoneValidation'),
         }"
@@ -47,9 +51,21 @@
         style="min-width: 100%"
       />
 
+      <!-- Campo trappola per i bot: invisibile e fuori dal tab. -->
+      <input
+        v-model="honeypot"
+        type="text"
+        name="website"
+        class="contact__trap"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+
       <FormKit
         type="textarea"
-        name="instructions"
+        name="message"
+        validation="required"
         :label="t('forms.fields.message')"
         :placeholder="t('forms.contact.placeholders.message')"
         :classes="fieldClasses"
@@ -57,7 +73,7 @@
       />
 
       <FormKit
-        type="button"
+        type="submit"
         :classes="{
           outer: {
             $reset: true,
@@ -73,8 +89,7 @@
             contact__submit: true,
           },
         }"
-        @click="submitForm"
-        >{{ t("forms.contact.submit") }}
+        >{{ isSending ? t("forms.support.sending") : t("forms.contact.submit") }}
         <Icon name="heroicons:paper-airplane-20-solid" size="18" />
       </FormKit>
     </FormKit>
@@ -83,7 +98,40 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
-const submitForm = () => {};
+const { notify, handleError } = useErrorHandler();
+const isSending = ref(false);
+const honeypot = ref("");
+
+/**
+ * Invia il messaggio alla casella del negozio, con la stessa rotta del modulo
+ * di assistenza. Prima il bottone non faceva nulla: i messaggi andavano persi
+ * senza che chi scriveva se ne accorgesse.
+ */
+const submitForm = async (
+  values: { name?: string; email?: string; phone?: string; message?: string },
+  node?: { reset: () => void },
+) => {
+  isSending.value = true;
+  try {
+    await $fetch("/api/support", {
+      method: "POST",
+      body: {
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        message: values.message,
+        website: honeypot.value,
+        source: "chi-siamo",
+      },
+    });
+    notify(t("forms.support.sent"), "success");
+    node?.reset();
+  } catch (error) {
+    handleError("Invio modulo contatti fallito", error, t("forms.support.failed"));
+  } finally {
+    isSending.value = false;
+  }
+};
 
 // Il tema FormKit generato è chiaro, con il focus blu: sui campi si azzera
 // e si usano le classi di vetro definite nello stile qui sotto.
@@ -99,6 +147,14 @@ const fieldClasses = {
 </script>
 
 <style scoped>
+.contact__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 /* Scheda di vetro con campi etichettati e invio a pillola sfumata. Gli
    elementi li disegna FormKit, fuori dallo scope: da qui `:deep`. */
 .contact {

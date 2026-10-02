@@ -1,12 +1,14 @@
 import type {
-  CheckoutLineIssue,
+  CheckoutCustomerPayload,
   CheckoutReservation,
+  CheckoutReservationFailure,
   CmsCouponValidation,
   CmsExpansion,
   CmsMenu,
   CmsProduct,
   CmsProductList,
   CmsShippingMethod,
+  OrderConfirmation,
 } from "~/types/shop";
 
 export type ShopCatalogFilters = {
@@ -109,55 +111,42 @@ export function useShop() {
     });
 
   /**
-   * Prenota la merce e crea il PaymentIntent. Se il CMS risponde 409 la merce
-   * non è più disponibile: si restituiscono le righe problematiche invece di
-   * sollevare, perché l'utente deve vederle e correggere il carrello.
+   * Prenota la merce e crea il PaymentIntent, al clic su "Paga". Un 409 non è
+   * un errore da nascondere: merce appena venduta, coupon scaduto o prezzo
+   * cambiato, cose che l'utente deve vedere prima di pagare. Lo si restituisce
+   * come risposta invece di sollevarlo.
    */
-  const createCheckoutIntent = (payload: {
-    lines: { variantId: string; quantity: number }[];
-    shippingMethodId?: string;
-    couponCode?: string | null;
-  }) =>
-    $fetch<
-      | ({ ok: true; clientSecret: string; paymentIntentId: string } & Omit<
-          CheckoutReservation,
-          "ok"
-        >)
-      | { ok: false; issues: CheckoutLineIssue[] }
-    >("/api/shop/checkout/intent", { method: "POST", body: payload });
+  const createCheckoutIntent = async (
+    payload: CheckoutCustomerPayload & {
+      lines: { variantId: string; quantity: number }[];
+      shippingMethodId: string;
+      couponCode?: string | null;
+      expectedTotalCents: number;
+      previousPaymentIntentId?: string;
+    },
+  ) => {
+    type Success = { ok: true; clientSecret: string; paymentIntentId: string } & Omit<
+      CheckoutReservation,
+      "ok"
+    >;
+    try {
+      return await $fetch<Success | CheckoutReservationFailure>(
+        "/api/shop/checkout/intent",
+        { method: "POST", body: payload },
+      );
+    } catch (error: any) {
+      const status = error?.statusCode ?? error?.response?.status;
+      if (status === 409 && error?.data) return error.data as CheckoutReservationFailure;
+      throw error;
+    }
+  };
 
-  const confirmOrder = (payload: {
-    paymentIntentId: string;
-    reservationId: string;
-    customer: { name: string; surname: string; email: string; phone?: string };
-    address: {
-      street: string;
-      city: string;
-      zip: string;
-      province?: string;
-      country: string;
-    };
-    shippingMethod: { id: string | null; name: string; priceCents: number };
-    lines: {
-      variantId: string;
-      blueprintId: number;
-      name: string;
-      quantity: number;
-      unitPriceCents: number;
-      imageUrl?: string;
-      language?: string;
-      condition?: string;
-    }[];
-    couponCode?: string | null;
-    discountCents?: number;
-  }) =>
-    $fetch<{
-      ok: boolean;
-      orderId: string;
-      orderNumber: string;
-      existing: boolean;
-      stockConflict: boolean;
-    }>("/api/shop/orders/confirm", { method: "POST", body: payload });
+  /** Verifica il pagamento su Stripe e chiude l'ordine: basta il PaymentIntent. */
+  const confirmOrder = (paymentIntentId: string) =>
+    $fetch<OrderConfirmation>("/api/shop/orders/confirm", {
+      method: "POST",
+      body: { paymentIntentId },
+    });
 
   return {
     getProducts,

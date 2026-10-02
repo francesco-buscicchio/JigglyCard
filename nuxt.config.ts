@@ -6,6 +6,13 @@ export default defineNuxtConfig({
     cacheDir: process.env.NUXT_VITE_CACHE_DIR || undefined,
   },
   devtools: { enabled: true },
+  // Solo ciò che vale anche per la pagina d'errore, che Nuxt disegna al posto
+  // di app.vue: titoli, descrizioni, Open Graph e canonical stanno in app.vue.
+  app: {
+    head: {
+      htmlAttrs: { lang: "it" },
+    },
+  },
   // Il sito ha un solo tema, notturno: la classe `dark` su <html> accende
   // anche le varianti `dark:` di FormKit e Nuxt UI.
   // Chiave nuova: chi ha visitato il sito prima ha "light" salvato sotto la
@@ -22,8 +29,24 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  // Analytics solo dopo il consenso: in modalità manuale lo script Google non
+  // si carica finché CookieBanner non chiama initialize() su consenso alle
+  // statistiche espresso nel banner iubenda (linee guida Garante 10/6/2021).
   gtag: {
     id: "GTM-MP3GKJSW",
+    initMode: "manual",
+    initCommands: [
+      [
+        "consent",
+        "default",
+        {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+        },
+      ],
+    ],
   },
   formkit: {
     autoImport: true,
@@ -42,12 +65,18 @@ export default defineNuxtConfig({
     // Segreti: restano lato server. Il browser non deve poter parlare né con
     // il CMS né con Stripe in scrittura.
     STRIPE_SECRET_KEY: "",
+    // Segreto di firma del webhook Stripe (whsec_...), per /api/shop/stripe/webhook.
+    STRIPE_WEBHOOK_SECRET: "",
     CMS_STOREFRONT_URL: "",
     CMS_STOREFRONT_KEY: "",
-    SENDGRID_API_TOKEN: "",
+    // Casella Aruba da cui partono conferme d'ordine e messaggi di assistenza.
+    SMTP_HOST: "",
+    SMTP_PORT: "",
+    SMTP_SECURE: "",
+    SMTP_USER: "",
+    SMTP_PASS: "",
+    MAIL_FROM: "",
     public: {
-      NEWSLETTER_TO_MAIL: "",
-      NEWSLETTER_TO_NAME: "",
       ADMIN_MAIL: "",
       STRIPE_PUBLIC_KEY: "",
       PURCHASE_COMPLETED_URL: "",
@@ -76,6 +105,12 @@ export default defineNuxtConfig({
   // finiva nella rotta del catalogo come se "it" fosse un gioco.
   i18n: {
     strategy: "no_prefix",
+  },
+
+  // /welcome era la pagina d'iscrizione alla newsletter pre-lancio: la
+  // newsletter non c'è più, i link vecchi portano in home invece che a un 404.
+  routeRules: {
+    "/welcome": { redirect: { to: "/", statusCode: 301 } },
   },
 
   googleFonts: {

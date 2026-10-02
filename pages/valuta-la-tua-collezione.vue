@@ -38,6 +38,12 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
+
+usePageSeo({
+  title: "Valuta la tua collezione Pokémon",
+  description:
+    "Vuoi vendere la tua collezione di carte Pokémon? Prenota online una valutazione su appuntamento con Jigglycard e scopri quanto vale davvero.",
+});
 </script>
 
 <style scoped>

@@ -306,12 +306,18 @@ onMounted(async () => {
   if (selected.value) loadCards(true);
 });
 
-useHead(() => ({
-  title: selected.value
-    ? `${selected.value.name} · Pokédex · Jigglycard`
-    : "Pokédex · Jigglycard",
-  meta: [{ name: "description", content: t("pokedex.lead") }],
-}));
+// Ogni Pokémon è una pagina a sé (`?pokemon=`): il canonical la conserva,
+// altrimenti quello predefinito (senza query) le farebbe passare tutte per
+// copie dell'elenco.
+usePageSeo({
+  title: () => (selected.value ? `${selected.value.name} · Pokédex` : "Pokédex"),
+  description: () =>
+    selected.value
+      ? `Tutte le carte singole di ${selected.value.name} disponibili su Jigglycard, dalla più rara alla più comune.`
+      : t("pokedex.lead"),
+  canonical: () =>
+    selected.value ? `/pokedex?pokemon=${encodeURIComponent(selected.value.slug)}` : "/pokedex",
+});
 </script>
 
 <style scoped>

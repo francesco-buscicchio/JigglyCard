@@ -1,0 +1,18 @@
+# Jigglycard - https://www.jigglycard.com
+User-agent: *
+Allow: /
+Disallow: /carrello
+Disallow: /checkout
+Disallow: /acquisto-completato
+Disallow: /landing
+Disallow: /api/
+# Le rotte di sola lettura del catalogo restano raggiungibili: Google esegue
+# il JavaScript delle pagine e senza questi dati vedrebbe vuoti catalogo,
+# vetrine della home e Pokedex. Vince la regola piu' lunga, quindi queste
+# eccezioni prevalgono su "Disallow: /api/".
+Allow: /api/shop/products
+Allow: /api/shop/menu
+Allow: /api/shop/home
+Allow: /api/shop/expansions
+
+Sitemap: https://www.jigglycard.com/sitemap.xml

@@ -2,7 +2,7 @@
   <div class="done-page">
     <!-- Attesa della conferma: un'orbita che gira, annunciata come stato. -->
     <div
-      v-if="isConfirming"
+      v-if="state === 'confirming'"
       class="state state--wait"
       role="status"
       aria-live="polite"
@@ -14,7 +14,37 @@
       <p class="state__text">{{ t("checkout.confirming") }}</p>
     </div>
 
-    <div v-else-if="errorMessage" class="state state--error" role="alert">
+    <MoleculesThankYou v-else-if="state === 'confirmed'" type="order">
+      <p v-if="orderNumber" class="order-ticket">
+        <span class="order-ticket__label">{{ t("checkout.orderNumber") }}:</span>
+        <strong class="order-ticket__value">{{ orderNumber }}</strong>
+      </p>
+      <p v-if="maskedEmail" class="state__text state__text--note">
+        {{ t("checkout.emailSentTo", { email: maskedEmail }) }}
+      </p>
+    </MoleculesThankYou>
+
+    <div v-else-if="state === 'processing'" class="state" role="status">
+      <span class="state__icon state__icon--info" aria-hidden="true">
+        <Icon name="heroicons:clock-20-solid" size="28" />
+      </span>
+      <h2 class="state__title">{{ t("checkout.processingTitle") }}</h2>
+      <p class="state__text">{{ t("checkout.processingText") }}</p>
+    </div>
+
+    <div v-else-if="state === 'failed'" class="state state--error" role="alert">
+      <span class="state__icon" aria-hidden="true">
+        <Icon name="heroicons:x-circle-20-solid" size="28" />
+      </span>
+      <h2 class="state__title">{{ t("checkout.paymentFailedTitle") }}</h2>
+      <p class="state__text">{{ t("checkout.paymentFailedText") }}</p>
+      <NuxtLink to="/checkout" class="state__link">
+        <Icon name="heroicons:arrow-left-20-solid" size="16" />
+        {{ t("checkout.backToCheckout") }}
+      </NuxtLink>
+    </div>
+
+    <div v-else-if="state === 'error'" class="state state--error" role="alert">
       <span class="state__icon" aria-hidden="true">
         <Icon name="heroicons:exclamation-triangle-20-solid" size="28" />
       </span>
@@ -22,14 +52,14 @@
       <p class="state__text">{{ errorMessage }}</p>
     </div>
 
-    <template v-else>
-      <MoleculesThankYou type="order">
-        <p v-if="orderNumber" class="order-ticket">
-          <span class="order-ticket__label">{{ t("checkout.orderNumber") }}:</span>
-          <strong class="order-ticket__value">{{ orderNumber }}</strong>
-        </p>
-      </MoleculesThankYou>
-    </template>
+    <!-- Pagina aperta senza un pagamento (link diretto, segnalibro): niente
+         "ordine confermato" se un ordine non c'è. -->
+    <div v-else class="state">
+      <h2 class="state__title">{{ t("checkout.nothingToConfirm") }}</h2>
+      <NuxtLink to="/" class="state__link">
+        {{ t("checkout.thanks.backHome") }}
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
@@ -38,14 +68,24 @@ import { onMounted, ref } from "vue";
 import { PENDING_ORDER_STORAGE_KEY } from "~/data/const";
 import { useCartStore } from "~/stores/cart";
 
+type PageState = "confirming" | "confirmed" | "processing" | "failed" | "error" | "none";
+
 const { t } = useI18n();
 const route = useRoute();
 const cart = useCartStore();
 const { confirmOrder } = useShop();
 
-const isConfirming = ref(true);
+const state = ref<PageState>("confirming");
 const orderNumber = ref("");
+const maskedEmail = ref("");
 const errorMessage = ref("");
+
+/** Il pagamento è chiuso (riuscito o in arrivo): carrello e pagamento aperto si azzerano. */
+const closeCheckout = () => {
+  sessionStorage.removeItem(PENDING_ORDER_STORAGE_KEY);
+  cart.hydrate();
+  cart.clear();
+};
 
 /**
  * Chiude l'ordine dopo il ritorno da Stripe.
@@ -55,28 +95,32 @@ const errorMessage = ref("");
  * sul PaymentIntent, quindi un refresh non genera un secondo ordine.
  */
 onMounted(async () => {
-  const paymentIntentId = route.query.payment_intent as string | undefined;
-  const raw = sessionStorage.getItem(PENDING_ORDER_STORAGE_KEY);
-
-  if (!paymentIntentId || !raw) {
-    isConfirming.value = false;
+  const paymentIntentId = String(route.query.payment_intent ?? "");
+  if (!paymentIntentId) {
+    state.value = "none";
     return;
   }
 
   try {
-    const pending = JSON.parse(raw);
-    const result = await confirmOrder({ ...pending, paymentIntentId });
+    const result = await confirmOrder(paymentIntentId);
 
-    orderNumber.value = result.orderNumber;
-    sessionStorage.removeItem(PENDING_ORDER_STORAGE_KEY);
-    cart.clear();
+    if (result.status === "confirmed") {
+      orderNumber.value = result.orderNumber;
+      maskedEmail.value = result.email;
+      closeCheckout();
+    } else if (result.status === "processing") {
+      closeCheckout();
+    }
+    // Pagamento non riuscito: il carrello resta com'è, per riprovare.
+    state.value = result.status;
   } catch (error: any) {
     errorMessage.value =
-      error?.statusMessage ?? error?.data?.statusMessage ?? t("checkout.genericError");
-  } finally {
-    isConfirming.value = false;
+      error?.data?.statusMessage ?? error?.statusMessage ?? t("checkout.genericError");
+    state.value = "error";
   }
 });
+
+useSeoMeta({ robots: "noindex, nofollow" });
 </script>
 
 <style scoped>
@@ -110,6 +154,29 @@ onMounted(async () => {
   background:
     radial-gradient(70% 60% at 50% 0%, rgba(224, 81, 104, 0.18), transparent 70%),
     linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+.state__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--im-pink);
+}
+
+.state__link:hover {
+  color: var(--im-ink);
+}
+
+.state__text--note {
+  margin: 16px auto 0;
+  font-size: 15px;
+}
+
+.state__icon--info {
+  background: linear-gradient(135deg, #c8f1fa, var(--im-teal));
+  box-shadow: 0 14px 36px -10px rgba(92, 200, 224, 0.6);
 }
 
 .state__text {

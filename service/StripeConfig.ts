@@ -16,7 +16,8 @@ export const expressCheckoutOptions = ref<StripeExpressCheckoutElementOptions>({
 
 export const elementsOptions: StripeElementsOptionsMode = {
   mode: "payment",
-  amount: 100, // questo valore verrà aggiornato nel componente
+  // Segnaposto: CheckoutPayment lo sostituisce con il totale vero del carrello.
+  amount: 100,
   currency: "eur",
   appearance: getAppearanceConfig(),
 };

@@ -6,7 +6,8 @@
     "links": {
       "privacy": "privacy",
       "cookies": "cookies",
-      "terms": "terms of use"
+      "terms": "terms of sale",
+      "cookiePreferences": "cookie preferences"
     },
     "messages": {
       "noResults": "No results"
@@ -15,7 +16,8 @@
       "notFoundTitle": "404 - Page Not Found",
       "notFoundDescription": "It seems you've gotten lost in the forest of illusions... try to find your way back!",
       "backHome": "Back to homepage"
-    }
+    },
+    "genericError": "Something went wrong. Please try again shortly."
   },
   "layout": {
     "header": {
@@ -91,16 +93,16 @@
     },
     "service": {
       "fastShipping": {
-        "title": "Fast and secure shipping",
-        "description": "Orders are shipped within two business days and shipments are always protected."
+        "title": "Tracked, protected shipping",
+        "description": "Every order ships with a tracked courier, usually within two business days, with cards in sleeves and toploaders."
       },
       "support": {
-        "title": "24/7 Support",
-        "description": "We're always available when you need help."
+        "title": "Dedicated support",
+        "description": "Write to us by email or WhatsApp: we reply within 48 business hours."
       },
       "prices": {
-        "title": "Best price on the market",
-        "description": "Take advantage of our unbeatable deals: the most affordable price, guaranteed for high-quality products."
+        "title": "Always up-to-date prices",
+        "description": "We align our prices with the market several times a day, so you pay the right price for every card."
       },
       "security": {
         "title": "Protected data",
@@ -404,7 +406,7 @@
     "shipping": {
       "heading": "Shipping Method",
       "note": "*you can choose another method during checkout",
-      "couponPlaceholder": "Enter the X-digit code",
+      "couponPlaceholder": "Enter your coupon code",
       "total": "Total",
       "couponQuestion": "Do you have a coupon code?",
       "apply": "Apply code",
@@ -482,18 +484,31 @@
     "title": "Checkout",
     "shippingInfo": "Shipping information",
     "actions": {
-      "confirmAndPay": "Confirm and pay"
+      "confirmAndPay": "Confirm and pay",
+      "paying": "Processing payment…"
     },
     "thanks": {
       "main": "Thank you!",
       "newsletter": "Thank you for subscribing to our newsletter! You'll receive an email soon with all the details.",
-      "order": "Your order has been successfully confirmed. We'll send you an email shortly with all the details.",
+      "order": "Your payment went through and your order is confirmed.",
       "backHome": "Back to homepage"
     },
     "confirming": "We're confirming your order…",
     "confirmFailed": "We couldn't confirm your order",
     "orderNumber": "Order number",
-    "genericError": "Something went wrong. Please contact support with the time of your purchase."
+    "genericError": "Something went wrong. Please contact support with the time of your purchase.",
+    "paymentUnavailable": "Online payment is not available right now. Please try again shortly or contact us.",
+    "completeForm": "Complete your shipping details to proceed to payment.",
+    "priceChanged": "Some prices have changed: check the new total and press “Confirm and pay” again.",
+    "couponNoLongerValid": "The coupon is no longer valid ({reason}): the total has been updated.",
+    "paymentFailed": "The payment did not go through. Please try again or use another method.",
+    "emailSentTo": "We sent the confirmation to {email}.",
+    "processingTitle": "Payment processing",
+    "processingText": "Your bank is still confirming the payment. We will email you the order confirmation as soon as it arrives: there is no need to pay again.",
+    "paymentFailedTitle": "Payment failed",
+    "paymentFailedText": "The payment was not completed and you have not been charged. Your cart is still here: you can try again.",
+    "backToCheckout": "Back to checkout",
+    "nothingToConfirm": "There is no payment to confirm."
   },
   "forms": {
     "fields": {
@@ -505,7 +520,24 @@
       "cap": "Postal Code",
       "city": "City",
       "streetAndHouseNumber": "Street and house number",
-      "iWantTheInvoice": "I want an invoice"
+      "iWantTheInvoice": "I want an invoice",
+      "acceptTerms": "I have read and accept the {terms} and the {privacy}.",
+      "termsLink": "terms of sale",
+      "privacyLink": "privacy policy",
+      "phone": "Phone",
+      "province": "Province",
+      "provincePlaceholder": "Choose the province",
+      "countryItaly": "Italy",
+      "optional": "optional",
+      "invoiceKind": "Invoice type",
+      "invoiceKind_private": "Individual",
+      "invoiceKind_company": "Business / VAT",
+      "taxCode": "Tax code",
+      "companyName": "Company name",
+      "vatNumber": "VAT number",
+      "sdiCode": "SDI code",
+      "pec": "PEC (certified email)",
+      "invoiceHint": "Enter your SDI code or PEC: if you have neither, the e-invoice will be available in your tax drawer."
     },
     "actions": {
       "submit": "Send"
@@ -518,7 +550,7 @@
         "phone": "Phone number",
         "message": "Write your message"
       },
-      "phoneValidation": "Phone number must be written in the xxxxxxxxx format",
+      "phoneValidation": "Enter a valid phone number",
       "submit": "Send"
     },
     "support": {
@@ -526,12 +558,20 @@
       "mail": "You can contact us by email at",
       "message": "or by message/WhatsApp at",
       "form": "If you prefer, you can fill out the form below.",
-      "answer": "You will receive a response / We will reply within 48 hours."
+      "answer": "You will receive a response / We will reply within 48 hours.",
+      "sending": "Sending…",
+      "sent": "Message sent! We will reply as soon as possible.",
+      "failed": "We could not send your message. Please try again or email us."
     },
     "validation": {
       "required": "Campo obbligatorio",
       "invalidEmail": "Inserisci un indirizzo e-mail valido",
-      "invalidCAP": "Inserisci un CAP valido"
+      "invalidCAP": "Inserisci un CAP valido",
+      "acceptTerms": "You must accept the terms of sale to continue",
+      "invalidPhone": "Enter a valid phone number",
+      "invalidTaxCode": "Enter a valid tax code",
+      "invalidVatNumber": "Enter a valid VAT number (11 digits)",
+      "invalidSdi": "The SDI code has 7 characters"
     }
   },
   "payments": {
@@ -917,5 +957,8 @@
     "returnsTitle": "Returns and refunds",
     "returnsText": "For a return or a refund write to us from the Support page with your order number: we'll reply with all the instructions.",
     "cta": "Go to support"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon and character names are trademarks of Nintendo, Creatures Inc. and GAME FREAK inc., managed by The Pokémon Company. Jigglycard is an independent reseller of genuine products and is not affiliated with, sponsored or endorsed by these companies. Card images are used only to identify the products for sale."
   }
 }

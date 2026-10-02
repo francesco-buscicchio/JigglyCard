@@ -1,6 +1,7 @@
 import type { ProductType } from "~/types/productType.type";
 import type { ShowcaseCard } from "~/types/showcaseCard.type";
-import blastoise from "~/assets/blastoise_ex_mew_009.png";
+// WebP a 600px: il PNG originale pesava quasi 700 KB per una carta in vetrina.
+import blastoise from "~/assets/blastoise_ex_mew_009.webp";
 import kingdra from "~/assets/img/ASR_TG03.jpg";
 import trainerGallery08 from "~/assets/img/ASR_TG08.jpg";
 import trainerGallery15 from "~/assets/img/ASR_TG15.png";

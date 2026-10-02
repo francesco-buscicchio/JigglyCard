@@ -110,15 +110,14 @@
 <script setup lang="ts">
 import logo from "~/assets/logo/logo_new.png";
 
-useHead({
+// Pagina di link per i social (Cardmarket, Cardtrader, regolamento, valutazione):
+// utile a chi arriva dal profilo, ma un doppione povero della home per i
+// motori di ricerca. La descrizione resta per l'anteprima del link condiviso.
+useSeoMeta({
   title: "Jigglycard",
-  meta: [
-    {
-      name: "Jigglycard",
-      content:
-        "Entra nel magico mondo Pokemon, carte singole, prodotti sealed, permuta collezioni...",
-    },
-  ],
+  description:
+    "Carte Pokémon singole, buste e box sigillati: trovaci su Cardmarket e Cardtrader, oppure prenota la valutazione della tua collezione.",
+  robots: "noindex, nofollow",
 });
 </script>
 
