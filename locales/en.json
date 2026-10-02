@@ -115,13 +115,6 @@
       "explore": "Explore the set"
     },
     "immersive": {
-      "intro": {
-        "label": "Welcome to Jigglycard",
-        "open": "Open the Jiggly-ball and enter the shop",
-        "hintClick": "Click to open",
-        "hintTap": "Tap to open",
-        "skip": "Skip intro"
-      },
       "hero": {
         "marqueeLabel": "Shop perks",
         "marquee": {

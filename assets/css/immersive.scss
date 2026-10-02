@@ -202,25 +202,6 @@ body {
   -webkit-backdrop-filter: blur(14px);
 }
 
-/*
- * Intro della home (Organisms/HomeIntro). Queste regole dipendono da una
- * classe su <html> e non possono stare nel CSS scoped dei componenti: lì
- * `:global(html.jc-intro) .intro` viene compilato come `html.jc-intro`, cioè
- * finirebbe per dare `display: flex` all'intera pagina.
- */
-html.jc-intro .intro {
-  display: flex;
-}
-
-/* Finché l'intro è a schermo le entrate della hero restano ferme al primo
-   fotogramma: partono quando la ball si apre. */
-html.jc-intro .hero-in,
-html.jc-intro .hero-in-line,
-html.jc-intro .hero__card,
-html.jc-intro .hero__latest {
-  animation-play-state: paused;
-}
-
 /* Entrata in scena, pilotata da `v-reveal` (plugins/reveal.ts). Nasconde
    solo se il plugin è attivo (`has-reveal`): mai contenuti invisibili. */
 html.has-reveal [data-reveal] {

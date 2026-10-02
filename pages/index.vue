@@ -1,7 +1,5 @@
 <template>
   <div class="immersive">
-    <OrganismsHomeIntro />
-
     <OrganismsHomeHero
       :cards="heroCards"
       :latest="latestCard"
@@ -42,7 +40,6 @@ import { mapStorefrontProducts } from "~/mapper/storefront.mapper";
 import { translateCategory } from "~/data/menu";
 import { productToShowcaseCard } from "~/utils/showcaseCards";
 import { PACK_HAND_SIZE, useBoosterPacks } from "~/composables/useBoosterPacks";
-import { INTRO_HEAD_SCRIPT } from "~/utils/homeIntro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "~/utils/seo";
 import type { CmsExpansion, CmsMenu, CmsProduct } from "~/types/shop";
 import type { HomeCategory } from "~/types/homeCategory.type";
@@ -199,8 +196,4 @@ onMounted(() => {
 });
 
 usePageSeo({ title: SITE_TITLE, description: SITE_DESCRIPTION });
-
-useHead({
-  script: [{ key: "jc-intro", innerHTML: INTRO_HEAD_SCRIPT, tagPosition: "head" }],
-});
 </script>
