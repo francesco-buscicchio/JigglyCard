@@ -215,6 +215,9 @@ const scrollRail = (direction: 1 | -1) => {
   scroll-snap-type: x mandatory;
   margin-inline: -20px;
   padding: 20px 20px 28px;
+  /* Lo scatto allinea le carte al bordo del contenitore, padding escluso:
+     senza questo la prima carta finiva incollata al bordo dello schermo. */
+  scroll-padding-inline: 20px;
   scrollbar-width: none;
 }
 
@@ -226,6 +229,7 @@ const scrollRail = (direction: 1 | -1) => {
   .showcase__rail {
     margin-inline: -40px;
     padding-inline: 40px;
+    scroll-padding-inline: 40px;
   }
 }
 
