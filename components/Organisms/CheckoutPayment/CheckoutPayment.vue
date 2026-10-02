@@ -7,7 +7,10 @@
 
     <!-- Senza chiave pubblica Stripe solleverebbe un'eccezione e
          bloccherebbe la pagina: il modulo non si monta proprio. -->
-    <div v-if="stripePublicKey && amountCents >= MIN_AMOUNT_CENTS" class="pay__element">
+    <div
+      v-if="stripePublicKey && stripeLoaded && amountCents >= MIN_AMOUNT_CENTS"
+      class="pay__element"
+    >
       <StripeElements
         :stripe-key="stripePublicKey"
         :instance-options="stripeOptions"
@@ -39,7 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, type PropType } from "vue";
+import { onBeforeMount, ref, watch, type PropType } from "vue";
+import { loadStripe } from "@stripe/stripe-js";
 import type { CheckoutFormData } from "~/pages/checkout.vue";
 import type { CheckoutLineIssue, CheckoutReservation } from "~/types/shop";
 import {
@@ -147,6 +151,22 @@ const elementsOptionsForAmount = {
 const elementsComponent = ref<any>(null);
 const paymentComponent = ref<any>(null);
 const isPaying = ref(false);
+
+/**
+ * StripeElements pretende Stripe.js già caricato. Lo si carica qui e non in un
+ * plugin globale: così lo script di Stripe parte solo al checkout, e senza
+ * chiave non parte affatto.
+ */
+const stripeLoaded = ref(false);
+onBeforeMount(async () => {
+  if (!stripePublicKey) return;
+  try {
+    await loadStripe(stripePublicKey);
+    stripeLoaded.value = true;
+  } catch (error) {
+    handleError("Caricamento di Stripe fallito", error, t("checkout.paymentUnavailable"));
+  }
+});
 const openIntent = ref<OpenIntent | null>(null);
 
 watch(
