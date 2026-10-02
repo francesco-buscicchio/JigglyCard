@@ -22,7 +22,9 @@ export default {
       },
       spacing: spacing,
       fontFamily: {
-        sans: "Roboto",
+        // "Roboto" da solo non è fra i font caricati: i testi senza font
+        // esplicito (bottoni, breadcrumb) ripiegavano su un serif di sistema.
+        sans: ['"Roboto Flex"', "Roboto", "system-ui", "sans-serif"],
       },
     },
   },

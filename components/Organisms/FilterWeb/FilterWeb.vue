@@ -1,119 +1,75 @@
 <template>
-  <div class="bg-accent-50 rounded-lg w-full">
-    <div class="flex items-center justify-center py-10">
-      <h5>{{ t("catalog.controls.filters") }}</h5>
+  <div class="filters">
+    <div class="filters__head">
+      <h2 class="filters__title">
+        {{ t("catalog.controls.filters") }}
+        <span v-if="activeCount" class="filters__count">{{ activeCount }}</span>
+      </h2>
+      <button
+        v-show="areFiltersSelected"
+        type="button"
+        class="filters__reset"
+        @click="resetAllFilters"
+      >
+        {{ t("catalog.controls.reset") }}
+      </button>
     </div>
 
-    <div>
-      <div v-for="category of filterCategories" :key="category.objectID">
-        <MoleculesAccordion>
-          <template #header>
-            <p>{{ translateCategoryLabel(category.name) }}</p>
-          </template>
-
-          <!-- Le espansioni sono circa 200: senza un campo di ricerca la lista
-               è di fatto inutilizzabile. -->
-          <div v-if="isSearchableCategory(category)" class="mb-3 px-6">
-            <input
-              v-model="optionSearch[category.objectID]"
-              type="search"
-              :placeholder="t('catalog.controls.searchOption')"
-              class="w-full rounded border border-neutrals-300 px-3 py-2 text-sm"
-            />
-          </div>
-
-          <div
-            v-for="item of visibleOptions(category)"
-            :key="item.id"
-            class="mb-4"
-          >
-            <label class="ml-6 flex cursor-pointer items-center">
-              <AtomsCheckbox
-                :id="item.id"
-                :modelValue="item.checked"
-                @update:modelValue="
-                  updateCheckboxValue(
-                    category.objectID,
-                    category.value.indexOf(item),
-                    $event,
-                  )
-                "
-                class="mr-6 bg-white custom-checkbox"
-              />
-              <span class="text-left">
-                {{ translateFilterValue(item.name, category.name) }}
-              </span>
-              <span class="ml-2 text-sm text-neutrals-500">
-                ({{ item.count }})
-              </span>
-            </label>
-          </div>
-
-          <p
-            v-if="!visibleOptions(category).length"
-            class="ml-6 text-sm text-neutrals-500"
-          >
-            {{ t("catalog.controls.noOption") }}
-          </p>
-        </MoleculesAccordion>
-      </div>
-
-      <div class="mx-6 mt-4">
-        <p>{{ t("catalog.controls.price") }}</p>
-        <div class="flex items-center justify-center whitespace-nowrap mt-2">
-          <span class="mr-2 w-20"
-            >{{ t("catalog.controls.from") }} {{ selectedMinPrice }}</span
-          >
-          <MoleculesSlider
-            :min="minumPrice"
-            :max="maxPrice"
-            :initialMinPrice="selectedMinPrice"
-            :initialMaxPrice="selectedMaxPrice"
-            @update:minPrice="updateMinPrice($event)"
-            @update:maxPrice="updateMaxPrice($event)"
-          />
-          <span class="ml-2 w-20"
-            >{{ t("catalog.controls.to") }} {{ selectedMaxPrice }}</span
-          >
-        </div>
-      </div>
-
-      <div class="flex items-center my-6">
-        <p class="ml-12 mr-6">{{ t("catalog.controls.min") }}</p>
-        <AtomsInputText
-          :key="inputKey"
-          class="w-20"
-          v-model="selectedMinPrice"
-          :placeholder="''"
-          @keydown="validateNumberInput($event)"
-          @input="validatePriceInput('min', $event)"
+    <MoleculesFilterSection
+      v-for="(category, index) of filterCategories"
+      :key="category.objectID"
+      :title="translateCategoryLabel(category.name)"
+      :selected="category.value.filter((item) => item.checked).length"
+      :initially-open="index < 2"
+    >
+      <!-- Le espansioni sono centinaia: senza ricerca la lista è inservibile. -->
+      <div v-if="isSearchableCategory(category)" class="filters__search">
+        <Icon name="heroicons:magnifying-glass-20-solid" size="16" />
+        <input
+          v-model="optionSearch[category.objectID]"
+          type="search"
+          :placeholder="t('catalog.controls.searchOption')"
         />
       </div>
-      <div class="flex items-center">
-        <p class="ml-12 mr-6">{{ t("catalog.controls.max") }}</p>
-        <AtomsInputText
-          :key="inputKey + 1"
-          class="w-20"
-          v-model="selectedMaxPrice"
-          :placeholder="''"
-          @keydown="validateNumberInput($event)"
-          @input="validatePriceInput('max', $event)"
-        />
-      </div>
-    </div>
 
-    <!-- I filtri si applicano da soli: resta solo l'azzeramento. -->
-    <div class="bottom-container">
-      <div v-show="areFiltersSelected" class="mb-2 mt-4 flex justify-center">
-        <AtomsButtonCTA
-          class="text-underlined"
-          type="text"
-          @click="resetAllFilters"
-        >
-          <p class="text-base">{{ t("catalog.controls.clear") }}</p>
-        </AtomsButtonCTA>
+      <div
+        class="filters__options"
+        :class="{ 'filters__options--long': isSearchableCategory(category) }"
+      >
+        <AtomsFilterOption
+          v-for="item of visibleOptions(category)"
+          :key="item.id"
+          :model-value="item.checked"
+          :label="translateFilterValue(item.name, category.name)"
+          :count="item.count"
+          @update:model-value="
+            updateCheckboxValue(
+              category.objectID,
+              category.value.indexOf(item),
+              $event,
+            )
+          "
+        />
+        <p v-if="!visibleOptions(category).length" class="filters__empty">
+          {{ t("catalog.controls.noOption") }}
+        </p>
       </div>
-    </div>
+    </MoleculesFilterSection>
+
+    <MoleculesFilterSection
+      v-if="maxPrice > minumPrice"
+      :title="t('catalog.controls.price')"
+      :selected="isPriceRangeSelected ? 1 : 0"
+      initially-open
+    >
+      <MoleculesPriceRange
+        :min="minumPrice"
+        :max="maxPrice"
+        :low="selectedMinPrice"
+        :high="selectedMaxPrice"
+        @change="updatePriceRange"
+      />
+    </MoleculesFilterSection>
   </div>
 </template>
 
@@ -153,7 +109,6 @@ const minumPrice = ref(0);
 const maxPrice = ref(0);
 const selectedMinPrice = ref(0);
 const selectedMaxPrice = ref(0);
-const inputKey = ref(0);
 /** categoria del pannello filtri -> chiave del dizionario etichette */
 const FACET_LABEL_KEYS: Record<string, string> = {
   brand: "tcg",
@@ -164,7 +119,6 @@ const FACET_LABEL_KEYS: Record<string, string> = {
 const facetDefinitions = [
   { facetKey: "languages", category: "language" },
   { facetKey: "conditions", category: "condition" },
-  { facetKey: "tcg", category: "brand" },
   { facetKey: "type", category: "type" },
   { facetKey: "setSlug", category: "expansion" },
   { facetKey: "available", category: "available" },
@@ -196,7 +150,6 @@ watch(
       maxPrice.value = 0;
       selectedMinPrice.value = 0;
       selectedMaxPrice.value = 0;
-      inputKey.value++;
       return;
     }
 
@@ -222,26 +175,27 @@ watch(
         selectedMinPrice.value
       )
     );
-    inputKey.value++;
   },
   { immediate: true }
 );
 
-const areFiltersSelected = computed(() => {
-  const hasCheckedFilter = filterCategories.value?.some(
-    (category: {
-      name: string;
-      value: { name: string; checked: boolean }[];
-    }) => {
-      return category.value.some((filter) => filter.checked);
-    }
-  );
-
-  const isPriceRangeSelected =
+const isPriceRangeSelected = computed(
+  () =>
     selectedMaxPrice.value !== maxPrice.value ||
-    selectedMinPrice.value !== minumPrice.value;
-  return hasCheckedFilter || isPriceRangeSelected;
-});
+    selectedMinPrice.value !== minumPrice.value,
+);
+
+/** Voci spuntate più la fascia di prezzo, se ristretta. */
+const activeCount = computed(
+  () =>
+    filterCategories.value.reduce(
+      (sum, category) =>
+        sum + category.value.filter((filter) => filter.checked).length,
+      0,
+    ) + (isPriceRangeSelected.value ? 1 : 0),
+);
+
+const areFiltersSelected = computed(() => activeCount.value > 0);
 
 const emit = defineEmits(["filterUpdate"]);
 
@@ -291,43 +245,10 @@ const applyPriceSoon = () => {
   priceTimer = setTimeout(() => applyFilters(), 400);
 };
 
-function updateMinPrice(value: number) {
-  selectedMinPrice.value = value;
-  if (selectedMaxPrice.value < value) {
-    selectedMaxPrice.value = value;
-  }
+function updatePriceRange(range: { low: number; high: number }) {
+  selectedMinPrice.value = range.low;
+  selectedMaxPrice.value = range.high;
   applyPriceSoon();
-}
-
-function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, maxPrice.value);
-  applyPriceSoon();
-}
-
-function validateNumberInput(event: KeyboardEvent) {
-  const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
-  if (!/[0-9]/.test(event.key) && !allowedKeys.includes(event.key)) {
-    event.preventDefault();
-  }
-}
-
-function validatePriceInput(type: "min" | "max", event: Event) {
-  const input = (event.target as HTMLInputElement).value;
-  const numericValue = parseInt(input, 10);
-
-  if (!isNaN(numericValue)) {
-    if (type === "min") {
-      selectedMinPrice.value = Math.max(
-        minumPrice.value,
-        Math.min(numericValue, selectedMaxPrice.value)
-      );
-    } else {
-      selectedMaxPrice.value = Math.min(
-        Math.max(numericValue, selectedMinPrice.value),
-        maxPrice.value
-      );
-    }
-  }
 }
 
 function applyFilters() {
@@ -359,7 +280,7 @@ function resetAllFilters() {
   });
   selectedMinPrice.value = minumPrice.value;
   selectedMaxPrice.value = maxPrice.value;
-  inputKey.value++; //force rerender
+  applyFilters();
 }
 
 function buildFilterCategories(
@@ -463,16 +384,97 @@ function translateCategoryLabel(value: string) {
 </script>
 
 <style scoped>
-.text-underlined {
+.filters {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--im-line);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+}
+
+.filters__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+}
+
+.filters__title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.filters__count {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  background: var(--im-pink-strong);
+  color: #2a0a14;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.filters__reset {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--im-pink);
+}
+
+.filters__reset:hover {
   text-decoration: underline;
 }
 
-.custom-checkbox {
-  border: 1px solid #003849;
+.filters__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--im-line);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--im-muted);
 }
 
-.bottom-container {
-  margin-top: auto;
-  padding: 16px;
+.filters__search:focus-within {
+  border-color: var(--im-pink-strong);
+}
+
+.filters__search input {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  font-size: 14px;
+  color: var(--im-ink);
+}
+
+.filters__search input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.filters__options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.filters__options--long {
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.filters__empty {
+  font-size: 13px;
+  color: var(--im-muted);
 }
 </style>

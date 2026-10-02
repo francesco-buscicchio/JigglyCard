@@ -1,13 +1,13 @@
 <template>
   <div
     :class="{ 'fixed-header': !isSearchOpen, 'overlay-header': isSearchOpen }"
-    class="lg:hidden"
+    class="xl:hidden"
     @click="closeSearch($event)"
   >
-    <nav class="bg-white shadow-md p-4">
+    <nav class="p-4 nav--dark header-glow-line">
       <div class="container mx-auto flex justify-between items-center">
-        <div class="lg:hidden">
-          <button @click="toggleMenu" class="text-gray-700 focus:outline-none">
+        <div class="xl:hidden">
+          <button @click="toggleMenu" class="nav-icon text-neutrals-800 focus:outline-none">
             <Icon name="jig:menu" v-if="!isMenuOpen" size="20"></Icon>
             <Icon name="jig:close-accent" v-else size="20"></Icon>
           </button>
@@ -33,11 +33,11 @@
           <button
             @click="toggleSearch"
             :style="{ visibility: isSearchOpen ? 'hidden' : 'visible' }"
-            class="focus:outline-none"
+            class="nav-icon focus:outline-none"
           >
             <Icon name="jig:cerca-accent" size="25" />
           </button>
-          <button class="focus:outline-none" @click="goTo(PATH.CART)">
+          <button class="nav-icon focus:outline-none" @click="goTo(PATH.CART)">
             <span class="relative inline-flex">
               <Icon name="jig:cart-accent" size="25" />
               <span v-if="cartCount > 0" class="cart-badge">
@@ -48,25 +48,27 @@
         </div>
       </div>
 
-      <div v-if="isSearchOpen" class="mt-4">
-        <div class="relative">
+      <div v-if="isSearchOpen" class="search-panel">
+        <label class="search-field">
+          <Icon
+            name="heroicons:magnifying-glass-20-solid"
+            size="20"
+            class="search-field__icon"
+          />
           <input
             v-model="inputSearch"
             type="text"
-            class="w-full h-12 pl-4 pr-12 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-blue-50"
+            class="search-field__input"
             :placeholder="t('catalog.controls.search') + '...'"
+            :aria-label="t('catalog.controls.search')"
+            autocomplete="off"
             @input="onSearchInput($event)"
           />
-          <span
-            class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-          >
-            <Icon name="jig:cerca-accent"></Icon>
-          </span>
-        </div>
+        </label>
 
-        <div v-if="productSearch.length > 0" class="flex flex-col gap-4 pt-4">
-          <div class="flex flex-col gap-4 xl:gap-6 w-full">
-            <div v-for="item of productSearch">
+        <div v-if="productSearch.length > 0" class="search-results">
+          <ul class="search-results__list">
+            <li v-for="item of productSearch" :key="item.objectID">
               <MoleculesSearchItemResult
                 :thumbnailImage="item.thumbnailImage"
                 :name="item.name"
@@ -76,35 +78,29 @@
                 :type="item.type"
                 @itemClick="onItemClick"
               />
-            </div>
+            </li>
+          </ul>
 
-            <div class="flex justify-center w-full">
-              <AtomsButtonCTA
-                :text="t('catalog.actions.showAll')"
-                type="text"
-                @click="goToSearch"
-              />
-            </div>
-          </div>
+          <button type="button" class="search-all" @click="goToSearch">
+            {{ t("catalog.actions.showAll") }}
+            <Icon name="heroicons:arrow-right-20-solid" size="18" />
+          </button>
         </div>
 
-        <div v-if="noResults" class="w-full py-6 flex flex-col items-center">
-          <p
-            class="xl:max-w-2xl text-m xl:text-l leading-s xl:leading-m text-center text-neutral-dark"
-          >
-            {{ t("common.messages.noResults") }}
-          </p>
+        <div v-if="noResults" class="search-empty">
+          <Icon name="heroicons:magnifying-glass-minus-20-solid" size="22" />
+          <p>{{ t("common.messages.noResults") }}</p>
         </div>
       </div>
       <transition
-        enter-active-class="transition duration-300 ease-out"
-        enter-from-class="opacity-0 transform scale-95"
-        enter-to-class="opacity-100 transform scale-100"
-        leave-active-class="transition duration-200 ease-in"
-        leave-from-class="opacity-100 transform scale-100"
-        leave-to-class="opacity-0 transform scale-95"
+        enter-active-class="transition duration-300 ease-out motion-reduce:transition-none"
+        enter-from-class="opacity-0 -translate-y-2"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition duration-200 ease-in motion-reduce:transition-none"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-2"
       >
-        <div v-if="isMenuOpen" class="lg:hidden">
+        <div v-if="isMenuOpen" class="mobile-drawer xl:hidden">
           <MoleculesMobileMenu @closeMenu="toggleMenu" />
         </div>
       </transition>
@@ -181,12 +177,31 @@ const goToSearch = () => {
   resetSearch();
 };
 
-const onItemClick = (event: Event) => {
+const onItemClick = () => {
+  resetSearch();
   emit("itemClick");
 };
 </script>
 
 <style scoped>
+.nav--dark {
+  background: rgba(7, 10, 31, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.nav--dark h2 {
+  color: #f6f3ff;
+}
+
+/* Le icone del set `jig` hanno il colore scritto nell'SVG: sul fondo scuro
+   si portano a bianco con un filtro, senza duplicare i file. */
+.nav--dark .nav-icon .iconify,
+.nav--dark .nav-icon :deep(svg) {
+  filter: brightness(0) invert(1);
+}
+
 .cart-badge {
   position: absolute;
   top: -6px;
@@ -200,5 +215,157 @@ const onItemClick = (event: Event) => {
   font-weight: 700;
   line-height: 1;
   text-align: center;
+}
+
+/* ---------- Ricerca ---------- */
+.search-panel {
+  margin-top: 14px;
+}
+
+/* Campo a pillola di vetro, con la lente a sinistra e l'alone rosa al focus. */
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--im-muted);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.search-field:focus-within {
+  border-color: var(--im-pink-strong);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 4px rgba(236, 145, 160, 0.16);
+  color: var(--im-pink);
+}
+
+.search-field__icon {
+  flex: none;
+}
+
+.search-field__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: none;
+  font-size: 16px;
+  color: var(--im-ink);
+}
+
+.search-field__input::placeholder {
+  color: var(--im-muted);
+  opacity: 0.8;
+}
+
+.search-field__input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.search-results {
+  margin-top: 12px;
+  padding: 8px;
+  border-radius: 24px;
+  border: 1px solid var(--im-line);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+}
+
+/* L'overlay della ricerca è fisso: senza un tetto i risultati in fondo
+   finirebbero sotto il bordo dello schermo, senza modo di raggiungerli. */
+.search-results__list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: calc(100vh - 230px);
+  max-height: calc(100dvh - 230px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.search-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 6px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--im-pink);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.search-all,
+.search-all * {
+  cursor: pointer;
+}
+
+.search-all:hover {
+  background: rgba(247, 210, 216, 0.08);
+  color: var(--im-ink);
+}
+
+.search-all:focus-visible {
+  outline: 2px solid var(--im-teal);
+  outline-offset: 2px;
+}
+
+.search-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  color: var(--im-muted);
+}
+
+.search-empty p {
+  color: var(--im-muted);
+}
+
+/* ---------- Menu ---------- */
+/* Pannello a tutta altezza sotto la barra: `100%` qui è l'altezza della
+   barra stessa (il blocco contenitore), quindi riempie il resto dello
+   schermo senza conoscerne la misura. */
+.mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 100%);
+  height: calc(100dvh - 100%);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 20px 16px calc(32px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--im-line);
+  /* Fondo pieno: con una minima trasparenza, dentro la barra con
+     `backdrop-filter`, Chrome lasciava trasparire la pagina sotto. */
+  background:
+    radial-gradient(90% 50% at 100% 0%, rgba(236, 145, 160, 0.16), transparent 70%),
+    radial-gradient(80% 40% at 0% 100%, rgba(92, 200, 224, 0.12), transparent 70%),
+    var(--im-bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .search-field,
+  .search-all {
+    transition: none;
+  }
 }
 </style>

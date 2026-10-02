@@ -1,45 +1,44 @@
 <template>
-  <div class="gap-b-4 flex flex-col px-4">
+  <div class="mx-4 lg:mx-8">
     <MoleculesBreadcrumb />
-  </div>
-  <div class="p-10">
     <MoleculesListingTitle
       :title="`${route.params.tcg}/${route.params.category}`"
     />
   </div>
   <div class="gap-b-4 flex flex-col">
-    <div class="mx-8">
-      <div class="pb-6" v-show="!isDesktopView">
-        <OrganismsFilter
-          @filterUpdate="filterUpdate"
-          :filters="filtersAppliedOrganismFilter"
-          :facets="facets"
-          :facetLabels="facetLabels"
-          :priceStats="priceStats"
-        />
-      </div>
-
-      <!-- Anche su desktop: prima era `v-show="!isDesktopView"`, quindi da
-           desktop non c'era modo di vedere quali filtri fossero attivi. -->
-      <OrganismsListingFilters
-        :filters="filtersAppliedOrganismsListingFilters"
-        :filterLabels="facetLabels"
-        @update-filters="updateFiltersApplied"
-      />
-
-      <div
-        class="pb-6 flex flex-row justify-between items-center lg:ml-[19rem]"
-      >
-        <MoleculesItemsCounter :totalItems="totalItems" :page="currentPage" />
-
-        <div class="flex flex-row items-center gap-x-2 lg:mr-27">
-          <p>{{ t("catalog.sorting.sortBy") }}</p>
-          <div class="max-w-40">
-            <MoleculesPageSorter
-              :sortingItems="sortingItems"
-              @handleSorting="handleSorting"
+    <div class="mx-4 lg:mx-8">
+      <!-- Una sola barra sopra la griglia: conteggio e filtri attivi a
+           sinistra, ordinamento a destra. Prima erano tre fasce separate. -->
+      <div class="listing-toolbar lg:ml-[20rem]">
+        <div class="listing-toolbar__info">
+          <div v-show="!isDesktopView">
+            <OrganismsFilter
+              @filterUpdate="filterUpdate"
+              :filters="filtersAppliedOrganismFilter"
+              :facets="facets"
+              :facetLabels="facetLabels"
+              :priceStats="priceStats"
             />
           </div>
+          <MoleculesItemsCounter
+            class="listing-toolbar__count"
+            :totalItems="totalItems"
+            :page="currentPage"
+            :perPage="perPage"
+          />
+          <OrganismsListingFilters
+            :filters="filtersAppliedOrganismsListingFilters"
+            :filterLabels="facetLabels"
+            @update-filters="updateFiltersApplied"
+          />
+        </div>
+
+        <div class="listing-toolbar__sort">
+          <span class="hidden sm:inline">{{ t("catalog.sorting.sortBy") }}</span>
+          <MoleculesPageSorter
+            :sortingItems="sortingItems"
+            @handleSorting="handleSorting"
+          />
         </div>
       </div>
       <MoleculesEmptyResults
@@ -54,11 +53,12 @@
           v-if="!isLoading"
           :products="products"
         />
-        <div v-else class="grid grid-cols-2 gap-4">
+        <!-- Stessa forma delle righe vere, così il caricamento non salta. -->
+        <div v-else class="flex flex-col gap-3">
           <div
             v-for="item in skeletonItems"
             :key="`mobile-skeleton-${item}`"
-            class="h-60 rounded-2xl bg-neutral-200 animate-pulse"
+            class="h-[9.5rem] rounded-[20px] bg-neutrals-100 animate-pulse"
           ></div>
         </div>
       </template>
@@ -77,35 +77,35 @@
             />
           </div>
         </aside>
-        <div
-          v-if="isLoading || products.length"
-          class="grid flex-1 grid-cols-2 gap-5 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
-        >
-          <OrganismsListingProductsWeb
-            v-if="!isLoading"
-            :products="products"
-          />
-          <template v-else>
-            <div
-              v-for="item in skeletonItems"
-              :key="`desktop-skeleton-${item}`"
-              class="aspect-[63/88] rounded-2xl bg-neutrals-200 animate-pulse"
-            ></div>
-          </template>
+        <!-- Le colonne le decide `useListingGrid` dalla larghezza reale, e i
+             prodotti per pagina sono sempre righe intere di quelle colonne. -->
+        <div ref="gridArea" class="min-w-0 flex-1">
+          <div
+            v-if="isLoading || products.length"
+            class="grid gap-5"
+            :style="{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }"
+          >
+            <OrganismsListingProductsWeb
+              v-if="!isLoading"
+              :products="products"
+            />
+            <template v-else>
+              <div
+                v-for="item in skeletonItems"
+                :key="`desktop-skeleton-${item}`"
+                class="aspect-[63/88] rounded-2xl bg-neutrals-200 animate-pulse"
+              ></div>
+            </template>
+          </div>
         </div>
       </div>
-      <div v-if="products.length" class="pt-10">
+      <div v-if="products.length" class="pt-12 pb-16">
         <MoleculesListingPagination
           :total-items="totalItems"
           :current-page="currentPage"
-          @current-page="($e: Event) => changePage($e)"
+          :per-page="perPage"
+          @current-page="($e: number) => changePage($e)"
         />
-        <div class="pt-2 pb-10">
-          <MoleculesListingCounter
-            :totalItems="totalItems"
-            :currentPage="currentPage"
-          />
-        </div>
       </div>
       <OrganismsServiceBanner />
     </div>
@@ -113,10 +113,13 @@
 </template>
 
 <script setup lang="ts">
-import {
-  ITEMS_FOR_PAGE_MOBILE,
-  ITEMS_FOR_PAGE_DESKTOP,
-} from "~/data/const";
+// Il primo segmento è il gioco: si vende solo Pokémon (vedi SHOP_GAME), più
+// la ricerca. Il resto (/one-piece/..., indirizzi sbagliati) è un 404 invece
+// di un catalogo vuoto.
+definePageMeta({
+  validate: (route) => ["pokemon", "search"].includes(String(route.params.tcg)),
+});
+
 import sortingItems from "~/data/sorting";
 import {
   SORT_MAP,
@@ -143,12 +146,11 @@ const facets = ref<Record<string, Record<string, number>> | null>(null);
 const priceStats = ref<{ min: number; max: number } | null>(null);
 const facetLabels = ref<Record<string, Record<string, string>>>({});
 const isLoading = ref(true);
-const skeletonItems = computed(() => {
-  const count = isDesktopView.value
-    ? ITEMS_FOR_PAGE_DESKTOP
-    : ITEMS_FOR_PAGE_MOBILE;
-  return Array.from({ length: count }, (_, index) => index);
-});
+const gridArea = ref<HTMLElement | null>(null);
+const { columns, perPage } = useListingGrid(gridArea, isDesktopView);
+const skeletonItems = computed(() =>
+  Array.from({ length: perPage.value }, (_, index) => index),
+);
 
 const isSearchRoute = computed(() => route.params.tcg === "search");
 
@@ -157,12 +159,14 @@ const isSearchRoute = computed(() => route.params.tcg === "search");
  * si costruiva prima: i valori dei filtri arrivano già come slug dalle faccette.
  */
 const activeFilters = ref<ShopCatalogFilters>({});
+/** Prodotti per pagina usati nell'ultima richiesta al catalogo. */
+let fetchedPerPage = 0;
 
 const buildFilters = (): ShopCatalogFilters => {
   const base: ShopCatalogFilters = {
     ...activeFilters.value,
     page: currentPage.value,
-    perPage: isDesktopView.value ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE,
+    perPage: (fetchedPerPage = perPage.value),
     sort: SORT_MAP[currentSorting.value] ?? "relevance",
   };
 
@@ -183,6 +187,27 @@ const buildFilters = (): ShopCatalogFilters => {
 onMounted(async () => {
   if (route.query.page) currentPage.value = Number(route.query.page);
   fetchData();
+});
+
+/**
+ * Cambiano le colonne (finestra ridimensionata, rotazione del telefono):
+ * si ricalcola la pagina per restare sugli stessi prodotti e si ricarica,
+ * con un attimo d'attesa perché il ridimensionamento emette molti eventi.
+ */
+let resizeTimer: ReturnType<typeof setTimeout> | null = null;
+watch(perPage, (next) => {
+  // Si confronta con la misura dell'ultima richiesta, non col valore
+  // precedente: al primo assestamento della griglia (12 → 15) la pagina
+  // dell'indirizzo è già stata caricata con la misura giusta.
+  const previous = fetchedPerPage;
+  if (!previous || next === previous) return;
+  const firstIndex = (currentPage.value - 1) * previous;
+  currentPage.value = Math.floor(firstIndex / next) + 1;
+  if (resizeTimer) clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(fetchData, 250);
+});
+onBeforeUnmount(() => {
+  if (resizeTimer) clearTimeout(resizeTimer);
 });
 
 watch(() => route.query.expansion, () => {
@@ -242,8 +267,20 @@ function clearAllFilters() {
 
 function changePage(event: number) {
   currentPage.value = event;
+  // In cima alla griglia: prima si restava in fondo alla pagina nuova.
+  window.scrollTo({ top: 0, behavior: "smooth" });
   fetchData();
 }
+
+/**
+ * La pagina sta nell'indirizzo (`?page=3`), come già lo legge `onMounted`:
+ * indietro, ricarica e link condivisi riportano alla stessa pagina. Un filtro
+ * o un ordinamento nuovo riportano a 1 e la tolgono.
+ */
+watch(currentPage, (page) => {
+  const query = { ...route.query, page: page > 1 ? String(page) : undefined };
+  router.replace({ query });
+});
 
 function handleSorting(event: string) {
   currentSorting.value = event;
@@ -278,3 +315,36 @@ async function fetchData() {
   }
 }
 </script>
+
+<style scoped>
+.listing-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.listing-toolbar__info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  min-width: 0;
+}
+
+.listing-toolbar__count {
+  font-size: 14px;
+  color: var(--im-muted);
+}
+
+.listing-toolbar__sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--im-muted);
+}
+</style>

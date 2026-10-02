@@ -3,7 +3,7 @@
     <div
       v-for="item in skeletonSlides"
       :key="item"
-      class="h-75 md:h-125 flex-1 rounded-2xl bg-neutral-100 animate-pulse"
+      class="h-75 md:h-125 flex-1 rounded-2xl bg-neutrals-100 animate-pulse"
     ></div>
   </div>
   <template v-else>
@@ -43,7 +43,7 @@
                 {{ (slide.fromPriceCents / 100).toFixed(2) }} €
               </p>
               <span
-                class="mt-6 inline-block rounded-full bg-white px-6 py-2 font-semibold text-accent-950 transition group-hover:bg-main-500"
+                class="mt-6 inline-block rounded-full bg-accent-10 px-6 py-2 font-semibold text-accent-950 transition group-hover:bg-main-500"
               >
                 {{ t("home.hero.explore") }}
               </span>

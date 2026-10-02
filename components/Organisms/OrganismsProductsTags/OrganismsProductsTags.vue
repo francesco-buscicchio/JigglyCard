@@ -1,48 +1,51 @@
 <template>
-  <div>
-    <div v-if="languages.length">
-      <p class="mb-4 lg:mb-2">
-        {{ t("catalog.filters.language") }}:
+  <div v-if="hasLabels(languages) || hasLabels(conditions)" class="variant-groups">
+    <!-- I v-if evitano blocchi vuoti per i sigillati: la loro condizione è
+         una stringa vuota, AtomsTag non mostra nulla e restava l'etichetta
+         "Condizione" da sola. -->
+    <div v-if="hasLabels(languages)" class="variant-group">
+      <p :id="`${groupId}-language`" class="variant-group__label">
+        {{ t("catalog.filters.language") }}
       </p>
-      <div class="flex gap-3 flex-wrap">
-        <div
-          v-if="languages.length"
+      <div
+        class="variant-group__pills"
+        role="group"
+        :aria-labelledby="`${groupId}-language`"
+      >
+        <AtomsTag
           v-for="(tag, index) in languages"
           :key="index"
-        >
-          <AtomsTag
-            :text="tag"
-            :code="tag"
-            :type="selectedLanguage === tag ? 'active' : 'inactive'"
-            @tagClicked="handleClickTag('language', tag)"
-          />
-        </div>
+          :text="tag"
+          :code="tag"
+          :type="selectedLanguage === tag ? 'active' : 'inactive'"
+          @tagClicked="handleClickTag('language', tag)"
+        />
       </div>
     </div>
 
-    <div v-if="conditions.length">
-      <p class="mb-4 lg:mb-2">
-        {{ t("catalog.filters.condition") }}:
+    <div v-if="hasLabels(conditions)" class="variant-group">
+      <p :id="`${groupId}-condition`" class="variant-group__label">
+        {{ t("catalog.filters.condition") }}
       </p>
-      <div class="flex gap-3 flex-wrap">
-        <div
-          v-if="conditions.length"
+      <div
+        class="variant-group__pills"
+        role="group"
+        :aria-labelledby="`${groupId}-condition`"
+      >
+        <AtomsTag
           v-for="(tag, index) in conditions"
           :key="index"
-        >
-          <AtomsTag
-            :text="tag"
-            :code="tag"
-            :type="
-              selectedCondition === tag
-                ? 'active'
-                : tagType[tag]
-                ? 'inactive'
-                : 'disabled'
-            "
-            @tagClicked="handleClickTag('condition', tag)"
-          />
-        </div>
+          :text="tag"
+          :code="tag"
+          :type="
+            selectedCondition === tag
+              ? 'active'
+              : tagType[tag]
+              ? 'inactive'
+              : 'disabled'
+          "
+          @tagClicked="handleClickTag('condition', tag)"
+        />
       </div>
     </div>
   </div>
@@ -52,6 +55,8 @@
 import type { Variant } from "~/types/variant.type";
 
 const { t } = useI18n();
+// Collega ogni gruppo di pillole alla sua etichetta (lettori di schermo).
+const groupId = useId();
 
 const selectedLanguage = ref<string | null>(null);
 const selectedCondition = ref<string | null>(null);
@@ -77,6 +82,11 @@ const conditions = computed(() => {
 const tagType = computed(() => {
   return getTagType();
 });
+
+// Solo per la visualizzazione: un gruppo si mostra se almeno un valore ha
+// un'etichetta (AtomsTag non disegna nulla per le stringhe vuote).
+const hasLabels = (values: (string | null | undefined)[]) =>
+  values.some((value) => Boolean(value?.trim()));
 
 // FUNZIONE CHE CREA TUTTE LE OPZIONI PER OGNI TIPOLOGIA DI VARIANTE
 function getUniqueValuesVariant(tag: "condition" | "language") {
@@ -197,3 +207,48 @@ function getCorrespondingCondition(language: string) {
   return variant ? variant.condition : null;
 }
 </script>
+
+<style scoped>
+.variant-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.variant-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Etichetta in stile "kicker" della home: monospace maiuscolo. */
+.variant-group__label {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--im-muted);
+}
+
+.variant-group__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.variant-group__pills :deep(.variant-tag:focus-visible) {
+  outline: 2px solid var(--im-teal);
+  outline-offset: 3px;
+}
+
+.variant-group__pills :deep(.variant-tag:not(.variant-tag--disabled):hover) {
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .variant-group__pills :deep(.variant-tag:not(.variant-tag--disabled):hover) {
+    transform: none;
+  }
+}
+</style>

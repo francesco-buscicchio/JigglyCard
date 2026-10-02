@@ -40,7 +40,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: "Placeholder",
+    default: "",
   },
   longText: {
     type: Boolean,
@@ -55,13 +55,13 @@ const hasSlotContent = computed(() => !!slots.default);
 
 const inputClass = computed(() => {
   const baseClass =
-    "form-input w-full pl-3 py-2 border-2 rounded-lg focus:ring-0 active:border-2";
+    "jc-input form-input w-full rounded-2xl border px-4 py-3 focus:ring-0";
   const statusClasses = {
     success: "border-[#84CC16] focus:border-[#84CC16]",
     error: "border-[#DC2626] focus:border-[#DC2626]",
     warning: "border-[#FBBF24] focus:border-[#FBBF24]",
-    newsletter: "border-accent-950 focus:border-accent-950 py-3",
-    default: "border-accent-950 focus:border-accent-950 bg-transparent",
+    newsletter: "",
+    default: "",
     disabled:
       "border border-neutrals-500 bg-neutrals-200 focus:border-neutrals-500",
   };
@@ -83,3 +83,33 @@ const handleBlur = () => {
   emits("blur");
 };
 </script>
+
+<style scoped>
+/* Campo di vetro: fondo appena più chiaro, alone rosa quando è attivo. I
+   colori degli stati (errore, successo) restano quelli delle classi. */
+.jc-input {
+  border-color: var(--im-line);
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--im-ink);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.jc-input::placeholder {
+  color: var(--im-muted);
+  opacity: 0.7;
+}
+
+.jc-input:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.jc-input:focus {
+  border-color: var(--im-pink-strong);
+  background-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 4px rgba(236, 145, 160, 0.16);
+  outline: none;
+}
+</style>

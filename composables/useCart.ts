@@ -1,8 +1,11 @@
 import { computed, onMounted, ref } from "vue";
 import { useCartStore, type CartStockIssue } from "~/stores/cart";
+import { SHOP_GAME } from "~/data/const";
 
 export type CartItem = {
   id: string;
+  /** Scheda prodotto della riga. */
+  url: string;
   image: string;
   selectedQuantity: number;
   availableQuantity: number;
@@ -28,6 +31,9 @@ export function useCart() {
   const products = computed<CartItem[]>(() =>
     cart.lines.map((line) => ({
       id: line.variantId,
+      // Le righe vecchie non hanno ancora il link: finché `revalidate()` non lo
+      // completa si passa da "tutti i prodotti", la scheda vuole solo lo slug.
+      url: line.productUrl ?? `/${SHOP_GAME}/all/${line.productSlug}`,
       image: line.imageUrl,
       selectedQuantity: line.quantity,
       availableQuantity: line.availableQuantity,

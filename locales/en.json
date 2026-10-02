@@ -69,6 +69,14 @@
       "/servizi": "Services",
       "/contatti": "Contacts",
       "/": "Homepage"
+    },
+    "breadcrumb": {
+      "label": "Breadcrumb",
+      "home": "Home",
+      "all": "All products",
+      "search": "Search: {term}",
+      "cart": "Cart",
+      "checkout": "Checkout"
     }
   },
   "home": {
@@ -103,6 +111,128 @@
       "products": "products",
       "from": "from",
       "explore": "Explore the set"
+    },
+    "immersive": {
+      "intro": {
+        "label": "Welcome to Jigglycard",
+        "open": "Open the Jiggly-ball and enter the shop",
+        "hintClick": "Click to open",
+        "hintTap": "Tap to open",
+        "skip": "Skip intro"
+      },
+      "hero": {
+        "marqueeLabel": "Shop perks",
+        "marquee": {
+          "shipping": "Orders shipped within 2 business days",
+          "payments": "Safe and protected payments",
+          "sell": "Sell your collection: appraisal by appointment",
+          "games": "Singles, sealed packs and boxes"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Every card",
+        "titleLine2": "has a story.",
+        "titleHighlight": "The next one is yours.",
+        "lead": "Singles, sealed packs and boxes, picked by collectors for collectors. Find the piece your collection is missing: we ship it within two business days, always protected.",
+        "ctaPrimary": "Find your card",
+        "ctaSecondary": "Open a pack",
+        "trust": {
+          "shipping": "Shipped within 2 business days",
+          "payments": "Secure payments",
+          "marketplaces": "Also on Cardmarket and Cardtrader"
+        },
+        "latestKicker": "Just arrived",
+        "stats": {
+          "products": "products available now",
+          "shipping": "business days to ship",
+          "shippingValue": "2 days",
+          "payments": "protected payments",
+          "singles": "singles in stock"
+        },
+        "scroll": "Scroll"
+      },
+      "story": {
+        "label": "From the pack to your table",
+        "packSubtitle": "Collector pack",
+        "packTitleFallback": "New expansion",
+        "badge": "Checked and protected",
+        "pack": {
+          "kicker": "The pack",
+          "title1": "Every pack",
+          "title2": "is a promise.",
+          "text": "There's always a chance inside: that's why every opening makes your heart race. Packs and boxes reach you sealed, exactly as they left the factory."
+        },
+        "fan": {
+          "kicker": "The fan",
+          "title1": "Commons, uncommons,",
+          "title2": "reverses. Then the last one.",
+          "text": "The best card always sits at the back. Anyone who has opened a pack knows it, and so do we."
+        },
+        "hit": {
+          "kicker": "The hit",
+          "title1": "The one",
+          "title2": "you were after.",
+          "text": "Holo, reverse, full art, special illustrations: the rarity that makes your hands shake. And if you'd rather not trust luck, it's already among our singles."
+        },
+        "safe": {
+          "kicker": "Safe",
+          "title1": "Protected,",
+          "title2": "all the way home.",
+          "text": "Every order leaves within two business days and always travels protected, because a perfect card must arrive perfect.",
+          "cta": "Browse the singles"
+        }
+      },
+      "categories": {
+        "kicker": "The catalog",
+        "title": "What are you looking for?",
+        "lead": "From the card your collection is missing to the box to open with friends.",
+        "products": "products",
+        "enter": "Enter"
+      },
+      "showcase": {
+        "kicker": "On the table now",
+        "title": "Cards of the moment.",
+        "from": "from",
+        "previous": "Previous cards",
+        "next": "Next cards",
+        "all": "See the full catalog"
+      },
+      "opening": {
+        "kicker": "Virtual pack · free",
+        "title1": "Tap the pack.",
+        "title2": "Find your hit.",
+        "lead": "Pick one of the Japanese packs we stock and open it here, for free. Only Japanese cards from that set come out, taken from our singles in stock: if you like the one you pull, it's already for sale. And if you enjoyed the thrill, the real pack is one click away.",
+        "facts": {
+          "cards": "cards per pack",
+          "hit": "guaranteed hit",
+          "price": "to play",
+          "set": "cards from the set in stock"
+        },
+        "tear": "Tear the pack open",
+        "tapHint": "Tap to tear it",
+        "packSubtitle": "Virtual pack",
+        "flip": "Flip card {n}",
+        "revealAll": "Reveal all",
+        "yourHit": "Your hit",
+        "seeCard": "See the card",
+        "again": "Open another pack",
+        "status": {
+          "idle": "Sealed pack · 5 cards",
+          "torn": "Opening…",
+          "dealt": "Cards left to flip: {n}",
+          "done": "Pack complete",
+          "idlePack": "{name} · sealed"
+        },
+        "choosePack": "Choose the pack to open",
+        "buyPack": "Buy the pack · {price} €",
+        "cardsShort": "cards"
+      },
+      "sell": {
+        "kicker": "Sell to us",
+        "title": "Got a collection in a drawer?",
+        "lead": "We'll appraise it, calmly and by appointment. Book an appraisal and find out what it's really worth.",
+        "cta": "Book an appraisal",
+        "rules": "Read the rules"
+      }
     }
   },
   "newsletter": {
@@ -131,7 +261,10 @@
       "min": "Min",
       "max": "Max",
       "searchOption": "Search…",
-      "noOption": "No matching option"
+      "noOption": "No matching option",
+      "reset": "Reset",
+      "close": "Close",
+      "remove": "Remove"
     },
     "actions": {
       "showDetails": "See details",
@@ -146,6 +279,16 @@
         "of": "of",
         "products": "products"
       }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {n}",
+      "pageOf": "Page {n} of {total}",
+      "showing": "{from}–{to} of {total} products",
+      "goTo": "Go to page",
+      "go": "Go"
     },
     "sorting": {
       "sortBy": "Sort by",
@@ -183,7 +326,16 @@
       "jp": "Japanese",
       "it": "Italian",
       "en": "English",
-      "de": "German"
+      "de": "German",
+      "fr": "French",
+      "es": "Spanish",
+      "pt": "Portuguese",
+      "ru": "Russian",
+      "ko": "Korean",
+      "zh": "Chinese",
+      "zh-CN": "Simplified Chinese",
+      "zh-TW": "Traditional Chinese",
+      "Mint": "Mint"
     },
     "empty": {
       "title": "No products found",
@@ -225,6 +377,18 @@
     },
     "sections": {
       "recommended": "You might also like"
+    },
+    "quickAdd": {
+      "add": "Add",
+      "added": "Added",
+      "choose": "Choose the version",
+      "maxed": "All available copies are already in your cart",
+      "aria": "Add {name} to cart"
+    },
+    "neighbors": {
+      "label": "More cards from the set",
+      "previous": "Previous",
+      "next": "Next"
     }
   },
   "cart": {
@@ -719,5 +883,39 @@
     "pokemon-preconstructed-deck": "Preconstructed decks",
     "pokemon-singles": "Single cards",
     "yu-gi-oh-boosters": "Boosters"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "Your Pokémon,",
+    "titleHighlight": "all its cards.",
+    "lead": "Pick a Pokémon and see every single card of it we have in stock, from the rarest to the most common.",
+    "searchPlaceholder": "Search by name or number",
+    "generation": "Generation",
+    "all": "All",
+    "shown": "{n} Pokémon",
+    "noMatch": "No Pokémon matches your search.",
+    "back": "All Pokémon",
+    "loading": "Looking for cards…",
+    "cardsFound": "{n} cards available",
+    "noCards": "We don't have any {name} cards available right now.",
+    "browseSingles": "Browse all singles",
+    "loadMore": "Show more cards",
+    "pickTitle": "Pick a Pokémon",
+    "pickText": "Select a Pokémon from the list to see all its available cards."
+  },
+  "shippingPage": {
+    "kicker": "Shipping",
+    "title": "Shipping,",
+    "titleHighlight": "returns and refunds.",
+    "methodsTitle": "Shipping methods",
+    "methodsLead": "You choose the method at checkout: these are today's prices.",
+    "domestic": "Italy",
+    "international": "International",
+    "maxValue": "For orders up to {value}",
+    "packagingTitle": "How we pack your cards",
+    "returnsTitle": "Returns and refunds",
+    "returnsText": "For a return or a refund write to us from the Support page with your order number: we'll reply with all the instructions.",
+    "cta": "Go to support"
   }
 }

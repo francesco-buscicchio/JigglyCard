@@ -69,6 +69,14 @@
       "/servizi": "Servizi",
       "/contatti": "Contatti",
       "/": "Homepage"
+    },
+    "breadcrumb": {
+      "label": "Percorso di navigazione",
+      "home": "Home",
+      "all": "Tutti i prodotti",
+      "search": "Ricerca: {term}",
+      "cart": "Carrello",
+      "checkout": "Checkout"
     }
   },
   "home": {
@@ -96,13 +104,135 @@
       },
       "security": {
         "title": "Dati protetti",
-        "description": "I tuoi dati personali e di pagamento sono protetti con..."
+        "description": "I tuoi dati personali e di pagamento sono protetti con crittografia standard del settore."
       }
     },
     "hero": {
       "products": "prodotti",
       "from": "da",
       "explore": "Esplora il set"
+    },
+    "immersive": {
+      "intro": {
+        "label": "Benvenuto su Jigglycard",
+        "open": "Apri la Jiggly-ball ed entra nel negozio",
+        "hintClick": "Clicca per aprire",
+        "hintTap": "Tocca per aprire",
+        "skip": "Salta intro"
+      },
+      "hero": {
+        "marqueeLabel": "Vantaggi del negozio",
+        "marquee": {
+          "shipping": "Ordini spediti in 2 giorni lavorativi",
+          "payments": "Pagamenti sicuri e protetti",
+          "sell": "Vendi la tua collezione: valutazione su appuntamento",
+          "games": "Carte singole, buste e box sigillati"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Ogni carta",
+        "titleLine2": "ha una storia.",
+        "titleHighlight": "La prossima è tua.",
+        "lead": "Carte singole, buste e box sigillati, scelti da collezionisti per collezionisti. Trova il pezzo che manca alla tua raccolta: lo spediamo in due giorni lavorativi, sempre protetto.",
+        "ctaPrimary": "Trova la tua carta",
+        "ctaSecondary": "Apri una busta",
+        "trust": {
+          "shipping": "Spedizione in 2 giorni lavorativi",
+          "payments": "Pagamenti sicuri",
+          "marketplaces": "Ci trovi anche su Cardmarket e Cardtrader"
+        },
+        "latestKicker": "Appena arrivata",
+        "stats": {
+          "products": "prodotti disponibili adesso",
+          "shipping": "lavorativi per la spedizione",
+          "shippingValue": "2 giorni",
+          "payments": "pagamenti protetti",
+          "singles": "carte singole disponibili"
+        },
+        "scroll": "Scorri"
+      },
+      "story": {
+        "label": "Dalla busta al tuo tavolo",
+        "packSubtitle": "Busta da collezione",
+        "packTitleFallback": "Nuova espansione",
+        "badge": "Controllata e protetta",
+        "pack": {
+          "kicker": "La busta",
+          "title1": "Ogni busta",
+          "title2": "è una promessa.",
+          "text": "Dentro c'è sempre una possibilità: è per questo che ogni apertura fa battere il cuore. Buste e box arrivano a te sigillati, esattamente come sono usciti dalla fabbrica."
+        },
+        "fan": {
+          "kicker": "Il ventaglio",
+          "title1": "Comuni, non comuni,",
+          "title2": "reverse. E poi l'ultima.",
+          "text": "La carta migliore sta sempre in fondo. Lo sa chiunque abbia aperto una busta, e lo sappiamo anche noi."
+        },
+        "hit": {
+          "kicker": "La hit",
+          "title1": "Quella",
+          "title2": "che cercavi.",
+          "text": "Holo, reverse, full art, illustrazioni speciali: la rarità che fa tremare le mani. E se non vuoi affidarti alla fortuna, la trovi già fra le nostre carte singole."
+        },
+        "safe": {
+          "kicker": "Al sicuro",
+          "title1": "Protetta,",
+          "title2": "fino a casa tua.",
+          "text": "Ogni ordine parte entro due giorni lavorativi e viaggia sempre protetto, perché una carta perfetta deve arrivare perfetta.",
+          "cta": "Scopri le carte singole"
+        }
+      },
+      "categories": {
+        "kicker": "Il catalogo",
+        "title": "Cosa stai cercando?",
+        "lead": "Dalla carta che manca alla tua collezione al box da aprire con gli amici.",
+        "products": "prodotti",
+        "enter": "Entra"
+      },
+      "showcase": {
+        "kicker": "Sul tavolo adesso",
+        "title": "Le carte del momento.",
+        "from": "da",
+        "previous": "Carte precedenti",
+        "next": "Carte successive",
+        "all": "Vedi tutto il catalogo"
+      },
+      "opening": {
+        "kicker": "Busta virtuale · gratis",
+        "title1": "Tocca la busta.",
+        "title2": "Scopri la tua hit.",
+        "lead": "Scegli una delle buste giapponesi che abbiamo in negozio e aprila qui, gratis. Dentro escono solo carte giapponesi di quel set, prese dalle nostre singole disponibili: se ti piace quella che trovi, è già in vendita. E se ti è piaciuta l'emozione, la busta vera è a un click.",
+        "facts": {
+          "cards": "carte per busta",
+          "hit": "hit garantita",
+          "price": "per giocare",
+          "set": "carte del set in negozio"
+        },
+        "tear": "Strappa la busta",
+        "tapHint": "Tocca per strapparla",
+        "packSubtitle": "Busta virtuale",
+        "flip": "Gira la carta {n}",
+        "revealAll": "Rivela tutte",
+        "yourHit": "La tua hit",
+        "seeCard": "Vedi la carta",
+        "again": "Apri un'altra busta",
+        "status": {
+          "idle": "Busta sigillata · 5 carte",
+          "torn": "Apertura in corso…",
+          "dealt": "Carte da girare: {n}",
+          "done": "Busta completata",
+          "idlePack": "{name} · sigillata"
+        },
+        "choosePack": "Scegli la busta da aprire",
+        "buyPack": "Compra la busta · {price} €",
+        "cardsShort": "carte"
+      },
+      "sell": {
+        "kicker": "Vendi da noi",
+        "title": "Hai una collezione nel cassetto?",
+        "lead": "La valutiamo noi, con calma e su appuntamento. Prenota una valutazione e scopri quanto vale davvero.",
+        "cta": "Prenota una valutazione",
+        "rules": "Leggi il regolamento"
+      }
     }
   },
   "newsletter": {
@@ -131,7 +261,10 @@
       "min": "Min",
       "max": "Max",
       "searchOption": "Cerca…",
-      "noOption": "Nessuna voce corrisponde"
+      "noOption": "Nessuna voce corrisponde",
+      "reset": "Azzera",
+      "close": "Chiudi",
+      "remove": "Rimuovi"
     },
     "actions": {
       "showDetails": "vedi dettagli",
@@ -146,6 +279,16 @@
         "of": "di",
         "products": "prodotti"
       }
+    },
+    "pagination": {
+      "label": "Paginazione",
+      "previous": "Precedente",
+      "next": "Successiva",
+      "page": "Pagina {n}",
+      "pageOf": "Pagina {n} di {total}",
+      "showing": "{from}–{to} di {total} prodotti",
+      "goTo": "Vai a pagina",
+      "go": "Vai"
     },
     "sorting": {
       "sortBy": "Ordina per",
@@ -183,7 +326,16 @@
       "jp": "Giapponese",
       "it": "Italiano",
       "en": "Inglese",
-      "de": "Tedesco"
+      "de": "Tedesco",
+      "fr": "Francese",
+      "es": "Spagnolo",
+      "pt": "Portoghese",
+      "ru": "Russo",
+      "ko": "Coreano",
+      "zh": "Cinese",
+      "zh-CN": "Cinese Semplificato",
+      "zh-TW": "Cinese Tradizionale",
+      "Mint": "Mint"
     },
     "empty": {
       "title": "Nessun prodotto trovato",
@@ -225,6 +377,18 @@
     },
     "sections": {
       "recommended": "Ti potrebbero interessare"
+    },
+    "quickAdd": {
+      "add": "Aggiungi",
+      "added": "Aggiunto",
+      "choose": "Scegli la versione",
+      "maxed": "Hai già nel carrello tutti i pezzi disponibili",
+      "aria": "Aggiungi {name} al carrello"
+    },
+    "neighbors": {
+      "label": "Altre carte del set",
+      "previous": "Precedente",
+      "next": "Successiva"
     }
   },
   "cart": {
@@ -287,8 +451,8 @@
     "ru": "Russo",
     "ko": "Coreano",
     "zh": "Cinese",
-    "zh-CN": "Cinese semplificato",
-    "zh-TW": "Cinese tradizionale",
+    "zh-CN": "Cinese Semplificato",
+    "zh-TW": "Cinese Tradizionale",
     "Mint": "Mint",
     "Near Mint": "Near Mint",
     "Slightly Played": "Lievemente giocata",
@@ -719,5 +883,39 @@
     "pokemon-preconstructed-deck": "Mazzi precostruiti",
     "pokemon-singles": "Carte singole",
     "yu-gi-oh-boosters": "Booster"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Pokédex Jigglycard",
+    "title": "Il tuo Pokémon,",
+    "titleHighlight": "tutte le sue carte.",
+    "lead": "Scegli un Pokémon e scopri tutte le sue carte singole disponibili in negozio, dalla più rara alla più comune.",
+    "searchPlaceholder": "Cerca per nome o numero",
+    "generation": "Generazione",
+    "all": "Tutte",
+    "shown": "{n} Pokémon",
+    "noMatch": "Nessun Pokémon corrisponde alla ricerca.",
+    "back": "Tutti i Pokémon",
+    "loading": "Cerco le carte…",
+    "cardsFound": "{n} carte disponibili",
+    "noCards": "Al momento non abbiamo carte di {name} disponibili.",
+    "browseSingles": "Sfoglia tutte le carte singole",
+    "loadMore": "Mostra altre carte",
+    "pickTitle": "Scegli un Pokémon",
+    "pickText": "Seleziona un Pokémon dall'elenco per vedere tutte le sue carte disponibili."
+  },
+  "shippingPage": {
+    "kicker": "Spedizioni",
+    "title": "Spedizioni,",
+    "titleHighlight": "resi e rimborsi.",
+    "methodsTitle": "Metodi di spedizione",
+    "methodsLead": "Il metodo si sceglie al checkout: questi sono i prezzi di oggi.",
+    "domestic": "Italia",
+    "international": "Internazionale",
+    "maxValue": "Per ordini fino a {value}",
+    "packagingTitle": "Come imballiamo le carte",
+    "returnsTitle": "Resi e rimborsi",
+    "returnsText": "Per un reso o un rimborso scrivici dalla pagina Assistenza indicando il numero d'ordine: ti rispondiamo con tutte le istruzioni.",
+    "cta": "Vai all'assistenza"
   }
 }

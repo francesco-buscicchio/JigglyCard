@@ -1,11 +1,17 @@
 <template>
-  <div class="flex flex-col gap-7 lg:items-center p-6">
-    <div v-for="link of links">
+  <ul class="footer-links">
+    <li v-for="link of links" :key="link.route">
       <AtomsLink :to="link.route" class="footer-link">
-        {{ $t(`layout.footer.links.${link.link}`) }}</AtomsLink
-      >
-    </div>
-  </div>
+        <span class="footer-link__text">{{ $t(`layout.footer.links.${link.link}`) }}</span>
+        <Icon
+          name="heroicons:arrow-right-20-solid"
+          size="16"
+          class="footer-link__arrow"
+          aria-hidden="true"
+        />
+      </AtomsLink>
+    </li>
+  </ul>
 </template>
 <script setup lang="ts">
 import type { LinkRoute } from "~/interface/linkRoute.interface";
@@ -19,14 +25,63 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.footer-link {
-  font-size: 16px;
-  font-family: "Roboto Flex", sans-serif;
+/* Selettori doppi: devono superare lo stile di AtomsLink (titolo Unbounded,
+   sottolineatura al passaggio, colore "visitato"), pensato per i testi. */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-@media (min-width: 1024px) {
-  .footer-link {
-    font-size: 18px;
+.footer-links .footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  font-family: "Roboto Flex", sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--im-ink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links .footer-link:hover {
+  color: var(--im-pink);
+  text-decoration: none;
+}
+
+.footer-links .footer-link:focus-visible {
+  outline: 2px solid var(--im-teal);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.footer-link__text {
+  color: inherit;
+  cursor: pointer;
+}
+
+/* La freccia entra scorrendo al passaggio del mouse. */
+.footer-link__arrow {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s ease;
+}
+
+.footer-links .footer-link:hover .footer-link__arrow,
+.footer-links .footer-link:focus-visible .footer-link__arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-link__arrow {
+    transition: none;
+    transform: none;
   }
 }
 </style>

@@ -4,14 +4,17 @@
     :type="toastData.type"
     :trigger-key="toastKey"
   />
-  <div class="max-w-[420px]">
-    <h5 class="mb-2">{{ t("payments.methodsTitle") }}</h5>
+  <div class="pay">
+    <h2 class="pay__title">
+      <Icon name="heroicons:credit-card-20-solid" size="20" class="pay__title-icon" />
+      {{ t("payments.methodsTitle") }}
+    </h2>
 
-    <div v-if="clientSecret">
+    <div v-if="clientSecret" class="pay__element">
       <StripeElements
         :stripe-key="stripePublicKey"
         :instance-options="stripeOptions"
-        :elements-options="elementsOptions"
+        :elements-options="nightElementsOptions"
         ref="elementsComponent"
       >
         <StripeElement
@@ -22,13 +25,14 @@
       </StripeElements>
     </div>
 
-    <div class="mt-6">
+    <div class="pay__cta">
       <AtomsButtonCTA
         @click="confirmAndPay"
         :type="isCheckoutValid ? 'primary' : 'disabled'"
-        :class="['rounded']"
         :text="t('checkout.actions.confirmAndPay')"
-      />
+      >
+        <Icon name="heroicons:lock-closed-20-solid" size="18" />
+      </AtomsButtonCTA>
     </div>
   </div>
 </template>
@@ -56,6 +60,62 @@ const { handleError } = useErrorHandler();
 
 const stripePublicKey = config.public.STRIPE_PUBLIC_KEY;
 const purchaseCompletedUrl = config.public.PURCHASE_COMPLETED_URL;
+
+/**
+ * Stesse opzioni di StripeConfig, cambia solo l'aspetto: il tema "stripe"
+ * (bianco, accenti blu) sul pannello notturno sembrava un modulo incollato
+ * da un altro sito. Qui i colori del brand, con valori pieni perché Stripe
+ * non accetta trasparenze nelle variabili.
+ */
+const nightElementsOptions = {
+  ...elementsOptions,
+  appearance: {
+    theme: "night" as const,
+    variables: {
+      colorPrimary: "#ec91a0",
+      colorBackground: "#12163b",
+      colorText: "#f6f3ff",
+      colorTextSecondary: "#b8b4dc",
+      colorTextPlaceholder: "#8a87b6",
+      colorDanger: "#ff9aab",
+      iconColor: "#f7d2d8",
+      fontFamily: '"Roboto Flex", system-ui, -apple-system, "Segoe UI", sans-serif',
+      fontSizeBase: "16px",
+      borderRadius: "14px",
+      spacingUnit: "4px",
+      gridRowSpacing: "16px",
+      focusOutline: "none",
+      focusBoxShadow: "0 0 0 4px rgba(236, 145, 160, 0.2)",
+    },
+    rules: {
+      ".AccordionItem": {
+        backgroundColor: "#0f1336",
+        border: "1px solid #262b58",
+        boxShadow: "none",
+      },
+      ".Input": {
+        backgroundColor: "#161b45",
+        border: "1px solid #2a2f5e",
+        boxShadow: "none",
+      },
+      ".Input:focus": {
+        borderColor: "#ec91a0",
+      },
+      ".Tab": {
+        backgroundColor: "#161b45",
+        border: "1px solid #2a2f5e",
+        boxShadow: "none",
+      },
+      ".Tab--selected, .Tab--selected:hover": {
+        borderColor: "#ec91a0",
+        color: "#f6f3ff",
+      },
+      ".Label": {
+        color: "#b8b4dc",
+      },
+    },
+  },
+};
 
 const toastKey = ref(0);
 const toastData = reactive({ message: "", type: "" });
@@ -171,3 +231,51 @@ const confirmAndPay = async () => {
   }
 };
 </script>
+
+<style scoped>
+.pay {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.pay__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Unbounded", "Roboto Flex", sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--im-ink);
+}
+
+@media (min-width: 1024px) {
+  .pay__title {
+    font-size: 22px;
+  }
+}
+
+.pay__title-icon {
+  color: var(--im-pink);
+}
+
+/* L'iframe di Stripe ha un fondo pieno: una cornice sottile lo lega al
+   vetro del pannello. */
+.pay__element {
+  padding: 4px;
+  border-radius: 18px;
+  background: rgba(7, 10, 31, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.pay__cta {
+  padding-top: 4px;
+}
+
+@media (min-width: 640px) {
+  .pay__cta {
+    max-width: 360px;
+  }
+}
+</style>

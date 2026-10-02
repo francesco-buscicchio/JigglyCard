@@ -12,7 +12,9 @@
     @itemClick="onClickItem"
   />
 
-  <div v-if="!isLandingPage" class="hidden w-full lg:block fixed-header">
+  <!-- Header desktop da 1280px: con tutte le categorie in riga, sotto quella
+       misura andava a capo. Fra 1024 e 1280 resta quello compatto. -->
+  <div v-if="!isLandingPage" class="hidden w-full xl:block fixed-header">
     <OrganismsHeaderDesktop
       class="w-full"
       :header="{ cartCount: 9 }"
@@ -26,7 +28,7 @@
     />
   </div>
 
-  <div v-else class="w-full bg-white shadow-md px-18 py-5 fixed-header">
+  <div v-else class="w-full bg-accent-5 border-b border-neutrals-200 px-18 py-5 fixed-header">
     <div class="flex justify-between items-center">
       <div
         class="flex items-center gap-2 cursor-pointer"
@@ -62,7 +64,9 @@ const { host } = useRequestURL();
 const isProductionSite = host === "jigglycard.com";
 const route = useRoute();
 const isHomePage = route.path === "/";
-const isLandingPage = route.path === "/landing";
+// Computed: il layout resta montato fra una pagina e l'altra, un valore letto
+// una volta sola resterebbe quello della prima pagina visitata.
+const isLandingPage = computed(() => route.path === "/landing");
 const productSearch = ref<Hit[]>([]);
 const searchValue = ref<string>("");
 
@@ -81,7 +85,7 @@ const toggleSearch = () => {
 };
 
 const onClickItem = () => {
-  isSearchOpen.value = false;
+  closeSearch();
 };
 
 const closeSearch = (event?: MouseEvent) => {
@@ -96,6 +100,15 @@ const closeSearch = (event?: MouseEvent) => {
   productSearch.value = [];
   searchValue.value = "";
 };
+
+// Qualunque cambio pagina chiude la ricerca: un risultato, un link, il tasto
+// indietro. Prima l'overlay restava aperto sopra la scheda prodotto.
+watch(
+  () => route.fullPath,
+  () => {
+    if (isSearchOpen.value) closeSearch();
+  },
+);
 
 const searchProducts = async (data: string) => {
   searchValue.value = data;

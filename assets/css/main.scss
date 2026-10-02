@@ -3,13 +3,35 @@
 @tailwind utilities;
 
 @layer base {
+  /* Tema notturno su tutto il sito: i colori vengono da `:root` in
+     immersive.scss, gli stessi della home. */
   html {
-    background-color: white;
+    background-color: var(--im-bg);
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--im-bg);
+    color: var(--im-ink);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  .title-l,
+  .title-m,
+  .title-s,
+  .subtitle-l,
+  .subtitle-m {
+    letter-spacing: -0.01em;
   }
 
   h1,
   .title-l {
-    font-family: "Roboto Serif", serif;
+    font-family: "Unbounded", "Roboto Flex", sans-serif;
     font-size: 32px;
     line-height: 38.4px;
     font-weight: 500;
@@ -17,7 +39,7 @@
 
   h2,
   .title-m {
-    font-family: "Roboto Serif", serif;
+    font-family: "Unbounded", "Roboto Flex", sans-serif;
     font-size: 28px;
     line-height: 33.6px;
     font-weight: 500;
@@ -25,7 +47,7 @@
 
   h3,
   .title-s {
-    font-family: "Roboto Serif", serif;
+    font-family: "Unbounded", "Roboto Flex", sans-serif;
     font-size: 25px;
     line-height: 30px;
     font-weight: 500;
@@ -33,7 +55,7 @@
 
   h4,
   .subtitle-l {
-    font-family: "Roboto Serif", serif;
+    font-family: "Unbounded", "Roboto Flex", sans-serif;
     font-size: 23px;
     line-height: 27.6px;
     font-weight: 500;
@@ -41,7 +63,7 @@
 
   h5,
   .subtitle-m {
-    font-family: "Roboto Serif", serif;
+    font-family: "Unbounded", "Roboto Flex", sans-serif;
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;
@@ -105,7 +127,7 @@
     position: sticky;
     top: 0;
     z-index: 1000; // Opzionale, assicura che il titolo rimanga sopra altri contenuti
-    background-color: white; // Assicura che il testo non sia sovrapposto da altri elementi scrollabili
+    background-color: var(--im-bg); // Assicura che il testo non sia sovrapposto da altri elementi scrollabili
   }
   .ellipsis {
     overflow: hidden;
@@ -116,7 +138,7 @@
   @screen lg {
     h1,
     .title-l {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 40px;
       line-height: 48px;
       font-weight: 500;
@@ -124,7 +146,7 @@
 
     h2,
     .title-l {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 32px;
       line-height: 38.4px;
       font-weight: 500;
@@ -132,7 +154,7 @@
 
     h2,
     .title-m {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 32px;
       line-height: 38.4px;
       font-weight: 500;
@@ -140,7 +162,7 @@
 
     h3,
     .title-s {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 28px;
       line-height: 33.6px;
       font-weight: 500;
@@ -148,7 +170,7 @@
 
     h4,
     .subtitle-l {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 25px;
       line-height: 30px;
       font-weight: 500;
@@ -156,7 +178,7 @@
 
     h5,
     .subtitle-m {
-      font-family: "Roboto Serif", serif;
+      font-family: "Unbounded", "Roboto Flex", sans-serif;
       font-size: 20px;
       line-height: 24px;
       font-weight: 500;

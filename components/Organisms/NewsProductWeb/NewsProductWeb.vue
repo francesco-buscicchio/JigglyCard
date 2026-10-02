@@ -41,7 +41,7 @@
         </p>
       </div>
       <div
-        class="absolute hidden group-hover:block text-accent-500 bg-white text-[2wv] rounded p-1 bottom-1/2 transform max-w-xs whitespace-no-wrap"
+        class="absolute hidden group-hover:block text-accent-500 bg-accent-10 text-[2wv] rounded p-1 bottom-1/2 transform max-w-xs whitespace-no-wrap"
       >
         {{ product.productName }}
       </div>

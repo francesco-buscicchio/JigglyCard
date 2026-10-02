@@ -2,7 +2,7 @@
   <button
     v-if="label"
     :class="typeClass"
-    class="rounded-lg px-4 py-2 min-w-25"
+    class="variant-tag"
     @click="emitClick"
   >
     <p>{{ label }}</p>
@@ -52,11 +52,11 @@ const label = computed(() => {
 const typeClass = computed(() => {
   switch (props.type) {
     case TagType.ACTIVE:
-      return "bg-accent-500 text-accent-50 font-bold active:bg-accent-950";
+      return "variant-tag--active";
     case TagType.INACTIVE:
-      return "bg-sky-100 text-primary-950 font-bold active:text-accent-950 active:border-accent-950";
+      return "variant-tag--inactive";
     case TagType.DISABLED:
-      return "bg-white text-neutrals-400 border-[1px] border-neutrals-500";
+      return "variant-tag--disabled";
     default:
       return "";
   }
@@ -66,3 +66,46 @@ const emitClick = () => {
   if (props.type !== TagType.DISABLED) emit("tagClicked", props.code);
 };
 </script>
+
+<style scoped>
+.variant-tag {
+  min-width: 96px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.variant-tag p {
+  font: inherit;
+  color: inherit;
+  cursor: inherit;
+}
+
+.variant-tag--active {
+  color: #2a0a14;
+  background: linear-gradient(135deg, #fde4e8, var(--im-pink-strong));
+  box-shadow: 0 8px 22px -10px rgba(236, 145, 160, 0.9);
+}
+
+.variant-tag--inactive {
+  color: var(--im-ink);
+  border-color: var(--im-line);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.variant-tag--inactive:hover {
+  border-color: rgba(247, 210, 216, 0.5);
+}
+
+.variant-tag--disabled {
+  color: var(--im-muted);
+  border-color: var(--im-line);
+  border-style: dashed;
+  background: none;
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+</style>

@@ -7,6 +7,7 @@ import {
   HIGHLIGHT_MAX_PRICE_CENTS,
   HIGHLIGHT_MIN_PRICE_CENTS,
   HIGHLIGHT_RECENT_SETS,
+  SHOP_GAME,
 } from "~/data/const";
 
 /**
@@ -17,7 +18,7 @@ import {
  */
 const section = (event: any, query: Record<string, unknown>) =>
   cmsFetch<CmsProductList>(event, "/catalog/products", {
-    query: { available: "true", perPage: 5, ...query },
+    query: { available: "true", perPage: 5, ...query, game: SHOP_GAME },
   }).catch(() => ({ items: [] }) as unknown as CmsProductList);
 
 export default defineCachedShopHandler(
@@ -26,10 +27,13 @@ export default defineCachedShopHandler(
     const recent = await cmsFetch<{ items: CmsExpansion[] }>(
       event,
       "/catalog/expansions",
-      { query: { limit: HIGHLIGHT_RECENT_SETS, minProducts: 10 } },
+      { query: { minProducts: 10, game: SHOP_GAME } },
     ).catch(() => ({ items: [] as CmsExpansion[] }));
 
-    const recentSlugs = recent.items.map((expansion) => expansion.slug);
+    const recentSlugs = recent.items
+      .filter((expansion) => expansion.gameSlug === SHOP_GAME)
+      .slice(0, HIGHLIGHT_RECENT_SETS)
+      .map((expansion) => expansion.slug);
 
     const [tagged, fallbackHighlights, whatsNew, deals] = await Promise.all([
       // In evidenza: se ci sono prodotti marcati nel CMS, vincono loro.

@@ -41,31 +41,56 @@ const isChecked = computed(() => {
 </script>
 
 <style>
+/* Radio del sito: anello sottile e punto rosa luminoso quando è scelto. Non
+   scoped di proposito: vale per tutti i radio, anche quelli dei form. */
 input[type="radio"] {
-  width: 16px;
-  height: 16px;
-  border: 1px solid #003849;
-  cursor: pointer;
-  position: relative;
-}
-
-input[type="radio"]:checked:before {
-  background: #006482;
-}
-
-input[type="radio"]:active:before {
-  background: #003849;
-}
-
-input[type="radio"]:hover {
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-}
-
-input[type="radio"]:before {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
+  display: inline-grid;
+  place-content: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  margin: 0;
   border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fde4e8, #ec91a0);
+  box-shadow: 0 0 10px rgba(236, 145, 160, 0.9);
+  transform: scale(0);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+input[type="radio"]:checked {
+  border-color: #ec91a0;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="radio"]:hover:not(:disabled) {
+  border-color: rgba(247, 210, 216, 0.7);
+}
+
+input[type="radio"]:focus-visible {
+  outline: 2px solid #5cc8e0;
+  outline-offset: 2px;
+}
+
+input[type="radio"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 </style>

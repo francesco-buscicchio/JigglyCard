@@ -1,119 +1,70 @@
 <template>
   <div>
-    <AtomsButtonCTA @click="togglePanel" type="secondary">
-      <h5>{{ t("catalog.controls.filters") }}</h5>
-    </AtomsButtonCTA>
+    <button type="button" class="filter-trigger" @click="togglePanel">
+      <Icon name="heroicons:adjustments-horizontal-20-solid" size="18" />
+      {{ t("catalog.controls.filters") }}
+      <span v-if="activeCount" class="filter-trigger__count">{{ activeCount }}</span>
+    </button>
 
     <transition name="fade">
       <div v-if="isOpen" class="overlay" @click.self="togglePanel"></div>
     </transition>
 
     <transition name="slide-right">
-      <div v-if="isOpen" class="filter-panel bg-accent-50">
-        <div class="flex items-center justify-between mt-4">
-          <Icon
-            name="jig:close-accent"
-            class="ml-6"
-            size="20"
+      <div
+        v-if="isOpen"
+        class="filter-panel"
+        role="dialog"
+        aria-modal="true"
+        :aria-label="t('catalog.controls.filters')"
+      >
+        <div class="filter-panel__head">
+          <h2 class="filter-panel__title">{{ t("catalog.controls.filters") }}</h2>
+          <button
+            type="button"
+            class="filter-panel__close"
+            :aria-label="t('catalog.controls.close')"
             @click="togglePanel"
-          ></Icon>
-          <h5 class="text-center w-full mr-18">
-            {{ t("catalog.controls.filters") }}
-          </h5>
+          >
+            <Icon name="heroicons:x-mark-20-solid" size="22" />
+          </button>
         </div>
 
-        <div>
-          <div v-for="category of filterCategories" :key="category.objectID">
-            <MoleculesAccordion>
-              <template #header>
-                <p>{{ translateCategoryLabel(category.name) }}</p>
-              </template>
-              <div
-                v-for="(item, index) of category.value"
+        <div class="filter-panel__body">
+          <MoleculesFilterSection
+            v-for="(category, index) of filterCategories"
+            :key="category.objectID"
+            :title="translateCategoryLabel(category.name)"
+            :selected="category.value.filter((item) => item.checked).length"
+            :initially-open="index < 2"
+          >
+            <div class="filter-panel__options">
+              <AtomsFilterOption
+                v-for="(item, itemIndex) of category.value"
                 :key="item.id"
-                class="mb-4"
-              >
-                <div class="flex items-center ml-6">
-                  <AtomsCheckbox
-                    :id="`${category.objectID}-${index}`"
-                    :modelValue="item.checked"
-                    @update:modelValue="
-                      updateCheckboxValue(category.objectID, index, $event)
-                    "
-                    class="mr-6 bg-white custom-checkbox"
-                  />
-                  <p class="text-left">
-                    {{ translateFilterValue(item.name, category.name) }}
-                  </p>
-                </div>
-              </div>
-            </MoleculesAccordion>
-          </div>
-
-          <!-- Prezzo temporaneamente disabilitato -->
-          <!--
-          <div class="mx-6 mt-4">
-            <p>{{ t("catalog.controls.price") }}</p>
-            <div
-              class="flex items-center justify-center whitespace-nowrap mt-2"
-            >
-              <span class="mr-2 w-20"
-                >{{ t("catalog.controls.from") }} {{ selectedMinPrice }}</span
-              >
-              <MoleculesSlider
-                :min="minumPrice"
-                :max="maxPrice"
-                :initialMinPrice="selectedMinPrice"
-                :initialMaxPrice="selectedMaxPrice"
-                @update:minPrice="updateMinPrice($event)"
-                @update:maxPrice="updateMaxPrice($event)"
+                :model-value="item.checked"
+                :label="translateFilterValue(item.name, category.name)"
+                :count="item.count"
+                @update:model-value="
+                  updateCheckboxValue(category.objectID, itemIndex, $event)
+                "
               />
-              <span class="ml-2 w-20"
-                >{{ t("catalog.controls.to") }} {{ selectedMaxPrice }}</span
-              >
             </div>
-          </div>
-
-          <div class="flex items-center my-6">
-            <p class="ml-12 mr-6">{{ t("catalog.controls.min") }}</p>
-            <AtomsInputText
-              class="w-20"
-              :key="inputKey"
-              v-model="selectedMinPrice"
-              :placeholder="''"
-              @keydown="validateNumberInput($event)"
-              @input="validatePriceInput('min', $event)"
-            />
-          </div>
-          <div class="flex items-center">
-            <p class="ml-12 mr-6">{{ t("catalog.controls.max") }}</p>
-            <AtomsInputText
-              :key="inputKey + 1"
-              class="w-20"
-              v-model="selectedMaxPrice"
-              :placeholder="''"
-              @keydown="validateNumberInput($event)"
-              @input="validatePriceInput('max', $event)"
-            />
-          </div>
-          -->
+          </MoleculesFilterSection>
         </div>
 
-        <!-- Pulsanti -->
-        <div class="bottom-container">
-          <div class="flex mt-4 mb-6 mr-6">
-            <AtomsButtonCTA
-              class="text-underlined"
-              type="text"
-              @click="resetAllFilters"
-              :class="areFiltersSelected ? 'visible' : 'invisible'"
-            >
-              <p>{{ t("catalog.controls.clear") }}</p>
-            </AtomsButtonCTA>
-            <AtomsButtonCTA @click="applyFilters">
-              <h5>{{ t("catalog.controls.apply") }}</h5>
-            </AtomsButtonCTA>
-          </div>
+        <div class="filter-panel__actions">
+          <button
+            type="button"
+            class="im-btn im-btn--ghost"
+            :disabled="!areFiltersSelected"
+            @click="resetAllFilters"
+          >
+            {{ t("catalog.controls.reset") }}
+          </button>
+          <button type="button" class="im-btn im-btn--primary" @click="applyFilters">
+            {{ t("catalog.controls.apply") }}
+          </button>
         </div>
       </div>
     </transition>
@@ -170,7 +121,6 @@ const FACET_LABEL_KEYS: Record<string, string> = {
 const facetDefinitions = [
   { facetKey: "languages", category: "language" },
   { facetKey: "conditions", category: "condition" },
-  { facetKey: "tcg", category: "brand" },
   { facetKey: "type", category: "type" },
   { facetKey: "setSlug", category: "expansion" },
   { facetKey: "available", category: "available" },
@@ -250,6 +200,15 @@ const areFiltersSelected = computed(() => {
 });
 
 const emit = defineEmits(["filterUpdate"]);
+
+/** Voci spuntate, da mostrare sul pulsante che apre il pannello. */
+const activeCount = computed(() =>
+  filterCategories.value.reduce(
+    (sum, category) =>
+      sum + category.value.filter((filter) => filter.checked).length,
+    0,
+  ),
+);
 
 function togglePanel() {
   isOpen.value = !isOpen.value;
@@ -440,13 +399,34 @@ watch(isOpen, (newValue) => {
 </script>
 
 <style scoped>
-.text-underlined {
-  text-decoration: underline;
+.filter-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--im-line);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--im-ink);
+}
+
+.filter-trigger__count {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--im-pink-strong);
+  color: #2a0a14;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
 }
 
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: transform 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .slide-right-enter-from,
@@ -454,17 +434,12 @@ watch(isOpen, (newValue) => {
   transform: translateX(100%);
 }
 
-.slide-right-enter-to,
-.slide-right-leave-from {
-  transform: translateX(0);
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
@@ -473,33 +448,67 @@ watch(isOpen, (newValue) => {
   position: fixed;
   top: 0;
   right: 0;
-  width: 100%;
-  max-width: calc(100vw - 20px);
+  z-index: 1001;
   display: flex;
   flex-direction: column;
+  width: min(420px, calc(100vw - 24px));
   height: 100%;
-  z-index: 1000;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
+  border-left: 1px solid var(--im-line);
+  border-radius: 20px 0 0 20px;
+  background: #0d1033;
+  box-shadow: -30px 0 60px rgba(0, 0, 0, 0.5);
+}
+
+.filter-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+}
+
+.filter-panel__title {
+  font-size: 20px;
+  text-transform: capitalize;
+}
+
+.filter-panel__close {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 999px;
+  color: var(--im-muted);
+}
+
+.filter-panel__body {
+  flex: 1;
   overflow-y: auto;
+}
+
+.filter-panel__options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.filter-panel__actions {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 10px;
+  padding: 16px 20px 20px;
+  border-top: 1px solid var(--im-line);
+}
+
+.filter-panel__actions .im-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
   z-index: 1000;
-}
-
-.custom-checkbox {
-  border: 1px solid #003849;
-}
-
-.bottom-container {
-  margin-top: auto;
-  padding: 16px;
+  background-color: rgba(3, 4, 16, 0.65);
+  backdrop-filter: blur(3px);
 }
 </style>

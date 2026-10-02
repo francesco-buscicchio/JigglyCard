@@ -1,6 +1,6 @@
 <template>
-  <h1 class="text-accent-500 text-center">
-    {{ currentMenuItem.label }}
+  <h1 class="listing-title">
+    {{ currentMenuItem?.label }}
   </h1>
 </template>
 
@@ -34,7 +34,7 @@ const currentMenuItem = computed(() => {
 
   for (const item of menuItems.value) {
     if (item.to === targetTo) {
-      return item;
+      return { label: item.name };
     }
 
     if (item.subMenu) {
@@ -46,3 +46,12 @@ const currentMenuItem = computed(() => {
   return null;
 });
 </script>
+
+<style scoped>
+.listing-title {
+  margin: 4px 0 24px;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.05;
+  color: var(--im-ink);
+}
+</style>

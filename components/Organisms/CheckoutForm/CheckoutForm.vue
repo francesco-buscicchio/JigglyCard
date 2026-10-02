@@ -1,106 +1,137 @@
 <template>
-  <div>
-    <div class="mb-4">
-      <p class="mb-1">{{ t("forms.fields.name") }}</p>
-      <AtomsInputText
-        :modelValue="formValues.name"
-        @updateValue="updateField('name', $event)"
-        @blur="onBlur('name')"
-      />
-      <p
-        v-if="touchedFields.name && formErrors.name"
-        class="text-red-500 text-sm mt-1"
-      >
+  <div class="co-form">
+    <!--
+      Ogni campo sta dentro la sua <label>: InputText non accetta un id, e così
+      l'etichetta resta comunque legata all'input (anche per i lettori di
+      schermo) e un clic sul testo porta il cursore nel campo.
+    -->
+    <div
+      class="field field--half"
+      :class="{ 'is-invalid': touchedFields.name && formErrors.name }"
+    >
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.name") }}</span>
+        <AtomsInputText
+          :modelValue="formValues.name"
+          @updateValue="updateField('name', $event)"
+          @blur="onBlur('name')"
+        />
+      </label>
+      <p v-if="touchedFields.name && formErrors.name" class="field__error">
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
         {{ formErrors.name }}
       </p>
     </div>
 
-    <div class="mb-4">
-      <p class="mb-1">{{ t("forms.fields.surname") }}</p>
-      <AtomsInputText
-        :modelValue="formValues.surname"
-        @updateValue="updateField('surname', $event)"
-        @blur="onBlur('surname')"
-      />
+    <div
+      class="field field--half"
+      :class="{ 'is-invalid': touchedFields.surname && formErrors.surname }"
+    >
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.surname") }}</span>
+        <AtomsInputText
+          :modelValue="formValues.surname"
+          @updateValue="updateField('surname', $event)"
+          @blur="onBlur('surname')"
+        />
+      </label>
       <p
         v-if="touchedFields.surname && formErrors.surname"
-        class="text-red-500 text-sm mt-1"
+        class="field__error"
       >
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
         {{ formErrors.surname }}
       </p>
     </div>
 
-    <div class="mb-4">
-      <p class="mb-1">{{ t("forms.fields.email") }}</p>
-      <AtomsInputText
-        :modelValue="formValues.email"
-        @updateValue="updateField('email', $event)"
-        @blur="onBlur('email')"
-      />
-      <p
-        v-if="touchedFields.email && formErrors.email"
-        class="text-red-500 text-sm mt-1"
-      >
+    <div
+      class="field"
+      :class="{ 'is-invalid': touchedFields.email && formErrors.email }"
+    >
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.email") }}</span>
+        <AtomsInputText
+          :modelValue="formValues.email"
+          @updateValue="updateField('email', $event)"
+          @blur="onBlur('email')"
+        />
+      </label>
+      <p v-if="touchedFields.email && formErrors.email" class="field__error">
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
         {{ formErrors.email }}
       </p>
     </div>
 
-    <div class="flex">
-      <div class="mb-4 mr-2 w-1/2">
-        <p class="mb-1">{{ t("forms.fields.cap") }}</p>
+    <div
+      class="field field--cap"
+      :class="{ 'is-invalid': touchedFields.cap && formErrors.cap }"
+    >
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.cap") }}</span>
         <AtomsInputText
           :modelValue="formValues.cap"
           @updateValue="updateField('cap', $event)"
           @blur="onBlur('cap')"
         />
-        <p
-          v-if="touchedFields.cap && formErrors.cap"
-          class="text-red-500 text-sm mt-1"
-        >
-          {{ formErrors.cap }}
-        </p>
-      </div>
+      </label>
+      <p v-if="touchedFields.cap && formErrors.cap" class="field__error">
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
+        {{ formErrors.cap }}
+      </p>
+    </div>
 
-      <div class="mb-4 ml-2 w-1/2">
-        <p class="mb-1">{{ t("forms.fields.city") }}</p>
+    <div
+      class="field field--city"
+      :class="{ 'is-invalid': touchedFields.city && formErrors.city }"
+    >
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.city") }}</span>
         <AtomsInputText
           :modelValue="formValues.city"
           @updateValue="updateField('city', $event)"
           @blur="onBlur('city')"
         />
-        <p
-          v-if="touchedFields.city && formErrors.city"
-          class="text-red-500 text-sm mt-1"
-        >
-          {{ formErrors.city }}
-        </p>
-      </div>
+      </label>
+      <p v-if="touchedFields.city && formErrors.city" class="field__error">
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
+        {{ formErrors.city }}
+      </p>
     </div>
 
-    <div class="mb-4">
-      <p class="mb-1">{{ t("forms.fields.streetAndHouseNumber") }}</p>
-      <AtomsInputText
-        :modelValue="formValues.streetAndHouseNumber"
-        @updateValue="updateField('streetAndHouseNumber', $event)"
-        @blur="onBlur('streetAndHouseNumber')"
-      />
+    <div
+      class="field"
+      :class="{
+        'is-invalid':
+          touchedFields.streetAndHouseNumber && formErrors.streetAndHouseNumber,
+      }"
+    >
+      <label class="field__control">
+        <span class="field__label">
+          {{ t("forms.fields.streetAndHouseNumber") }}
+        </span>
+        <AtomsInputText
+          :modelValue="formValues.streetAndHouseNumber"
+          @updateValue="updateField('streetAndHouseNumber', $event)"
+          @blur="onBlur('streetAndHouseNumber')"
+        />
+      </label>
       <p
         v-if="
           touchedFields.streetAndHouseNumber && formErrors.streetAndHouseNumber
         "
-        class="text-red-500 text-sm mt-1"
+        class="field__error"
       >
+        <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
         {{ formErrors.streetAndHouseNumber }}
       </p>
     </div>
 
-    <div class="flex items-center">
+    <div class="invoice">
       <AtomsCheckbox
-        class="mr-2"
         :modelValue="formValues.iWantTheInvoice"
         @click="toggleCheckbox"
       />
-      <p class="text-left">{{ t("forms.fields.iWantTheInvoice") }}</p>
+      <p class="invoice__text">{{ t("forms.fields.iWantTheInvoice") }}</p>
     </div>
   </div>
 </template>
@@ -228,3 +259,98 @@ function emitFormStatus() {
   });
 }
 </script>
+
+<style scoped>
+/* Griglia a 6 colonne: nome e cognome affiancati da 640px, CAP stretto
+   accanto alla città sempre (5 cifre non chiedono mezza riga). */
+.co-form {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 18px 14px;
+}
+
+.field {
+  grid-column: span 6;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .field--half {
+    grid-column: span 3;
+  }
+}
+
+.field--cap {
+  grid-column: span 2;
+}
+
+.field--city {
+  grid-column: span 4;
+}
+
+.field__control {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 16px;
+  line-height: 1.5;
+  cursor: text;
+}
+
+.field__label {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--im-muted);
+  cursor: inherit;
+  transition: color 0.2s ease;
+}
+
+.field__control:focus-within .field__label {
+  color: var(--im-pink);
+}
+
+/* Altezza e corpo uguali per tutti i campi; 16px evitano lo zoom di iOS. */
+.field :deep(.jc-input) {
+  min-height: 50px;
+  font-size: 16px;
+}
+
+.field.is-invalid :deep(.jc-input) {
+  border-color: rgba(255, 128, 150, 0.7);
+  box-shadow: 0 0 0 3px rgba(255, 128, 150, 0.12);
+}
+
+.field__error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #ff9aab;
+}
+
+.invoice {
+  grid-column: span 6;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--im-line);
+}
+
+.invoice__text {
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--im-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field__label {
+    transition: none;
+  }
+}
+</style>

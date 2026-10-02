@@ -16,6 +16,11 @@ export type CartLine = {
   variantId: string;
   blueprintId: number;
   productSlug: string;
+  /**
+   * Scheda prodotto, per tornarci dal carrello. Manca nelle righe salvate
+   * prima che esistesse: la completa `revalidate()`.
+   */
+  productUrl?: string;
   name: string;
   imageUrl: string;
   language: string;
@@ -157,8 +162,15 @@ export const useCartStore = defineStore("cart", {
         slugs.map((slug) => getProduct(slug).catch(() => null)),
       );
 
+      const urls = new Map<string, string>();
       const variants = new Map<string, { priceCents: number; quantity: number }>();
       for (const product of products) {
+        if (product) {
+          urls.set(
+            product.slug,
+            `/${product.gameSlug}/${product.categorySlug}/${product.slug}`,
+          );
+        }
         for (const variant of product?.variants ?? []) {
           variants.set(variant.variantId, {
             priceCents: variant.priceCents,
@@ -183,6 +195,7 @@ export const useCartStore = defineStore("cart", {
 
         line.priceCents = live.priceCents;
         line.availableQuantity = live.quantity;
+        line.productUrl = urls.get(line.productSlug) ?? line.productUrl;
 
         if (line.quantity > live.quantity) {
           issues.push({

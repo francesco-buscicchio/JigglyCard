@@ -1,24 +1,16 @@
 <template>
-  <div class="flex flex-col gap-y-4">
-    <div v-if="allFilters" class="flex flex-row flex-wrap gap-2">
-      <div
-        v-for="key in allFilters"
-        class="flex flex-row items-start flex-wrap gap-2"
-      >
-        <AtomsFilterTag
-          v-for="item of key"
-          :key="item"
-          :text="labelFor(item)"
-          @remove-filter="removeFilter(item)"
-        />
-      </div>
-    </div>
-    <AtomsButtonCTA
-      v-if="filters"
-      type="text"
-      :text="t('clearFilters')"
-      @button-clicked="removeAllFilters"
-    />
+  <div v-if="hasActiveFilters" class="flex flex-row flex-wrap items-center gap-2">
+    <template v-for="key in allFilters">
+      <AtomsFilterTag
+        v-for="item of key"
+        :key="item"
+        :text="labelFor(item)"
+        @remove-filter="removeFilter(item)"
+      />
+    </template>
+    <button type="button" class="clear-all" @click="removeAllFilters">
+      {{ t("catalog.controls.clear") }}
+    </button>
   </div>
 </template>
 
@@ -53,6 +45,13 @@ const labelFor = (value: string) => {
 };
 
 const allFilters = computed(() => props.filters);
+
+/** I filtri arrivano sempre come oggetto: conta se c'è almeno una voce. */
+const hasActiveFilters = computed(() =>
+  Object.values(allFilters.value ?? {}).some(
+    (values) => Array.isArray(values) && values.length > 0,
+  ),
+);
 const removeAllFilters = () => {
   for (let key in allFilters.value) allFilters.value[key] = [];
 
@@ -69,3 +68,16 @@ const removeFilter = (item: string) => {
   emit("update-filters", toRaw(allFilters.value));
 };
 </script>
+
+<style scoped>
+.clear-all {
+  padding: 4px 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--im-pink);
+}
+
+.clear-all:hover {
+  text-decoration: underline;
+}
+</style>

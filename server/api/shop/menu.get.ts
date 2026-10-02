@@ -1,6 +1,7 @@
 import { cmsFetch } from "~/server/utils/cms";
 import type { CmsMenu } from "~/types/shop";
 import { defineCachedShopHandler } from "~/server/utils/cachedShopHandler";
+import { SHOP_GAME } from "~/data/const";
 
 /**
  * L'albero di navigazione cambia solo dopo un sync del catalogo: si può
@@ -8,6 +9,12 @@ import { defineCachedShopHandler } from "~/server/utils/cachedShopHandler";
  * perché qui non ci sono quantità.
  */
 export default defineCachedShopHandler(
-  async (event) => cmsFetch<CmsMenu>(event, "/catalog/menu"),
+  async (event) => {
+    const menu = await cmsFetch<CmsMenu>(event, "/catalog/menu");
+    return {
+      ...menu,
+      tree: (menu.tree ?? []).filter((game) => game.slug === SHOP_GAME),
+    };
+  },
   { maxAge: 600, name: "shop-menu", getKey: () => "menu" },
 );

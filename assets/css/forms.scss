@@ -1,0 +1,138 @@
+/*
+ * Form FormKit nel tema notturno (oggi il modulo contatti di chi-siamo; il
+ * checkout usa InputText): campi di vetro, etichette e messaggi coerenti con
+ * InputText. Le regole vanno qui e non nel tema generato (formkit.theme.ts),
+ * che resta quello di FormKit.
+ *
+ * Si aggancia alle classi semantiche (`formkit-inner`, `formkit-label`…) e
+ * agli attributi `data-*` che FormKit mette sempre, non alle utility del
+ * tema. Il prefisso `:root` alza la specificità sopra le varianti `dark:` e
+ * `group-data-[invalid]:` del tema; `!important` serve solo dove il tema usa
+ * a sua volta utility con "!" (il focus dei campi).
+ */
+
+:root {
+  /* --- Etichette, aiuti e messaggi ---------------------------------- */
+
+  .formkit-outer .formkit-label,
+  .formkit-outer .formkit-legend {
+    margin-bottom: 8px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.3;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--im-muted);
+  }
+
+  .formkit-outer .formkit-help {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--im-muted);
+  }
+
+  .formkit-outer .formkit-message {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #ff9aab;
+  }
+
+  /* --- Campi di testo e area di testo ------------------------------- */
+
+  .formkit-outer[data-family="text"] .formkit-inner,
+  .formkit-outer[data-type="textarea"] .formkit-inner {
+    border: 1px solid var(--im-line);
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.04);
+    box-shadow: none;
+    color: var(--im-ink);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .formkit-outer[data-family="text"] .formkit-inner {
+    min-height: 50px;
+    padding: 12px 16px;
+  }
+
+  .formkit-outer[data-family="text"] .formkit-inner:hover,
+  .formkit-outer[data-type="textarea"] .formkit-inner:hover {
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  .formkit-outer[data-family="text"] .formkit-inner:focus-within,
+  .formkit-outer[data-type="textarea"] .formkit-inner:focus-within {
+    border-color: var(--im-pink-strong) !important;
+    background-color: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 0 4px rgba(236, 145, 160, 0.16) !important;
+  }
+
+  .formkit-outer[data-family="text"][data-invalid] .formkit-inner,
+  .formkit-outer[data-type="textarea"][data-invalid] .formkit-inner {
+    border-color: rgba(255, 128, 150, 0.7);
+    box-shadow: 0 0 0 3px rgba(255, 128, 150, 0.12);
+  }
+
+  .formkit-outer[data-family="text"] .formkit-input,
+  .formkit-outer[data-type="textarea"] .formkit-input {
+    font-size: 16px;
+    color: var(--im-ink);
+    background: transparent;
+  }
+
+  .formkit-outer[data-family="text"] .formkit-input::placeholder,
+  .formkit-outer[data-type="textarea"] .formkit-input::placeholder {
+    color: var(--im-muted);
+    opacity: 0.7;
+  }
+
+  .formkit-outer[data-type="textarea"] .formkit-input {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  .formkit-outer .formkit-prefix-icon,
+  .formkit-outer .formkit-suffix-icon {
+    color: var(--im-muted);
+  }
+
+  /* --- Checkbox e radio --------------------------------------------- */
+
+  .formkit-outer[data-family="box"] .formkit-decorator {
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: none;
+    color: transparent;
+  }
+
+  .formkit-outer[data-family="box"] .formkit-input:checked ~ .formkit-decorator {
+    border-color: transparent;
+    background: linear-gradient(135deg, #fde4e8, var(--im-pink-strong));
+    color: #2a0a14;
+  }
+
+  .formkit-outer[data-family="box"] .formkit-input:focus-visible ~ .formkit-decorator {
+    outline: 2px solid var(--im-teal);
+    outline-offset: 2px;
+  }
+
+  /* Accanto a una casella l'etichetta è una frase, non un'intestazione:
+     niente maiuscoletto mono (margine e corpo li fissa già il tema). */
+  .formkit-outer[data-family="box"] .formkit-label {
+    font-family: "Roboto Flex", sans-serif;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--im-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root .formkit-outer .formkit-inner {
+    transition: none;
+  }
+}

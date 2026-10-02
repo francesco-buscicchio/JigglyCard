@@ -1,5 +1,5 @@
 <template>
-  <div v-for="product of products" class="border-t-[2px] border-primary-950">
+  <div v-for="product of products" :key="product.id" class="pb-3">
     <MoleculesProductCard
       :productName="product.productName"
       :code="product.code"
@@ -14,6 +14,7 @@
       :languages="product.languages"
       :conditions="product.conditions"
       :quantity="product.quantity"
+      :product="product"
     />
   </div>
 </template>

@@ -1,13 +1,25 @@
+/**
+ * Palette notturna del sito, la stessa della home immersiva
+ * (assets/css/immersive.scss).
+ *
+ * I nomi restano quelli di prima per non dover riscrivere ogni componente, ma
+ * le scale chiare/scure sono girate per il fondo scuro:
+ * - `accent-5…50`: superfici, dalla più profonda alla più rialzata;
+ * - `accent-500`: il rosa del brand, per azioni e link (testo sopra: `accent-50`);
+ * - `accent-950`: testo principale e titoli;
+ * - `neutrals-50…950`: dal fondo al testo, cioè invertita rispetto al grigio
+ *   classico (`neutrals-200` bordi, `neutrals-500` testo secondario).
+ */
 export const colors = {
   accent: {
-    5: "#FAFDFF",
-    10: "#F3FAFE",
-    20: "#F2F9FE",
-    30: "#EFF8FE",
-    40: "#EDF7FE",
-    50: "#EBF6FE",
-    500: "#006482",
-    950: "#003849",
+    5: "#0B0E29",
+    10: "#0E1131",
+    20: "#111538",
+    30: "#13183F",
+    40: "#161B46",
+    50: "#181D4D",
+    500: "#EC91A0",
+    950: "#F6F3FF",
   },
   primary: {
     10: "#FEFCFC",
@@ -27,16 +39,16 @@ export const colors = {
     950: "#410B14",
   },
   neutrals: {
-    50: "#FAFAFA",
-    100: "#F5F5F5",
-    200: "#E5E5E5",
-    300: "#D4D4D4",
-    400: "#A3A3A3",
-    500: "#737373",
-    600: "#525252",
-    700: "#404040",
-    800: "#262626",
-    900: "#171717",
-    950: "#0A0A0A",
+    50: "#0C0F2B",
+    100: "#13173A",
+    200: "#1E2350",
+    300: "#2C3266",
+    400: "#555B92",
+    500: "#9095C4",
+    600: "#B0B4DC",
+    700: "#CBCDEE",
+    800: "#DFE0F8",
+    900: "#EEEEFD",
+    950: "#F8F7FF",
   },
 };

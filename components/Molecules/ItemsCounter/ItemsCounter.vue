@@ -5,13 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ITEMS_FOR_PAGE_MOBILE, ITEMS_FOR_PAGE_DESKTOP } from "~/data/const";
 const { t } = useI18n();
-const isDesktopView = isDesktop();
-
-const itemsForPage = computed(() => {
-  return isDesktopView.value ? ITEMS_FOR_PAGE_DESKTOP : ITEMS_FOR_PAGE_MOBILE;
-});
 
 const props = defineProps({
   page: {
@@ -22,17 +16,18 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  /** Prodotti per pagina: li decide la griglia (vedi `useListingGrid`). */
+  perPage: {
+    type: Number,
+    default: 12,
+  },
 });
 
-const startItem = computed(() => {
-  return (props.page - 1) * itemsForPage.value + 1;
-});
+const startItem = computed(() =>
+  props.totalItems ? (props.page - 1) * props.perPage + 1 : 0,
+);
 
-const endItem = computed(() => {
-  const currentEndItem =
-    props.page * itemsForPage.value > props.totalItems
-      ? props.totalItems
-      : props.page * itemsForPage.value;
-  return currentEndItem;
-});
+const endItem = computed(() =>
+  Math.min(props.page * props.perPage, props.totalItems),
+);
 </script>

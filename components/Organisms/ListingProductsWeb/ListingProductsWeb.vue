@@ -14,6 +14,7 @@
       :languages="product.languages"
       :conditions="product.conditions"
       :quantity="product.quantity"
+      :product="product"
     />
   </div>
 </template>

@@ -8,7 +8,7 @@
     >
       <SwiperSlide v-for="news in props.news">
         <div
-          class="w-full bg-black text-center py-2 text-xs text-white"
+          class="w-full bg-accent-5 text-center py-2 text-xs text-white"
           :class="news.url ? 'underline' : ''"
           @click="handleClick(news)"
         >

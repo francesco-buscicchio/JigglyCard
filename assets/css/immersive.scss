@@ -1,0 +1,261 @@
+/*
+ * Tema notturno del sito: palette con i colori del brand (il rosa di
+ * Jigglypuff su un blu notte), titoli display e utility condivise.
+ *
+ * I token stanno su `:root` perché valgono per tutte le pagine (la palette
+ * Tailwind in config/tailwind/colors.ts usa gli stessi valori); `.immersive`
+ * aggiunge solo l'impaginazione a tutta pagina delle sezioni della home.
+ */
+
+:root {
+  --im-bg: #070a1f;
+  --im-bg-2: #0f0c2e;
+  --im-surface: rgba(255, 255, 255, 0.05);
+  --im-surface-strong: rgba(255, 255, 255, 0.09);
+  --im-line: rgba(255, 255, 255, 0.1);
+  --im-ink: #f6f3ff;
+  --im-muted: rgba(226, 222, 255, 0.68);
+  --im-pink: #f7d2d8;
+  --im-pink-strong: #ec91a0;
+  --im-rose: #e05168;
+  --im-teal: #5cc8e0;
+  --im-violet: #a78bfa;
+  --im-gold: #ffd27a;
+}
+
+/*
+ * Fondo di tutte le pagine: due aloni (rosa e petrolio) e una griglia
+ * sottilissima, fermi mentre la pagina scorre. Le sezioni della home hanno
+ * fondi propri e li coprono.
+ */
+body {
+  background-color: var(--im-bg);
+  background-image:
+    radial-gradient(1100px 620px at 88% -8%, rgba(236, 145, 160, 0.11), transparent 62%),
+    radial-gradient(900px 560px at -8% 4%, rgba(92, 200, 224, 0.08), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: auto, auto, 56px 56px, 56px 56px;
+  background-attachment: fixed;
+}
+
+/* Filo luminoso sotto l'header, dal rosa al petrolio. */
+.header-glow-line {
+  position: relative;
+}
+
+.header-glow-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(247, 210, 216, 0.45) 30%,
+    rgba(92, 200, 224, 0.45) 70%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.immersive {
+  position: relative;
+  overflow-x: clip;
+  color: var(--im-ink);
+  background: var(--im-bg);
+
+  p,
+  span,
+  label {
+    color: inherit;
+  }
+
+  a,
+  a *,
+  button,
+  button * {
+    cursor: pointer;
+  }
+}
+
+.im-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 20px;
+
+  @media (min-width: 768px) {
+    padding-inline: 40px;
+  }
+}
+
+.im-display {
+  font-family: "Unbounded", "Roboto Flex", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--im-ink);
+}
+
+.im-title {
+  font-size: clamp(34px, 5.4vw, 72px);
+}
+
+.im-gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--im-pink) 0%,
+    var(--im-pink-strong) 30%,
+    var(--im-violet) 60%,
+    var(--im-teal) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: im-gradient-pan 8s ease-in-out infinite alternate;
+}
+
+.im-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--im-pink);
+}
+
+.im-lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--im-muted);
+
+  @media (min-width: 1024px) {
+    font-size: 19px;
+  }
+}
+
+.im-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: 999px;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  white-space: nowrap;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+
+  &:focus-visible {
+    outline: 2px solid var(--im-teal);
+    outline-offset: 3px;
+  }
+}
+
+.im-btn--primary {
+  color: #2a0a14;
+  background: linear-gradient(135deg, #fde4e8 0%, var(--im-pink) 35%, var(--im-pink-strong) 100%);
+  box-shadow:
+    0 10px 30px -8px rgba(236, 145, 160, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 16px 40px -8px rgba(236, 145, 160, 0.85),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+}
+
+.im-btn--ghost {
+  color: var(--im-ink);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.im-glass {
+  border: 1px solid var(--im-line);
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.03)
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/*
+ * Intro della home (Organisms/HomeIntro). Queste regole dipendono da una
+ * classe su <html> e non possono stare nel CSS scoped dei componenti: lì
+ * `:global(html.jc-intro) .intro` viene compilato come `html.jc-intro`, cioè
+ * finirebbe per dare `display: flex` all'intera pagina.
+ */
+html.jc-intro .intro {
+  display: flex;
+}
+
+/* Finché l'intro è a schermo le entrate della hero restano ferme al primo
+   fotogramma: partono quando la ball si apre. */
+html.jc-intro .hero-in,
+html.jc-intro .hero-in-line,
+html.jc-intro .hero__card,
+html.jc-intro .hero__latest {
+  animation-play-state: paused;
+}
+
+/* Entrata in scena, pilotata da `v-reveal` (plugins/reveal.ts). Nasconde
+   solo se il plugin è attivo (`has-reveal`): mai contenuti invisibili. */
+html.has-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(8px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 0.9s ease;
+}
+
+html.has-reveal [data-reveal][data-revealed] {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+@keyframes im-gradient-pan {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-reveal [data-reveal] {
+    transform: none;
+    filter: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .im-gradient-text {
+    animation: none;
+  }
+}

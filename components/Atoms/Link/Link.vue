@@ -49,7 +49,7 @@ function handleClick() {
 <style scoped>
 .atoms-link {
   @apply text-neutrals-950 no-underline;
-  font-family: "Roboto Serif", serif;
+  font-family: "Unbounded", "Roboto Flex", sans-serif;
   font-size: 20px;
   line-height: 24px;
   font-weight: 500;
@@ -60,9 +60,9 @@ function handleClick() {
   @apply underline;
 }
 .atoms-link:active {
-  @apply text-[#124453]
+  @apply text-accent-950
 }
 .visited-link {
-  @apply text-[#0EA5E9];
+  @apply text-neutrals-700;
 }
 </style>

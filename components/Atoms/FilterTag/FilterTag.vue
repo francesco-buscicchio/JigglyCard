@@ -1,20 +1,20 @@
 <template>
-  <div class="relative">
-    <div class="bg-accent-50 rounded-xl p-4 pr-12">
-      <p>{{ text }}</p>
-    </div>
+  <span class="ftag">
+    <span class="ftag__label">{{ text }}</span>
     <button
-      class="absolute inset-y-0 right-0 flex items-center pr-4"
+      type="button"
+      class="ftag__remove"
       @click="emitClick"
-      aria-label="Remove filter"
+      :aria-label="`${t('catalog.controls.remove')} ${text}`"
     >
-      <Icon name="jig:close-filter" size="10" />
+      <Icon name="heroicons:x-mark-16-solid" size="14" />
     </button>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
 const emit = defineEmits(["removeFilter"]);
+const { t } = useI18n();
 const props = defineProps({
   text: {
     type: String,
@@ -26,3 +26,31 @@ const emitClick = () => {
   emit("removeFilter", props.text);
 };
 </script>
+
+<style scoped>
+.ftag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 6px 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(247, 210, 216, 0.35);
+  background: rgba(247, 210, 216, 0.1);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--im-ink);
+}
+
+.ftag__remove {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 999px;
+  color: var(--im-muted);
+  transition: all 0.2s ease;
+}
+
+.ftag__remove:hover {
+  color: #2a0a14;
+  background: var(--im-pink);
+}
+</style>

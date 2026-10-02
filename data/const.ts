@@ -26,14 +26,25 @@ export const HIGHLIGHT_MAX_PRICE_CENTS = 50000;
 export const DEALS_RARITY = "Illustration Rare";
 export const SUGGESTED = "SUGGESTED";
 
-export const ITEMS_FOR_PAGE_MOBILE = 9;
-export const ITEMS_FOR_PAGE_DESKTOP = 12;
-
 export const FOOTER_MENU_ITEMS = [
-  { link: "about", route: "/about" },
+  { link: "about", route: "/chi-siamo" },
   { link: "shipping", route: "/spedizioni" },
   { link: "support", route: "/assistenza" },
 ];
+
+/**
+ * Il negozio vende solo Pokémon. Il CMS sincronizza da CardTrader anche gli
+ * altri giochi: il filtro sta nelle rotte `server/api/shop/*`, così menu,
+ * ricerca, vetrine e schede prodotto restano coerenti senza toccare il CMS.
+ */
+export const SHOP_GAME = "pokemon";
+
+/**
+ * Lingua delle buste aperte virtualmente in home: il negozio tratta le buste
+ * giapponesi, e le carte che "escono" sono le singole giapponesi dello stesso
+ * set. È il valore di lingua delle varianti CardTrader.
+ */
+export const PACK_OPENING_LANGUAGE = "jp";
 
 export const PATH = {
   HOME: "/",

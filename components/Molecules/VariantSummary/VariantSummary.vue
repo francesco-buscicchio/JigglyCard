@@ -1,9 +1,15 @@
 <template>
-  <div v-if="labels.length" class="flex flex-wrap items-center gap-1">
+  <div
+    v-if="labels.length"
+    class="flex items-center gap-1"
+    :class="singleLine ? 'flex-nowrap overflow-hidden' : 'flex-wrap'"
+  >
     <span
       v-for="label in labels"
       :key="label"
       class="rounded-full border border-neutrals-300 px-2 py-0.5 text-xs leading-tight text-neutrals-600"
+      :class="{ 'min-w-0 truncate': singleLine }"
+      :title="singleLine ? label : undefined"
     >
       {{ label }}
     </span>
@@ -33,6 +39,14 @@ const props = defineProps({
   max: {
     type: Number,
     default: 3,
+  },
+  /**
+   * Sempre su una riga, troncando le etichette lunghe: nelle card una seconda
+   * riga ("Lievemente giocata") le rendeva più alte delle vicine.
+   */
+  singleLine: {
+    type: Boolean,
+    default: false,
   },
 });
 

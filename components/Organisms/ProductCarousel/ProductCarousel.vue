@@ -1,6 +1,11 @@
 <template>
-  <div :class="containerClass">
-    <h3 :class="titleClass">{{ title }}</h3>
+  <div class="carousel-section" :class="containerClass">
+    <!-- Titolo fra due fili di luce, come i divisori della home. -->
+    <div class="carousel-section__head">
+      <span class="carousel-section__line" aria-hidden="true"></span>
+      <h3 :class="titleClass">{{ title }}</h3>
+      <span class="carousel-section__line carousel-section__line--end" aria-hidden="true"></span>
+    </div>
     <div class="max-w-full">
       <div
         v-if="loading || !productList.length"
@@ -9,7 +14,7 @@
         <div
           v-for="item in skeletonItems"
           :key="item"
-          class="w-56 h-80 bg-neutral-100 rounded-2xl animate-pulse"
+          class="w-56 h-80 bg-neutrals-100 rounded-2xl animate-pulse"
         ></div>
       </div>
       <template v-else>
@@ -39,6 +44,7 @@
             :languages="product.languages"
             :conditions="product.conditions"
             :quantity="product.quantity"
+            :product="product"
             />
           </SwiperSlide>
         </Swiper>
@@ -81,23 +87,20 @@ const productList = computed(() => props.products ?? []);
 const controlledSwiper = ref();
 const skeletonItems = [0, 1, 2];
 
+// Niente più fasce piene colorate: la sezione sta sul fondo notte del sito,
+// e la variante "primary" diventa un pannello di vetro rosato.
 const containerClass = computed(() => {
   switch (props.colorScheme) {
     case "primaryHome":
-      return "bg-accent-500 pt-10 pb-6";
+      return "carousel-section--primary";
     case "lightHome":
-      return "bg-white pt-10 pb-6";
+      return "carousel-section--light";
     default:
       return "";
   }
 });
 
-const titleClass = computed(() => {
-  if (props.colorScheme == "primaryHome")
-    return "text-white text-center w-full pb-4";
-
-  return "text-accent-500 text-center w-full pb-4";
-});
+const titleClass = computed(() => "carousel-section__title");
 
 const setControlledSwiper = (swiper: Swiper) => {
   controlledSwiper.value = swiper;
@@ -116,3 +119,58 @@ function updateIndex(index: number) {
   controlledSwiper.value.slideTo(index);
 }
 </script>
+
+<style scoped>
+.carousel-section {
+  position: relative;
+}
+
+.carousel-section--light,
+.carousel-section--primary {
+  padding: 32px 0 16px;
+}
+
+.carousel-section--primary {
+  padding-inline: 12px;
+  border-radius: 24px;
+  border: 1px solid var(--im-line);
+  background:
+    radial-gradient(80% 120% at 100% 0%, rgba(92, 200, 224, 0.18), transparent 60%),
+    radial-gradient(80% 120% at 0% 100%, rgba(236, 145, 160, 0.24), transparent 60%),
+    linear-gradient(135deg, #1a1650 0%, #0e1238 100%);
+}
+
+/* Su mobile il titolo va spesso su due righe: i fili laterali resterebbero
+   schiacciati, quindi diventano un'unica lineetta sopra il titolo. */
+.carousel-section__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px 18px;
+}
+
+.carousel-section__line {
+  width: 48px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--im-pink-strong), var(--im-teal));
+}
+
+.carousel-section__line--end {
+  display: none;
+}
+
+.carousel-section__title {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-family: "Unbounded", "Roboto Flex", sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 6vw, 26px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--im-ink);
+}
+</style>

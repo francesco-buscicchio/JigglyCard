@@ -1,5 +1,6 @@
 export default defineNuxtRouteMiddleware((to) => {
   const { host } = useRequestURL();
+  /*
   console.log("Host: ", host);
   if (host === "localhost:3010" || host === "www.jigglycard.com") {
     console.log("Host giusto");
@@ -12,7 +13,7 @@ export default defineNuxtRouteMiddleware((to) => {
       return navigateTo("/landing");
   }
 
-  /*const config = useRuntimeConfig();
+  const config = useRuntimeConfig();
   if (to.path !== "/welcome" && config.public.NODE_ENV !== "development") {
      return navigateTo("/welcome");
   }*/
