@@ -85,7 +85,7 @@
                 :alt="card.name"
                 :flipped="index >= revealed"
                 :foil="slots[index] === 'main' ? 'rainbow' : 'holo'"
-                :eager="slots[index] === 'main'"
+                eager
                 shimmer
               />
             </component>
