@@ -46,6 +46,10 @@ export function useBoosterPacks() {
    * Buste disponibili, tenendo solo quelle il cui set ha abbastanza carte
    * singole per riempire una busta. Il conteggio per set arriva dalle
    * faccette del catalogo: una chiamata sola invece di una per busta.
+   *
+   * Prima la busta del set più recente: è quella che si apre nella home.
+   * L'ordine di uscita lo dà il blueprint della busta, perché CardTrader lo crea
+   * quando il set viene pubblicato e gli id crescono nel tempo.
    */
   const loadPacks = async (categories: { booster: string; singles: string }) => {
     if (status.value === "loading" || status.value === "ready") return;
@@ -76,7 +80,8 @@ export function useBoosterPacks() {
         singles.facets.expansions.map((entry) => [entry.value, entry.count]),
       );
 
-      packs.value = boosters.items
+      packs.value = [...boosters.items]
+        .sort((a, b) => b.blueprintId - a.blueprintId)
         .map((product) => {
           const mapped = mapStorefrontProduct(product, locale.value);
           return {
@@ -91,7 +96,6 @@ export function useBoosterPacks() {
           };
         })
         .filter((pack) => pack.image && pack.cardsInStock >= PACK_HAND_SIZE)
-        .sort((a, b) => b.cardsInStock - a.cardsInStock)
         .slice(0, MAX_PACKS);
 
       status.value = "ready";
