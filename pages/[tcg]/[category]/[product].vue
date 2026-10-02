@@ -5,11 +5,10 @@
 
     <!-- Mobile: immagine e titolo in testa, poi lo stesso box d'acquisto
          del desktop e la descrizione, uno sotto l'altro.
-         `!isDesktopView` e non `isMobile()`: sul server la larghezza non si
-         conosce e i due test sono entrambi falsi. Così l'HTML del server
-         contiene la versione mobile (quella che Google indicizza); su desktop
-         la nasconde il CSS finché l'idratazione non la sostituisce. -->
-    <div v-if="!isDesktopView" class="product-stack">
+         Il server non conosce la larghezza dello schermo: manda sempre questa
+         versione (quella che Google indicizza), e il client la tiene fino al
+         montaggio (vedi `showDesktop`); su desktop intanto la nasconde il CSS. -->
+    <div v-if="!showDesktop" class="product-stack">
       <MoleculesProductPageHero
         :image="product.imageUrlLarge || product.imageUrl"
         :title="formatTitle(product.productName)"
@@ -42,7 +41,7 @@
     </div>
 
     <!-- Desktop: carta a sinistra, box d'acquisto di vetro a destra. -->
-    <div v-if="isDesktopView" class="product-desktop">
+    <div v-if="showDesktop" class="product-desktop">
       <div class="product-layout">
         <div class="product-media">
           <!-- Le carte singole si inclinano seguendo il mouse, senza riflessi;
@@ -132,6 +131,14 @@ definePageMeta({
 });
 
 const isDesktopView = isDesktop();
+/*
+ * Versione desktop solo dopo il montaggio: durante l'idratazione il client
+ * deve disegnare lo stesso HTML del server (la versione mobile), altrimenti
+ * Vue scarta quel pezzo di pagina e lo ricrea.
+ */
+const isMounted = ref(false);
+onMounted(() => (isMounted.value = true));
+const showDesktop = computed(() => isMounted.value && isDesktopView.value);
 import {
   createTagCondition,
   createTagLanguage,
@@ -353,7 +360,7 @@ const seoDescription = computed(() => {
     currency: "EUR",
   });
   const offer = isInStock.value
-    ? `Disponibile da ${price} su ${SITE_NAME}, spedizione in 2 giorni lavorativi.`
+    ? `Disponibile da ${price} su ${SITE_NAME}, spedizione in 3 giorni lavorativi.`
     : `Al momento non disponibile su ${SITE_NAME}.`;
 
   return truncateDescription(`${intro}. ${offer}`);
@@ -450,9 +457,9 @@ useHead({
   margin-top: 8px;
 }
 
-/* Conta solo prima dell'idratazione: sul desktop il server manda comunque la
-   versione mobile (vedi il template), e senza questa regola comparirebbe
-   per un attimo al posto di quella desktop. */
+/* Conta solo fino al montaggio: sul desktop server e idratazione disegnano
+   comunque la versione mobile (vedi `showDesktop`), e senza questa regola
+   comparirebbe per un attimo al posto di quella desktop. */
 @media (min-width: 1024px) {
   .product-stack {
     display: none;

@@ -169,7 +169,7 @@ const buildFilters = (): ShopCatalogFilters => {
     ...activeFilters.value,
     page: currentPage.value,
     perPage: (fetchedPerPage = perPage.value),
-    sort: SORT_MAP[currentSorting.value] ?? "relevance",
+    sort: SORT_MAP[currentSorting.value] ?? "newest",
   };
 
   if (isSearchRoute.value) {
@@ -385,7 +385,7 @@ const seoTitle = computed(() => {
 });
 
 const seoDescription = computed(() => {
-  const closing = "Ordini spediti in 2 giorni lavorativi.";
+  const closing = "Ordini spediti in 3 giorni lavorativi.";
   if (route.params.category === "all" || isSearchRoute.value) {
     return truncateDescription(
       `Carte Pokémon singole, buste, box e prodotti sigillati su Jigglycard, con filtri per set, lingua, condizione e prezzo. ${closing}`,

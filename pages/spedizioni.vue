@@ -97,7 +97,7 @@ onMounted(async () => {
 usePageSeo({
   title: t("layout.footer.links.shipping"),
   description:
-    "Metodi e costi di spedizione di Jigglycard, come imballiamo le carte e come chiedere un reso o un rimborso. Ordini spediti in 2 giorni lavorativi, sempre protetti.",
+    "Metodi e costi di spedizione di Jigglycard, come imballiamo le carte e come chiedere un reso o un rimborso. Ordini spediti in 3 giorni lavorativi, sempre protetti.",
 });
 </script>
 

@@ -25,7 +25,7 @@
     },
     "footer": {
       "links": {
-        "about": "About",
+        "about": "Chi siamo",
         "shipping": "Spedizioni, resi e rimborsi",
         "support": "Assistenza"
       }
@@ -94,7 +94,7 @@
     "service": {
       "fastShipping": {
         "title": "Spedizioni tracciate e protette",
-        "description": "Ogni ordine parte con corriere tracciato, di norma entro due giorni lavorativi, con le carte in bustina e toploader."
+        "description": "Ogni ordine parte con corriere tracciato, di norma entro tre giorni lavorativi, con le carte in bustina e toploader."
       },
       "support": {
         "title": "Assistenza dedicata",
@@ -125,7 +125,7 @@
       "hero": {
         "marqueeLabel": "Vantaggi del negozio",
         "marquee": {
-          "shipping": "Ordini spediti in 2 giorni lavorativi",
+          "shipping": "Ordini spediti in 3 giorni lavorativi",
           "payments": "Pagamenti sicuri e protetti",
           "sell": "Vendi la tua collezione: valutazione su appuntamento",
           "games": "Carte singole, buste e box sigillati"
@@ -134,11 +134,11 @@
         "titleLine1": "Ogni carta",
         "titleLine2": "ha una storia.",
         "titleHighlight": "La prossima è tua.",
-        "lead": "Carte singole, buste e box sigillati, scelti da collezionisti per collezionisti. Trova il pezzo che manca alla tua raccolta: lo spediamo in due giorni lavorativi, sempre protetto.",
+        "lead": "Carte singole, buste e box sigillati, scelti da collezionisti per collezionisti. Trova il pezzo che manca alla tua raccolta: lo spediamo in tre giorni lavorativi, sempre protetto.",
         "ctaPrimary": "Trova la tua carta",
         "ctaSecondary": "Apri una busta",
         "trust": {
-          "shipping": "Spedizione in 2 giorni lavorativi",
+          "shipping": "Spedizione in 3 giorni lavorativi",
           "payments": "Pagamenti sicuri",
           "marketplaces": "Ci trovi anche su Cardmarket e Cardtrader"
         },
@@ -146,7 +146,7 @@
         "stats": {
           "products": "prodotti disponibili adesso",
           "shipping": "lavorativi per la spedizione",
-          "shippingValue": "2 giorni",
+          "shippingValue": "3 giorni",
           "payments": "pagamenti protetti",
           "singles": "carte singole disponibili"
         },
@@ -179,7 +179,7 @@
           "kicker": "Al sicuro",
           "title1": "Protetta,",
           "title2": "fino a casa tua.",
-          "text": "Ogni ordine parte entro due giorni lavorativi e viaggia sempre protetto, perché una carta perfetta deve arrivare perfetta.",
+          "text": "Ogni ordine parte entro tre giorni lavorativi e viaggia sempre protetto, perché una carta perfetta deve arrivare perfetta.",
           "cta": "Scopri le carte singole"
         }
       },
@@ -294,13 +294,11 @@
     },
     "sorting": {
       "sortBy": "Ordina per",
-      "mostPopular": "Più popolare",
+      "newest": "Novità",
       "priceCheapest": "Più economico",
       "priceExpensive": "Più caro",
       "nameAtoZ": "Nome (A - Z)",
-      "nameZtoA": "Nome (Z - A)",
-      "collectorsNumberLowest": "Per numero di collezione (prima il più basso)",
-      "collectorsNumberHighest": "Per numero di collezione (prima il più alto)"
+      "nameZtoA": "Nome (Z - A)"
     },
     "filters": {
       "language": "Lingua",
@@ -584,9 +582,9 @@
   },
   "toast": {
     "cart": {
-      "success": "Prodotto Aggiunto Al Carrello con Successo",
-      "error": "Per qualche problema tecnico il prodotto non e' stato aggiunto al carrello",
-      "overflow": "La quantità aggiunta al carrello è maggiore della quantità disponibile"
+      "success": "Prodotto aggiunto al carrello",
+      "error": "Non siamo riusciti ad aggiungere il prodotto al carrello. Riprova.",
+      "overflow": "Hai già nel carrello tutti i pezzi disponibili di questo prodotto."
     },
     "checkout": {
       "success": "Checkout Completato con Successo",

@@ -121,13 +121,10 @@ export function mapStorefrontPriceStats(facets: CmsProductList["facets"]) {
 
 /** Ordinamenti di `data/sorting.ts` (suffissi delle repliche Algolia) → CMS. */
 export const SORT_MAP: Record<string, string> = {
-  "": "relevance",
+  // Predefinito: prima le carte entrate a magazzino più di recente.
+  "": "newest",
   _price_asc: "price_asc",
   _price_desc: "price_desc",
   _name_asc: "name_asc",
   _name_desc: "name_desc",
-  // Il CMS non indicizza il numero da collezione come chiave d'ordinamento:
-  // si ricade sull'ordine alfabetico, che è il più vicino per l'utente.
-  _number_lowest: "name_asc",
-  _number_highest: "name_desc",
 };

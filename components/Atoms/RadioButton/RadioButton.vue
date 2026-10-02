@@ -1,8 +1,12 @@
 <template>
-  <label :for="id" class="flex items-center cursor-pointer">
+  <!-- L'input sta dentro la label, che quindi lo attiva da sola: con
+       `for="id"` un clic sul testo selezionava il primo elemento con quell'id,
+       e dove le stesse opzioni compaiono due volte (mobile e desktop) era
+       quello nascosto. -->
+  <label class="flex items-center cursor-pointer">
     <input
       type="radio"
-      :value="value"
+      :value="typeof value === 'object' ? id : value"
       :name="name"
       :disabled="disabled"
       :id="id"

@@ -13,7 +13,7 @@ export const SITE_NAME = "Jigglycard";
 export const SITE_TITLE = "Jigglycard – Carte Pokémon singole e collezionabili";
 
 export const SITE_DESCRIPTION =
-  "Negozio online di carte Pokémon: carte singole, buste, box e prodotti sigillati, ordini spediti in 2 giorni lavorativi. Valutiamo anche la tua collezione.";
+  "Negozio online di carte Pokémon: carte singole, buste, box e prodotti sigillati, ordini spediti in 3 giorni lavorativi. Valutiamo anche la tua collezione.";
 
 /**
  * Immagine di condivisione predefinita (1200×630). Sta in `public/` perché i

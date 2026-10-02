@@ -1,6 +1,10 @@
 <template>
   <!-- Il banner lo inietta lo script di iubenda: qui solo la sua configurazione
-       e, più sotto, lo stile notturno. -->
+       e, più sotto, lo stile notturno.
+       Serve comunque un elemento vero: in produzione i commenti spariscono, il
+       server non scriverebbe nulla mentre il browser si aspetta un segnaposto,
+       e l'idratazione sfasata duplicava l'intera pagina sotto il layout. -->
+  <span class="cookie-banner-anchor" hidden></span>
 </template>
 
 <script setup>

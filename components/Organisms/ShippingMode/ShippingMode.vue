@@ -31,7 +31,7 @@
         >
           <template #label>
             <span class="ship-option__name">{{ option.label }}</span>
-            <span class="ship-option__price">{{ option.price }}€</span>
+            <span class="ship-option__price">{{ Number(option.price).toFixed(2) }} €</span>
           </template>
         </AtomsRadioButton>
       </div>
@@ -82,7 +82,7 @@
             <Icon name="heroicons:x-mark-20-solid" size="16" />
           </button>
         </span>
-        <span class="coupon-applied__value">-{{ couponData.value }} €</span>
+        <span class="coupon-applied__value">-{{ Number(couponData.value).toFixed(2) }} €</span>
       </div>
 
       <div class="summary__total">
@@ -139,6 +139,7 @@ import { goTo } from "@/utils/navigationUtils";
 const { t } = useI18n();
 const { getShippingMethods } = useShop();
 import { type CartItem } from "~/composables/useCart";
+import { useCartStore } from "~/stores/cart";
 
 type ShippingOption = {
   id: string;
@@ -261,8 +262,17 @@ const updateCouponCode = (event: string) => {
   couponCode.value = event;
 };
 
+// Il totale comprende la spedizione scelta, come al checkout: prima mostrava
+// solo la merce e al passo dopo il cliente si trovava un importo più alto.
+const cartStore = useCartStore();
 const total = computed(() => {
-  return (Number(props.totalCart) - Number(props.couponData.value)).toFixed(2);
+  const shipping = cartStore.couponFreeShipping
+    ? 0
+    : Number(selectedOption.value?.price ?? 0);
+  return Math.max(
+    0,
+    Number(props.totalCart) - Number(props.couponData.value) + shipping,
+  ).toFixed(2);
 });
 
 const applyCoupon = () => {

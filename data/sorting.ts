@@ -1,6 +1,7 @@
+// Il primo elemento è l'ordinamento predefinito del catalogo.
 export default [
   {
-    name: "catalog.sorting.mostPopular",
+    name: "catalog.sorting.newest",
     value: "",
   },
   {
@@ -18,13 +19,5 @@ export default [
   {
     name: "catalog.sorting.nameZtoA",
     value: "_name_desc",
-  },
-  {
-    name: "catalog.sorting.collectorsNumberLowest",
-    value: "_number_lowest",
-  },
-  {
-    name: "catalog.sorting.collectorsNumberHighest",
-    value: "_number_highest",
   },
 ];

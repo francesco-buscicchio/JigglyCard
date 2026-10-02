@@ -25,7 +25,7 @@
     },
     "footer": {
       "links": {
-        "about": "About",
+        "about": "About us",
         "shipping": "Shipping, returns and refunds",
         "support": "Support"
       }
@@ -94,7 +94,7 @@
     "service": {
       "fastShipping": {
         "title": "Tracked, protected shipping",
-        "description": "Every order ships with a tracked courier, usually within two business days, with cards in sleeves and toploaders."
+        "description": "Every order ships with a tracked courier, usually within three business days, with cards in sleeves and toploaders."
       },
       "support": {
         "title": "Dedicated support",
@@ -125,7 +125,7 @@
       "hero": {
         "marqueeLabel": "Shop perks",
         "marquee": {
-          "shipping": "Orders shipped within 2 business days",
+          "shipping": "Orders shipped within 3 business days",
           "payments": "Safe and protected payments",
           "sell": "Sell your collection: appraisal by appointment",
           "games": "Singles, sealed packs and boxes"
@@ -134,11 +134,11 @@
         "titleLine1": "Every card",
         "titleLine2": "has a story.",
         "titleHighlight": "The next one is yours.",
-        "lead": "Singles, sealed packs and boxes, picked by collectors for collectors. Find the piece your collection is missing: we ship it within two business days, always protected.",
+        "lead": "Singles, sealed packs and boxes, picked by collectors for collectors. Find the piece your collection is missing: we ship it within three business days, always protected.",
         "ctaPrimary": "Find your card",
         "ctaSecondary": "Open a pack",
         "trust": {
-          "shipping": "Shipped within 2 business days",
+          "shipping": "Shipped within 3 business days",
           "payments": "Secure payments",
           "marketplaces": "Also on Cardmarket and Cardtrader"
         },
@@ -146,7 +146,7 @@
         "stats": {
           "products": "products available now",
           "shipping": "business days to ship",
-          "shippingValue": "2 days",
+          "shippingValue": "3 days",
           "payments": "protected payments",
           "singles": "singles in stock"
         },
@@ -179,7 +179,7 @@
           "kicker": "Safe",
           "title1": "Protected,",
           "title2": "all the way home.",
-          "text": "Every order leaves within two business days and always travels protected, because a perfect card must arrive perfect.",
+          "text": "Every order leaves within three business days and always travels protected, because a perfect card must arrive perfect.",
           "cta": "Browse the singles"
         }
       },
@@ -294,13 +294,11 @@
     },
     "sorting": {
       "sortBy": "Sort by",
-      "mostPopular": "Most Popular",
+      "newest": "Newest",
       "priceCheapest": "Cheapest",
       "priceExpensive": "Most Expensive",
       "nameAtoZ": "Name (A - Z)",
-      "nameZtoA": "Name (Z - A)",
-      "collectorsNumberLowest": "By collection number (lowest first)",
-      "collectorsNumberHighest": "By collection number (highest first)"
+      "nameZtoA": "Name (Z - A)"
     },
     "filters": {
       "language": "Language",
@@ -584,9 +582,9 @@
   },
   "toast": {
     "cart": {
-      "success": "Product successfully added to cart",
-      "error": "Due to a technical issue the product was not added to the cart",
-      "overflow": "The quantity added to the cart exceeds available stock"
+      "success": "Product added to your cart",
+      "error": "We couldn't add the product to your cart. Please try again.",
+      "overflow": "Your cart already has all the available pieces of this product."
     },
     "checkout": {
       "success": "Checkout Completato con Successo",
