@@ -23,11 +23,12 @@ export default defineNuxtConfig({
     storageKey: "jigglycard-color-mode",
   },
 
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
+  // Tailwind lo registra il modulo @nuxtjs/tailwindcss (incluso da @nuxt/ui),
+  // che però iniettava anche un suo CSS con le direttive @tailwind: insieme a
+  // quelle di main.scss ogni pagina riceveva due build intere (~370 KB inline).
+  // Resta solo main.scss, che ha già direttive e @layer.
+  tailwindcss: {
+    cssPath: false,
   },
   // Analytics solo dopo il consenso: in modalità manuale lo script Google non
   // si carica finché CookieBanner non chiama initialize() su consenso alle

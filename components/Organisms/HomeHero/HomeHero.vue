@@ -195,7 +195,10 @@ const trustItems = computed(() => [
 ]);
 
 /* ---- Carte che si girano a catalogo pronto ---- */
-const revealed = ref(0);
+// Se le carte arrivano già nell'HTML si mostrano subito dritte: aspettare gli
+// script per girarle le lasciava sul dorso per secondi su una rete lenta. Il
+// giro animato resta per quando la vetrina arriva dopo, dal browser.
+const revealed = ref(props.loading ? 0 : slots.length);
 let revealTimer: ReturnType<typeof setInterval> | null = null;
 
 const startReveal = () => {
@@ -311,7 +314,9 @@ const runCountUp = () => {
 watch(
   () => props.loading,
   (loading) => {
-    if (!loading) startReveal();
+    // Con le carte già nell'HTML la vetrina è pronta anche durante il render
+    // sul server, dove il timer del giro non deve partire.
+    if (!loading && import.meta.client) startReveal();
   },
   { immediate: true },
 );

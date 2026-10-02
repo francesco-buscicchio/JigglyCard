@@ -31,9 +31,18 @@ export function defineCachedShopHandler<T>(
     getKey: options.getKey ?? (() => options.name),
   });
 
+  // La cache di Nitro vive nella memoria della singola funzione Netlify, che
+  // nasce e muore spesso: chi capitava su una funzione nuova aspettava il CMS
+  // (anche 3-4 s per la home). Il CDN di Netlify invece è condiviso da tutti;
+  // "durable" lo rende comune a tutte le sedi, e con stale-while-revalidate
+  // risponde subito con la copia precedente mentre ne prepara una nuova.
+  // Questa intestazione la legge solo il CDN: al browser resta no-store.
+  const cdnCache = `public, durable, s-maxage=${options.maxAge}, stale-while-revalidate=3600`;
+
   return defineEventHandler(async (event) => {
     const result = await cached(event);
     noStore(event);
+    setResponseHeader(event, "netlify-cdn-cache-control", cdnCache);
     return result;
   });
 }

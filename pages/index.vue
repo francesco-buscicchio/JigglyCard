@@ -56,6 +56,29 @@ const home = ref<{
   deals: CmsProduct[];
 }>({ highlights: [], whatsNew: [], deals: [] });
 const latestExpansion = ref<CmsExpansion | null>(null);
+
+/**
+ * La vetrina si chiede già sul server, così le carte dell'hero sono nell'HTML
+ * invece di comparire dopo che il browser ha caricato gli script. Se il CMS
+ * non risponde in fretta (cache fredda) non si tiene ferma la pagina: si
+ * risponde senza e le carte le chiede il browser, come prima.
+ */
+const HOME_SSR_TIMEOUT_MS = 1500;
+const { data: ssrHome } = await useAsyncData(
+  "home-showcase",
+  () =>
+    import.meta.server
+      ? Promise.race([
+          getHome().catch(() => null),
+          new Promise<null>((resolve) => setTimeout(() => resolve(null), HOME_SSR_TIMEOUT_MS)),
+        ])
+      : Promise.resolve(null),
+  { default: () => null },
+);
+if (ssrHome.value) {
+  home.value = ssrHome.value;
+  loading.value = false;
+}
 const menu = ref<CmsMenu["tree"]>([]);
 const totalProducts = ref<number | null>(null);
 
@@ -173,10 +196,12 @@ const loadFeaturedPack = async () => {
 onMounted(() => {
   // Ogni richiesta si arrangia da sola: la più lenta non blocca le altre e se
   // una fallisce la pagina ripiega sulle carte d'esempio solo lì.
-  getHome()
-    .then((result) => (home.value = result))
-    .catch(() => {})
-    .finally(() => (loading.value = false));
+  if (loading.value) {
+    getHome()
+      .then((result) => (home.value = result))
+      .catch(() => {})
+      .finally(() => (loading.value = false));
+  }
 
   getExpansions({ limit: 1, minProducts: 20 })
     .then((result) => (latestExpansion.value = result.items[0] ?? null))
@@ -196,4 +221,13 @@ onMounted(() => {
 });
 
 usePageSeo({ title: SITE_TITLE, description: SITE_DESCRIPTION });
+
+// L'immagine grande della carta al centro è la prima cosa che si guarda:
+// il browser la scarica subito, insieme al CSS, invece di scoprirla dopo.
+useHead(() => {
+  const main = heroCards.value[0]?.imageLarge || heroCards.value[0]?.image;
+  return main
+    ? { link: [{ key: "hero-card", rel: "preload", as: "image", href: main, fetchpriority: "high" }] }
+    : {};
+});
 </script>
