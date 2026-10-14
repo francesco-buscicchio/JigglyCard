@@ -105,8 +105,8 @@
           <!-- In fondo al menu: nella barra in alto non c'è posto accanto a
                ricerca e carrello. -->
           <div class="drawer-language">
-            <span>{{ t("layout.header.language") }}</span>
-            <AtomsLanguageSwitcher full />
+            <p class="drawer-language__title">{{ t("layout.header.language") }}</p>
+            <AtomsLanguageSwitcher inline />
           </div>
         </div>
       </transition>
@@ -369,16 +369,19 @@ const onItemClick = () => {
 }
 
 .drawer-language {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 20px;
-  padding: 12px 14px;
+  margin-top: 24px;
+  padding: 16px 14px 14px;
   border-radius: 20px;
   border: 1px solid var(--im-line);
-  font-size: 15px;
-  font-weight: 600;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+}
+
+.drawer-language__title {
+  margin: 0 4px 12px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--im-muted);
 }
 
