@@ -85,6 +85,7 @@ export function mapStorefrontFacets(facets: CmsProductList["facets"]) {
   return {
     languages: toFacetMap(facets?.languages),
     conditions: toFacetMap(facets?.conditions),
+    rarity: toFacetMap(facets?.rarities),
     tcg: toFacetMap(facets?.games),
     type: toFacetMap(facets?.categories),
     setSlug: toFacetMap(facets?.expansions),

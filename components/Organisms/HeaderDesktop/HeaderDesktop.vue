@@ -34,7 +34,8 @@
           </div>
         </nav>
 
-        <div class="flex gap-x-4">
+        <div class="flex items-center gap-x-4">
+          <AtomsLanguageSwitcher />
           <button
             class="header-btn"
             @click="$emit('toggleSearch')"

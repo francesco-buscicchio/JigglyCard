@@ -14,9 +14,13 @@ const useMenu = async (): Promise<MenuItemType[]> => {
 
   const menu = await getMenu().catch(() => ({ tree: [] }));
 
+  // Le etichette sono getter: si traducono a ogni lettura, così cambiano
+  // insieme alla lingua scelta dal selettore senza riscaricare il menu.
   const categories = (menu.tree ?? []).flatMap((game) =>
     sortCategories(game.categories).map((category) => ({
-      name: translateCategory(category.slug, category.name, game.name, t, te),
+      get name() {
+        return translateCategory(category.slug, category.name, game.name, t, te);
+      },
       image: category.coverImage,
       to: `/${game.slug}/${category.slug}`,
       isSubMenuOpen: false,
@@ -27,7 +31,14 @@ const useMenu = async (): Promise<MenuItemType[]> => {
   // Il Pokédex non è una categoria del CMS, ma sta nel menu come le altre.
   return [
     ...categories,
-    { name: t("pokedex.menu"), to: "/pokedex", isSubMenuOpen: false, subMenu: [] },
+    {
+      get name() {
+        return t("pokedex.menu");
+      },
+      to: "/pokedex",
+      isSubMenuOpen: false,
+      subMenu: [],
+    },
   ];
 };
 

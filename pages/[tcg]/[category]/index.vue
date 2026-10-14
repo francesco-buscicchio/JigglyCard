@@ -130,12 +130,17 @@ import {
 } from "~/mapper/storefront.mapper";
 import type { ShopCatalogFilters } from "~/composables/useShop";
 import type { ProductType } from "~/types/productType.type";
+import type { CmsProduct } from "~/types/shop";
 import { translateCategory } from "~/data/menu";
 import { truncateDescription } from "~/utils/seo";
 
 const { t, te, locale } = useI18n();
 const { getProducts, getMenu } = useShop();
-const products: Ref<ProductType[]> = ref([]);
+/** Risposta grezza del CMS: i nomi in lingua seguono il selettore di lingua. */
+const catalogItems = ref<CmsProduct[]>([]);
+const products = computed<ProductType[]>(() =>
+  mapStorefrontProducts(catalogItems.value, locale.value),
+);
 const route = useRoute();
 const totalItems = ref(0);
 const currentPage = ref(1);
@@ -222,6 +227,7 @@ function applyFilters(e?: any) {
     ? {
         language: e.language,
         condition: e.condition,
+        rarity: e.rarity,
         game: e.brand?.[0],
         category: e.type?.[0],
         expansion: e.expansion?.[0],
@@ -307,7 +313,7 @@ async function fetchData() {
   try {
     const result = await getProducts(buildFilters());
 
-    products.value = mapStorefrontProducts(result.items, locale.value);
+    catalogItems.value = result.items;
     totalItems.value = result.total;
     facets.value = mapStorefrontFacets(result.facets);
     facetLabels.value = mapStorefrontFacetLabels(result.facets);

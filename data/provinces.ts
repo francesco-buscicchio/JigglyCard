@@ -1,6 +1,6 @@
 /**
  * Province italiane (sigle automobilistiche), per l'indirizzo di spedizione.
- * Il sito spedisce solo in Italia: la sigla serve al corriere e all'ordine.
+ * Si chiede solo per gli indirizzi italiani: la sigla serve al corriere e all'ordine.
  */
 export const PROVINCES: { code: string; name: string }[] = [
   { code: "AG", name: "Agrigento" },

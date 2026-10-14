@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "tietosuoja",
+      "cookies": "evästeet",
+      "terms": "myyntiehdot",
+      "cookiePreferences": "evästeasetukset"
+    },
+    "messages": {
+      "noResults": "Ei tuloksia"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Sivua ei löytynyt",
+      "notFoundDescription": "Näyttää siltä, että olet eksynyt harhojen metsään... yritä löytää tie takaisin!",
+      "backHome": "Takaisin etusivulle"
+    },
+    "genericError": "Jokin meni vikaan. Yritä hetken päästä uudelleen."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Kaikki tuotteet",
+      "language": "Kieli"
+    },
+    "footer": {
+      "links": {
+        "about": "Meistä",
+        "shipping": "Toimitus, palautukset ja hyvitykset",
+        "support": "Asiakaspalvelu"
+      }
+    },
+    "routes": {
+      "cart": "Ostoskori",
+      "/carrello": "Ostoskori",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Yksittäiskortit",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Valmispakat",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Kaikki tuotteet",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Yksittäiskortit",
+      "/one-piece/mazzi-precostruiti": "One Piece - Valmispakat",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Kaikki tuotteet",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Yksittäiskortit",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Valmispakat",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Kaikki tuotteet",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Yksittäiskortit",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Valmispakat",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Kaikki tuotteet",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Yksittäiskortit",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Valmispakat",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Kaikki tuotteet",
+      "/servizi": "Palvelut",
+      "/contatti": "Yhteystiedot",
+      "/": "Etusivu"
+    },
+    "breadcrumb": {
+      "label": "Murupolku",
+      "home": "Etusivu",
+      "all": "Kaikki tuotteet",
+      "search": "Haku: {term}",
+      "cart": "Ostoskori",
+      "checkout": "Kassa"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Suositellut tuotteet",
+      "conditions": "Kunto",
+      "weeklyOffers": "Viikon tarjoukset",
+      "preOrders": "Ennakkotilaukset",
+      "highlights": "Nostot",
+      "whatsNew": "Uutuudet",
+      "deals": "Tarjoukset"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Seurattavat ja suojatut lähetykset",
+        "description": "Jokainen tilaus lähtee seurattavana kuriirilähetyksenä yleensä kolmen arkipäivän kuluessa, ja kortit pakataan suojamuoviin ja toploaderiin."
+      },
+      "support": {
+        "title": "Henkilökohtainen asiakaspalvelu",
+        "description": "Kirjoita meille sähköpostilla tai WhatsAppissa: vastaamme arkisin 48 tunnin kuluessa."
+      },
+      "prices": {
+        "title": "Aina ajantasaiset hinnat",
+        "description": "Päivitämme hinnat markkinatilanteen mukaan useita kertoja päivässä, joten maksat jokaisesta kortista oikean hinnan."
+      },
+      "security": {
+        "title": "Suojatut tiedot",
+        "description": "Henkilö- ja maksutietosi on suojattu alan standardien mukaisella salauksella."
+      }
+    },
+    "hero": {
+      "products": "tuotetta",
+      "from": "alkaen",
+      "explore": "Tutustu settiin"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Kaupan edut",
+        "marquee": {
+          "shipping": "Tilaukset lähetetään 3 arkipäivässä",
+          "payments": "Turvalliset ja suojatut maksut",
+          "sell": "Myy kokoelmasi: arviointi ajanvarauksella",
+          "games": "Yksittäiskortit sekä sinetöidyt boosterit ja boksit"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Jokaisella kortilla",
+        "titleLine2": "on tarinansa.",
+        "titleHighlight": "Seuraava on sinun.",
+        "lead": "Yksittäiskortit sekä sinetöidyt boosterit ja boksit, keräilijöiden valitsemina keräilijöille. Löydä kokoelmastasi puuttuva kortti: lähetämme sen kolmessa arkipäivässä, aina hyvin suojattuna.",
+        "ctaPrimary": "Löydä korttisi",
+        "ctaSecondary": "Avaa boosteri",
+        "trust": {
+          "shipping": "Lähetys 3 arkipäivässä",
+          "payments": "Turvalliset maksut",
+          "marketplaces": "Löydät meidät myös Cardmarketista ja Cardtraderista"
+        },
+        "latestKicker": "Juuri saapunut",
+        "stats": {
+          "products": "tuotetta saatavilla nyt",
+          "shipping": "tilauksen lähtöön",
+          "shippingValue": "3 arkipäivää",
+          "payments": "suojatut maksut",
+          "singles": "yksittäiskorttia saatavilla"
+        },
+        "scroll": "Vieritä"
+      },
+      "story": {
+        "label": "Boosterista pöydällesi",
+        "packSubtitle": "Keräilyboosteri",
+        "packTitleFallback": "Uusi laajennus",
+        "badge": "Tarkastettu ja suojattu",
+        "pack": {
+          "kicker": "Boosteri",
+          "title1": "Jokainen boosteri",
+          "title2": "on lupaus.",
+          "text": "Sisällä on aina mahdollisuus: siksi jokainen avaus saa sydämen pamppailemaan. Boosterit ja boksit saapuvat sinulle sinetöityinä, täsmälleen sellaisina kuin ne lähtivät tehtaalta."
+        },
+        "fan": {
+          "kicker": "Viuhka",
+          "title1": "Tavalliset, epätavalliset,",
+          "title2": "reverse-holot. Ja sitten se viimeinen.",
+          "text": "Paras kortti on aina viimeisenä. Sen tietää jokainen boosterin avannut, ja niin tiedämme mekin."
+        },
+        "hit": {
+          "kicker": "Hitti",
+          "title1": "Juuri se,",
+          "title2": "jota etsit.",
+          "text": "Holo, reverse, full art, erikoiskuvitukset: harvinaisuus, joka saa kädet tärisemään. Ja jos et halua luottaa onneen, löydät sen jo valmiiksi yksittäiskorteistamme."
+        },
+        "safe": {
+          "kicker": "Turvassa",
+          "title1": "Suojattuna,",
+          "title2": "kotiovellesi asti.",
+          "text": "Jokainen tilaus lähtee kolmen arkipäivän kuluessa ja kulkee aina suojattuna, koska täydellisen kortin kuuluu saapua täydellisenä.",
+          "cta": "Tutustu yksittäiskortteihin"
+        }
+      },
+      "categories": {
+        "kicker": "Valikoima",
+        "title": "Mitä etsit?",
+        "lead": "Kokoelmastasi puuttuvasta kortista boksiin, jonka avaat kavereiden kanssa.",
+        "products": "tuotetta",
+        "enter": "Selaa"
+      },
+      "showcase": {
+        "kicker": "Pöydällä nyt",
+        "title": "Hetken kortit.",
+        "from": "alkaen",
+        "previous": "Edelliset kortit",
+        "next": "Seuraavat kortit",
+        "all": "Katso koko valikoima"
+      },
+      "opening": {
+        "kicker": "Virtuaaliboosteri · ilmainen",
+        "title1": "Napauta boosteria.",
+        "title2": "Löydä hittisi.",
+        "lead": "Valitse jokin kaupassamme myytävistä japanilaisista boostereista ja avaa se täällä ilmaiseksi. Siitä tulee vain kyseisen setin japanilaisia kortteja, jotka on poimittu saatavilla olevista yksittäiskorteistamme: jos pidät saamastasi kortista, se on jo myynnissä. Ja jos jännitys iski, oikea boosteri on vain klikkauksen päässä.",
+        "facts": {
+          "cards": "korttia boosterissa",
+          "hit": "taattu hitti",
+          "price": "per pelikerta",
+          "set": "korttia setistä kaupassa"
+        },
+        "tear": "Repäise boosteri auki",
+        "tapHint": "Napauta repäistäksesi",
+        "packSubtitle": "Virtuaaliboosteri",
+        "flip": "Käännä kortti {n}",
+        "revealAll": "Paljasta kaikki",
+        "yourHit": "Hittisi",
+        "seeCard": "Katso kortti",
+        "again": "Avaa uusi boosteri",
+        "status": {
+          "idle": "Sinetöity boosteri · 5 korttia",
+          "torn": "Avataan…",
+          "dealt": "Kääntämättömiä kortteja: {n}",
+          "done": "Boosteri avattu",
+          "idlePack": "{name} · sinetöity"
+        },
+        "choosePack": "Valitse avattava boosteri",
+        "buyPack": "Osta boosteri · {price} €",
+        "cardsShort": "korttia"
+      },
+      "sell": {
+        "kicker": "Myy meille",
+        "title": "Onko sinulla kokoelma laatikon pohjalla?",
+        "lead": "Me arvioimme sen rauhassa ja ajanvarauksella. Varaa arviointi ja selvitä, paljonko se on oikeasti arvoinen.",
+        "cta": "Varaa arviointi",
+        "rules": "Lue säännöt"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Liity yhteisöömme ja nappaa erikoistarjoukset suoraan sähköpostiisi!",
+    "caption": {
+      "first": "Pysy ajan tasalla yhdellä klikkauksella ja hyödy kaikista eduista: ennakkotietoja, erikoistarjouksia, syventäviä artikkeleita ja henkilökohtaisia muistutuksia ostoksistasi – täyttämättä postilaatikkoasi. Tilaa nyt, niin saat ",
+      "bold": " 15 % alennuskoodin ",
+      "second": " ensimmäiseen ostokseesi tuotteista, jotka eivät ole jo alennuksessa!"
+    },
+    "emailValidation": "Syötä kelvollinen sähköpostiosoite.",
+    "short": "Pysy ajan tasalla yhdellä klikkauksella täyttämättä postilaatikkoasi. Tilaa uutiskirje ja saat 15 % alennuksen ensimmäisestä ostoksestasi tuotteista, jotka eivät ole alennuksessa!",
+    "button": "Tilaa",
+    "toast": "Uutiskirjeen tilaus onnistui",
+    "emailPlaceholder": "Sähköposti"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "suodattimet",
+      "search": "Hae",
+      "price": "Hinta",
+      "from": "alkaen",
+      "to": "asti",
+      "apply": "Käytä",
+      "clear": "Tyhjennä kaikki suodattimet",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Hae…",
+      "noOption": "Ei osumia",
+      "reset": "Nollaa",
+      "close": "Sulje",
+      "remove": "Poista"
+    },
+    "actions": {
+      "showDetails": "näytä tiedot",
+      "showAll": "Näytä kaikki"
+    },
+    "listing": {
+      "resultFor": "Tulokset haulle",
+      "allOf": "Kaikki",
+      "of": "/",
+      "counter": {
+        "viewed": "Olet katsonut",
+        "of": "/",
+        "products": "tuotetta"
+      }
+    },
+    "pagination": {
+      "label": "Sivutus",
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "page": "Sivu {n}",
+      "pageOf": "Sivu {n} / {total}",
+      "showing": "{from}–{to} / {total} tuotetta",
+      "goTo": "Siirry sivulle",
+      "go": "Siirry"
+    },
+    "sorting": {
+      "sortBy": "Järjestä",
+      "newest": "Uusimmat",
+      "priceCheapest": "Edullisin ensin",
+      "priceExpensive": "Kallein ensin",
+      "nameAtoZ": "Nimi (A - Ö)",
+      "nameZtoA": "Nimi (Ö - A)"
+    },
+    "filters": {
+      "language": "Kieli",
+      "condition": "Kunto",
+      "brand": "Brändi",
+      "available": "Saatavilla",
+      "IT": "italia",
+      "EN": "englanti",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "saatavilla",
+      "false": "ei saatavilla",
+      "NA": "muu",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japani",
+      "it": "Italia",
+      "en": "Englanti",
+      "de": "Saksa",
+      "fr": "Ranska",
+      "es": "Espanja",
+      "pt": "Portugali",
+      "ru": "Venäjä",
+      "ko": "Korea",
+      "zh": "Kiina",
+      "zh-CN": "Yksinkertaistettu kiina",
+      "zh-TW": "Perinteinen kiina",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Tuotteita ei löytynyt",
+      "subtitle": "Kokeile laajentaa hakua poistamalla joitakin suodattimia.",
+      "clearFilters": "Poista kaikki suodattimet",
+      "backHome": "Takaisin etusivulle"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "alkaen",
+      "soldOut": "loppuunmyyty",
+      "lastUnits": "Viimeinen kappale jäljellä | Vain {count} kappaletta jäljellä"
+    },
+    "hero": {
+      "TaxesAndShipping": "Sisältää verot. Toimituskulut lasketaan kassalla",
+      "Language": "Kieli",
+      "Quantity": "Määrä",
+      "AddToCart": "lisää ostoskoriin",
+      "BuyWithPaypal": "Osta PayPalilla",
+      "Description": "Kuvaus",
+      "addToCartToast": "Tuote lisätty ostoskoriin"
+    },
+    "quantity": {
+      "quantity": "Määrä",
+      "availability": "Saatavuus",
+      "pieces": "kpl"
+    },
+    "messages": {
+      "suggested": "Oletko nähnyt nämä?"
+    },
+    "description": {
+      "fromSet": "{name} on kortti laajennuksesta {expansion}.",
+      "number": "Keräilynumero {number}.",
+      "rarity": "Harvinaisuus: {rarity}.",
+      "languages": "Saatavilla kielillä: {languages}.",
+      "conditions": "Saatavilla olevat kuntoluokat: {conditions}.",
+      "fromSetProduct": "{name} on tuote laajennuksesta {expansion}."
+    },
+    "sections": {
+      "recommended": "Saatat pitää myös näistä"
+    },
+    "quickAdd": {
+      "add": "Lisää",
+      "added": "Lisätty",
+      "choose": "Valitse versio",
+      "maxed": "Kaikki saatavilla olevat kappaleet ovat jo ostoskorissasi",
+      "aria": "Lisää {name} ostoskoriin"
+    },
+    "neighbors": {
+      "label": "Lisää kortteja samasta setistä",
+      "previous": "Edellinen",
+      "next": "Seuraava"
+    }
+  },
+  "cart": {
+    "title": "Ostoskori",
+    "empty": "Kouluttajamatkasi ei ole vielä alkanut!",
+    "startExploring": "Aloita tästä",
+    "summary": {
+      "title": "Ostoskorin yhteenveto",
+      "shipping": "Toimitus",
+      "total": "Yhteensä",
+      "free": "Ilmainen"
+    },
+    "shipping": {
+      "heading": "Toimitustapa",
+      "note": "*voit valita toisen toimitustavan kassalla",
+      "couponPlaceholder": "Syötä kuponkikoodi",
+      "total": "Yhteensä",
+      "couponQuestion": "Onko sinulla kuponkikoodi?",
+      "apply": "Käytä koodi",
+      "applyDesktop": "käytä",
+      "buyCta": "Siirry kassalle",
+      "back": "Takaisin tuotteisiin",
+      "couponLabel": "Kuponki",
+      "removeCoupon": "Poista kuponki"
+    },
+    "help": {
+      "title": "Tarvitsetko apua?",
+      "content": "Toimitamme Italiaan ja kaikkiin Euroopan unionin maihin seurattavana kuriirilähetyksenä. Kortit suojataan suojamuoviin ja toploaderiin ja pakataan niin, että ne saapuvat juuri siinä kunnossa kuin kuvauksessa kerrotaan. Jos sinulla on kysyttävää tilauksestasi, voit kirjoittaa meille Asiakaspalvelu-sivun kautta."
+    },
+    "stockChanged": "Joitakin tuotteita ei ole enää saatavilla pyydettyä määrää:",
+    "stockRequested": "pyydetty",
+    "stockAvailable": "saatavilla",
+    "recommended": "Täydennä kokoelmaasi"
+  },
+  "filter": {
+    "language": "Kieli",
+    "condition": "Kunto",
+    "brand": "Brändi",
+    "type": "Tyyppi",
+    "expansion": "Laajennus",
+    "available": "Saatavilla",
+    "IT": "italia",
+    "EN": "englanti",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "saatavilla",
+    "false": "ei saatavilla",
+    "NA": "muu",
+    "pokemon": "pokemon",
+    "it": "Italia",
+    "en": "Englanti",
+    "jp": "Japani",
+    "de": "Saksa",
+    "fr": "Ranska",
+    "es": "Espanja",
+    "pt": "Portugali",
+    "ru": "Venäjä",
+    "ko": "Korea",
+    "zh": "Kiina",
+    "zh-CN": "Yksinkertaistettu kiina",
+    "zh-TW": "Perinteinen kiina",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Harvinaisuus"
+  },
+  "filterType": {
+    "singles": "Yksittäiskortit",
+    "single-card": "Yksittäiskortti",
+    "preconstructed-deck": "Valmispakat",
+    "booster": "Boosteri",
+    "boosters": "Boosterit",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Olet katsonut",
+    "of": "/",
+    "products": "tuotetta"
+  },
+  "checkout": {
+    "title": "Kassa",
+    "shippingInfo": "Toimitustiedot",
+    "actions": {
+      "confirmAndPay": "Vahvista ja maksa",
+      "paying": "Maksua käsitellään…"
+    },
+    "thanks": {
+      "main": "Kiitos!",
+      "newsletter": "Kiitos, että tilasit uutiskirjeemme! Saat pian sähköpostin, jossa on kaikki tiedot.",
+      "order": "Maksu onnistui ja tilauksesi on vahvistettu.",
+      "backHome": "Takaisin etusivulle"
+    },
+    "confirming": "Vahvistamme tilaustasi…",
+    "confirmFailed": "Emme pystyneet vahvistamaan tilausta",
+    "orderNumber": "Tilausnumero",
+    "genericError": "Tapahtui virhe. Ota yhteyttä asiakaspalveluun ja kerro ostoksesi kellonaika.",
+    "paymentUnavailable": "Verkkomaksu ei ole juuri nyt käytettävissä. Yritä hetken päästä uudelleen tai ota meihin yhteyttä.",
+    "completeForm": "Täytä toimitustiedot jatkaaksesi maksuun.",
+    "priceChanged": "Joidenkin tuotteiden hinnat ovat muuttuneet: tarkista uusi kokonaissumma ja paina uudelleen ”Vahvista ja maksa”.",
+    "couponNoLongerValid": "Kuponki ei ole enää voimassa ({reason}): kokonaissumma on päivitetty.",
+    "paymentFailed": "Maksu epäonnistui. Yritä uudelleen tai käytä toista maksutapaa.",
+    "emailSentTo": "Lähetimme vahvistuksen osoitteeseen {email}.",
+    "processingTitle": "Maksua käsitellään",
+    "processingText": "Pankkisi vahvistaa vielä maksua. Lähetämme tilausvahvistuksen sähköpostitse heti, kun maksu on vahvistettu: sinun ei tarvitse maksaa uudelleen.",
+    "paymentFailedTitle": "Maksu epäonnistui",
+    "paymentFailedText": "Maksua ei suoritettu loppuun, eikä sinulta veloitettu mitään. Ostoskorisi on yhä tallessa: voit yrittää uudelleen.",
+    "backToCheckout": "Takaisin kassalle",
+    "nothingToConfirm": "Vahvistettavaa maksua ei ole.",
+    "noShippingForCountry": "Emme toimita tällä hetkellä tähän maahan. Valitse toinen maa tai kirjoita meille Asiakaspalvelu-sivun kautta."
+  },
+  "forms": {
+    "fields": {
+      "name": "Etunimi",
+      "surname": "Sukunimi",
+      "email": "Sähköposti",
+      "message": "Viesti",
+      "nation": "Maa",
+      "cap": "Postinumero",
+      "city": "Kaupunki",
+      "streetAndHouseNumber": "Katuosoite ja talonumero",
+      "iWantTheInvoice": "Haluan laskun",
+      "acceptTerms": "Olen lukenut ja hyväksyn {terms} ja olen tutustunut {privacy}.",
+      "termsLink": "myyntiehdot",
+      "privacyLink": "tietosuojaselosteeseen",
+      "phone": "Puhelin",
+      "province": "Provinssi",
+      "provincePlaceholder": "Valitse provinssi",
+      "optional": "vapaaehtoinen",
+      "invoiceKind": "Laskun tyyppi",
+      "invoiceKind_private": "Yksityishenkilö",
+      "invoiceKind_company": "Yritys / ALV-tunniste",
+      "taxCode": "Verotunniste (codice fiscale)",
+      "companyName": "Yrityksen nimi",
+      "vatNumber": "ALV-tunniste (partita IVA)",
+      "sdiCode": "SDI-koodi",
+      "pec": "PEC (varmennettu sähköposti)",
+      "invoiceHint": "Anna SDI-koodi tai PEC-osoite: jos sinulla ei ole kumpaakaan, sähköinen lasku toimitetaan Italian verohallinnon asiointipalveluusi (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Lasku osoitetaan toimitustiedoissa annetulle nimelle ja osoitteelle.",
+      "invoiceHintForeignCompany": "Anna yrityksesi EU-ALV-tunniste (VIES), maatunnuksen kanssa tai ilman."
+    },
+    "actions": {
+      "submit": "Lähetä"
+    },
+    "contact": {
+      "title": "Yhteydenottolomake",
+      "placeholders": {
+        "name": "Nimi",
+        "email": "Sähköpostiosoite",
+        "phone": "Puhelinnumero",
+        "message": "Kirjoita viestisi"
+      },
+      "phoneValidation": "Syötä kelvollinen puhelinnumero",
+      "submit": "Lähetä"
+    },
+    "support": {
+      "title": "Asiakaspalvelu",
+      "mail": "Voit ottaa meihin yhteyttä sähköpostitse osoitteeseen",
+      "message": "tai viestillä / WhatsAppilla numeroon",
+      "form": "Jos haluat, voit myös täyttää alla olevan lomakkeen.",
+      "answer": "Vastaamme 48 tunnin kuluessa.",
+      "sending": "Lähetetään…",
+      "sent": "Viesti lähetetty! Vastaamme mahdollisimman pian.",
+      "failed": "Viestin lähettäminen epäonnistui. Yritä uudelleen tai lähetä meille sähköpostia."
+    },
+    "validation": {
+      "required": "Pakollinen kenttä",
+      "invalidEmail": "Syötä kelvollinen sähköpostiosoite",
+      "invalidCAP": "Syötä kelvollinen postinumero",
+      "acceptTerms": "Sinun on hyväksyttävä myyntiehdot jatkaaksesi",
+      "invalidPhone": "Syötä kelvollinen puhelinnumero",
+      "invalidTaxCode": "Syötä kelvollinen verotunniste (codice fiscale)",
+      "invalidVatNumber": "Syötä kelvollinen ALV-tunniste (partita IVA, 11 numeroa)",
+      "invalidSdi": "SDI-koodissa on 7 merkkiä",
+      "invalidVatNumberEu": "Syötä kelvollinen EU-ALV-tunniste"
+    }
+  },
+  "payments": {
+    "terms": "maksutavat",
+    "methodsTitle": "Maksutavat",
+    "options": {
+      "creditCard": "Luottokortti",
+      "wireTransfer": "Tilisiirto"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Tuote lisätty ostoskoriin",
+      "error": "Tuotteen lisääminen ostoskoriin epäonnistui. Yritä uudelleen.",
+      "overflow": "Ostoskorissasi on jo kaikki tämän tuotteen saatavilla olevat kappaleet."
+    },
+    "checkout": {
+      "success": "Tilaus onnistui",
+      "error": "Teknisen ongelman vuoksi tilausta ei saatu valmiiksi"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Jigglycardin uutiskirjeen tilaus onnistui",
+      "adminSubject": "Uusi tilaaja Jigglycardin uutiskirjeelle",
+      "storeName": "Jigglycard Store",
+      "plainText": "Olet saanut uuden viestin uutiskirjeestä."
+    },
+    "support": {
+      "subject": "Tukipyyntö",
+      "adminSubject": "Tukipyyntö lähettäjältä: {name} - Sähköposti: {email}",
+      "plainText": "Olet saanut uuden tukipyynnön."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosterit",
+    "dragon-ball-super-singles": "Yksittäiskortit",
+    "ff-single-card": "Yksittäiskortit",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Yksittäiskortit",
+    "pokemon-blisters": "Blisterit",
+    "pokemon-booster": "Boosterit",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Tyhjät laatikot ja säilytys",
+    "pokemon-preconstructed-deck": "Valmispakat",
+    "pokemon-singles": "Yksittäiskortit",
+    "yu-gi-oh-boosters": "Boosterit"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycardin Pokédex",
+    "title": "Sinun Pokémonisi,",
+    "titleHighlight": "kaikki sen kortit.",
+    "lead": "Valitse Pokémon ja näe kaikki sen yksittäiskortit, joita kaupassamme on saatavilla, harvinaisimmasta yleisimpään.",
+    "searchPlaceholder": "Hae nimellä tai numerolla",
+    "generation": "Sukupolvi",
+    "all": "Kaikki",
+    "shown": "{n} Pokémonia",
+    "noMatch": "Yksikään Pokémon ei vastaa hakua.",
+    "back": "Kaikki Pokémonit",
+    "loading": "Haetaan kortteja…",
+    "cardsFound": "{n} korttia saatavilla",
+    "noCards": "Meillä ei ole tällä hetkellä saatavilla yhtään {name}-korttia.",
+    "browseSingles": "Selaa kaikkia yksittäiskortteja",
+    "loadMore": "Näytä lisää kortteja",
+    "pickTitle": "Valitse Pokémon",
+    "pickText": "Valitse Pokémon luettelosta nähdäksesi kaikki sen saatavilla olevat kortit."
+  },
+  "shippingPage": {
+    "kicker": "Toimitus",
+    "title": "Toimitus,",
+    "titleHighlight": "palautukset ja hyvitykset.",
+    "methodsTitle": "Toimitustavat",
+    "methodsLead": "Toimitustapa valitaan kassalla: nämä ovat tämänpäiväiset hinnat.",
+    "domestic": "Italia",
+    "international": "Euroopan unioni",
+    "maxValue": "Tilauksille, joiden arvo on enintään {value}",
+    "packagingTitle": "Näin pakkaamme kortit",
+    "returnsTitle": "Palautukset ja hyvitykset",
+    "returnsText": "Jos haluat palauttaa tuotteen tai saada hyvityksen, kirjoita meille Asiakaspalvelu-sivun kautta ja kerro tilausnumerosi: vastaamme ja annamme kaikki ohjeet.",
+    "cta": "Siirry asiakaspalveluun"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon ja hahmojen nimet ovat Nintendon, Creatures Inc.:n ja GAME FREAK inc.:n rekisteröityjä tavaramerkkejä, joita hallinnoi The Pokémon Company. Jigglycard on aitoja tuotteita myyvä itsenäinen jälleenmyyjä, eikä se ole sidoksissa näihin yhtiöihin tai niiden sponsoroima tai hyväksymä. Korttien kuvia käytetään ainoastaan myytävien tuotteiden tunnistamiseen."
+  }
+}

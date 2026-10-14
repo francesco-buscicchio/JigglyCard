@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "Datenschutz",
+      "cookies": "Cookies",
+      "terms": "AGB",
+      "cookiePreferences": "Cookie-Einstellungen"
+    },
+    "messages": {
+      "noResults": "Keine Ergebnisse"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Seite nicht gefunden",
+      "notFoundDescription": "Sieht so aus, als hättest du dich im Wald der Illusionen verirrt... versuch, den Weg zurückzufinden!",
+      "backHome": "Zurück zur Startseite"
+    },
+    "genericError": "Etwas ist schiefgelaufen. Versuch es gleich noch einmal."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Alle Produkte",
+      "language": "Sprache"
+    },
+    "footer": {
+      "links": {
+        "about": "Über uns",
+        "shipping": "Versand, Rückgabe und Erstattung",
+        "support": "Kundenservice"
+      }
+    },
+    "routes": {
+      "cart": "Warenkorb",
+      "/carrello": "Warenkorb",
+      "/pokemon/booster-box": "Pokemon - Booster-Display",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Einzelkarten",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Vorgefertigte Decks",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Alle Produkte",
+      "/one-piece/booster-box": "One Piece - Booster-Display",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Einzelkarten",
+      "/one-piece/mazzi-precostruiti": "One Piece - Vorgefertigte Decks",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Alle Produkte",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster-Display",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Einzelkarten",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Vorgefertigte Decks",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Alle Produkte",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster-Display",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Einzelkarten",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Vorgefertigte Decks",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Alle Produkte",
+      "/lorcana/booster-box": "Lorcana - Booster-Display",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Einzelkarten",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Vorgefertigte Decks",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Alle Produkte",
+      "/servizi": "Leistungen",
+      "/contatti": "Kontakt",
+      "/": "Startseite"
+    },
+    "breadcrumb": {
+      "label": "Brotkrümelnavigation",
+      "home": "Startseite",
+      "all": "Alle Produkte",
+      "search": "Suche: {term}",
+      "cart": "Warenkorb",
+      "checkout": "Kasse"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Ausgewählte Produkte",
+      "conditions": "Zustand",
+      "weeklyOffers": "Wochenangebote",
+      "preOrders": "Vorbestellungen",
+      "highlights": "Highlights",
+      "whatsNew": "Neuheiten",
+      "deals": "Angebote"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Sicherer Versand mit Tracking",
+        "description": "Jede Bestellung wird mit Sendungsverfolgung verschickt, in der Regel innerhalb von drei Werktagen – die Karten in Sleeve und Toploader."
+      },
+      "support": {
+        "title": "Persönlicher Kundenservice",
+        "description": "Schreib uns per E-Mail oder WhatsApp: Wir antworten innerhalb von 48 Stunden an Werktagen."
+      },
+      "prices": {
+        "title": "Immer aktuelle Preise",
+        "description": "Wir passen unsere Preise mehrmals täglich an den Markt an – so zahlst du für jede Karte den fairen Preis."
+      },
+      "security": {
+        "title": "Geschützte Daten",
+        "description": "Deine persönlichen Daten und Zahlungsdaten sind durch branchenübliche Verschlüsselung geschützt."
+      }
+    },
+    "hero": {
+      "products": "Produkte",
+      "from": "ab",
+      "explore": "Set entdecken"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Unsere Vorteile",
+        "marquee": {
+          "shipping": "Versand innerhalb von 3 Werktagen",
+          "payments": "Sichere und geschützte Zahlungen",
+          "sell": "Verkaufe deine Sammlung: Bewertung nach Terminvereinbarung",
+          "games": "Einzelkarten, versiegelte Booster und Boxen"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Jede Karte",
+        "titleLine2": "hat eine Geschichte.",
+        "titleHighlight": "Die nächste gehört dir.",
+        "lead": "Einzelkarten, versiegelte Booster und Boxen – von Sammlern für Sammler ausgewählt. Finde das Stück, das deiner Sammlung noch fehlt: Wir verschicken es innerhalb von drei Werktagen, immer sicher verpackt.",
+        "ctaPrimary": "Finde deine Karte",
+        "ctaSecondary": "Booster öffnen",
+        "trust": {
+          "shipping": "Versand in 3 Werktagen",
+          "payments": "Sichere Zahlungen",
+          "marketplaces": "Du findest uns auch auf Cardmarket und Cardtrader"
+        },
+        "latestKicker": "Frisch eingetroffen",
+        "stats": {
+          "products": "Produkte jetzt verfügbar",
+          "shipping": "bis zum Versand",
+          "shippingValue": "3 Werktage",
+          "payments": "geschützte Zahlungen",
+          "singles": "Einzelkarten verfügbar"
+        },
+        "scroll": "Scrollen"
+      },
+      "story": {
+        "label": "Vom Booster auf deinen Tisch",
+        "packSubtitle": "Sammler-Booster",
+        "packTitleFallback": "Neue Erweiterung",
+        "badge": "Geprüft und geschützt",
+        "pack": {
+          "kicker": "Der Booster",
+          "title1": "Jeder Booster",
+          "title2": "ist ein Versprechen.",
+          "text": "Darin steckt immer eine Chance: Deshalb schlägt dein Herz bei jedem Öffnen schneller. Booster und Boxen kommen versiegelt bei dir an – genau so, wie sie die Fabrik verlassen haben."
+        },
+        "fan": {
+          "kicker": "Der Fächer",
+          "title1": "Commons, Uncommons,",
+          "title2": "Reverse Holos. Und dann die letzte.",
+          "text": "Die beste Karte steckt immer ganz hinten. Das weiß jeder, der schon mal einen Booster geöffnet hat – und wir wissen es auch."
+        },
+        "hit": {
+          "kicker": "Der Hit",
+          "title1": "Die Karte,",
+          "title2": "die du gesucht hast.",
+          "text": "Holo, Reverse, Full Art, Special Illustration Rares: die Raritäten, bei denen dir die Hände zittern. Und wenn du dich nicht aufs Glück verlassen willst, findest du sie schon bei unseren Einzelkarten."
+        },
+        "safe": {
+          "kicker": "In Sicherheit",
+          "title1": "Geschützt,",
+          "title2": "bis zu dir nach Hause.",
+          "text": "Jede Bestellung wird innerhalb von drei Werktagen verschickt und reist immer gut geschützt – denn eine perfekte Karte muss auch perfekt ankommen.",
+          "cta": "Einzelkarten entdecken"
+        }
+      },
+      "categories": {
+        "kicker": "Der Katalog",
+        "title": "Was suchst du?",
+        "lead": "Von der Karte, die deiner Sammlung noch fehlt, bis zur Box, die du mit Freunden öffnest.",
+        "products": "Produkte",
+        "enter": "Entdecken"
+      },
+      "showcase": {
+        "kicker": "Gerade auf dem Tisch",
+        "title": "Die Karten der Stunde.",
+        "from": "ab",
+        "previous": "Vorherige Karten",
+        "next": "Nächste Karten",
+        "all": "Ganzen Katalog ansehen"
+      },
+      "opening": {
+        "kicker": "Virtueller Booster · gratis",
+        "title1": "Tippe auf den Booster.",
+        "title2": "Entdecke deinen Hit.",
+        "lead": "Wähle einen der japanischen Booster aus unserem Shop und öffne ihn hier – kostenlos. Darin findest du nur japanische Karten aus diesem Set, direkt aus unseren verfügbaren Einzelkarten: Gefällt dir deine Karte, kannst du sie sofort kaufen. Und wenn dir der Nervenkitzel gefallen hat, ist der echte Booster nur einen Klick entfernt.",
+        "facts": {
+          "cards": "Karten pro Booster",
+          "hit": "garantierter Hit",
+          "price": "zum Spielen",
+          "set": "Karten des Sets im Shop"
+        },
+        "tear": "Booster aufreißen",
+        "tapHint": "Tippen zum Aufreißen",
+        "packSubtitle": "Virtueller Booster",
+        "flip": "Karte {n} umdrehen",
+        "revealAll": "Alle aufdecken",
+        "yourHit": "Dein Hit",
+        "seeCard": "Karte ansehen",
+        "again": "Noch einen Booster öffnen",
+        "status": {
+          "idle": "Versiegelter Booster · 5 Karten",
+          "torn": "Wird geöffnet…",
+          "dealt": "Noch umzudrehen: {n}",
+          "done": "Booster komplett",
+          "idlePack": "{name} · versiegelt"
+        },
+        "choosePack": "Wähle den Booster zum Öffnen",
+        "buyPack": "Booster kaufen · {price} €",
+        "cardsShort": "Karten"
+      },
+      "sell": {
+        "kicker": "Verkauf an uns",
+        "title": "Hast du eine Sammlung in der Schublade?",
+        "lead": "Wir bewerten sie – in Ruhe und nach Terminvereinbarung. Buch eine Bewertung und finde heraus, was sie wirklich wert ist.",
+        "cta": "Bewertung buchen",
+        "rules": "Regeln lesen"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Werde Teil unserer Community und erhalte besondere Angebote direkt in dein Postfach!",
+    "caption": {
+      "first": "Entdecke alle Vorteile, mit nur einem Klick auf dem Laufenden zu bleiben: exklusive Vorschauen, besondere Aktionen, ausführliche Hintergrundinfos und persönliche Erinnerungen zu deinen Einkäufen – ohne dein Postfach zu überfluten. Melde dich jetzt an und sichere dir einen ",
+      "bold": " Rabattcode über 15 % ",
+      "second": " für deinen ersten Einkauf von nicht bereits reduzierten Artikeln!"
+    },
+    "emailValidation": "Gib eine gültige E-Mail-Adresse ein.",
+    "short": "Bleib mit einem Klick auf dem Laufenden, ohne dein Postfach zu überfluten. Melde dich an und erhalte 15 % Rabatt auf deinen ersten Einkauf von nicht reduzierten Artikeln!",
+    "button": "Anmelden",
+    "toast": "Anmeldung erfolgreich",
+    "emailPlaceholder": "E-Mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "Filter",
+      "search": "Suchen",
+      "price": "Preis",
+      "from": "von",
+      "to": "bis",
+      "apply": "Anwenden",
+      "clear": "Alle Filter löschen",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Suchen…",
+      "noOption": "Keine passenden Einträge",
+      "reset": "Zurücksetzen",
+      "close": "Schließen",
+      "remove": "Entfernen"
+    },
+    "actions": {
+      "showDetails": "Details ansehen",
+      "showAll": "Alle ansehen"
+    },
+    "listing": {
+      "resultFor": "Ergebnisse für",
+      "allOf": "Alle für",
+      "of": "von",
+      "counter": {
+        "viewed": "Du siehst",
+        "of": "von",
+        "products": "Produkten"
+      }
+    },
+    "pagination": {
+      "label": "Seitennavigation",
+      "previous": "Vorherige",
+      "next": "Nächste",
+      "page": "Seite {n}",
+      "pageOf": "Seite {n} von {total}",
+      "showing": "{from}–{to} von {total} Produkten",
+      "goTo": "Gehe zu Seite",
+      "go": "Los"
+    },
+    "sorting": {
+      "sortBy": "Sortieren nach",
+      "newest": "Neueste",
+      "priceCheapest": "Günstigste zuerst",
+      "priceExpensive": "Teuerste zuerst",
+      "nameAtoZ": "Name (A - Z)",
+      "nameZtoA": "Name (Z - A)"
+    },
+    "filters": {
+      "language": "Sprache",
+      "condition": "Zustand",
+      "brand": "Marke",
+      "available": "Verfügbar",
+      "IT": "Italienisch",
+      "EN": "Englisch",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "verfügbar",
+      "false": "nicht verfügbar",
+      "NA": "sonstige",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japanisch",
+      "it": "Italienisch",
+      "en": "Englisch",
+      "de": "Deutsch",
+      "fr": "Französisch",
+      "es": "Spanisch",
+      "pt": "Portugiesisch",
+      "ru": "Russisch",
+      "ko": "Koreanisch",
+      "zh": "Chinesisch",
+      "zh-CN": "Vereinfachtes Chinesisch",
+      "zh-TW": "Traditionelles Chinesisch",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Keine Produkte gefunden",
+      "subtitle": "Entferne ein paar Filter, um deine Suche zu erweitern.",
+      "clearFilters": "Alle Filter entfernen",
+      "backHome": "Zur Startseite"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "ab",
+      "soldOut": "ausverkauft",
+      "lastUnits": "Letztes verfügbares Stück | Nur noch {count} Stück"
+    },
+    "hero": {
+      "TaxesAndShipping": "Inkl. MwSt. Versandkosten werden an der Kasse berechnet",
+      "Language": "Sprache",
+      "Quantity": "Menge",
+      "AddToCart": "in den Warenkorb",
+      "BuyWithPaypal": "Mit PayPal kaufen",
+      "Description": "Beschreibung",
+      "addToCartToast": "Produkt erfolgreich in den Warenkorb gelegt"
+    },
+    "quantity": {
+      "quantity": "Menge",
+      "availability": "Verfügbarkeit",
+      "pieces": "Stück"
+    },
+    "messages": {
+      "suggested": "Hast du die schon gesehen?"
+    },
+    "description": {
+      "fromSet": "{name} ist eine Karte aus der Erweiterung {expansion}.",
+      "number": "Sammlernummer {number}.",
+      "rarity": "Seltenheit: {rarity}.",
+      "languages": "Verfügbare Sprachen: {languages}.",
+      "conditions": "Verfügbare Zustände: {conditions}.",
+      "fromSetProduct": "{name} ist ein Produkt aus der Erweiterung {expansion}."
+    },
+    "sections": {
+      "recommended": "Das könnte dir auch gefallen"
+    },
+    "quickAdd": {
+      "add": "Hinzufügen",
+      "added": "Hinzugefügt",
+      "choose": "Version wählen",
+      "maxed": "Du hast bereits alle verfügbaren Exemplare im Warenkorb",
+      "aria": "{name} in den Warenkorb legen"
+    },
+    "neighbors": {
+      "label": "Weitere Karten aus dem Set",
+      "previous": "Vorherige",
+      "next": "Nächste"
+    }
+  },
+  "cart": {
+    "title": "Warenkorb",
+    "empty": "Deine Reise als Trainer hat noch nicht begonnen!",
+    "startExploring": "Hier geht's los",
+    "summary": {
+      "title": "Warenkorb-Übersicht",
+      "shipping": "Versand",
+      "total": "Gesamt",
+      "free": "Kostenlos"
+    },
+    "shipping": {
+      "heading": "Versandart",
+      "note": "*du kannst an der Kasse eine andere Versandart wählen",
+      "couponPlaceholder": "Gutscheincode eingeben",
+      "total": "Gesamt",
+      "couponQuestion": "Hast du einen Gutscheincode?",
+      "apply": "Code einlösen",
+      "applyDesktop": "einlösen",
+      "buyCta": "Zur Kasse",
+      "back": "Zurück zu den Produkten",
+      "couponLabel": "Gutschein",
+      "removeCoupon": "Gutschein entfernen"
+    },
+    "help": {
+      "title": "Brauchst du Hilfe?",
+      "content": "Wir versenden nach Italien und in alle Länder der Europäischen Union – immer mit Sendungsverfolgung. Die Karten werden mit Sleeve und Toploader geschützt und so verpackt, dass sie genau in dem beschriebenen Zustand bei dir ankommen. Bei Fragen zu deiner Bestellung schreib uns einfach über die Seite Kundenservice."
+    },
+    "stockChanged": "Einige Artikel sind nicht mehr in der gewünschten Menge verfügbar:",
+    "stockRequested": "gewünscht",
+    "stockAvailable": "verfügbar",
+    "recommended": "Vervollständige deine Sammlung"
+  },
+  "filter": {
+    "language": "Sprache",
+    "condition": "Zustand",
+    "brand": "Marke",
+    "type": "Produkttyp",
+    "expansion": "Erweiterung",
+    "available": "Verfügbar",
+    "IT": "Italienisch",
+    "EN": "Englisch",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "verfügbar",
+    "false": "nicht verfügbar",
+    "NA": "sonstige",
+    "pokemon": "pokemon",
+    "it": "Italienisch",
+    "en": "Englisch",
+    "jp": "Japanisch",
+    "de": "Deutsch",
+    "fr": "Französisch",
+    "es": "Spanisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "ko": "Koreanisch",
+    "zh": "Chinesisch",
+    "zh-CN": "Vereinfachtes Chinesisch",
+    "zh-TW": "Traditionelles Chinesisch",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Seltenheit"
+  },
+  "filterType": {
+    "singles": "Einzelkarten",
+    "single-card": "Einzelkarte",
+    "preconstructed-deck": "Vorgefertigte Decks",
+    "booster": "Booster",
+    "boosters": "Booster",
+    "booster-box": "Booster-Display",
+    "booster-boxes": "Booster-Displays",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Du siehst",
+    "of": "von",
+    "products": "Produkten"
+  },
+  "checkout": {
+    "title": "Kasse",
+    "shippingInfo": "Versandinformationen",
+    "actions": {
+      "confirmAndPay": "Bestätigen und bezahlen",
+      "paying": "Zahlung läuft…"
+    },
+    "thanks": {
+      "main": "Danke!",
+      "newsletter": "Danke für deine Anmeldung zu unserem Newsletter! Du bekommst in Kürze eine E-Mail mit allen Details.",
+      "order": "Deine Zahlung war erfolgreich und deine Bestellung ist bestätigt.",
+      "backHome": "Zurück zur Startseite"
+    },
+    "confirming": "Wir bestätigen deine Bestellung…",
+    "confirmFailed": "Wir konnten deine Bestellung nicht bestätigen",
+    "orderNumber": "Bestellnummer",
+    "genericError": "Ein Fehler ist aufgetreten. Kontaktiere bitte unseren Kundenservice und gib die Uhrzeit deines Kaufs an.",
+    "paymentUnavailable": "Die Online-Zahlung ist gerade nicht verfügbar. Versuch es gleich noch einmal oder kontaktiere uns.",
+    "completeForm": "Vervollständige deine Versanddaten, um zur Zahlung zu gelangen.",
+    "priceChanged": "Einige Preise haben sich geändert: Prüfe die neue Gesamtsumme und klicke erneut auf „Bestätigen und bezahlen“.",
+    "couponNoLongerValid": "Der Gutschein ist nicht mehr gültig ({reason}): Die Gesamtsumme wurde aktualisiert.",
+    "paymentFailed": "Die Zahlung ist fehlgeschlagen. Versuch es erneut oder wähle eine andere Zahlungsart.",
+    "emailSentTo": "Wir haben dir die Bestätigung an {email} geschickt.",
+    "processingTitle": "Zahlung wird bearbeitet",
+    "processingText": "Deine Bank bestätigt die Zahlung noch. Sobald sie eingeht, schicken wir dir die Bestellbestätigung per E-Mail – du musst nicht noch einmal bezahlen.",
+    "paymentFailedTitle": "Zahlung fehlgeschlagen",
+    "paymentFailedText": "Die Zahlung wurde nicht abgeschlossen und dir wurde nichts berechnet. Dein Warenkorb ist noch da: Du kannst es erneut versuchen.",
+    "backToCheckout": "Zurück zur Kasse",
+    "nothingToConfirm": "Es gibt keine Zahlung zu bestätigen.",
+    "noShippingForCountry": "Wir versenden derzeit nicht in dieses Land. Wähle ein anderes oder schreib uns über die Seite Kundenservice."
+  },
+  "forms": {
+    "fields": {
+      "name": "Vorname",
+      "surname": "Nachname",
+      "email": "E-Mail",
+      "message": "Nachricht",
+      "nation": "Land",
+      "cap": "PLZ",
+      "city": "Stadt",
+      "streetAndHouseNumber": "Straße und Hausnummer",
+      "iWantTheInvoice": "Ich möchte eine Rechnung",
+      "acceptTerms": "Ich habe die {terms} gelesen und akzeptiert und die {privacy} zur Kenntnis genommen.",
+      "termsLink": "AGB",
+      "privacyLink": "Datenschutzerklärung",
+      "phone": "Telefon",
+      "province": "Provinz",
+      "provincePlaceholder": "Provinz auswählen",
+      "optional": "optional",
+      "invoiceKind": "Rechnungsart",
+      "invoiceKind_private": "Privatperson",
+      "invoiceKind_company": "Unternehmen / USt-IdNr.",
+      "taxCode": "Steuernummer (Codice Fiscale)",
+      "companyName": "Firmenname",
+      "vatNumber": "USt-IdNr. (Partita IVA)",
+      "sdiCode": "SDI-Empfängercode (Codice SDI)",
+      "pec": "PEC (zertifizierte E-Mail)",
+      "invoiceHint": "Gib deinen SDI-Empfängercode oder deine PEC-Adresse an: Wenn du keins von beiden hast, wird die E-Rechnung in deinem Steuerpostfach (Cassetto Fiscale) bereitgestellt.",
+      "invoiceHintForeignPrivate": "Die Rechnung wird auf den Namen und die Lieferadresse ausgestellt.",
+      "invoiceHintForeignCompany": "Gib deine EU-USt-IdNr. (VIES) an, mit oder ohne Ländercode."
+    },
+    "actions": {
+      "submit": "Senden"
+    },
+    "contact": {
+      "title": "Kontaktformular",
+      "placeholders": {
+        "name": "Name",
+        "email": "E-Mail-Adresse",
+        "phone": "Telefonnummer",
+        "message": "Deine Nachricht"
+      },
+      "phoneValidation": "Gib eine gültige Telefonnummer ein",
+      "submit": "Senden"
+    },
+    "support": {
+      "title": "Kundenservice",
+      "mail": "Du erreichst uns per E-Mail unter",
+      "message": "oder per Nachricht/WhatsApp unter",
+      "form": "Wenn du möchtest, kannst du auch das Formular unten ausfüllen.",
+      "answer": "Du erhältst eine Antwort / Wir antworten dir innerhalb von 48 Stunden.",
+      "sending": "Wird gesendet…",
+      "sent": "Nachricht gesendet! Wir antworten dir so schnell wie möglich.",
+      "failed": "Wir konnten deine Nachricht nicht senden. Versuch es erneut oder schreib uns per E-Mail."
+    },
+    "validation": {
+      "required": "Pflichtfeld",
+      "invalidEmail": "Gib eine gültige E-Mail-Adresse ein",
+      "invalidCAP": "Gib eine gültige PLZ ein",
+      "acceptTerms": "Um fortzufahren, musst du die AGB akzeptieren",
+      "invalidPhone": "Gib eine gültige Telefonnummer ein",
+      "invalidTaxCode": "Gib eine gültige Steuernummer (Codice Fiscale) ein",
+      "invalidVatNumber": "Gib eine gültige USt-IdNr. (Partita IVA, 11 Ziffern) ein",
+      "invalidSdi": "Der SDI-Empfängercode hat 7 Zeichen",
+      "invalidVatNumberEu": "Gib eine gültige EU-USt-IdNr. ein"
+    }
+  },
+  "payments": {
+    "terms": "Zahlung mit",
+    "methodsTitle": "Zahlungsarten",
+    "options": {
+      "creditCard": "Kreditkarte",
+      "wireTransfer": "Banküberweisung"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Produkt in den Warenkorb gelegt",
+      "error": "Wir konnten das Produkt nicht in den Warenkorb legen. Versuch es erneut.",
+      "overflow": "Du hast bereits alle verfügbaren Exemplare dieses Produkts im Warenkorb."
+    },
+    "checkout": {
+      "success": "Bestellung erfolgreich abgeschlossen",
+      "error": "Aufgrund eines technischen Problems konnte die Bestellung nicht abgeschlossen werden"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Deine Anmeldung zum Jigglycard-Newsletter war erfolgreich",
+      "adminSubject": "Neue Anmeldung zum Jigglycard-Newsletter",
+      "storeName": "Jigglycard Store",
+      "plainText": "Du hast eine neue Nachricht vom Newsletter erhalten."
+    },
+    "support": {
+      "subject": "Support-Ticket",
+      "adminSubject": "Support-Ticket von: {name} - E-Mail: {email}",
+      "plainText": "Du hast ein neues Support-Ticket erhalten."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Booster",
+    "dragon-ball-super-singles": "Einzelkarten",
+    "ff-single-card": "Einzelkarten",
+    "magic-booster-boxes": "Booster-Displays",
+    "one-piece-single-card": "Einzelkarten",
+    "pokemon-blisters": "Blister",
+    "pokemon-booster": "Booster",
+    "pokemon-box-set": "Box Sets",
+    "pokemon-empty-boxes-storage": "Leere Boxen und Aufbewahrung",
+    "pokemon-preconstructed-deck": "Vorgefertigte Decks",
+    "pokemon-singles": "Einzelkarten",
+    "yu-gi-oh-boosters": "Booster"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard-Pokédex",
+    "title": "Dein Pokémon,",
+    "titleHighlight": "alle seine Karten.",
+    "lead": "Wähle ein Pokémon und entdecke alle seine Einzelkarten, die bei uns im Shop verfügbar sind – von der seltensten bis zur häufigsten.",
+    "searchPlaceholder": "Nach Name oder Nummer suchen",
+    "generation": "Generation",
+    "all": "Alle",
+    "shown": "{n} Pokémon",
+    "noMatch": "Kein Pokémon passt zu deiner Suche.",
+    "back": "Alle Pokémon",
+    "loading": "Suche Karten…",
+    "cardsFound": "{n} Karten verfügbar",
+    "noCards": "Zurzeit haben wir keine Karten von {name} verfügbar.",
+    "browseSingles": "Alle Einzelkarten durchstöbern",
+    "loadMore": "Mehr Karten anzeigen",
+    "pickTitle": "Wähle ein Pokémon",
+    "pickText": "Wähle ein Pokémon aus der Liste, um alle verfügbaren Karten zu sehen."
+  },
+  "shippingPage": {
+    "kicker": "Versand",
+    "title": "Versand,",
+    "titleHighlight": "Rückgabe und Erstattung.",
+    "methodsTitle": "Versandarten",
+    "methodsLead": "Die Versandart wählst du an der Kasse: Das sind die aktuellen Preise.",
+    "domestic": "Italien",
+    "international": "Europäische Union",
+    "maxValue": "Für Bestellungen bis {value}",
+    "packagingTitle": "So verpacken wir deine Karten",
+    "returnsTitle": "Rückgabe und Erstattung",
+    "returnsText": "Für eine Rückgabe oder Erstattung schreib uns über die Seite Kundenservice und gib deine Bestellnummer an: Wir antworten dir mit allen Anweisungen.",
+    "cta": "Zum Kundenservice"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon und die Namen der Figuren sind eingetragene Marken von Nintendo, Creatures Inc. und GAME FREAK inc., verwaltet von The Pokémon Company. Jigglycard ist ein unabhängiger Händler von Originalprodukten und steht weder in Verbindung mit diesen Unternehmen noch wird es von ihnen gesponsert oder autorisiert. Die Kartenbilder dienen ausschließlich dazu, die angebotenen Produkte zu identifizieren."
+  }
+}

@@ -102,6 +102,12 @@
       >
         <div v-if="isMenuOpen" class="mobile-drawer xl:hidden">
           <MoleculesMobileMenu @closeMenu="toggleMenu" />
+          <!-- In fondo al menu: nella barra in alto non c'è posto accanto a
+               ricerca e carrello. -->
+          <div class="drawer-language">
+            <span>{{ t("layout.header.language") }}</span>
+            <AtomsLanguageSwitcher full />
+          </div>
         </div>
       </transition>
     </nav>
@@ -360,6 +366,20 @@ const onItemClick = () => {
     radial-gradient(90% 50% at 100% 0%, rgba(236, 145, 160, 0.16), transparent 70%),
     radial-gradient(80% 40% at 0% 100%, rgba(92, 200, 224, 0.12), transparent 70%),
     var(--im-bg);
+}
+
+.drawer-language {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--im-line);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--im-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

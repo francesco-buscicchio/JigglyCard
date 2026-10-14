@@ -6,13 +6,18 @@
     </h2>
     <!-- Tessere selezionabili con il radio nativo dentro: stessa resa del
          riepilogo carrello. -->
-    <div class="ship__options" role="radiogroup" :aria-labelledby="titleId">
-      <div v-for="(option, index) in shippingOptions" :key="index">
+    <div
+      v-if="shippingOptions.length"
+      class="ship__options"
+      role="radiogroup"
+      :aria-labelledby="titleId"
+    >
+      <div v-for="option in shippingOptions" :key="option.id">
         <AtomsRadioButton
           class="ship-option"
           :id="option.id"
           :value="option"
-          :selectedValue="selectedOption.id"
+          :selectedValue="selectedOption?.id"
           :name="'shippingOptions'"
           @update:modelValue="emitSelectedOption"
         >
@@ -23,6 +28,12 @@
         </AtomsRadioButton>
       </div>
     </div>
+    <!-- Le spedizioni dipendono dal paese: per uno senza metodi attivi nel
+         CMS lo si dice, invece di lasciare un riquadro vuoto. -->
+    <p v-else class="ship__empty" role="status">
+      <Icon name="heroicons:exclamation-circle-20-solid" size="18" />
+      {{ t("checkout.noShippingForCountry") }}
+    </p>
   </div>
 </template>
 
@@ -69,6 +80,18 @@ function emitSelectedOption(option: ShippingOption) {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.ship__empty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed var(--im-line);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--im-muted);
 }
 
 .ship__title {

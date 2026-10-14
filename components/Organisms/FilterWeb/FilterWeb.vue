@@ -76,6 +76,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, type PropType } from "vue";
 import { getTypeTranslationKey } from "~/utils/filterTranslation";
+import { rarityRank } from "~/utils/showcaseCards";
 const props = defineProps({
   filters: {
     type: Array as PropType<string[]>,
@@ -119,10 +120,16 @@ const FACET_LABEL_KEYS: Record<string, string> = {
 const facetDefinitions = [
   { facetKey: "languages", category: "language" },
   { facetKey: "conditions", category: "condition" },
+  { facetKey: "rarity", category: "rarity" },
   { facetKey: "type", category: "type" },
   { facetKey: "setSlug", category: "expansion" },
   { facetKey: "available", category: "available" },
 ];
+
+/** Rarità dalla più comune alla più ambita, le altre voci in ordine alfabetico. */
+const compareOptions = (category: string) => (a: string, b: string) =>
+  (category === "rarity" ? rarityRank(b) - rarityRank(a) : 0) ||
+  a.localeCompare(b);
 
 watch(
   () => props.filters,
@@ -315,7 +322,7 @@ function buildFilterCategories(
       if (!cachedValues || cachedValues.size === 0) return null;
 
       const values = Array.from(cachedValues)
-        .sort((a, b) => a.localeCompare(b))
+        .sort(compareOptions(category))
         .map((valueKey) => ({
           id: `${facetKey}-${valueKey}`,
           name: valueKey,

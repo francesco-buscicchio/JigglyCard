@@ -151,6 +151,12 @@ const technical = [
     duration: "Fino alla chiusura della scheda",
   },
   {
+    name: "jigglycard_locale",
+    provider: "Jigglycard (cookie)",
+    purpose: "Ricordare la lingua scelta per il sito",
+    duration: "12 mesi",
+  },
+  {
     name: "jigglycard-color-mode",
     provider: "Jigglycard (localStorage)",
     purpose: "Ricordare il tema grafico",

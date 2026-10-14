@@ -21,7 +21,8 @@
   },
   "layout": {
     "header": {
-      "allProductsLink": "All products"
+      "allProductsLink": "All products",
+      "language": "Language"
     },
     "footer": {
       "links": {
@@ -409,7 +410,7 @@
     },
     "help": {
       "title": "Need assistance?",
-      "content": "We ship across Italy with a tracked courier. Cards are sleeved, put in a toploader and packed so they arrive in the condition you saw described. If you have any doubts about your order, contact us from the Support page."
+      "content": "We ship to Italy and every European Union country with a tracked courier. Cards are sleeved, put in a toploader and packed so they arrive in the condition you saw described. If you have any doubts about your order, contact us from the Support page."
     },
     "stockChanged": "Some items are no longer available in the requested quantity:",
     "stockRequested": "requested",
@@ -499,7 +500,8 @@
     "paymentFailedTitle": "Payment failed",
     "paymentFailedText": "The payment was not completed and you have not been charged. Your cart is still here: you can try again.",
     "backToCheckout": "Back to checkout",
-    "nothingToConfirm": "There is no payment to confirm."
+    "nothingToConfirm": "There is no payment to confirm.",
+    "noShippingForCountry": "We don't ship to this country at the moment. Choose another one or contact us from the Support page."
   },
   "forms": {
     "fields": {
@@ -518,7 +520,6 @@
       "phone": "Phone",
       "province": "Province",
       "provincePlaceholder": "Choose the province",
-      "countryItaly": "Italy",
       "optional": "optional",
       "invoiceKind": "Invoice type",
       "invoiceKind_private": "Individual",
@@ -528,7 +529,9 @@
       "vatNumber": "VAT number",
       "sdiCode": "SDI code",
       "pec": "PEC (certified email)",
-      "invoiceHint": "Enter your SDI code or PEC: if you have neither, the e-invoice will be available in your tax drawer."
+      "invoiceHint": "Enter your SDI code or PEC: if you have neither, the e-invoice will be available in your tax drawer.",
+      "invoiceHintForeignPrivate": "The invoice will be issued to the shipping name and address.",
+      "invoiceHintForeignCompany": "Enter your EU VAT number (VIES), with or without the country prefix."
     },
     "actions": {
       "submit": "Send"
@@ -555,14 +558,15 @@
       "failed": "We could not send your message. Please try again or email us."
     },
     "validation": {
-      "required": "Campo obbligatorio",
-      "invalidEmail": "Inserisci un indirizzo e-mail valido",
-      "invalidCAP": "Inserisci un CAP valido",
+      "required": "Required field",
+      "invalidEmail": "Enter a valid email address",
+      "invalidCAP": "Enter a valid postal code",
       "acceptTerms": "You must accept the terms of sale to continue",
       "invalidPhone": "Enter a valid phone number",
       "invalidTaxCode": "Enter a valid tax code",
       "invalidVatNumber": "Enter a valid VAT number (11 digits)",
-      "invalidSdi": "The SDI code has 7 characters"
+      "invalidSdi": "The SDI code has 7 characters",
+      "invalidVatNumberEu": "Enter a valid EU VAT number"
     }
   },
   "payments": {
@@ -580,8 +584,8 @@
       "overflow": "Your cart already has all the available pieces of this product."
     },
     "checkout": {
-      "success": "Checkout Completato con Successo",
-      "error": "Per qualche problema tecnico il checkout non e' stato completato"
+      "success": "Checkout completed successfully",
+      "error": "Due to a technical problem the checkout was not completed"
     }
   },
   "emails": {
@@ -942,7 +946,7 @@
     "methodsTitle": "Shipping methods",
     "methodsLead": "You choose the method at checkout: these are today's prices.",
     "domestic": "Italy",
-    "international": "International",
+    "international": "European Union",
     "maxValue": "For orders up to {value}",
     "packagingTitle": "How we pack your cards",
     "returnsTitle": "Returns and refunds",

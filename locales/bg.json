@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "поверителност",
+      "cookies": "бисквитки",
+      "terms": "условия за продажба",
+      "cookiePreferences": "настройки за бисквитки"
+    },
+    "messages": {
+      "noResults": "Няма резултати"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Страницата не е намерена",
+      "notFoundDescription": "Изглежда, че се изгуби в гората на илюзиите... опитай да намериш пътя обратно!",
+      "backHome": "Към началната страница"
+    },
+    "genericError": "Нещо се обърка. Опитай отново след малко."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Всички продукти",
+      "language": "Език"
+    },
+    "footer": {
+      "links": {
+        "about": "За нас",
+        "shipping": "Доставка, връщане и възстановяване на суми",
+        "support": "Поддръжка"
+      }
+    },
+    "routes": {
+      "cart": "Количка",
+      "/carrello": "Количка",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Единични карти",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Готови тестета",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Всички продукти",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Единични карти",
+      "/one-piece/mazzi-precostruiti": "One Piece - Готови тестета",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Всички продукти",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Единични карти",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Готови тестета",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Всички продукти",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Единични карти",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Готови тестета",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Всички продукти",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Единични карти",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Готови тестета",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Всички продукти",
+      "/servizi": "Услуги",
+      "/contatti": "Контакти",
+      "/": "Начало"
+    },
+    "breadcrumb": {
+      "label": "Навигационна пътека",
+      "home": "Начало",
+      "all": "Всички продукти",
+      "search": "Търсене: {term}",
+      "cart": "Количка",
+      "checkout": "Плащане"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Препоръчани продукти",
+      "conditions": "Състояние на картите",
+      "weeklyOffers": "Седмични оферти",
+      "preOrders": "Предварителни поръчки",
+      "highlights": "На фокус",
+      "whatsNew": "Нови продукти",
+      "deals": "Промоции"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Проследима и защитена доставка",
+        "description": "Всяка поръчка тръгва с куриер с проследяване, обикновено до три работни дни, а картите са в протектор и toploader."
+      },
+      "support": {
+        "title": "Лична поддръжка",
+        "description": "Пиши ни по имейл или в WhatsApp: отговаряме до 48 работни часа."
+      },
+      "prices": {
+        "title": "Винаги актуални цени",
+        "description": "Съобразяваме цените с пазара няколко пъти на ден, за да плащаш справедлива цена за всяка карта."
+      },
+      "security": {
+        "title": "Защитени данни",
+        "description": "Личните ти данни и данните за плащане са защитени с криптиране по стандартите на индустрията."
+      }
+    },
+    "hero": {
+      "products": "продукта",
+      "from": "от",
+      "explore": "Разгледай сета"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Предимства на магазина",
+        "marquee": {
+          "shipping": "Поръчките се изпращат до 3 работни дни",
+          "payments": "Сигурни и защитени плащания",
+          "sell": "Продай колекцията си: оценка с предварителна уговорка",
+          "games": "Единични карти, запечатани бустери и кутии"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Всяка карта",
+        "titleLine2": "има своя история.",
+        "titleHighlight": "Следващата е твоя.",
+        "lead": "Единични карти, запечатани бустери и кутии, подбрани от колекционери за колекционери. Намери картата, която липсва в колекцията ти: изпращаме я до три работни дни, винаги добре защитена.",
+        "ctaPrimary": "Намери своята карта",
+        "ctaSecondary": "Отвори бустер",
+        "trust": {
+          "shipping": "Изпращане до 3 работни дни",
+          "payments": "Сигурни плащания",
+          "marketplaces": "Намираш ни и в Cardmarket и Cardtrader"
+        },
+        "latestKicker": "Току-що пристигна",
+        "stats": {
+          "products": "продукти в наличност сега",
+          "shipping": "работни дни до изпращане",
+          "shippingValue": "3 дни",
+          "payments": "защитени плащания",
+          "singles": "единични карти в наличност"
+        },
+        "scroll": "Превърти"
+      },
+      "story": {
+        "label": "От бустера до твоята маса",
+        "packSubtitle": "Колекционерски бустер",
+        "packTitleFallback": "Ново разширение",
+        "badge": "Проверена и защитена",
+        "pack": {
+          "kicker": "Бустерът",
+          "title1": "Всеки бустер",
+          "title2": "е обещание.",
+          "text": "Вътре винаги се крие шанс: затова всяко отваряне кара сърцето да бие по-бързо. Бустерите и кутиите пристигат при теб запечатани, точно както са излезли от фабриката."
+        },
+        "fan": {
+          "kicker": "Ветрилото",
+          "title1": "Обикновени, по-редки,",
+          "title2": "reverse. И накрая – последната.",
+          "text": "Най-добрата карта винаги е най-отзад. Знае го всеки, който е отварял бустер, знаем го и ние."
+        },
+        "hit": {
+          "kicker": "Хитът",
+          "title1": "Онази,",
+          "title2": "която търсеше.",
+          "text": "Holo, reverse, full art, специални илюстрации: рядкостта, от която ръцете треперят. А ако не искаш да разчиташ на късмета, вече я имаме сред единичните карти."
+        },
+        "safe": {
+          "kicker": "На сигурно",
+          "title1": "Защитена,",
+          "title2": "чак до дома ти.",
+          "text": "Всяка поръчка тръгва до три работни дни и винаги пътува добре защитена, защото перфектната карта трябва да пристигне перфектна.",
+          "cta": "Разгледай единичните карти"
+        }
+      },
+      "categories": {
+        "kicker": "Каталогът",
+        "title": "Какво търсиш?",
+        "lead": "От картата, която липсва в колекцията ти, до кутията, която да отвориш с приятели.",
+        "products": "продукта",
+        "enter": "Влез"
+      },
+      "showcase": {
+        "kicker": "Сега на масата",
+        "title": "Картите на момента.",
+        "from": "от",
+        "previous": "Предишни карти",
+        "next": "Следващи карти",
+        "all": "Виж целия каталог"
+      },
+      "opening": {
+        "kicker": "Виртуален бустер · безплатно",
+        "title1": "Докосни бустера.",
+        "title2": "Открий своя хит.",
+        "lead": "Избери един от японските бустери, които имаме в магазина, и го отвори тук безплатно. От него излизат само японски карти от този сет, взети от наличните ни единични карти: ако ти хареса картата, която изтеглиш, тя вече се продава. А ако ти е харесала тръпката, истинският бустер е на един клик разстояние.",
+        "facts": {
+          "cards": "карти в бустер",
+          "hit": "гарантиран хит",
+          "price": "за игра",
+          "set": "карти от сета в магазина"
+        },
+        "tear": "Скъсай бустера",
+        "tapHint": "Докосни, за да го скъсаш",
+        "packSubtitle": "Виртуален бустер",
+        "flip": "Обърни карта {n}",
+        "revealAll": "Покажи всички",
+        "yourHit": "Твоят хит",
+        "seeCard": "Виж картата",
+        "again": "Отвори друг бустер",
+        "status": {
+          "idle": "Запечатан бустер · 5 карти",
+          "torn": "Отваряне…",
+          "dealt": "Карти за обръщане: {n}",
+          "done": "Бустерът е отворен",
+          "idlePack": "{name} · запечатан"
+        },
+        "choosePack": "Избери бустер за отваряне",
+        "buyPack": "Купи бустера · {price} €",
+        "cardsShort": "карти"
+      },
+      "sell": {
+        "kicker": "Продай на нас",
+        "title": "Имаш колекция в чекмеджето?",
+        "lead": "Ние ще я оценим, спокойно и с предварителна уговорка. Запази час за оценка и разбери колко струва наистина.",
+        "cta": "Запази час за оценка",
+        "rules": "Прочети правилата"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Присъедини се към нашата общност и получавай специални оферти направо в пощата си!",
+    "caption": {
+      "first": "Открий всички предимства да си в течение с един клик: ексклузивни премиери, специални промоции, подробни материали и персонализирани напомняния за покупките ти – без да пълним пощата ти. Абонирай се сега и вземи ",
+      "bold": " код за отстъпка 15% ",
+      "second": " валиден за първата ти покупка на артикули, които не са в промоция!"
+    },
+    "emailValidation": "Въведи валиден имейл.",
+    "short": "Бъди в течение с един клик, без да пълним пощата ти. Абонирай се и вземи 15% отстъпка за първата си покупка на артикули, които не са в промоция!",
+    "button": "Абонирай се",
+    "toast": "Абонаментът е успешен",
+    "emailPlaceholder": "Имейл"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "филтри",
+      "search": "Търси",
+      "price": "Цена",
+      "from": "от",
+      "to": "до",
+      "apply": "Приложи",
+      "clear": "Изчисти всички филтри",
+      "min": "Мин.",
+      "max": "Макс.",
+      "searchOption": "Търси…",
+      "noOption": "Няма съвпадения",
+      "reset": "Нулирай",
+      "close": "Затвори",
+      "remove": "Премахни"
+    },
+    "actions": {
+      "showDetails": "виж детайли",
+      "showAll": "Виж всички"
+    },
+    "listing": {
+      "resultFor": "Резултати за",
+      "allOf": "Всички за",
+      "of": "от",
+      "counter": {
+        "viewed": "Разгледа",
+        "of": "от",
+        "products": "продукта"
+      }
+    },
+    "pagination": {
+      "label": "Страниране",
+      "previous": "Предишна",
+      "next": "Следваща",
+      "page": "Страница {n}",
+      "pageOf": "Страница {n} от {total}",
+      "showing": "{from}–{to} от {total} продукта",
+      "goTo": "Отиди на страница",
+      "go": "Отиди"
+    },
+    "sorting": {
+      "sortBy": "Подреди по",
+      "newest": "Най-нови",
+      "priceCheapest": "Най-ниска цена",
+      "priceExpensive": "Най-висока цена",
+      "nameAtoZ": "Име (A - Z)",
+      "nameZtoA": "Име (Z - A)"
+    },
+    "filters": {
+      "language": "Език",
+      "condition": "Състояние",
+      "brand": "Марка",
+      "available": "Наличност",
+      "IT": "италиански",
+      "EN": "английски",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "в наличност",
+      "false": "няма наличност",
+      "NA": "друго",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Японски",
+      "it": "Италиански",
+      "en": "Английски",
+      "de": "Немски",
+      "fr": "Френски",
+      "es": "Испански",
+      "pt": "Португалски",
+      "ru": "Руски",
+      "ko": "Корейски",
+      "zh": "Китайски",
+      "zh-CN": "Китайски (опростен)",
+      "zh-TW": "Китайски (традиционен)",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Няма намерени продукти",
+      "subtitle": "Опитай да разшириш търсенето, като премахнеш някой филтър.",
+      "clearFilters": "Премахни всички филтри",
+      "backHome": "Към началото"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "от",
+      "soldOut": "изчерпан",
+      "lastUnits": "Последен наличен брой | Последни {count} броя"
+    },
+    "hero": {
+      "TaxesAndShipping": "С включени данъци. Доставката се изчислява при плащане",
+      "Language": "Език",
+      "Quantity": "Количество",
+      "AddToCart": "добави в количката",
+      "BuyWithPaypal": "Купи с PayPal",
+      "Description": "Описание",
+      "addToCartToast": "Продуктът е добавен в количката"
+    },
+    "quantity": {
+      "quantity": "Количество",
+      "availability": "Наличност",
+      "pieces": "броя"
+    },
+    "messages": {
+      "suggested": "Видя ли тези?"
+    },
+    "description": {
+      "fromSet": "{name} е карта от разширението {expansion}.",
+      "number": "Колекционерски номер {number}.",
+      "rarity": "Рядкост: {rarity}.",
+      "languages": "Налични езици: {languages}.",
+      "conditions": "Налични състояния: {conditions}.",
+      "fromSetProduct": "{name} е продукт от разширението {expansion}."
+    },
+    "sections": {
+      "recommended": "Може да те заинтересуват"
+    },
+    "quickAdd": {
+      "add": "Добави",
+      "added": "Добавено",
+      "choose": "Избери версия",
+      "maxed": "Вече имаш в количката всички налични бройки",
+      "aria": "Добави {name} в количката"
+    },
+    "neighbors": {
+      "label": "Още карти от сета",
+      "previous": "Предишна",
+      "next": "Следваща"
+    }
+  },
+  "cart": {
+    "title": "Количка",
+    "empty": "Твоето пътешествие като треньор още не е започнало!",
+    "startExploring": "Започни оттук",
+    "summary": {
+      "title": "Обобщение на количката",
+      "shipping": "Доставка",
+      "total": "Общо",
+      "free": "Безплатно"
+    },
+    "shipping": {
+      "heading": "Начин на доставка",
+      "note": "*можеш да избереш друг начин при завършване на поръчката",
+      "couponPlaceholder": "Въведи кода на купона",
+      "total": "Общо",
+      "couponQuestion": "Имаш ли код за отстъпка?",
+      "apply": "Приложи кода",
+      "applyDesktop": "приложи",
+      "buyCta": "Продължи към покупката",
+      "back": "Обратно към продуктите",
+      "couponLabel": "Купон",
+      "removeCoupon": "Премахни купона"
+    },
+    "help": {
+      "title": "Нуждаеш ли се от помощ?",
+      "content": "Изпращаме до Италия и до всички държави от Европейския съюз с куриер с проследяване. Картите се поставят в протектор и toploader и се опаковат така, че да пристигнат в състоянието, в което са описани. За всякакви въпроси относно поръчката можеш да ни пишеш от страницата „Поддръжка“."
+    },
+    "stockChanged": "Някои артикули вече не са налични в заявеното количество:",
+    "stockRequested": "заявени",
+    "stockAvailable": "налични",
+    "recommended": "Допълни колекцията си"
+  },
+  "filter": {
+    "language": "Език",
+    "condition": "Състояние",
+    "brand": "Марка",
+    "type": "Тип",
+    "expansion": "Разширение",
+    "available": "Наличност",
+    "IT": "италиански",
+    "EN": "английски",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "в наличност",
+    "false": "няма наличност",
+    "NA": "друго",
+    "pokemon": "pokemon",
+    "it": "Италиански",
+    "en": "Английски",
+    "jp": "Японски",
+    "de": "Немски",
+    "fr": "Френски",
+    "es": "Испански",
+    "pt": "Португалски",
+    "ru": "Руски",
+    "ko": "Корейски",
+    "zh": "Китайски",
+    "zh-CN": "Китайски (опростен)",
+    "zh-TW": "Китайски (традиционен)",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Рядкост"
+  },
+  "filterType": {
+    "singles": "Единични карти",
+    "single-card": "Единична карта",
+    "preconstructed-deck": "Готови тестета",
+    "booster": "Booster",
+    "boosters": "Booster",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Разгледа",
+    "of": "от",
+    "products": "продукта"
+  },
+  "checkout": {
+    "title": "Плащане",
+    "shippingInfo": "Данни за доставка",
+    "actions": {
+      "confirmAndPay": "Потвърди и плати",
+      "paying": "Обработване на плащането…"
+    },
+    "thanks": {
+      "main": "Благодарим!",
+      "newsletter": "Благодарим, че се абонира за нашия бюлетин! Скоро ще получиш имейл с всички подробности.",
+      "order": "Плащането е успешно и поръчката ти е потвърдена.",
+      "backHome": "Към началната страница"
+    },
+    "confirming": "Потвърждаваме поръчката ти…",
+    "confirmFailed": "Не успяхме да потвърдим поръчката",
+    "orderNumber": "Номер на поръчката",
+    "genericError": "Възникна грешка. Свържи се с поддръжката и посочи часа на покупката.",
+    "paymentUnavailable": "Онлайн плащането в момента не е налично. Опитай отново след малко или се свържи с нас.",
+    "completeForm": "Попълни данните за доставка, за да продължиш към плащането.",
+    "priceChanged": "Някои цени са променени: провери новата обща сума и натисни отново „Потвърди и плати“.",
+    "couponNoLongerValid": "Купонът вече не е валиден ({reason}): общата сума е актуализирана.",
+    "paymentFailed": "Плащането не беше успешно. Опитай отново или използвай друг метод.",
+    "emailSentTo": "Изпратихме ти потвърждението на {email}.",
+    "processingTitle": "Плащането се обработва",
+    "processingText": "Банката ти все още потвърждава плащането. Щом то пристигне, ще ти изпратим имейл с потвърждение на поръчката: не е нужно да плащаш отново.",
+    "paymentFailedTitle": "Неуспешно плащане",
+    "paymentFailedText": "Плащането не беше завършено и от сметката ти не е изтеглена сума. Количката ти е все още тук: можеш да опиташ отново.",
+    "backToCheckout": "Обратно към плащането",
+    "nothingToConfirm": "Няма плащане за потвърждаване.",
+    "noShippingForCountry": "В момента не изпращаме до тази държава. Избери друга или ни пиши от страницата „Поддръжка“."
+  },
+  "forms": {
+    "fields": {
+      "name": "Име",
+      "surname": "Фамилия",
+      "email": "Имейл",
+      "message": "Съобщение",
+      "nation": "Държава",
+      "cap": "Пощенски код",
+      "city": "Град",
+      "streetAndHouseNumber": "Улица и номер",
+      "iWantTheInvoice": "Искам фактура",
+      "acceptTerms": "Прочетох и приемам {terms} и се запознах с {privacy}.",
+      "termsLink": "условията за продажба",
+      "privacyLink": "политиката за поверителност",
+      "phone": "Телефон",
+      "province": "Провинция",
+      "provincePlaceholder": "Избери провинция",
+      "optional": "по желание",
+      "invoiceKind": "Вид фактура",
+      "invoiceKind_private": "Физическо лице",
+      "invoiceKind_company": "Фирма / ДДС номер",
+      "taxCode": "Данъчен номер (codice fiscale)",
+      "companyName": "Име на фирмата",
+      "vatNumber": "ДДС номер",
+      "sdiCode": "Код SDI",
+      "pec": "PEC (сертифициран имейл)",
+      "invoiceHint": "Посочи код SDI или PEC: ако нямаш нито едното, електронната фактура ще бъде достъпна в данъчния ти профил (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Фактурата ще бъде издадена на името и адреса за доставка.",
+      "invoiceHintForeignCompany": "Посочи ДДС номера си в ЕС (VIES), със или без кода на държавата."
+    },
+    "actions": {
+      "submit": "Изпрати"
+    },
+    "contact": {
+      "title": "Форма за контакт",
+      "placeholders": {
+        "name": "Име",
+        "email": "Имейл адрес",
+        "phone": "Телефонен номер",
+        "message": "Напиши съобщението си"
+      },
+      "phoneValidation": "Въведи валиден телефонен номер",
+      "submit": "Изпрати"
+    },
+    "support": {
+      "title": "Поддръжка",
+      "mail": "Можеш да се свържеш с нас по имейл на",
+      "message": "или със съобщение/WhatsApp на",
+      "form": "Ако предпочиташ, можеш да попълниш формата по-долу.",
+      "answer": "Ще получиш отговор / Ще ти отговорим до 48 часа.",
+      "sending": "Изпращане…",
+      "sent": "Съобщението е изпратено! Ще ти отговорим възможно най-скоро.",
+      "failed": "Не успяхме да изпратим съобщението. Опитай отново или ни пиши по имейл."
+    },
+    "validation": {
+      "required": "Задължително поле",
+      "invalidEmail": "Въведи валиден имейл адрес",
+      "invalidCAP": "Въведи валиден пощенски код",
+      "acceptTerms": "За да продължиш, трябва да приемеш условията за продажба",
+      "invalidPhone": "Въведи валиден телефонен номер",
+      "invalidTaxCode": "Въведи валиден данъчен номер (codice fiscale)",
+      "invalidVatNumber": "Въведи валиден ДДС номер (Partita IVA, 11 цифри)",
+      "invalidSdi": "Кодът SDI е от 7 знака",
+      "invalidVatNumberEu": "Въведи валиден ДДС номер в ЕС"
+    }
+  },
+  "payments": {
+    "terms": "плащания с",
+    "methodsTitle": "Начини на плащане",
+    "options": {
+      "creditCard": "Кредитна карта",
+      "wireTransfer": "Банков превод"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Продуктът е добавен в количката",
+      "error": "Не успяхме да добавим продукта в количката. Опитай отново.",
+      "overflow": "Вече имаш в количката всички налични бройки от този продукт."
+    },
+    "checkout": {
+      "success": "Поръчката е завършена успешно",
+      "error": "Поради технически проблем поръчката не беше завършена"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Успешен абонамент за бюлетина на Jigglycard",
+      "adminSubject": "Нов абонат на бюлетина на Jigglycard",
+      "storeName": "Jigglycard Store",
+      "plainText": "Получи ново съобщение от бюлетина."
+    },
+    "support": {
+      "subject": "Заявка за поддръжка",
+      "adminSubject": "Заявка за поддръжка от: {name} - Имейл: {email}",
+      "plainText": "Получи нова заявка за поддръжка."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Booster",
+    "dragon-ball-super-singles": "Единични карти",
+    "ff-single-card": "Единични карти",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Единични карти",
+    "pokemon-blisters": "Blister",
+    "pokemon-booster": "Booster",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Празни кутии и органайзери",
+    "pokemon-preconstructed-deck": "Готови тестета",
+    "pokemon-singles": "Единични карти",
+    "yu-gi-oh-boosters": "Booster"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Pokédex на Jigglycard",
+    "title": "Твоят Pokémon,",
+    "titleHighlight": "всичките му карти.",
+    "lead": "Избери Pokémon и открий всичките му единични карти в наличност в магазина – от най-редките до най-обикновените.",
+    "searchPlaceholder": "Търси по име или номер",
+    "generation": "Поколение",
+    "all": "Всички",
+    "shown": "{n} Pokémon",
+    "noMatch": "Няма Pokémon, който да отговаря на търсенето.",
+    "back": "Всички Pokémon",
+    "loading": "Търсим картите…",
+    "cardsFound": "{n} налични карти",
+    "noCards": "В момента нямаме налични карти с {name}.",
+    "browseSingles": "Разгледай всички единични карти",
+    "loadMore": "Покажи още карти",
+    "pickTitle": "Избери Pokémon",
+    "pickText": "Избери Pokémon от списъка, за да видиш всичките му налични карти."
+  },
+  "shippingPage": {
+    "kicker": "Доставка",
+    "title": "Доставка,",
+    "titleHighlight": "връщане и възстановяване на суми.",
+    "methodsTitle": "Начини на доставка",
+    "methodsLead": "Начинът се избира при завършване на поръчката: това са днешните цени.",
+    "domestic": "Италия",
+    "international": "Европейски съюз",
+    "maxValue": "За поръчки до {value}",
+    "packagingTitle": "Как опаковаме картите",
+    "returnsTitle": "Връщане и възстановяване на суми",
+    "returnsText": "За връщане или възстановяване на сума ни пиши от страницата „Поддръжка“, като посочиш номера на поръчката: ще ти отговорим с всички инструкции.",
+    "cta": "Към поддръжката"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon и имената на героите са регистрирани търговски марки на Nintendo, Creatures Inc. и GAME FREAK inc., управлявани от The Pokémon Company. Jigglycard е независим търговец на оригинални продукти и не е свързан с тези компании, нито е спонсориран или одобрен от тях. Изображенията на картите служат само за идентифициране на продуктите в продажба."
+  }
+}

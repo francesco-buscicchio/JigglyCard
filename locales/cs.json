@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "ochrana soukromí",
+      "cookies": "cookies",
+      "terms": "obchodní podmínky",
+      "cookiePreferences": "nastavení cookies"
+    },
+    "messages": {
+      "noResults": "Žádné výsledky"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Stránka nenalezena",
+      "notFoundDescription": "Vypadá to, že vás kroky zavedly do Lesa iluzí... zkuste najít cestu zpět!",
+      "backHome": "Zpět na úvodní stránku"
+    },
+    "genericError": "Něco se pokazilo. Zkuste to prosím za chvíli znovu."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Všechny produkty",
+      "language": "Jazyk"
+    },
+    "footer": {
+      "links": {
+        "about": "O nás",
+        "shipping": "Doprava, vrácení zboží a peněz",
+        "support": "Podpora"
+      }
+    },
+    "routes": {
+      "cart": "Košík",
+      "/carrello": "Košík",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Jednotlivé karty",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Předpřipravené balíčky",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Všechny produkty",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Jednotlivé karty",
+      "/one-piece/mazzi-precostruiti": "One Piece - Předpřipravené balíčky",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Všechny produkty",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Jednotlivé karty",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Předpřipravené balíčky",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Všechny produkty",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Jednotlivé karty",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Předpřipravené balíčky",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Všechny produkty",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Jednotlivé karty",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Předpřipravené balíčky",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Všechny produkty",
+      "/servizi": "Služby",
+      "/contatti": "Kontakt",
+      "/": "Úvodní stránka"
+    },
+    "breadcrumb": {
+      "label": "Drobečková navigace",
+      "home": "Úvod",
+      "all": "Všechny produkty",
+      "search": "Hledání: {term}",
+      "cart": "Košík",
+      "checkout": "Pokladna"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Doporučené produkty",
+      "conditions": "Stav karet",
+      "weeklyOffers": "Týdenní nabídky",
+      "preOrders": "Předobjednávky",
+      "highlights": "Nepřehlédněte",
+      "whatsNew": "Novinky",
+      "deals": "Akce"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Sledované a chráněné zásilky",
+        "description": "Každou objednávku posíláme sledovanou kurýrní službou, obvykle do tří pracovních dnů, a karty balíme do obalů a toploaderů."
+      },
+      "support": {
+        "title": "Osobní podpora",
+        "description": "Napište nám e-mailem nebo přes WhatsApp: odpovíme do 48 pracovních hodin."
+      },
+      "prices": {
+        "title": "Vždy aktuální ceny",
+        "description": "Ceny několikrát denně srovnáváme s trhem, takže za každou kartu zaplatíte férovou cenu."
+      },
+      "security": {
+        "title": "Chráněná data",
+        "description": "Vaše osobní a platební údaje chráníme šifrováním podle oborových standardů."
+      }
+    },
+    "hero": {
+      "products": "produktů",
+      "from": "od",
+      "explore": "Prozkoumat edici"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Výhody obchodu",
+        "marquee": {
+          "shipping": "Objednávky odesíláme do 3 pracovních dnů",
+          "payments": "Bezpečné a chráněné platby",
+          "sell": "Prodejte svou sbírku: ocenění po domluvě termínu",
+          "games": "Jednotlivé karty, zapečetěné boostery a boxy"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Každá karta",
+        "titleLine2": "má svůj příběh.",
+        "titleHighlight": "Ta další je vaše.",
+        "lead": "Jednotlivé karty, zapečetěné boostery a boxy, vybrané sběrateli pro sběratele. Najděte kousek, který chybí ve vaší sbírce: odešleme ho do tří pracovních dnů, vždy bezpečně zabalený.",
+        "ctaPrimary": "Najděte svou kartu",
+        "ctaSecondary": "Otevřete booster",
+        "trust": {
+          "shipping": "Odeslání do 3 pracovních dnů",
+          "payments": "Bezpečné platby",
+          "marketplaces": "Najdete nás také na platformách Cardmarket a Cardtrader"
+        },
+        "latestKicker": "Právě dorazila",
+        "stats": {
+          "products": "produktů skladem",
+          "shipping": "pracovní dny do odeslání",
+          "shippingValue": "3",
+          "payments": "chráněných plateb",
+          "singles": "jednotlivých karet skladem"
+        },
+        "scroll": "Posunout"
+      },
+      "story": {
+        "label": "Z boosteru až na váš stůl",
+        "packSubtitle": "Sběratelský booster",
+        "packTitleFallback": "Nová edice",
+        "badge": "Zkontrolovaná a chráněná",
+        "pack": {
+          "kicker": "Booster",
+          "title1": "Každý booster",
+          "title2": "je příslib.",
+          "text": "Uvnitř je vždycky šance: proto při každém otevírání buší srdce. Boostery i boxy k vám dorazí zapečetěné, přesně tak, jak opustily továrnu."
+        },
+        "fan": {
+          "kicker": "Vějíř",
+          "title1": "Běžné, neobvyklé,",
+          "title2": "reverse. A pak ta poslední.",
+          "text": "Nejlepší karta je vždycky až na konci. Ví to každý, kdo kdy otevřel booster, a víme to i my."
+        },
+        "hit": {
+          "kicker": "Hit",
+          "title1": "Ta,",
+          "title2": "kterou hledáte.",
+          "text": "Holo, reverse, full art, speciální ilustrace: vzácnost, ze které se třesou ruce. A pokud se nechcete spoléhat na štěstí, najdete ji rovnou mezi našimi jednotlivými kartami."
+        },
+        "safe": {
+          "kicker": "V bezpečí",
+          "title1": "Chráněná,",
+          "title2": "až k vám domů.",
+          "text": "Každá objednávka odchází do tří pracovních dnů a vždy cestuje dobře chráněná, protože dokonalá karta musí dorazit v dokonalém stavu.",
+          "cta": "Prohlédnout jednotlivé karty"
+        }
+      },
+      "categories": {
+        "kicker": "Katalog",
+        "title": "Co hledáte?",
+        "lead": "Od karty, která chybí ve vaší sbírce, až po box, který otevřete s přáteli.",
+        "products": "produktů",
+        "enter": "Vstoupit"
+      },
+      "showcase": {
+        "kicker": "Právě na stole",
+        "title": "Nejžhavější karty.",
+        "from": "od",
+        "previous": "Předchozí karty",
+        "next": "Další karty",
+        "all": "Zobrazit celý katalog"
+      },
+      "opening": {
+        "kicker": "Virtuální booster · zdarma",
+        "title1": "Klepněte na booster.",
+        "title2": "Objevte svůj hit.",
+        "lead": "Vyberte si jeden z japonských boosterů, které máme v obchodě, a otevřete ho tady zdarma. Padají z něj jen japonské karty z dané edice, vybrané z našich dostupných jednotlivých karet: když se vám ta vytažená zalíbí, můžete si ji rovnou koupit. A jestli vás to vzrušení bavilo, skutečný booster máte na jedno kliknutí.",
+        "facts": {
+          "cards": "karet v boosteru",
+          "hit": "garantovaný hit",
+          "price": "za hraní",
+          "set": "karet z edice v obchodě"
+        },
+        "tear": "Roztrhněte booster",
+        "tapHint": "Klepnutím ho roztrhnete",
+        "packSubtitle": "Virtuální booster",
+        "flip": "Otočit kartu {n}",
+        "revealAll": "Odkrýt všechny",
+        "yourHit": "Váš hit",
+        "seeCard": "Zobrazit kartu",
+        "again": "Otevřít další booster",
+        "status": {
+          "idle": "Zapečetěný booster · 5 karet",
+          "torn": "Otevírání…",
+          "dealt": "Karty k otočení: {n}",
+          "done": "Booster otevřen",
+          "idlePack": "{name} · zapečetěný"
+        },
+        "choosePack": "Vyberte booster k otevření",
+        "buyPack": "Koupit booster · {price} €",
+        "cardsShort": "karet"
+      },
+      "sell": {
+        "kicker": "Prodejte nám",
+        "title": "Máte sbírku v šuplíku?",
+        "lead": "Oceníme ji v klidu a po domluvě termínu. Objednejte se k ocenění a zjistěte, jakou má skutečnou hodnotu.",
+        "cta": "Objednat ocenění",
+        "rules": "Přečíst pravidla"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Přidejte se k naší komunitě a získávejte speciální nabídky přímo do e-mailové schránky!",
+    "caption": {
+      "first": "Objevte všechny výhody toho, mít přehled jedním kliknutím: exkluzivní novinky v předstihu, speciální akce, podrobné články a osobní připomínky k vašim nákupům, a to vše bez zahlcené schránky. Přihlaste se k odběru hned teď a získejte ",
+      "bold": " 15% slevový kód ",
+      "second": " na první nákup zboží, které není v akci!"
+    },
+    "emailValidation": "Zadejte platný e-mail.",
+    "short": "Mějte přehled jedním kliknutím a bez zahlcené schránky. Přihlaste se k odběru a získejte slevu 15 % na první nákup zboží, které není v akci!",
+    "button": "Odebírat",
+    "toast": "Přihlášení k odběru proběhlo úspěšně",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtry",
+      "search": "Hledat",
+      "price": "Cena",
+      "from": "od",
+      "to": "do",
+      "apply": "Použít",
+      "clear": "Zrušit všechny filtry",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Hledat…",
+      "noOption": "Žádná shoda",
+      "reset": "Resetovat",
+      "close": "Zavřít",
+      "remove": "Odebrat"
+    },
+    "actions": {
+      "showDetails": "zobrazit detaily",
+      "showAll": "Zobrazit vše"
+    },
+    "listing": {
+      "resultFor": "Výsledky pro",
+      "allOf": "Vše pro",
+      "of": "z",
+      "counter": {
+        "viewed": "Zobrazeno",
+        "of": "z",
+        "products": "produktů"
+      }
+    },
+    "pagination": {
+      "label": "Stránkování",
+      "previous": "Předchozí",
+      "next": "Další",
+      "page": "Strana {n}",
+      "pageOf": "Strana {n} z {total}",
+      "showing": "{from}–{to} z {total} produktů",
+      "goTo": "Přejít na stránku",
+      "go": "Přejít"
+    },
+    "sorting": {
+      "sortBy": "Řadit podle",
+      "newest": "Nejnovější",
+      "priceCheapest": "Od nejlevnějších",
+      "priceExpensive": "Od nejdražších",
+      "nameAtoZ": "Název (A - Z)",
+      "nameZtoA": "Název (Z - A)"
+    },
+    "filters": {
+      "language": "Jazyk",
+      "condition": "Stav",
+      "brand": "Značka",
+      "available": "Skladem",
+      "IT": "italština",
+      "EN": "angličtina",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "skladem",
+      "false": "není skladem",
+      "NA": "ostatní",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japonština",
+      "it": "Italština",
+      "en": "Angličtina",
+      "de": "Němčina",
+      "fr": "Francouzština",
+      "es": "Španělština",
+      "pt": "Portugalština",
+      "ru": "Ruština",
+      "ko": "Korejština",
+      "zh": "Čínština",
+      "zh-CN": "Zjednodušená čínština",
+      "zh-TW": "Tradiční čínština",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Nenašli jsme žádné produkty",
+      "subtitle": "Zkuste rozšířit hledání odebráním některých filtrů.",
+      "clearFilters": "Odebrat všechny filtry",
+      "backHome": "Zpět na úvod"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "již od",
+      "soldOut": "vyprodáno",
+      "lastUnits": "Poslední kus skladem | Poslední kusy skladem: {count}"
+    },
+    "hero": {
+      "TaxesAndShipping": "Cena včetně daní. Doprava se vypočítá při placení",
+      "Language": "Jazyk",
+      "Quantity": "Množství",
+      "AddToCart": "přidat do košíku",
+      "BuyWithPaypal": "Koupit přes PayPal",
+      "Description": "Popis",
+      "addToCartToast": "Produkt byl přidán do košíku"
+    },
+    "quantity": {
+      "quantity": "Množství",
+      "availability": "Dostupnost",
+      "pieces": "ks"
+    },
+    "messages": {
+      "suggested": "Znáte už tyhle?"
+    },
+    "description": {
+      "fromSet": "{name} je karta z edice {expansion}.",
+      "number": "Sběratelské číslo {number}.",
+      "rarity": "Vzácnost: {rarity}.",
+      "languages": "Dostupné jazyky: {languages}.",
+      "conditions": "Dostupné stavy: {conditions}.",
+      "fromSetProduct": "{name} je produkt z edice {expansion}."
+    },
+    "sections": {
+      "recommended": "Mohlo by vás zajímat"
+    },
+    "quickAdd": {
+      "add": "Přidat",
+      "added": "Přidáno",
+      "choose": "Vyberte verzi",
+      "maxed": "V košíku už máte všechny dostupné kusy",
+      "aria": "Přidat {name} do košíku"
+    },
+    "neighbors": {
+      "label": "Další karty z edice",
+      "previous": "Předchozí",
+      "next": "Další"
+    }
+  },
+  "cart": {
+    "title": "Košík",
+    "empty": "Vaše trenérská cesta ještě nezačala!",
+    "startExploring": "Začněte tady",
+    "summary": {
+      "title": "Shrnutí košíku",
+      "shipping": "Doprava",
+      "total": "Celkem",
+      "free": "Zdarma"
+    },
+    "shipping": {
+      "heading": "Způsob dopravy",
+      "note": "*jiný způsob můžete zvolit v pokladně",
+      "couponPlaceholder": "Zadejte slevový kód",
+      "total": "Celkem",
+      "couponQuestion": "Máte slevový kód?",
+      "apply": "Uplatnit kód",
+      "applyDesktop": "uplatnit",
+      "buyCta": "Přejít k pokladně",
+      "back": "Zpět k produktům",
+      "couponLabel": "Kupón",
+      "removeCoupon": "Odebrat kupón"
+    },
+    "help": {
+      "title": "Potřebujete pomoc?",
+      "content": "Posíláme do Itálie a do všech zemí Evropské unie sledovanou kurýrní službou. Karty chráníme obalem a toploaderem a balíme je tak, aby dorazily přesně v takovém stavu, v jakém jsou popsané. S jakýmkoli dotazem k objednávce nám můžete napsat přes stránku Podpora."
+    },
+    "stockChanged": "Některé položky už nejsou dostupné v požadovaném množství:",
+    "stockRequested": "požadováno",
+    "stockAvailable": "skladem",
+    "recommended": "Doplňte svou sbírku"
+  },
+  "filter": {
+    "language": "Jazyk",
+    "condition": "Stav",
+    "brand": "Značka",
+    "type": "Typ",
+    "expansion": "Edice",
+    "available": "Skladem",
+    "IT": "italština",
+    "EN": "angličtina",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "skladem",
+    "false": "není skladem",
+    "NA": "ostatní",
+    "pokemon": "pokemon",
+    "it": "Italština",
+    "en": "Angličtina",
+    "jp": "Japonština",
+    "de": "Němčina",
+    "fr": "Francouzština",
+    "es": "Španělština",
+    "pt": "Portugalština",
+    "ru": "Ruština",
+    "ko": "Korejština",
+    "zh": "Čínština",
+    "zh-CN": "Zjednodušená čínština",
+    "zh-TW": "Tradiční čínština",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Vzácnost"
+  },
+  "filterType": {
+    "singles": "Jednotlivé karty",
+    "single-card": "Jednotlivá karta",
+    "preconstructed-deck": "Předpřipravené balíčky",
+    "booster": "Booster",
+    "boosters": "Boostery",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Zobrazeno",
+    "of": "z",
+    "products": "produktů"
+  },
+  "checkout": {
+    "title": "Pokladna",
+    "shippingInfo": "Doručovací údaje",
+    "actions": {
+      "confirmAndPay": "Potvrdit a zaplatit",
+      "paying": "Probíhá platba…"
+    },
+    "thanks": {
+      "main": "Děkujeme!",
+      "newsletter": "Děkujeme za přihlášení k odběru našeho newsletteru! Brzy vám přijde e-mail se všemi podrobnostmi.",
+      "order": "Platba proběhla úspěšně a vaše objednávka je potvrzená.",
+      "backHome": "Zpět na úvodní stránku"
+    },
+    "confirming": "Potvrzujeme vaši objednávku…",
+    "confirmFailed": "Objednávku se nepodařilo potvrdit",
+    "orderNumber": "Číslo objednávky",
+    "genericError": "Došlo k chybě. Kontaktujte podporu a uveďte čas nákupu.",
+    "paymentUnavailable": "Online platba teď není dostupná. Zkuste to prosím za chvíli znovu nebo nás kontaktujte.",
+    "completeForm": "Pro pokračování k platbě vyplňte doručovací údaje.",
+    "priceChanged": "Některé ceny se změnily: zkontrolujte novou celkovou částku a znovu klikněte na „Potvrdit a zaplatit“.",
+    "couponNoLongerValid": "Kupón už není platný ({reason}): celková částka byla aktualizována.",
+    "paymentFailed": "Platba se nezdařila. Zkuste to znovu nebo zvolte jinou metodu.",
+    "emailSentTo": "Potvrzení jsme vám poslali na {email}.",
+    "processingTitle": "Platba se zpracovává",
+    "processingText": "Vaše banka platbu ještě potvrzuje. Jakmile dorazí, pošleme vám e-mail s potvrzením objednávky: není potřeba platit znovu.",
+    "paymentFailedTitle": "Platba se nezdařila",
+    "paymentFailedText": "Platba nebyla dokončena a nic vám nebylo strženo. Košík tu na vás stále čeká: můžete to zkusit znovu.",
+    "backToCheckout": "Zpět do pokladny",
+    "nothingToConfirm": "Není tu žádná platba k potvrzení.",
+    "noShippingForCountry": "Do této země zatím nedoručujeme. Vyberte jinou nebo nám napište přes stránku Podpora."
+  },
+  "forms": {
+    "fields": {
+      "name": "Jméno",
+      "surname": "Příjmení",
+      "email": "E-mail",
+      "message": "Zpráva",
+      "nation": "Země",
+      "cap": "PSČ",
+      "city": "Město",
+      "streetAndHouseNumber": "Ulice a číslo popisné",
+      "iWantTheInvoice": "Chci fakturu",
+      "acceptTerms": "Souhlasím s {terms} a beru na vědomí {privacy}.",
+      "termsLink": "obchodními podmínkami",
+      "privacyLink": "zásady ochrany osobních údajů",
+      "phone": "Telefon",
+      "province": "Provincie",
+      "provincePlaceholder": "Vyberte provincii",
+      "optional": "nepovinné",
+      "invoiceKind": "Typ faktury",
+      "invoiceKind_private": "Soukromá osoba",
+      "invoiceKind_company": "Firma / DIČ",
+      "taxCode": "Daňový kód (codice fiscale)",
+      "companyName": "Název firmy",
+      "vatNumber": "DIČ (Partita IVA)",
+      "sdiCode": "Kód SDI",
+      "pec": "PEC (certifikovaný e-mail)",
+      "invoiceHint": "Uveďte kód SDI nebo adresu PEC: pokud nemáte ani jedno, elektronická faktura vám přijde do daňové schránky (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Faktura bude vystavena na jméno a doručovací adresu.",
+      "invoiceHintForeignCompany": "Uveďte DIČ pro EU (VIES), s předponou země nebo bez ní."
+    },
+    "actions": {
+      "submit": "Odeslat"
+    },
+    "contact": {
+      "title": "Kontaktní formulář",
+      "placeholders": {
+        "name": "Jméno",
+        "email": "E-mailová adresa",
+        "phone": "Telefonní číslo",
+        "message": "Napište nám zprávu"
+      },
+      "phoneValidation": "Zadejte platné telefonní číslo",
+      "submit": "Odeslat"
+    },
+    "support": {
+      "title": "Podpora",
+      "mail": "Můžete nám napsat na e-mail",
+      "message": "nebo poslat zprávu/WhatsApp na číslo",
+      "form": "Pokud chcete, můžete vyplnit formulář níže.",
+      "answer": "Dostanete odpověď / Odpovíme do 48 hodin.",
+      "sending": "Odesílání…",
+      "sent": "Zpráva odeslána! Odpovíme co nejdříve.",
+      "failed": "Zprávu se nepodařilo odeslat. Zkuste to znovu nebo nám napište e-mail."
+    },
+    "validation": {
+      "required": "Povinné pole",
+      "invalidEmail": "Zadejte platnou e-mailovou adresu",
+      "invalidCAP": "Zadejte platné PSČ",
+      "acceptTerms": "Pro pokračování musíte souhlasit s obchodními podmínkami",
+      "invalidPhone": "Zadejte platné telefonní číslo",
+      "invalidTaxCode": "Zadejte platný daňový kód (codice fiscale)",
+      "invalidVatNumber": "Zadejte platné číslo Partita IVA (11 číslic)",
+      "invalidSdi": "Kód SDI má 7 znaků",
+      "invalidVatNumberEu": "Zadejte platné DIČ pro EU"
+    }
+  },
+  "payments": {
+    "terms": "platby přes",
+    "methodsTitle": "Platební metody",
+    "options": {
+      "creditCard": "Platební karta",
+      "wireTransfer": "Bankovní převod"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Produkt přidán do košíku",
+      "error": "Produkt se nepodařilo přidat do košíku. Zkuste to znovu.",
+      "overflow": "V košíku už máte všechny dostupné kusy tohoto produktu."
+    },
+    "checkout": {
+      "success": "Objednávka byla úspěšně dokončena",
+      "error": "Kvůli technickému problému se objednávku nepodařilo dokončit"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Přihlášení k odběru newsletteru Jigglycard proběhlo úspěšně",
+      "adminSubject": "Nový odběratel newsletteru Jigglycard",
+      "storeName": "Jigglycard Store",
+      "plainText": "Máte novou zprávu z newsletteru."
+    },
+    "support": {
+      "subject": "Požadavek na podporu",
+      "adminSubject": "Požadavek na podporu od: {name} - E-mail: {email}",
+      "plainText": "Máte nový požadavek na podporu."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boostery",
+    "dragon-ball-super-singles": "Jednotlivé karty",
+    "ff-single-card": "Jednotlivé karty",
+    "magic-booster-boxes": "Booster boxy",
+    "one-piece-single-card": "Jednotlivé karty",
+    "pokemon-blisters": "Blistry",
+    "pokemon-booster": "Boostery",
+    "pokemon-box-set": "Box sety",
+    "pokemon-empty-boxes-storage": "Prázdné krabice a úložné boxy",
+    "pokemon-preconstructed-deck": "Předpřipravené balíčky",
+    "pokemon-singles": "Jednotlivé karty",
+    "yu-gi-oh-boosters": "Boostery"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Pokédex Jigglycard",
+    "title": "Váš Pokémon,",
+    "titleHighlight": "všechny jeho karty.",
+    "lead": "Vyberte si Pokémona a objevte všechny jeho jednotlivé karty, které máme skladem, od nejvzácnějších po nejběžnější.",
+    "searchPlaceholder": "Hledat podle jména nebo čísla",
+    "generation": "Generace",
+    "all": "Všechny",
+    "shown": "Pokémonů: {n}",
+    "noMatch": "Hledání neodpovídá žádný Pokémon.",
+    "back": "Všichni Pokémoni",
+    "loading": "Hledám karty…",
+    "cardsFound": "Dostupné karty: {n}",
+    "noCards": "Momentálně nemáme k dispozici žádné karty s Pokémonem {name}.",
+    "browseSingles": "Procházet všechny jednotlivé karty",
+    "loadMore": "Zobrazit další karty",
+    "pickTitle": "Vyberte Pokémona",
+    "pickText": "Vyberte Pokémona ze seznamu a uvidíte všechny jeho dostupné karty."
+  },
+  "shippingPage": {
+    "kicker": "Doprava",
+    "title": "Doprava,",
+    "titleHighlight": "vrácení zboží a peněz.",
+    "methodsTitle": "Způsoby dopravy",
+    "methodsLead": "Způsob dopravy zvolíte v pokladně: tady jsou dnešní ceny.",
+    "domestic": "Itálie",
+    "international": "Evropská unie",
+    "maxValue": "Pro objednávky do {value}",
+    "packagingTitle": "Jak balíme karty",
+    "returnsTitle": "Vrácení zboží a peněz",
+    "returnsText": "Pokud chcete vrátit zboží nebo peníze, napište nám přes stránku Podpora a uveďte číslo objednávky: odpovíme vám se všemi pokyny.",
+    "cta": "Přejít na podporu"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon a jména postav jsou registrované ochranné známky společností Nintendo, Creatures Inc. a GAME FREAK inc., spravované společností The Pokémon Company. Jigglycard je nezávislý prodejce originálních produktů a s těmito společnostmi není nijak spojen, ani jimi není sponzorován či schválen. Obrázky karet slouží pouze k identifikaci nabízených produktů."
+  }
+}

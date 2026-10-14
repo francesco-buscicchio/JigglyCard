@@ -60,6 +60,8 @@ const removeAllFilters = () => {
 
 const removeFilter = (item: string) => {
   for (let key in allFilters.value) {
+    // `price` è un oggetto { min, max }, non una lista di voci.
+    if (!Array.isArray(allFilters.value[key])) continue;
     allFilters.value[key] = allFilters.value[key].filter((val: string) => {
       return val !== item;
     });

@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "adatvédelem",
+      "cookies": "sütik",
+      "terms": "értékesítési feltételek",
+      "cookiePreferences": "süti-beállítások"
+    },
+    "messages": {
+      "noResults": "Nincs találat"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Az oldal nem található",
+      "notFoundDescription": "Úgy tűnik, eltévedtél az illúziók erdejében... próbáld megtalálni a visszautat!",
+      "backHome": "Vissza a főoldalra"
+    },
+    "genericError": "Valami hiba történt. Próbáld újra egy kicsit később."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Összes termék",
+      "language": "Nyelv"
+    },
+    "footer": {
+      "links": {
+        "about": "Rólunk",
+        "shipping": "Szállítás, visszaküldés és visszatérítés",
+        "support": "Ügyfélszolgálat"
+      }
+    },
+    "routes": {
+      "cart": "Kosár",
+      "/carrello": "Kosár",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Egyedi kártyák",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Előre összeállított paklik",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Összes termék",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Egyedi kártyák",
+      "/one-piece/mazzi-precostruiti": "One Piece - Előre összeállított paklik",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Összes termék",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Egyedi kártyák",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Előre összeállított paklik",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Összes termék",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Egyedi kártyák",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Előre összeállított paklik",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Összes termék",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Egyedi kártyák",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Előre összeállított paklik",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Összes termék",
+      "/servizi": "Szolgáltatások",
+      "/contatti": "Kapcsolat",
+      "/": "Főoldal"
+    },
+    "breadcrumb": {
+      "label": "Navigációs útvonal",
+      "home": "Főoldal",
+      "all": "Összes termék",
+      "search": "Keresés: {term}",
+      "cart": "Kosár",
+      "checkout": "Pénztár"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Kiemelt termékek",
+      "conditions": "Kártyaállapotok",
+      "weeklyOffers": "Heti ajánlatok",
+      "preOrders": "Előrendelések",
+      "highlights": "Kiemelt",
+      "whatsNew": "Újdonságok",
+      "deals": "Akciók"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Követhető, biztonságos szállítás",
+        "description": "Minden rendelést nyomkövetett futárral küldünk, általában három munkanapon belül, a kártyákat kártyavédőben és toploaderben."
+      },
+      "support": {
+        "title": "Dedikált ügyfélszolgálat",
+        "description": "Írj nekünk e-mailben vagy WhatsAppon: 48 munkaórán belül válaszolunk."
+      },
+      "prices": {
+        "title": "Mindig naprakész árak",
+        "description": "Naponta többször igazítjuk az árainkat a piachoz, így minden kártyáért korrekt árat fizetsz."
+      },
+      "security": {
+        "title": "Védett adatok",
+        "description": "Személyes és fizetési adataidat iparági szabványnak megfelelő titkosítás védi."
+      }
+    },
+    "hero": {
+      "products": "termék",
+      "from": "már",
+      "explore": "Fedezd fel a szettet"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "A bolt előnyei",
+        "marquee": {
+          "shipping": "Feladás 3 munkanapon belül",
+          "payments": "Biztonságos, védett fizetés",
+          "sell": "Add el a gyűjteményed: értékbecslés előzetes egyeztetéssel",
+          "games": "Egyedi kártyák, boosterek és bontatlan dobozok"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Minden kártyának",
+        "titleLine2": "története van.",
+        "titleHighlight": "A következő a tiéd.",
+        "lead": "Egyedi kártyák, boosterek és bontatlan dobozok – gyűjtőktől gyűjtőknek válogatva. Találd meg a darabot, ami még hiányzik a gyűjteményedből: három munkanapon belül feladjuk, mindig gondosan védve.",
+        "ctaPrimary": "Találd meg a kártyád",
+        "ctaSecondary": "Bonts egy boostert",
+        "trust": {
+          "shipping": "Feladás 3 munkanapon belül",
+          "payments": "Biztonságos fizetés",
+          "marketplaces": "Megtalálsz minket a Cardmarketen és a Cardtraderen is"
+        },
+        "latestKicker": "Most érkezett",
+        "stats": {
+          "products": "elérhető termék",
+          "shipping": "a feladásig",
+          "shippingValue": "3 munkanap",
+          "payments": "védett fizetés",
+          "singles": "elérhető egyedi kártya"
+        },
+        "scroll": "Görgess"
+      },
+      "story": {
+        "label": "A boostertől az asztalodig",
+        "packSubtitle": "Gyűjtői booster",
+        "packTitleFallback": "Új kiegészítő",
+        "badge": "Ellenőrzött és védett",
+        "pack": {
+          "kicker": "A booster",
+          "title1": "Minden booster",
+          "title2": "egy ígéret.",
+          "text": "Benne mindig ott a lehetőség: ezért dobog hevesebben a szíved minden bontásnál. A boosterek és a dobozok bontatlanul érkeznek hozzád, pontosan úgy, ahogy elhagyták a gyárat."
+        },
+        "fan": {
+          "kicker": "A legyező",
+          "title1": "Common, uncommon,",
+          "title2": "reverse. Aztán az utolsó.",
+          "text": "A legjobb kártya mindig a végén van. Ezt mindenki tudja, aki bontott már boostert – és mi is tudjuk."
+        },
+        "hit": {
+          "kicker": "A nagy húzás",
+          "title1": "Pont az,",
+          "title2": "amit kerestél.",
+          "text": "Holo, reverse, full art, különleges illusztrációk: a ritkaság, amitől remeg a kezed. És ha nem akarsz a szerencsére hagyatkozni, már ott van az egyedi kártyáink között."
+        },
+        "safe": {
+          "kicker": "Biztonságban",
+          "title1": "Védve,",
+          "title2": "egészen az ajtódig.",
+          "text": "Minden rendelés három munkanapon belül útnak indul, és mindig védve utazik, mert egy tökéletes kártyának tökéletesen kell megérkeznie.",
+          "cta": "Fedezd fel az egyedi kártyákat"
+        }
+      },
+      "categories": {
+        "kicker": "A katalógus",
+        "title": "Mit keresel?",
+        "lead": "A gyűjteményedből hiányzó kártyától a dobozig, amit a barátaiddal bonthatsz ki.",
+        "products": "termék",
+        "enter": "Belépés"
+      },
+      "showcase": {
+        "kicker": "Most az asztalon",
+        "title": "A pillanat kártyái.",
+        "from": "már",
+        "previous": "Előző kártyák",
+        "next": "Következő kártyák",
+        "all": "A teljes katalógus"
+      },
+      "opening": {
+        "kicker": "Virtuális booster · ingyen",
+        "title1": "Érintsd meg a boostert.",
+        "title2": "Lássuk, mit húzol.",
+        "lead": "Válassz egyet a boltunkban kapható japán boosterek közül, és bontsd ki itt, ingyen. Csak az adott szett japán kártyái kerülhetnek elő, a raktáron lévő egyedi kártyáink közül: ha tetszik, amit húztál, már meg is veheted. És ha tetszett az izgalom, az igazi booster csak egy kattintásnyira van.",
+        "facts": {
+          "cards": "kártya boosterenként",
+          "hit": "garantált nagy húzás",
+          "price": "a játékért",
+          "set": "kártya a szettből raktáron"
+        },
+        "tear": "Tépd fel a boostert",
+        "tapHint": "Érintsd meg a feltépéshez",
+        "packSubtitle": "Virtuális booster",
+        "flip": "{n}. kártya megfordítása",
+        "revealAll": "Mutasd mindet",
+        "yourHit": "A nagy húzásod",
+        "seeCard": "Nézd meg a kártyát",
+        "again": "Bonts egy újabb boostert",
+        "status": {
+          "idle": "Bontatlan booster · 5 kártya",
+          "torn": "Bontás folyamatban…",
+          "dealt": "Megfordítandó kártyák: {n}",
+          "done": "Booster kibontva",
+          "idlePack": "{name} · bontatlan"
+        },
+        "choosePack": "Válaszd ki, melyik boostert bontod",
+        "buyPack": "Vedd meg a boostert · {price} €",
+        "cardsShort": "kártya"
+      },
+      "sell": {
+        "kicker": "Add el nekünk",
+        "title": "Egy gyűjtemény porosodik a fiókban?",
+        "lead": "Mi felértékeljük – nyugodtan, előre egyeztetett időpontban. Foglalj időpontot értékbecslésre, és tudd meg, mennyit ér valójában.",
+        "cta": "Értékbecslés foglalása",
+        "rules": "Olvasd el a szabályzatot"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Csatlakozz a közösségünkhöz, és csapj le a különleges ajánlatokra – egyenesen a postafiókodban!",
+    "caption": {
+      "first": "Fedezd fel, milyen előnyökkel jár, ha egy kattintással naprakész maradsz: exkluzív előzetesek, különleges akciók, részletes cikkek és személyre szabott emlékeztetők a vásárlásaidhoz – mindezt úgy, hogy nem árasztjuk el a postafiókodat. Iratkozz fel most, és szerezz egy ",
+      "bold": " 15%-os kedvezménykódot ",
+      "second": " az első vásárlásodhoz, nem akciós termékekre!"
+    },
+    "emailValidation": "Adj meg egy érvényes e-mail-címet.",
+    "short": "Maradj naprakész egy kattintással, teli postafiók nélkül. Iratkozz fel, és 15% kedvezményt kapsz az első vásárlásodkor a nem akciós termékekre!",
+    "button": "Feliratkozás",
+    "toast": "Sikeres feliratkozás",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "szűrők",
+      "search": "Keresés",
+      "price": "Ár",
+      "from": "ettől",
+      "to": "eddig",
+      "apply": "Alkalmaz",
+      "clear": "Összes szűrő törlése",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Keresés…",
+      "noOption": "Nincs egyező elem",
+      "reset": "Visszaállítás",
+      "close": "Bezárás",
+      "remove": "Eltávolítás"
+    },
+    "actions": {
+      "showDetails": "részletek megtekintése",
+      "showAll": "Összes megtekintése"
+    },
+    "listing": {
+      "resultFor": "Találatok erre",
+      "allOf": "Összes ehhez",
+      "of": "/",
+      "counter": {
+        "viewed": "Megtekintve:",
+        "of": "/",
+        "products": "termék"
+      }
+    },
+    "pagination": {
+      "label": "Lapozás",
+      "previous": "Előző",
+      "next": "Következő",
+      "page": "{n}. oldal",
+      "pageOf": "{n} / {total} oldal",
+      "showing": "{total} termékből {from}–{to}",
+      "goTo": "Ugrás oldalra",
+      "go": "Ugrás"
+    },
+    "sorting": {
+      "sortBy": "Rendezés",
+      "newest": "Legújabb",
+      "priceCheapest": "Legolcsóbb",
+      "priceExpensive": "Legdrágább",
+      "nameAtoZ": "Név (A - Z)",
+      "nameZtoA": "Név (Z - A)"
+    },
+    "filters": {
+      "language": "Nyelv",
+      "condition": "Állapot",
+      "brand": "Márka",
+      "available": "Elérhető",
+      "IT": "olasz",
+      "EN": "angol",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "elérhető",
+      "false": "nem elérhető",
+      "NA": "egyéb",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japán",
+      "it": "Olasz",
+      "en": "Angol",
+      "de": "Német",
+      "fr": "Francia",
+      "es": "Spanyol",
+      "pt": "Portugál",
+      "ru": "Orosz",
+      "ko": "Koreai",
+      "zh": "Kínai",
+      "zh-CN": "Egyszerűsített kínai",
+      "zh-TW": "Hagyományos kínai",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Nem található termék",
+      "subtitle": "Próbáld bővíteni a keresést néhány szűrő eltávolításával.",
+      "clearFilters": "Összes szűrő eltávolítása",
+      "backHome": "Vissza a főoldalra"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "kezdőár",
+      "soldOut": "elfogyott",
+      "lastUnits": "Az utolsó elérhető darab | Már csak {count} darab"
+    },
+    "hero": {
+      "TaxesAndShipping": "Az ár tartalmazza az áfát. A szállítási díjat a fizetésnél számoljuk ki",
+      "Language": "Nyelv",
+      "Quantity": "Mennyiség",
+      "AddToCart": "kosárba",
+      "BuyWithPaypal": "Vásárlás PayPallal",
+      "Description": "Leírás",
+      "addToCartToast": "A termék sikeresen a kosárba került"
+    },
+    "quantity": {
+      "quantity": "Mennyiség",
+      "availability": "Elérhetőség",
+      "pieces": "db"
+    },
+    "messages": {
+      "suggested": "Láttad már ezeket?"
+    },
+    "description": {
+      "fromSet": "{name} – kártya a következő kiegészítőből: {expansion}.",
+      "number": "Gyűjtői szám: {number}.",
+      "rarity": "Ritkaság: {rarity}.",
+      "languages": "Elérhető nyelvek: {languages}.",
+      "conditions": "Elérhető állapotok: {conditions}.",
+      "fromSetProduct": "{name} – termék a következő kiegészítőből: {expansion}."
+    },
+    "sections": {
+      "recommended": "Ez is érdekelhet"
+    },
+    "quickAdd": {
+      "add": "Kosárba",
+      "added": "Hozzáadva",
+      "choose": "Válassz változatot",
+      "maxed": "Az összes elérhető darab már a kosaradban van",
+      "aria": "{name} hozzáadása a kosárhoz"
+    },
+    "neighbors": {
+      "label": "A szett további kártyái",
+      "previous": "Előző",
+      "next": "Következő"
+    }
+  },
+  "cart": {
+    "title": "Kosár",
+    "empty": "Az edzői kalandod még el sem kezdődött!",
+    "startExploring": "Kezdd itt",
+    "summary": {
+      "title": "Kosár összesítése",
+      "shipping": "Szállítás",
+      "total": "Összesen",
+      "free": "Ingyenes"
+    },
+    "shipping": {
+      "heading": "Szállítási mód",
+      "note": "*a pénztárnál másik módot is választhatsz",
+      "couponPlaceholder": "Add meg a kuponkódot",
+      "total": "Összesen",
+      "couponQuestion": "Van kuponkódod?",
+      "apply": "Kód beváltása",
+      "applyDesktop": "beváltás",
+      "buyCta": "Tovább a pénztárhoz",
+      "back": "Vissza a termékekhez",
+      "couponLabel": "Kupon",
+      "removeCoupon": "Kupon eltávolítása"
+    },
+    "help": {
+      "title": "Segítségre van szükséged?",
+      "content": "Olaszországba és az Európai Unió összes országába szállítunk nyomkövetett futárral. A kártyákat kártyavédőbe és toploaderbe tesszük, és úgy csomagoljuk, hogy pontosan olyan állapotban érkezzenek meg, ahogy a leírásban látod. Ha bármi kérdésed van a rendeléssel kapcsolatban, írj nekünk az Ügyfélszolgálat oldalon."
+    },
+    "stockChanged": "Néhány termék már nem érhető el a kért mennyiségben:",
+    "stockRequested": "kért",
+    "stockAvailable": "elérhető",
+    "recommended": "Tedd teljessé a gyűjteményed"
+  },
+  "filter": {
+    "language": "Nyelv",
+    "condition": "Állapot",
+    "brand": "Márka",
+    "type": "Típus",
+    "expansion": "Kiegészítő",
+    "available": "Elérhető",
+    "IT": "olasz",
+    "EN": "angol",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "elérhető",
+    "false": "nem elérhető",
+    "NA": "egyéb",
+    "pokemon": "pokemon",
+    "it": "Olasz",
+    "en": "Angol",
+    "jp": "Japán",
+    "de": "Német",
+    "fr": "Francia",
+    "es": "Spanyol",
+    "pt": "Portugál",
+    "ru": "Orosz",
+    "ko": "Koreai",
+    "zh": "Kínai",
+    "zh-CN": "Egyszerűsített kínai",
+    "zh-TW": "Hagyományos kínai",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Ritkaság"
+  },
+  "filterType": {
+    "singles": "Egyedi kártyák",
+    "single-card": "Egyedi kártya",
+    "preconstructed-deck": "Előre összeállított paklik",
+    "booster": "Booster",
+    "boosters": "Boosterek",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Megtekintve:",
+    "of": "/",
+    "products": "termék"
+  },
+  "checkout": {
+    "title": "Pénztár",
+    "shippingInfo": "Szállítási adatok",
+    "actions": {
+      "confirmAndPay": "Megerősítés és fizetés",
+      "paying": "Fizetés folyamatban…"
+    },
+    "thanks": {
+      "main": "Köszönjük!",
+      "newsletter": "Köszönjük, hogy feliratkoztál a hírlevelünkre! Hamarosan kapsz egy e-mailt minden részlettel.",
+      "order": "A fizetés sikeres volt, a rendelésedet visszaigazoltuk.",
+      "backHome": "Vissza a főoldalra"
+    },
+    "confirming": "Éppen visszaigazoljuk a rendelésedet…",
+    "confirmFailed": "Nem sikerült visszaigazolni a rendelést",
+    "orderNumber": "Rendelésszám",
+    "genericError": "Hiba történt. Vedd fel a kapcsolatot az ügyfélszolgálattal, és add meg a vásárlás időpontját.",
+    "paymentUnavailable": "Az online fizetés jelenleg nem érhető el. Próbáld újra kicsit később, vagy lépj kapcsolatba velünk.",
+    "completeForm": "A fizetéshez töltsd ki a szállítási adatokat.",
+    "priceChanged": "Néhány ár megváltozott: ellenőrizd az új végösszeget, és kattints újra a „Megerősítés és fizetés” gombra.",
+    "couponNoLongerValid": "A kupon már nem érvényes ({reason}): a végösszeget frissítettük.",
+    "paymentFailed": "A fizetés nem sikerült. Próbáld újra, vagy válassz másik fizetési módot.",
+    "emailSentTo": "A visszaigazolást elküldtük ide: {email}.",
+    "processingTitle": "Fizetés feldolgozás alatt",
+    "processingText": "A bankod még jóváhagyja a fizetést. Amint megérkezik, e-mailben elküldjük a rendelés visszaigazolását: nem kell újra fizetned.",
+    "paymentFailedTitle": "Sikertelen fizetés",
+    "paymentFailedText": "A fizetés nem fejeződött be, és semmit sem terheltünk meg. A kosarad még itt van: megpróbálhatod újra.",
+    "backToCheckout": "Vissza a pénztárhoz",
+    "nothingToConfirm": "Nincs visszaigazolandó fizetés.",
+    "noShippingForCountry": "Ebbe az országba jelenleg nem szállítunk. Válassz másikat, vagy írj nekünk az Ügyfélszolgálat oldalon."
+  },
+  "forms": {
+    "fields": {
+      "name": "Keresztnév",
+      "surname": "Vezetéknév",
+      "email": "E-mail",
+      "message": "Üzenet",
+      "nation": "Ország",
+      "cap": "Irányítószám",
+      "city": "Város",
+      "streetAndHouseNumber": "Utca, házszám",
+      "iWantTheInvoice": "Számlát kérek",
+      "acceptTerms": "Elolvastam és elfogadom az {terms}, valamint megismertem az {privacy}.",
+      "termsLink": "értékesítési feltételeket",
+      "privacyLink": "adatvédelmi tájékoztatót",
+      "phone": "Telefon",
+      "province": "Megye",
+      "provincePlaceholder": "Válassz megyét",
+      "optional": "nem kötelező",
+      "invoiceKind": "Számla típusa",
+      "invoiceKind_private": "Magánszemély",
+      "invoiceKind_company": "Cég / adószám",
+      "taxCode": "Olasz adóazonosító (codice fiscale)",
+      "companyName": "Cégnév",
+      "vatNumber": "Olasz adószám (partita IVA)",
+      "sdiCode": "SDI-kód",
+      "pec": "PEC (hitelesített e-mail)",
+      "invoiceHint": "Add meg az SDI-kódot vagy a PEC-címet: ha egyik sincs, az e-számla az adóügyi tárhelyedre (cassetto fiscale) érkezik.",
+      "invoiceHintForeignPrivate": "A számla a szállítási névre és címre szól.",
+      "invoiceHintForeignCompany": "Add meg a közösségi adószámot (VIES), országkóddal vagy anélkül."
+    },
+    "actions": {
+      "submit": "Küldés"
+    },
+    "contact": {
+      "title": "Kapcsolatfelvételi űrlap",
+      "placeholders": {
+        "name": "Név",
+        "email": "E-mail-cím",
+        "phone": "Telefonszám",
+        "message": "Írd meg az üzenetedet"
+      },
+      "phoneValidation": "Adj meg egy érvényes telefonszámot",
+      "submit": "Küldés"
+    },
+    "support": {
+      "title": "Ügyfélszolgálat",
+      "mail": "E-mailben ezen a címen érsz el minket:",
+      "message": "vagy üzenetben/WhatsAppon ezen a számon:",
+      "form": "Ha szeretnéd, kitöltheted az alábbi űrlapot is.",
+      "answer": "Választ fogsz kapni / 48 órán belül válaszolunk.",
+      "sending": "Küldés…",
+      "sent": "Üzenet elküldve! A lehető leghamarabb válaszolunk.",
+      "failed": "Nem sikerült elküldeni az üzenetet. Próbáld újra, vagy írj nekünk e-mailt."
+    },
+    "validation": {
+      "required": "Kötelező mező",
+      "invalidEmail": "Adj meg egy érvényes e-mail-címet",
+      "invalidCAP": "Adj meg egy érvényes irányítószámot",
+      "acceptTerms": "A folytatáshoz el kell fogadnod az értékesítési feltételeket",
+      "invalidPhone": "Adj meg egy érvényes telefonszámot",
+      "invalidTaxCode": "Adj meg egy érvényes olasz adóazonosítót (codice fiscale)",
+      "invalidVatNumber": "Adj meg egy érvényes olasz adószámot (partita IVA, 11 számjegy)",
+      "invalidSdi": "Az SDI-kód 7 karakterből áll",
+      "invalidVatNumberEu": "Adj meg egy érvényes közösségi adószámot"
+    }
+  },
+  "payments": {
+    "terms": "fizetés ezekkel",
+    "methodsTitle": "Fizetési módok",
+    "options": {
+      "creditCard": "Bankkártya",
+      "wireTransfer": "Banki átutalás"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "A termék a kosárba került",
+      "error": "Nem sikerült a terméket a kosárba tenni. Próbáld újra.",
+      "overflow": "A termék összes elérhető darabja már a kosaradban van."
+    },
+    "checkout": {
+      "success": "A rendelés sikeresen lezárult",
+      "error": "Technikai hiba miatt a rendelés nem fejeződött be"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Sikeres feliratkozás a Jigglycard hírlevelére",
+      "adminSubject": "Új feliratkozó a Jigglycard hírlevelére",
+      "storeName": "Jigglycard Store",
+      "plainText": "Új üzenet érkezett a hírlevélből."
+    },
+    "support": {
+      "subject": "Ügyfélszolgálati jegy",
+      "adminSubject": "Ügyfélszolgálati jegy, feladó: {name} - E-mail: {email}",
+      "plainText": "Új ügyfélszolgálati jegy érkezett."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosterek",
+    "dragon-ball-super-singles": "Egyedi kártyák",
+    "ff-single-card": "Egyedi kártyák",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Egyedi kártyák",
+    "pokemon-blisters": "Bliszterek",
+    "pokemon-booster": "Boosterek",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Üres dobozok és tárolók",
+    "pokemon-preconstructed-deck": "Előre összeállított paklik",
+    "pokemon-singles": "Egyedi kártyák",
+    "yu-gi-oh-boosters": "Boosterek"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "A te Pokémonod,",
+    "titleHighlight": "az összes kártyája.",
+    "lead": "Válassz egy Pokémont, és fedezd fel az összes egyedi kártyáját, amely a boltban elérhető, a legritkábbtól a leggyakoribbig.",
+    "searchPlaceholder": "Keresés név vagy szám alapján",
+    "generation": "Generáció",
+    "all": "Összes",
+    "shown": "{n} Pokémon",
+    "noMatch": "Egyetlen Pokémon sem felel meg a keresésnek.",
+    "back": "Összes Pokémon",
+    "loading": "Kártyák keresése…",
+    "cardsFound": "Elérhető kártyák: {n}",
+    "noCards": "Jelenleg nincs elérhető {name}-kártyánk.",
+    "browseSingles": "Böngészd az összes egyedi kártyát",
+    "loadMore": "További kártyák",
+    "pickTitle": "Válassz egy Pokémont",
+    "pickText": "Válassz egy Pokémont a listából, hogy lásd az összes elérhető kártyáját."
+  },
+  "shippingPage": {
+    "kicker": "Szállítás",
+    "title": "Szállítás,",
+    "titleHighlight": "visszaküldés és visszatérítés.",
+    "methodsTitle": "Szállítási módok",
+    "methodsLead": "A szállítási módot a pénztárnál választod ki: ezek a mai árak.",
+    "domestic": "Olaszország",
+    "international": "Európai Unió",
+    "maxValue": "Legfeljebb {value} értékű rendelésekhez",
+    "packagingTitle": "Így csomagoljuk a kártyákat",
+    "returnsTitle": "Visszaküldés és visszatérítés",
+    "returnsText": "Visszaküldéshez vagy visszatérítéshez írj nekünk az Ügyfélszolgálat oldalon, és add meg a rendelésszámot: minden tudnivalóval együtt válaszolunk.",
+    "cta": "Tovább az ügyfélszolgálathoz"
+  },
+  "footer": {
+    "trademarkDisclaimer": "A Pokémon és a karakterek nevei a Nintendo, a Creatures Inc. és a GAME FREAK inc. bejegyzett védjegyei, amelyeket a The Pokémon Company kezel. A Jigglycard eredeti termékek független viszonteladója; nem áll kapcsolatban ezekkel a cégekkel, és azok nem szponzorálják vagy hagyják jóvá. A kártyák képei kizárólag a megvásárolható termékek azonosítására szolgálnak."
+  }
+}

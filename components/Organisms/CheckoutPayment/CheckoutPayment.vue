@@ -192,6 +192,7 @@ const compact = (value: string) => value.replace(/[\s.\-/()]/g, "").toUpperCase(
 /** Dati che il cliente ha compilato, nella forma che si aspetta il CMS. */
 function buildCustomerPayload(form: CheckoutFormData) {
   const company = form.invoiceKind === "company";
+  const domestic = form.country === "IT";
   return {
     customer: {
       name: form.name.trim(),
@@ -202,18 +203,20 @@ function buildCustomerPayload(form: CheckoutFormData) {
     address: {
       street: form.streetAndHouseNumber.trim(),
       city: form.city.trim(),
-      zip: form.cap.trim(),
-      province: form.province,
-      country: "IT",
+      zip: form.cap.trim().toUpperCase(),
+      // La provincia esiste solo per gli indirizzi italiani.
+      province: domestic ? form.province : "",
+      country: form.country,
     },
     invoice: form.iWantTheInvoice
       ? {
           kind: form.invoiceKind,
           companyName: company ? form.invoiceCompanyName.trim() : "",
-          taxCode: compact(form.invoiceTaxCode),
+          // Codice fiscale, SDI e PEC sono italiani: all'estero non si chiedono.
+          taxCode: domestic ? compact(form.invoiceTaxCode) : "",
           vatNumber: company ? compact(form.invoiceVatNumber) : "",
-          sdiCode: company ? compact(form.invoiceSdiCode) : "",
-          pec: company ? form.invoicePec.trim() : "",
+          sdiCode: company && domestic ? compact(form.invoiceSdiCode) : "",
+          pec: company && domestic ? form.invoicePec.trim() : "",
         }
       : null,
   };

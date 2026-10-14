@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "privātums",
+      "cookies": "sīkdatnes",
+      "terms": "pārdošanas noteikumi",
+      "cookiePreferences": "sīkdatņu iestatījumi"
+    },
+    "messages": {
+      "noResults": "Nav rezultātu"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Lapa nav atrasta",
+      "notFoundDescription": "Šķiet, ka ceļš Jūs ir aizvedis ilūziju mežā... mēģiniet atrast ceļu atpakaļ!",
+      "backHome": "Atpakaļ uz sākumlapu"
+    },
+    "genericError": "Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz pēc brīža."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Visas preces",
+      "language": "Valoda"
+    },
+    "footer": {
+      "links": {
+        "about": "Par mums",
+        "shipping": "Piegāde, atgriešana un atmaksa",
+        "support": "Atbalsts"
+      }
+    },
+    "routes": {
+      "cart": "Grozs",
+      "/carrello": "Grozs",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Atsevišķas kārtis",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Gatavās kavas",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Visas preces",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Atsevišķas kārtis",
+      "/one-piece/mazzi-precostruiti": "One Piece - Gatavās kavas",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Visas preces",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Atsevišķas kārtis",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Gatavās kavas",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Visas preces",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Atsevišķas kārtis",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Gatavās kavas",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Visas preces",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Atsevišķas kārtis",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Gatavās kavas",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Visas preces",
+      "/servizi": "Pakalpojumi",
+      "/contatti": "Kontakti",
+      "/": "Sākumlapa"
+    },
+    "breadcrumb": {
+      "label": "Navigācijas ceļš",
+      "home": "Sākums",
+      "all": "Visas preces",
+      "search": "Meklēšana: {term}",
+      "cart": "Grozs",
+      "checkout": "Pasūtījuma noformēšana"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Izceltās preces",
+      "conditions": "Stāvoklis",
+      "weeklyOffers": "Nedēļas piedāvājumi",
+      "preOrders": "Priekšpasūtījumi",
+      "highlights": "Uzmanības centrā",
+      "whatsNew": "Jaunumi",
+      "deals": "Akcijas"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Izsekojama un droša piegāde",
+        "description": "Katru pasūtījumu nosūtām ar izsekojamu kurjeru, parasti trīs darba dienu laikā, un kārtis ceļo aizsargmaciņos un toploader turētājos."
+      },
+      "support": {
+        "title": "Atsaucīgs atbalsts",
+        "description": "Rakstiet mums e-pastā vai WhatsApp: atbildēsim 48 darba stundu laikā."
+      },
+      "prices": {
+        "title": "Vienmēr aktuālas cenas",
+        "description": "Vairākas reizes dienā pielāgojam cenas tirgum, lai par katru kārti Jūs maksātu godīgu cenu."
+      },
+      "security": {
+        "title": "Aizsargāti dati",
+        "description": "Jūsu personas un maksājumu dati ir aizsargāti ar nozares standarta šifrēšanu."
+      }
+    },
+    "hero": {
+      "products": "preces",
+      "from": "no",
+      "explore": "Apskatīt sēriju"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Veikala priekšrocības",
+        "marquee": {
+          "shipping": "Pasūtījumus nosūtām 3 darba dienu laikā",
+          "payments": "Droši un aizsargāti maksājumi",
+          "sell": "Pārdodiet savu kolekciju: novērtēšana pēc pieraksta",
+          "games": "Atsevišķas kārtis, neatvērtas paciņas un kastes"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Katrai kārtij",
+        "titleLine2": "ir savs stāsts.",
+        "titleHighlight": "Nākamā būs Jūsu.",
+        "lead": "Atsevišķas kārtis, neatvērtas paciņas un kastes, ko kolekcionāri atlasījuši kolekcionāriem. Atrodiet to, kas vēl trūkst Jūsu kolekcijā: nosūtīsim trīs darba dienu laikā, vienmēr droši iepakotu.",
+        "ctaPrimary": "Atrast savu kārti",
+        "ctaSecondary": "Atvērt paciņu",
+        "trust": {
+          "shipping": "Nosūtīšana 3 darba dienu laikā",
+          "payments": "Droši maksājumi",
+          "marketplaces": "Mēs esam arī platformās Cardmarket un Cardtrader"
+        },
+        "latestKicker": "Tikko klāt",
+        "stats": {
+          "products": "šobrīd pieejamas preces",
+          "shipping": "darba dienas līdz nosūtīšanai",
+          "shippingValue": "3 dienas",
+          "payments": "aizsargāti maksājumi",
+          "singles": "pieejamas atsevišķas kārtis"
+        },
+        "scroll": "Ritiniet"
+      },
+      "story": {
+        "label": "No paciņas līdz Jūsu galdam",
+        "packSubtitle": "Kolekcijas paciņa",
+        "packTitleFallback": "Jauna sērija",
+        "badge": "Pārbaudīta un aizsargāta",
+        "pack": {
+          "kicker": "Paciņa",
+          "title1": "Katra paciņa",
+          "title2": "ir solījums.",
+          "text": "Iekšā vienmēr slēpjas iespēja: tieši tāpēc katra atvēršana liek sirdij pukstēt straujāk. Paciņas un kastes Jūs saņemsiet neatvērtas, tieši tādas, kādas tās iznāca no rūpnīcas."
+        },
+        "fan": {
+          "kicker": "Vēdeklis",
+          "title1": "Parastās, retākās,",
+          "title2": "reverse. Un tad – pēdējā.",
+          "text": "Labākā kārts vienmēr ir pašās beigās. To zina ikviens, kurš kādreiz atvēris paciņu, un to zinām arī mēs."
+        },
+        "hit": {
+          "kicker": "Hits",
+          "title1": "Tā,",
+          "title2": "ko meklējāt.",
+          "text": "Holo, reverse, full art, īpašās ilustrācijas: retums, no kura trīc rokas. Un, ja nevēlaties paļauties uz veiksmi, to jau atradīsiet starp mūsu atsevišķajām kārtīm."
+        },
+        "safe": {
+          "kicker": "Drošībā",
+          "title1": "Aizsargāta",
+          "title2": "līdz pat Jūsu mājām.",
+          "text": "Katrs pasūtījums tiek nosūtīts trīs darba dienu laikā un vienmēr ceļo aizsargāts, jo nevainojamai kārtij jānonāk pie Jums nevainojamā stāvoklī.",
+          "cta": "Apskatīt atsevišķās kārtis"
+        }
+      },
+      "categories": {
+        "kicker": "Katalogs",
+        "title": "Ko Jūs meklējat?",
+        "lead": "No kārts, kas trūkst Jūsu kolekcijā, līdz kastei, ko atvērt kopā ar draugiem.",
+        "products": "preces",
+        "enter": "Apskatīt"
+      },
+      "showcase": {
+        "kicker": "Šobrīd uz galda",
+        "title": "Šī brīža kārtis.",
+        "from": "no",
+        "previous": "Iepriekšējās kārtis",
+        "next": "Nākamās kārtis",
+        "all": "Skatīt visu katalogu"
+      },
+      "opening": {
+        "kicker": "Virtuāla paciņa · bez maksas",
+        "title1": "Pieskarieties paciņai.",
+        "title2": "Atklājiet savu hitu.",
+        "lead": "Izvēlieties kādu no mūsu veikalā pieejamajām japāņu paciņām un atveriet to šeit bez maksas. Tajā ir tikai šīs sērijas japāņu kārtis no mūsu pieejamajām atsevišķajām kārtīm: ja atrastā kārts Jums patīk, to jau var nopirkt. Un, ja Jums patika šī sajūta, īstā paciņa ir tikai viena klikšķa attālumā.",
+        "facts": {
+          "cards": "kārtis paciņā",
+          "hit": "garantēts hits",
+          "price": "par spēli",
+          "set": "šīs sērijas kārtis veikalā"
+        },
+        "tear": "Atplēst paciņu",
+        "tapHint": "Pieskarieties, lai atplēstu",
+        "packSubtitle": "Virtuāla paciņa",
+        "flip": "Apgriezt {n}. kārti",
+        "revealAll": "Atklāt visas",
+        "yourHit": "Jūsu hits",
+        "seeCard": "Apskatīt kārti",
+        "again": "Atvērt vēl vienu paciņu",
+        "status": {
+          "idle": "Neatvērta paciņa · 5 kārtis",
+          "torn": "Atveram…",
+          "dealt": "Neapgrieztās kārtis: {n}",
+          "done": "Paciņa atvērta",
+          "idlePack": "{name} · neatvērta"
+        },
+        "choosePack": "Izvēlieties paciņu, ko atvērt",
+        "buyPack": "Pirkt paciņu · {price} €",
+        "cardsShort": "kārtis"
+      },
+      "sell": {
+        "kicker": "Pārdodiet mums",
+        "title": "Kolekcija guļ atvilktnē?",
+        "lead": "Mēs to novērtēsim bez steigas un pēc iepriekšēja pieraksta. Piesakiet novērtēšanu un uzziniet, cik tā patiešām ir vērta.",
+        "cta": "Pieteikt novērtēšanu",
+        "rules": "Lasīt noteikumus"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Pievienojieties mūsu kopienai un saņemiet īpašos piedāvājumus tieši savā e-pastā!",
+    "caption": {
+      "first": "Atklājiet visas priekšrocības, ko sniedz jaunumi ar vienu klikšķi: ekskluzīvi priekšskatījumi, īpašas akcijas, detalizēti apskati un personalizēti atgādinājumi par Jūsu pirkumiem – un tas viss, nepārpludinot Jūsu pastkastīti. Pierakstieties tagad un saņemiet ",
+      "bold": " 15% atlaides kodu ",
+      "second": " pirmajam nenocenotu preču pirkumam!"
+    },
+    "emailValidation": "Ievadiet derīgu e-pasta adresi.",
+    "short": "Saņemiet jaunumus ar vienu klikšķi, nepārpludinot savu pastkastīti. Pierakstieties un saņemiet 15% atlaidi pirmajam nenocenotu preču pirkumam!",
+    "button": "Pierakstīties",
+    "toast": "Pieraksts veiksmīgs",
+    "emailPlaceholder": "E-pasts"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtri",
+      "search": "Meklēt",
+      "price": "Cena",
+      "from": "no",
+      "to": "līdz",
+      "apply": "Lietot",
+      "clear": "Notīrīt visus filtrus",
+      "min": "Min.",
+      "max": "Maks.",
+      "searchOption": "Meklēt…",
+      "noOption": "Nav atbilstošu vienumu",
+      "reset": "Atiestatīt",
+      "close": "Aizvērt",
+      "remove": "Noņemt"
+    },
+    "actions": {
+      "showDetails": "skatīt sīkāk",
+      "showAll": "Skatīt visu"
+    },
+    "listing": {
+      "resultFor": "Rezultāti",
+      "allOf": "Visas preces",
+      "of": "no",
+      "counter": {
+        "viewed": "Apskatītas",
+        "of": "no",
+        "products": "precēm"
+      }
+    },
+    "pagination": {
+      "label": "Lapas",
+      "previous": "Iepriekšējā",
+      "next": "Nākamā",
+      "page": "Lapa {n}",
+      "pageOf": "Lapa {n} no {total}",
+      "showing": "{from}–{to} no {total} precēm",
+      "goTo": "Pāriet uz lapu",
+      "go": "Aiziet"
+    },
+    "sorting": {
+      "sortBy": "Kārtot pēc",
+      "newest": "Jaunākās",
+      "priceCheapest": "Lētākās",
+      "priceExpensive": "Dārgākās",
+      "nameAtoZ": "Nosaukums (A - Z)",
+      "nameZtoA": "Nosaukums (Z - A)"
+    },
+    "filters": {
+      "language": "Valoda",
+      "condition": "Stāvoklis",
+      "brand": "Zīmols",
+      "available": "Pieejamība",
+      "IT": "itāļu",
+      "EN": "angļu",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "pieejams",
+      "false": "nav pieejams",
+      "NA": "cits",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japāņu",
+      "it": "Itāļu",
+      "en": "Angļu",
+      "de": "Vācu",
+      "fr": "Franču",
+      "es": "Spāņu",
+      "pt": "Portugāļu",
+      "ru": "Krievu",
+      "ko": "Korejiešu",
+      "zh": "Ķīniešu",
+      "zh-CN": "Vienkāršotā ķīniešu",
+      "zh-TW": "Tradicionālā ķīniešu",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Neviena prece netika atrasta",
+      "subtitle": "Mēģiniet paplašināt meklēšanu, noņemot dažus filtrus.",
+      "clearFilters": "Noņemt visus filtrus",
+      "backHome": "Uz sākumlapu"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "sākot no",
+      "soldOut": "izpārdots",
+      "lastUnits": "Pēdējais eksemplārs | Krājumā tikai {count} gab."
+    },
+    "hero": {
+      "TaxesAndShipping": "Nodokļi iekļauti. Piegādes izmaksas tiks aprēķinātas, noformējot pasūtījumu",
+      "Language": "Valoda",
+      "Quantity": "Daudzums",
+      "AddToCart": "pievienot grozam",
+      "BuyWithPaypal": "Pirkt ar PayPal",
+      "Description": "Apraksts",
+      "addToCartToast": "Prece veiksmīgi pievienota grozam"
+    },
+    "quantity": {
+      "quantity": "Daudzums",
+      "availability": "Krājumā",
+      "pieces": "gab."
+    },
+    "messages": {
+      "suggested": "Vai šīs preces jau redzējāt?"
+    },
+    "description": {
+      "fromSet": "{name} ir kārts no sērijas {expansion}.",
+      "number": "Kolekcijas numurs {number}.",
+      "rarity": "Retums: {rarity}.",
+      "languages": "Pieejamās valodas: {languages}.",
+      "conditions": "Pieejamie stāvokļi: {conditions}.",
+      "fromSetProduct": "{name} ir prece no sērijas {expansion}."
+    },
+    "sections": {
+      "recommended": "Jums varētu patikt"
+    },
+    "quickAdd": {
+      "add": "Pievienot",
+      "added": "Pievienots",
+      "choose": "Izvēlēties versiju",
+      "maxed": "Grozā jau ir visi pieejamie eksemplāri",
+      "aria": "Pievienot grozam: {name}"
+    },
+    "neighbors": {
+      "label": "Citas šīs sērijas kārtis",
+      "previous": "Iepriekšējā",
+      "next": "Nākamā"
+    }
+  },
+  "cart": {
+    "title": "Grozs",
+    "empty": "Jūsu trenera ceļojums vēl nav sācies!",
+    "startExploring": "Sāciet šeit",
+    "summary": {
+      "title": "Groza kopsavilkums",
+      "shipping": "Piegāde",
+      "total": "Kopā",
+      "free": "Bez maksas"
+    },
+    "shipping": {
+      "heading": "Piegādes veids",
+      "note": "*citu piegādes veidu varēsiet izvēlēties, noformējot pasūtījumu",
+      "couponPlaceholder": "Ievadiet kupona kodu",
+      "total": "Kopā",
+      "couponQuestion": "Vai Jums ir kupona kods?",
+      "apply": "Izmantot kodu",
+      "applyDesktop": "izmantot",
+      "buyCta": "Noformēt pasūtījumu",
+      "back": "Atpakaļ uz precēm",
+      "couponLabel": "Kupons",
+      "removeCoupon": "Noņemt kuponu"
+    },
+    "help": {
+      "title": "Nepieciešama palīdzība?",
+      "content": "Piegādājam uz Itāliju un visām Eiropas Savienības valstīm ar izsekojamu kurjeru. Kārtis tiek ievietotas aizsargmaciņos un toploader turētājos un iepakotas tā, lai tās nonāktu pie Jums tieši tādā stāvoklī, kāds norādīts aprakstā. Ja Jums ir kādi jautājumi par pasūtījumu, rakstiet mums no lapas „Atbalsts”."
+    },
+    "stockChanged": "Dažas preces vairs nav pieejamas pieprasītajā daudzumā:",
+    "stockRequested": "pieprasīti",
+    "stockAvailable": "krājumā",
+    "recommended": "Papildiniet kolekciju"
+  },
+  "filter": {
+    "language": "Valoda",
+    "condition": "Stāvoklis",
+    "brand": "Zīmols",
+    "type": "Veids",
+    "expansion": "Sērija",
+    "available": "Pieejamība",
+    "IT": "itāļu",
+    "EN": "angļu",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "pieejams",
+    "false": "nav pieejams",
+    "NA": "cits",
+    "pokemon": "pokemon",
+    "it": "Itāļu",
+    "en": "Angļu",
+    "jp": "Japāņu",
+    "de": "Vācu",
+    "fr": "Franču",
+    "es": "Spāņu",
+    "pt": "Portugāļu",
+    "ru": "Krievu",
+    "ko": "Korejiešu",
+    "zh": "Ķīniešu",
+    "zh-CN": "Vienkāršotā ķīniešu",
+    "zh-TW": "Tradicionālā ķīniešu",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Retums"
+  },
+  "filterType": {
+    "singles": "Atsevišķas kārtis",
+    "single-card": "Atsevišķa kārts",
+    "preconstructed-deck": "Gatavās kavas",
+    "booster": "Booster",
+    "boosters": "Booster",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Apskatītas",
+    "of": "no",
+    "products": "precēm"
+  },
+  "checkout": {
+    "title": "Pasūtījuma noformēšana",
+    "shippingInfo": "Piegādes informācija",
+    "actions": {
+      "confirmAndPay": "Apstiprināt un maksāt",
+      "paying": "Notiek maksājums…"
+    },
+    "thanks": {
+      "main": "Paldies!",
+      "newsletter": "Paldies, ka pierakstījāties mūsu jaunumiem! Drīzumā saņemsiet e-pastu ar visu informāciju.",
+      "order": "Maksājums ir veiksmīgs, un Jūsu pasūtījums ir apstiprināts.",
+      "backHome": "Atpakaļ uz sākumlapu"
+    },
+    "confirming": "Apstiprinām Jūsu pasūtījumu…",
+    "confirmFailed": "Neizdevās apstiprināt pasūtījumu",
+    "orderNumber": "Pasūtījuma numurs",
+    "genericError": "Radās kļūda. Lūdzu, sazinieties ar klientu atbalstu un norādiet pirkuma laiku.",
+    "paymentUnavailable": "Tiešsaistes maksājumi šobrīd nav pieejami. Mēģiniet vēlreiz pēc brīža vai sazinieties ar mums.",
+    "completeForm": "Lai pārietu pie maksājuma, aizpildiet piegādes datus.",
+    "priceChanged": "Dažas cenas ir mainījušās: pārbaudiet jauno kopsummu un vēlreiz nospiediet „Apstiprināt un maksāt”.",
+    "couponNoLongerValid": "Kupons vairs nav derīgs ({reason}): kopsumma ir atjaunināta.",
+    "paymentFailed": "Maksājums neizdevās. Mēģiniet vēlreiz vai izvēlieties citu maksājuma veidu.",
+    "emailSentTo": "Apstiprinājumu nosūtījām uz {email}.",
+    "processingTitle": "Maksājums tiek apstrādāts",
+    "processingText": "Jūsu banka vēl apstiprina maksājumu. Tiklīdz tas būs apstiprināts, nosūtīsim Jums pasūtījuma apstiprinājumu e-pastā: atkārtoti maksāt nav nepieciešams.",
+    "paymentFailedTitle": "Maksājums neizdevās",
+    "paymentFailedText": "Maksājums netika pabeigts, un nauda no Jums netika iekasēta. Jūsu grozs joprojām ir šeit: varat mēģināt vēlreiz.",
+    "backToCheckout": "Atpakaļ uz noformēšanu",
+    "nothingToConfirm": "Nav neviena maksājuma, ko apstiprināt.",
+    "noShippingForCountry": "Pašlaik uz šo valsti nepiegādājam. Izvēlieties citu valsti vai rakstiet mums no lapas „Atbalsts”."
+  },
+  "forms": {
+    "fields": {
+      "name": "Vārds",
+      "surname": "Uzvārds",
+      "email": "E-pasts",
+      "message": "Ziņa",
+      "nation": "Valsts",
+      "cap": "Pasta indekss",
+      "city": "Pilsēta",
+      "streetAndHouseNumber": "Iela un mājas numurs",
+      "iWantTheInvoice": "Vēlos rēķinu",
+      "acceptTerms": "Piekrītu {terms} un apliecinu, ka iepazinos ar {privacy}.",
+      "termsLink": "pārdošanas noteikumiem",
+      "privacyLink": "privātuma politiku",
+      "phone": "Tālrunis",
+      "province": "Province",
+      "provincePlaceholder": "Izvēlieties provinci",
+      "optional": "neobligāts",
+      "invoiceKind": "Rēķina veids",
+      "invoiceKind_private": "Privātpersona",
+      "invoiceKind_company": "Uzņēmums / PVN maksātājs",
+      "taxCode": "Nodokļu kods (Codice fiscale)",
+      "companyName": "Uzņēmuma nosaukums",
+      "vatNumber": "PVN numurs (Partita IVA)",
+      "sdiCode": "SDI kods",
+      "pec": "PEC (sertificēts e-pasts)",
+      "invoiceHint": "Norādiet SDI kodu vai PEC adresi: ja Jums nav neviena no tiem, e-rēķins būs pieejams Jūsu nodokļu kontā (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Rēķins tiks izrakstīts uz piegādes vārdu un adresi.",
+      "invoiceHintForeignCompany": "Norādiet ES PVN numuru (VIES) ar vai bez valsts prefiksa."
+    },
+    "actions": {
+      "submit": "Nosūtīt"
+    },
+    "contact": {
+      "title": "Saziņas forma",
+      "placeholders": {
+        "name": "Vārds",
+        "email": "E-pasta adrese",
+        "phone": "Tālruņa numurs",
+        "message": "Jūsu ziņa"
+      },
+      "phoneValidation": "Ievadiet derīgu tālruņa numuru",
+      "submit": "Nosūtīt"
+    },
+    "support": {
+      "title": "Atbalsts",
+      "mail": "Rakstiet mums uz e-pastu",
+      "message": "vai sūtiet ziņu/WhatsApp uz numuru",
+      "form": "Ja vēlaties, varat aizpildīt zemāk esošo formu.",
+      "answer": "Jūs saņemsiet atbildi / Mēs atbildēsim 48 stundu laikā.",
+      "sending": "Sūta…",
+      "sent": "Ziņa nosūtīta! Atbildēsim pēc iespējas ātrāk.",
+      "failed": "Neizdevās nosūtīt ziņu. Mēģiniet vēlreiz vai rakstiet mums e-pastu."
+    },
+    "validation": {
+      "required": "Obligāts lauks",
+      "invalidEmail": "Ievadiet derīgu e-pasta adresi",
+      "invalidCAP": "Ievadiet derīgu pasta indeksu",
+      "acceptTerms": "Lai turpinātu, Jums jāpiekrīt pārdošanas noteikumiem",
+      "invalidPhone": "Ievadiet derīgu tālruņa numuru",
+      "invalidTaxCode": "Ievadiet derīgu nodokļu kodu (codice fiscale)",
+      "invalidVatNumber": "Ievadiet derīgu PVN numuru (Partita IVA, 11 cipari)",
+      "invalidSdi": "SDI kodā jābūt 7 rakstzīmēm",
+      "invalidVatNumberEu": "Ievadiet derīgu ES PVN numuru"
+    }
+  },
+  "payments": {
+    "terms": "maksājiet ar",
+    "methodsTitle": "Maksājuma veidi",
+    "options": {
+      "creditCard": "Kredītkarte",
+      "wireTransfer": "Bankas pārskaitījums"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Prece pievienota grozam",
+      "error": "Neizdevās pievienot preci grozam. Mēģiniet vēlreiz.",
+      "overflow": "Grozā jau ir visi pieejamie šīs preces eksemplāri."
+    },
+    "checkout": {
+      "success": "Pasūtījums veiksmīgi noformēts",
+      "error": "Tehniskas kļūmes dēļ pasūtījumu neizdevās noformēt"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Jūs veiksmīgi pierakstījāties Jigglycard jaunumiem",
+      "adminSubject": "Jauns Jigglycard jaunumu abonents",
+      "storeName": "Jigglycard Store",
+      "plainText": "Jūs saņēmāt jaunu ziņu no jaunumu izsūtnes."
+    },
+    "support": {
+      "subject": "Atbalsta pieteikums",
+      "adminSubject": "Atbalsta pieteikums no: {name} - E-pasts: {email}",
+      "plainText": "Jūs saņēmāt jaunu atbalsta pieteikumu."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Booster",
+    "dragon-ball-super-singles": "Atsevišķas kārtis",
+    "ff-single-card": "Atsevišķas kārtis",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Atsevišķas kārtis",
+    "pokemon-blisters": "Blister",
+    "pokemon-booster": "Booster",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Tukšas kastes un glabāšana",
+    "pokemon-preconstructed-deck": "Gatavās kavas",
+    "pokemon-singles": "Atsevišķas kārtis",
+    "yu-gi-oh-boosters": "Booster"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "Jūsu Pokémon,",
+    "titleHighlight": "visas tā kārtis.",
+    "lead": "Izvēlieties Pokémon un atklājiet visas tā atsevišķās kārtis, kas pieejamas mūsu veikalā, – no retākās līdz visparastākajai.",
+    "searchPlaceholder": "Meklēt pēc nosaukuma vai numura",
+    "generation": "Paaudze",
+    "all": "Visas",
+    "shown": "{n} Pokémon",
+    "noMatch": "Neviens Pokémon neatbilst meklēšanas vaicājumam.",
+    "back": "Visi Pokémon",
+    "loading": "Meklējam kārtis…",
+    "cardsFound": "Pieejamās kārtis: {n}",
+    "noCards": "Pašlaik mums nav pieejamu {name} kāršu.",
+    "browseSingles": "Pārlūkot visas atsevišķās kārtis",
+    "loadMore": "Rādīt vairāk kāršu",
+    "pickTitle": "Izvēlieties Pokémon",
+    "pickText": "Izvēlieties Pokémon no saraksta, lai redzētu visas tā pieejamās kārtis."
+  },
+  "shippingPage": {
+    "kicker": "Piegāde",
+    "title": "Piegāde,",
+    "titleHighlight": "atgriešana un atmaksa.",
+    "methodsTitle": "Piegādes veidi",
+    "methodsLead": "Piegādes veidu izvēlaties, noformējot pasūtījumu: šeit redzamas šodienas cenas.",
+    "domestic": "Itālija",
+    "international": "Eiropas Savienība",
+    "maxValue": "Pasūtījumiem līdz {value}",
+    "packagingTitle": "Kā mēs iepakojam kārtis",
+    "returnsTitle": "Atgriešana un atmaksa",
+    "returnsText": "Lai atgrieztu preci vai saņemtu naudas atmaksu, rakstiet mums no lapas „Atbalsts”, norādot pasūtījuma numuru: atbildēsim ar visām instrukcijām.",
+    "cta": "Uz atbalsta lapu"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon un tēlu vārdi ir Nintendo, Creatures Inc. un GAME FREAK inc. preču zīmes, ko pārvalda The Pokémon Company. Jigglycard ir neatkarīgs oriģinālo preču tirgotājs, un tas nav saistīts ar šiem uzņēmumiem, nav to sponsorēts vai apstiprināts. Kāršu attēli tiek izmantoti tikai pārdošanā esošo preču identificēšanai."
+  }
+}

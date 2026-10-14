@@ -37,7 +37,7 @@
 
         <section class="co-panel">
           <OrganismsSelectOptions
-            :shippingOptions="shippingOptions"
+            :shippingOptions="availableShippingOptions"
             :selectedOption="selectedShippingOption"
             @update:selectedOption="updateSelectedOption"
           />
@@ -98,8 +98,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { PATH } from "~/data/const";
+import { HOME_COUNTRY, isShippingAvailableFor } from "~/data/countries";
 import type { CheckoutLineIssue } from "~/types/shop";
 import { useCartStore } from "~/stores/cart";
 
@@ -116,6 +117,8 @@ export type CheckoutFormData = {
   cap: string;
   city: string;
   province: string;
+  /** Codice ISO del paese UE di consegna. */
+  country: string;
   iWantTheInvoice: boolean;
   invoiceKind: "private" | "company";
   invoiceTaxCode: string;
@@ -146,9 +149,24 @@ const shippingOptions = shippingMethods.map((method) => ({
   label: method.name,
   price: method.priceCents / 100,
   priceCents: method.priceCents,
+  international: method.international,
 }));
 
-const selectedShippingOption = ref(shippingOptions[0]);
+/**
+ * Solo i metodi validi per il paese scelto nel modulo: Poste in Italia, UPS
+ * negli altri paesi UE. Cambiando paese la scelta passa al primo disponibile.
+ */
+const country = computed(() => formData.value?.country ?? HOME_COUNTRY);
+const availableShippingOptions = computed(() =>
+  shippingOptions.filter((option) => isShippingAvailableFor(option, country.value)),
+);
+
+const selectedShippingOption = ref(availableShippingOptions.value[0] ?? null);
+watch(availableShippingOptions, (options) => {
+  if (!options.some((option) => option.id === selectedShippingOption.value?.id)) {
+    selectedShippingOption.value = options[0] ?? null;
+  }
+});
 const stockIssues = ref<CheckoutLineIssue[]>([]);
 
 function updateSelectedOption(option: any) {

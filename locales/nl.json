@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "privacy",
+      "cookies": "cookies",
+      "terms": "verkoopvoorwaarden",
+      "cookiePreferences": "cookievoorkeuren"
+    },
+    "messages": {
+      "noResults": "Geen resultaten"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Pagina niet gevonden",
+      "notFoundDescription": "Het lijkt erop dat je verdwaald bent in het bos van illusies... probeer de weg terug te vinden!",
+      "backHome": "Terug naar de homepage"
+    },
+    "genericError": "Er is iets misgegaan. Probeer het zo opnieuw."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Alle producten",
+      "language": "Taal"
+    },
+    "footer": {
+      "links": {
+        "about": "Over ons",
+        "shipping": "Verzending, retouren en terugbetalingen",
+        "support": "Klantenservice"
+      }
+    },
+    "routes": {
+      "cart": "Winkelwagen",
+      "/carrello": "Winkelwagen",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Losse kaarten",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Kant-en-klare decks",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Alle producten",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Losse kaarten",
+      "/one-piece/mazzi-precostruiti": "One Piece - Kant-en-klare decks",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Alle producten",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Losse kaarten",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Kant-en-klare decks",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Alle producten",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Losse kaarten",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Kant-en-klare decks",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Alle producten",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Losse kaarten",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Kant-en-klare decks",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Alle producten",
+      "/servizi": "Diensten",
+      "/contatti": "Contact",
+      "/": "Homepage"
+    },
+    "breadcrumb": {
+      "label": "Kruimelpad",
+      "home": "Home",
+      "all": "Alle producten",
+      "search": "Zoeken: {term}",
+      "cart": "Winkelwagen",
+      "checkout": "Afrekenen"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Uitgelichte producten",
+      "conditions": "Conditie",
+      "weeklyOffers": "Weekaanbiedingen",
+      "preOrders": "Voorbestellingen",
+      "highlights": "Uitgelicht",
+      "whatsNew": "Nieuw",
+      "deals": "Aanbiedingen"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Veilig verzonden met track & trace",
+        "description": "Elke bestelling gaat met track & trace de deur uit, meestal binnen drie werkdagen, met de kaarten in een sleeve en toploader."
+      },
+      "support": {
+        "title": "Persoonlijke klantenservice",
+        "description": "Stuur ons een e-mail of WhatsApp-bericht: we reageren binnen 48 uur op werkdagen."
+      },
+      "prices": {
+        "title": "Altijd actuele prijzen",
+        "description": "We stemmen onze prijzen meerdere keren per dag af op de markt, zodat je voor elke kaart de juiste prijs betaalt."
+      },
+      "security": {
+        "title": "Beschermde gegevens",
+        "description": "Je persoonlijke gegevens en betaalgegevens worden beschermd met versleuteling volgens de industriestandaard."
+      }
+    },
+    "hero": {
+      "products": "producten",
+      "from": "vanaf",
+      "explore": "Ontdek de set"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Onze voordelen",
+        "marquee": {
+          "shipping": "Bestellingen verzonden binnen 3 werkdagen",
+          "payments": "Veilig en beschermd betalen",
+          "sell": "Verkoop je collectie: taxatie op afspraak",
+          "games": "Losse kaarten, verzegelde boosters en boxen"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Elke kaart",
+        "titleLine2": "heeft een verhaal.",
+        "titleHighlight": "De volgende is van jou.",
+        "lead": "Losse kaarten, verzegelde boosters en boxen, gekozen door verzamelaars voor verzamelaars. Vind het stuk dat nog in je collectie ontbreekt: we versturen het binnen drie werkdagen, altijd goed beschermd.",
+        "ctaPrimary": "Vind je kaart",
+        "ctaSecondary": "Open een booster",
+        "trust": {
+          "shipping": "Verzending in 3 werkdagen",
+          "payments": "Veilig betalen",
+          "marketplaces": "Je vindt ons ook op Cardmarket en Cardtrader"
+        },
+        "latestKicker": "Net binnen",
+        "stats": {
+          "products": "producten nu beschikbaar",
+          "shipping": "tot verzending",
+          "shippingValue": "3 werkdagen",
+          "payments": "beschermde betalingen",
+          "singles": "losse kaarten beschikbaar"
+        },
+        "scroll": "Scroll"
+      },
+      "story": {
+        "label": "Van de booster naar jouw tafel",
+        "packSubtitle": "Verzamelbooster",
+        "packTitleFallback": "Nieuwe uitbreiding",
+        "badge": "Gecontroleerd en beschermd",
+        "pack": {
+          "kicker": "De booster",
+          "title1": "Elke booster",
+          "title2": "is een belofte.",
+          "text": "Er zit altijd een kans in: daarom gaat je hart bij elke opening sneller kloppen. Boosters en boxen komen verzegeld bij je aan, precies zoals ze de fabriek hebben verlaten."
+        },
+        "fan": {
+          "kicker": "De waaier",
+          "title1": "Commons, uncommons,",
+          "title2": "reverses. En dan de laatste.",
+          "text": "De beste kaart zit altijd achteraan. Dat weet iedereen die ooit een booster heeft geopend, en wij weten het ook."
+        },
+        "hit": {
+          "kicker": "De hit",
+          "title1": "De kaart",
+          "title2": "die je zocht.",
+          "text": "Holo, reverse, full art, Special Illustration Rares: de zeldzaamheden waar je handen van gaan trillen. En wil je niet op geluk vertrouwen, dan vind je ze al tussen onze losse kaarten."
+        },
+        "safe": {
+          "kicker": "Veilig",
+          "title1": "Beschermd,",
+          "title2": "tot aan je voordeur.",
+          "text": "Elke bestelling vertrekt binnen drie werkdagen en reist altijd goed beschermd, want een perfecte kaart moet ook perfect aankomen.",
+          "cta": "Ontdek de losse kaarten"
+        }
+      },
+      "categories": {
+        "kicker": "De catalogus",
+        "title": "Waar ben je naar op zoek?",
+        "lead": "Van de kaart die nog in je collectie ontbreekt tot de box die je samen met vrienden opent.",
+        "products": "producten",
+        "enter": "Bekijken"
+      },
+      "showcase": {
+        "kicker": "Nu op tafel",
+        "title": "De kaarten van het moment.",
+        "from": "vanaf",
+        "previous": "Vorige kaarten",
+        "next": "Volgende kaarten",
+        "all": "Bekijk de hele catalogus"
+      },
+      "opening": {
+        "kicker": "Virtuele booster · gratis",
+        "title1": "Tik op de booster.",
+        "title2": "Ontdek je hit.",
+        "lead": "Kies een van de Japanse boosters die we in de winkel hebben en open hem hier, gratis. Er komen alleen Japanse kaarten uit die set uit, afkomstig uit onze beschikbare losse kaarten: vind je de kaart die je trekt leuk, dan kun je hem meteen kopen. En vond je de spanning leuk, dan is de echte booster maar één klik verwijderd.",
+        "facts": {
+          "cards": "kaarten per booster",
+          "hit": "gegarandeerde hit",
+          "price": "om te spelen",
+          "set": "kaarten uit de set in de winkel"
+        },
+        "tear": "Scheur de booster open",
+        "tapHint": "Tik om open te scheuren",
+        "packSubtitle": "Virtuele booster",
+        "flip": "Draai kaart {n} om",
+        "revealAll": "Alles onthullen",
+        "yourHit": "Jouw hit",
+        "seeCard": "Bekijk de kaart",
+        "again": "Open nog een booster",
+        "status": {
+          "idle": "Verzegelde booster · 5 kaarten",
+          "torn": "Bezig met openen…",
+          "dealt": "Nog om te draaien: {n}",
+          "done": "Booster voltooid",
+          "idlePack": "{name} · verzegeld"
+        },
+        "choosePack": "Kies de booster die je wilt openen",
+        "buyPack": "Koop de booster · {price} €",
+        "cardsShort": "kaarten"
+      },
+      "sell": {
+        "kicker": "Verkoop aan ons",
+        "title": "Ligt er een collectie in je la?",
+        "lead": "Wij taxeren je collectie, rustig en op afspraak. Boek een taxatie en ontdek wat die echt waard is.",
+        "cta": "Boek een taxatie",
+        "rules": "Lees het reglement"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Word lid van onze community en profiteer van speciale aanbiedingen, rechtstreeks in je inbox!",
+    "caption": {
+      "first": "Ontdek alle voordelen van met één klik op de hoogte blijven: exclusieve previews, speciale acties, uitgebreide achtergrondinformatie en persoonlijke herinneringen voor je aankopen, zonder dat je inbox overloopt. Schrijf je nu in en profiteer van een ",
+      "bold": " kortingscode van 15% ",
+      "second": " op je eerste aankoop van artikelen die niet al in de aanbieding zijn!"
+    },
+    "emailValidation": "Vul een geldig e-mailadres in.",
+    "short": "Blijf met één klik op de hoogte zonder dat je inbox overloopt. Schrijf je in voor 15% korting op je eerste aankoop van artikelen die niet in de aanbieding zijn!",
+    "button": "Inschrijven",
+    "toast": "Inschrijving gelukt",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filters",
+      "search": "Zoeken",
+      "price": "Prijs",
+      "from": "van",
+      "to": "tot",
+      "apply": "Toepassen",
+      "clear": "Alle filters wissen",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Zoeken…",
+      "noOption": "Geen overeenkomende opties",
+      "reset": "Resetten",
+      "close": "Sluiten",
+      "remove": "Verwijderen"
+    },
+    "actions": {
+      "showDetails": "details bekijken",
+      "showAll": "Bekijk alles"
+    },
+    "listing": {
+      "resultFor": "Resultaten voor",
+      "allOf": "Alles voor",
+      "of": "van",
+      "counter": {
+        "viewed": "Je ziet",
+        "of": "van de",
+        "products": "producten"
+      }
+    },
+    "pagination": {
+      "label": "Paginering",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "page": "Pagina {n}",
+      "pageOf": "Pagina {n} van {total}",
+      "showing": "{from}–{to} van {total} producten",
+      "goTo": "Ga naar pagina",
+      "go": "Ga"
+    },
+    "sorting": {
+      "sortBy": "Sorteren op",
+      "newest": "Nieuwste",
+      "priceCheapest": "Goedkoopste eerst",
+      "priceExpensive": "Duurste eerst",
+      "nameAtoZ": "Naam (A - Z)",
+      "nameZtoA": "Naam (Z - A)"
+    },
+    "filters": {
+      "language": "Taal",
+      "condition": "Conditie",
+      "brand": "Merk",
+      "available": "Beschikbaar",
+      "IT": "Italiaans",
+      "EN": "Engels",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "beschikbaar",
+      "false": "niet beschikbaar",
+      "NA": "overig",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japans",
+      "it": "Italiaans",
+      "en": "Engels",
+      "de": "Duits",
+      "fr": "Frans",
+      "es": "Spaans",
+      "pt": "Portugees",
+      "ru": "Russisch",
+      "ko": "Koreaans",
+      "zh": "Chinees",
+      "zh-CN": "Vereenvoudigd Chinees",
+      "zh-TW": "Traditioneel Chinees",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Geen producten gevonden",
+      "subtitle": "Verwijder een paar filters om je zoekopdracht te verruimen.",
+      "clearFilters": "Alle filters verwijderen",
+      "backHome": "Terug naar de homepage"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "vanaf",
+      "soldOut": "uitverkocht",
+      "lastUnits": "Laatste exemplaar beschikbaar | Nog maar {count} stuks"
+    },
+    "hero": {
+      "TaxesAndShipping": "Inclusief btw. Verzendkosten worden berekend bij het afrekenen",
+      "Language": "Taal",
+      "Quantity": "Aantal",
+      "AddToCart": "in winkelwagen",
+      "BuyWithPaypal": "Kopen met PayPal",
+      "Description": "Beschrijving",
+      "addToCartToast": "Product toegevoegd aan je winkelwagen"
+    },
+    "quantity": {
+      "quantity": "Aantal",
+      "availability": "Beschikbaarheid",
+      "pieces": "stuks"
+    },
+    "messages": {
+      "suggested": "Heb je deze al gezien?"
+    },
+    "description": {
+      "fromSet": "{name} is een kaart uit de uitbreiding {expansion}.",
+      "number": "Verzamelnummer {number}.",
+      "rarity": "Zeldzaamheid: {rarity}.",
+      "languages": "Beschikbaar in de talen: {languages}.",
+      "conditions": "Beschikbare condities: {conditions}.",
+      "fromSetProduct": "{name} is een product uit de uitbreiding {expansion}."
+    },
+    "sections": {
+      "recommended": "Misschien vind je dit ook leuk"
+    },
+    "quickAdd": {
+      "add": "Toevoegen",
+      "added": "Toegevoegd",
+      "choose": "Kies de versie",
+      "maxed": "Je hebt alle beschikbare exemplaren al in je winkelwagen",
+      "aria": "{name} aan winkelwagen toevoegen"
+    },
+    "neighbors": {
+      "label": "Meer kaarten uit de set",
+      "previous": "Vorige",
+      "next": "Volgende"
+    }
+  },
+  "cart": {
+    "title": "Winkelwagen",
+    "empty": "Je reis als trainer is nog niet begonnen!",
+    "startExploring": "Begin hier",
+    "summary": {
+      "title": "Overzicht winkelwagen",
+      "shipping": "Verzending",
+      "total": "Totaal",
+      "free": "Gratis"
+    },
+    "shipping": {
+      "heading": "Verzendmethode",
+      "note": "*je kunt bij het afrekenen een andere verzendmethode kiezen",
+      "couponPlaceholder": "Voer je kortingscode in",
+      "total": "Totaal",
+      "couponQuestion": "Heb je een kortingscode?",
+      "apply": "Code toepassen",
+      "applyDesktop": "toepassen",
+      "buyCta": "Verder naar afrekenen",
+      "back": "Terug naar de producten",
+      "couponLabel": "Kortingscode",
+      "removeCoupon": "Kortingscode verwijderen"
+    },
+    "help": {
+      "title": "Hulp nodig?",
+      "content": "We verzenden naar Italië en alle landen van de Europese Unie, altijd met track & trace. De kaarten worden beschermd met een sleeve en toploader en zo verpakt dat ze aankomen in precies de staat waarin ze beschreven staan. Heb je vragen over je bestelling? Stuur ons dan een bericht via de pagina Klantenservice."
+    },
+    "stockChanged": "Sommige artikelen zijn niet meer beschikbaar in de gevraagde hoeveelheid:",
+    "stockRequested": "gevraagd",
+    "stockAvailable": "beschikbaar",
+    "recommended": "Maak je collectie compleet"
+  },
+  "filter": {
+    "language": "Taal",
+    "condition": "Conditie",
+    "brand": "Merk",
+    "type": "Type",
+    "expansion": "Uitbreiding",
+    "available": "Beschikbaar",
+    "IT": "Italiaans",
+    "EN": "Engels",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "beschikbaar",
+    "false": "niet beschikbaar",
+    "NA": "overig",
+    "pokemon": "pokemon",
+    "it": "Italiaans",
+    "en": "Engels",
+    "jp": "Japans",
+    "de": "Duits",
+    "fr": "Frans",
+    "es": "Spaans",
+    "pt": "Portugees",
+    "ru": "Russisch",
+    "ko": "Koreaans",
+    "zh": "Chinees",
+    "zh-CN": "Vereenvoudigd Chinees",
+    "zh-TW": "Traditioneel Chinees",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Zeldzaamheid"
+  },
+  "filterType": {
+    "singles": "Losse kaarten",
+    "single-card": "Losse kaart",
+    "preconstructed-deck": "Kant-en-klare decks",
+    "booster": "Booster",
+    "boosters": "Boosters",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Boxes",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Je ziet",
+    "of": "van de",
+    "products": "producten"
+  },
+  "checkout": {
+    "title": "Afrekenen",
+    "shippingInfo": "Verzendgegevens",
+    "actions": {
+      "confirmAndPay": "Bevestigen en betalen",
+      "paying": "Betaling wordt verwerkt…"
+    },
+    "thanks": {
+      "main": "Bedankt!",
+      "newsletter": "Bedankt voor je inschrijving op onze nieuwsbrief! Je ontvangt binnenkort een e-mail met alle details.",
+      "order": "Je betaling is gelukt en je bestelling is bevestigd.",
+      "backHome": "Terug naar de homepage"
+    },
+    "confirming": "We bevestigen je bestelling…",
+    "confirmFailed": "We konden je bestelling niet bevestigen",
+    "orderNumber": "Bestelnummer",
+    "genericError": "Er is een fout opgetreden. Neem contact op met de klantenservice en vermeld het tijdstip van je aankoop.",
+    "paymentUnavailable": "Online betalen is op dit moment niet mogelijk. Probeer het zo opnieuw of neem contact met ons op.",
+    "completeForm": "Vul je verzendgegevens in om verder te gaan naar de betaling.",
+    "priceChanged": "Sommige prijzen zijn gewijzigd: controleer het nieuwe totaal en klik nogmaals op ‘Bevestigen en betalen’.",
+    "couponNoLongerValid": "De kortingscode is niet meer geldig ({reason}): het totaal is bijgewerkt.",
+    "paymentFailed": "De betaling is mislukt. Probeer het opnieuw of kies een andere betaalmethode.",
+    "emailSentTo": "We hebben de bevestiging naar {email} gestuurd.",
+    "processingTitle": "Betaling wordt verwerkt",
+    "processingText": "Je bank is de betaling nog aan het bevestigen. Zodra die binnen is, sturen we je de orderbevestiging per e-mail: je hoeft niet opnieuw te betalen.",
+    "paymentFailedTitle": "Betaling mislukt",
+    "paymentFailedText": "De betaling is niet voltooid en er is niets afgeschreven. Je winkelwagen staat nog klaar: je kunt het opnieuw proberen.",
+    "backToCheckout": "Terug naar afrekenen",
+    "nothingToConfirm": "Er is geen betaling om te bevestigen.",
+    "noShippingForCountry": "We verzenden momenteel niet naar dit land. Kies een ander land of stuur ons een bericht via de pagina Klantenservice."
+  },
+  "forms": {
+    "fields": {
+      "name": "Voornaam",
+      "surname": "Achternaam",
+      "email": "E-mail",
+      "message": "Bericht",
+      "nation": "Land",
+      "cap": "Postcode",
+      "city": "Plaats",
+      "streetAndHouseNumber": "Straat en huisnummer",
+      "iWantTheInvoice": "Ik wil een factuur",
+      "acceptTerms": "Ik heb de {terms} gelezen en ga ermee akkoord, en ik heb kennisgenomen van de {privacy}.",
+      "termsLink": "verkoopvoorwaarden",
+      "privacyLink": "privacyverklaring",
+      "phone": "Telefoon",
+      "province": "Provincie",
+      "provincePlaceholder": "Kies de provincie",
+      "optional": "optioneel",
+      "invoiceKind": "Type factuur",
+      "invoiceKind_private": "Particulier",
+      "invoiceKind_company": "Bedrijf / btw-nummer",
+      "taxCode": "Fiscaal nummer (Codice Fiscale)",
+      "companyName": "Bedrijfsnaam",
+      "vatNumber": "Btw-nummer (Partita IVA)",
+      "sdiCode": "SDI-ontvangerscode (Codice SDI)",
+      "pec": "PEC (gecertificeerde e-mail)",
+      "invoiceHint": "Vul je SDI-ontvangerscode of PEC-adres in: heb je geen van beide, dan komt de elektronische factuur in je fiscale postvak (Cassetto Fiscale) terecht.",
+      "invoiceHintForeignPrivate": "De factuur wordt opgesteld op de naam en het adres die je voor de verzending hebt opgegeven.",
+      "invoiceHintForeignCompany": "Vul je EU-btw-nummer (VIES) in, met of zonder landcode."
+    },
+    "actions": {
+      "submit": "Versturen"
+    },
+    "contact": {
+      "title": "Contactformulier",
+      "placeholders": {
+        "name": "Naam",
+        "email": "E-mailadres",
+        "phone": "Telefoonnummer",
+        "message": "Je bericht"
+      },
+      "phoneValidation": "Vul een geldig telefoonnummer in",
+      "submit": "Versturen"
+    },
+    "support": {
+      "title": "Klantenservice",
+      "mail": "Je kunt ons mailen op",
+      "message": "of een bericht/WhatsApp sturen naar",
+      "form": "Als je wilt, kun je ook het formulier hieronder invullen.",
+      "answer": "Je krijgt een antwoord / We antwoorden binnen 48 uur.",
+      "sending": "Bezig met verzenden…",
+      "sent": "Bericht verzonden! We antwoorden zo snel mogelijk.",
+      "failed": "We konden je bericht niet versturen. Probeer het opnieuw of stuur ons een e-mail."
+    },
+    "validation": {
+      "required": "Verplicht veld",
+      "invalidEmail": "Vul een geldig e-mailadres in",
+      "invalidCAP": "Vul een geldige postcode in",
+      "acceptTerms": "Je moet akkoord gaan met de verkoopvoorwaarden om verder te gaan",
+      "invalidPhone": "Vul een geldig telefoonnummer in",
+      "invalidTaxCode": "Vul een geldig fiscaal nummer (Codice Fiscale) in",
+      "invalidVatNumber": "Vul een geldig btw-nummer in (Partita IVA, 11 cijfers)",
+      "invalidSdi": "De SDI-ontvangerscode heeft 7 tekens",
+      "invalidVatNumberEu": "Vul een geldig EU-btw-nummer in"
+    }
+  },
+  "payments": {
+    "terms": "betalen met",
+    "methodsTitle": "Betaalmethoden",
+    "options": {
+      "creditCard": "Creditcard",
+      "wireTransfer": "Bankoverschrijving"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Product toegevoegd aan je winkelwagen",
+      "error": "We konden het product niet aan je winkelwagen toevoegen. Probeer het opnieuw.",
+      "overflow": "Je hebt al alle beschikbare exemplaren van dit product in je winkelwagen."
+    },
+    "checkout": {
+      "success": "Bestelling succesvol afgerond",
+      "error": "Door een technisch probleem kon de bestelling niet worden afgerond"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Je bent ingeschreven voor de nieuwsbrief van Jigglycard",
+      "adminSubject": "Nieuwe inschrijving voor de nieuwsbrief van Jigglycard",
+      "storeName": "Jigglycard Store",
+      "plainText": "Je hebt een nieuw bericht van de nieuwsbrief ontvangen."
+    },
+    "support": {
+      "subject": "Supportticket",
+      "adminSubject": "Supportticket van: {name} - E-mail: {email}",
+      "plainText": "Je hebt een nieuw supportticket ontvangen."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosters",
+    "dragon-ball-super-singles": "Losse kaarten",
+    "ff-single-card": "Losse kaarten",
+    "magic-booster-boxes": "Booster boxes",
+    "one-piece-single-card": "Losse kaarten",
+    "pokemon-blisters": "Blisters",
+    "pokemon-booster": "Boosters",
+    "pokemon-box-set": "Box sets",
+    "pokemon-empty-boxes-storage": "Lege dozen en opbergers",
+    "pokemon-preconstructed-deck": "Kant-en-klare decks",
+    "pokemon-singles": "Losse kaarten",
+    "yu-gi-oh-boosters": "Boosters"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "Jouw Pokémon,",
+    "titleHighlight": "al zijn kaarten.",
+    "lead": "Kies een Pokémon en ontdek al zijn losse kaarten die in de winkel beschikbaar zijn, van de zeldzaamste tot de meest voorkomende.",
+    "searchPlaceholder": "Zoek op naam of nummer",
+    "generation": "Generatie",
+    "all": "Alle",
+    "shown": "{n} Pokémon",
+    "noMatch": "Geen Pokémon gevonden voor je zoekopdracht.",
+    "back": "Alle Pokémon",
+    "loading": "Kaarten zoeken…",
+    "cardsFound": "{n} kaarten beschikbaar",
+    "noCards": "Op dit moment hebben we geen kaarten van {name} beschikbaar.",
+    "browseSingles": "Blader door alle losse kaarten",
+    "loadMore": "Meer kaarten tonen",
+    "pickTitle": "Kies een Pokémon",
+    "pickText": "Selecteer een Pokémon in de lijst om al zijn beschikbare kaarten te zien."
+  },
+  "shippingPage": {
+    "kicker": "Verzending",
+    "title": "Verzending,",
+    "titleHighlight": "retouren en terugbetalingen.",
+    "methodsTitle": "Verzendmethoden",
+    "methodsLead": "Je kiest de methode bij het afrekenen: dit zijn de prijzen van vandaag.",
+    "domestic": "Italië",
+    "international": "Europese Unie",
+    "maxValue": "Voor bestellingen tot {value}",
+    "packagingTitle": "Zo verpakken we je kaarten",
+    "returnsTitle": "Retouren en terugbetalingen",
+    "returnsText": "Voor een retour of terugbetaling stuur je ons een bericht via de pagina Klantenservice, met je bestelnummer erbij: we sturen je dan alle instructies.",
+    "cta": "Naar de klantenservice"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon en de namen van de personages zijn geregistreerde handelsmerken van Nintendo, Creatures Inc. en GAME FREAK inc., beheerd door The Pokémon Company. Jigglycard is een onafhankelijke verkoper van originele producten en is niet verbonden aan, gesponsord door of goedgekeurd door deze bedrijven. De afbeeldingen van de kaarten dienen uitsluitend om de te koop aangeboden producten te identificeren."
+  }
+}

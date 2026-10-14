@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "confidențialitate",
+      "cookies": "cookie-uri",
+      "terms": "condiții de vânzare",
+      "cookiePreferences": "preferințe cookie-uri"
+    },
+    "messages": {
+      "noResults": "Niciun rezultat"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Pagină negăsită",
+      "notFoundDescription": "Se pare că te-ai rătăcit în pădurea iluziilor... încearcă să-ți găsești drumul înapoi!",
+      "backHome": "Înapoi la pagina principală"
+    },
+    "genericError": "Ceva nu a mers bine. Încearcă din nou în câteva momente."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Toate produsele",
+      "language": "Limbă"
+    },
+    "footer": {
+      "links": {
+        "about": "Despre noi",
+        "shipping": "Livrare, retururi și rambursări",
+        "support": "Asistență"
+      }
+    },
+    "routes": {
+      "cart": "Coș",
+      "/carrello": "Coș",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Cărți individuale",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Deck-uri preconstruite",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Toate produsele",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Cărți individuale",
+      "/one-piece/mazzi-precostruiti": "One Piece - Deck-uri preconstruite",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Toate produsele",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Cărți individuale",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Deck-uri preconstruite",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Toate produsele",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Cărți individuale",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Deck-uri preconstruite",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Toate produsele",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Cărți individuale",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Deck-uri preconstruite",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Toate produsele",
+      "/servizi": "Servicii",
+      "/contatti": "Contact",
+      "/": "Pagina principală"
+    },
+    "breadcrumb": {
+      "label": "Traseu de navigare",
+      "home": "Acasă",
+      "all": "Toate produsele",
+      "search": "Căutare: {term}",
+      "cart": "Coș",
+      "checkout": "Finalizare comandă"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Produse recomandate",
+      "conditions": "Starea cărților",
+      "weeklyOffers": "Oferte săptămânale",
+      "preOrders": "Precomenzi",
+      "highlights": "În evidență",
+      "whatsNew": "Noutăți",
+      "deals": "Oferte"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Livrare cu urmărire și protecție",
+        "description": "Fiecare comandă pleacă prin curier cu urmărire, de regulă în trei zile lucrătoare, cu cărțile în sleeve și toploader."
+      },
+      "support": {
+        "title": "Asistență dedicată",
+        "description": "Scrie-ne pe email sau pe WhatsApp: îți răspundem în 48 de ore lucrătoare."
+      },
+      "prices": {
+        "title": "Prețuri mereu actualizate",
+        "description": "Aliniem prețurile la piață de mai multe ori pe zi, ca să plătești prețul corect pentru fiecare carte."
+      },
+      "security": {
+        "title": "Date protejate",
+        "description": "Datele tale personale și de plată sunt protejate prin criptare standard în industrie."
+      }
+    },
+    "hero": {
+      "products": "produse",
+      "from": "de la",
+      "explore": "Explorează setul"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Avantajele magazinului",
+        "marquee": {
+          "shipping": "Comenzi expediate în 3 zile lucrătoare",
+          "payments": "Plăți sigure și protejate",
+          "sell": "Vinde-ți colecția: evaluare pe bază de programare",
+          "games": "Cărți individuale, pachete și cutii sigilate"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Fiecare carte",
+        "titleLine2": "are o poveste.",
+        "titleHighlight": "Următoarea e a ta.",
+        "lead": "Cărți individuale, pachete și cutii sigilate, alese de colecționari pentru colecționari. Găsește piesa care lipsește din colecția ta: o expediem în trei zile lucrătoare, mereu protejată.",
+        "ctaPrimary": "Găsește-ți cartea",
+        "ctaSecondary": "Deschide un pachet",
+        "trust": {
+          "shipping": "Expediere în 3 zile lucrătoare",
+          "payments": "Plăți sigure",
+          "marketplaces": "Ne găsești și pe Cardmarket și Cardtrader"
+        },
+        "latestKicker": "Proaspăt sosită",
+        "stats": {
+          "products": "produse disponibile acum",
+          "shipping": "lucrătoare pentru expediere",
+          "shippingValue": "3 zile",
+          "payments": "plăți protejate",
+          "singles": "cărți individuale disponibile"
+        },
+        "scroll": "Derulează"
+      },
+      "story": {
+        "label": "Din pachet pe masa ta",
+        "packSubtitle": "Pachet de colecție",
+        "packTitleFallback": "Expansiune nouă",
+        "badge": "Verificată și protejată",
+        "pack": {
+          "kicker": "Pachetul",
+          "title1": "Fiecare pachet",
+          "title2": "e o promisiune.",
+          "text": "Înăuntru există mereu o șansă: de aceea fiecare deschidere îți face inima să bată mai tare. Pachetele și cutiile ajung la tine sigilate, exact cum au ieșit din fabrică."
+        },
+        "fan": {
+          "kicker": "Evantaiul",
+          "title1": "Comune, necomune,",
+          "title2": "reverse. Și apoi ultima.",
+          "text": "Cea mai bună carte e mereu la final. O știe oricine a deschis vreodată un pachet, și o știm și noi."
+        },
+        "hit": {
+          "kicker": "Hit-ul",
+          "title1": "Cea",
+          "title2": "pe care o căutai.",
+          "text": "Holo, reverse, full art, ilustrații speciale: raritatea care îți face mâinile să tremure. Și dacă nu vrei să te bazezi pe noroc, o găsești deja printre cărțile noastre individuale."
+        },
+        "safe": {
+          "kicker": "În siguranță",
+          "title1": "Protejată,",
+          "title2": "până la ușa ta.",
+          "text": "Fiecare comandă pleacă în trei zile lucrătoare și călătorește mereu protejată, pentru că o carte perfectă trebuie să ajungă perfectă.",
+          "cta": "Descoperă cărțile individuale"
+        }
+      },
+      "categories": {
+        "kicker": "Catalogul",
+        "title": "Ce cauți?",
+        "lead": "De la cartea care lipsește din colecția ta la cutia pe care s-o deschizi cu prietenii.",
+        "products": "produse",
+        "enter": "Intră"
+      },
+      "showcase": {
+        "kicker": "Acum pe masă",
+        "title": "Cărțile momentului.",
+        "from": "de la",
+        "previous": "Cărțile anterioare",
+        "next": "Cărțile următoare",
+        "all": "Vezi tot catalogul"
+      },
+      "opening": {
+        "kicker": "Pachet virtual · gratuit",
+        "title1": "Atinge pachetul.",
+        "title2": "Descoperă-ți hit-ul.",
+        "lead": "Alege unul dintre pachetele japoneze pe care le avem în magazin și deschide-l aici, gratuit. Înăuntru apar doar cărți japoneze din acel set, luate din cărțile noastre individuale disponibile: dacă îți place cea pe care o primești, e deja de vânzare. Și dacă ți-a plăcut emoția, pachetul adevărat e la un click distanță.",
+        "facts": {
+          "cards": "cărți per pachet",
+          "hit": "hit garantat",
+          "price": "ca să joci",
+          "set": "cărți din set în magazin"
+        },
+        "tear": "Rupe pachetul",
+        "tapHint": "Atinge ca să-l rupi",
+        "packSubtitle": "Pachet virtual",
+        "flip": "Întoarce cartea {n}",
+        "revealAll": "Dezvăluie-le pe toate",
+        "yourHit": "Hit-ul tău",
+        "seeCard": "Vezi cartea",
+        "again": "Deschide alt pachet",
+        "status": {
+          "idle": "Pachet sigilat · 5 cărți",
+          "torn": "Se deschide…",
+          "dealt": "Cărți de întors: {n}",
+          "done": "Pachet terminat",
+          "idlePack": "{name} · sigilat"
+        },
+        "choosePack": "Alege pachetul pe care îl deschizi",
+        "buyPack": "Cumpără pachetul · {price} €",
+        "cardsShort": "cărți"
+      },
+      "sell": {
+        "kicker": "Vinde-ne nouă",
+        "title": "Ai o colecție uitată în sertar?",
+        "lead": "O evaluăm noi, pe îndelete și pe bază de programare. Programează o evaluare și află cât valorează cu adevărat.",
+        "cta": "Programează o evaluare",
+        "rules": "Citește regulamentul"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Alătură-te comunității noastre și profită de oferte speciale, direct în căsuța ta de email!",
+    "caption": {
+      "first": "Descoperă toate avantajele de a rămâne la curent cu un singur click: previzualizări exclusive, promoții speciale, articole detaliate și mementouri personalizate pentru cumpărăturile tale, totul fără să-ți aglomerezi căsuța de email. Abonează-te acum și profită de un ",
+      "bold": " cod de reducere de 15% ",
+      "second": " valabil la prima ta comandă de produse care nu sunt deja la promoție!"
+    },
+    "emailValidation": "Introdu o adresă de email validă.",
+    "short": "Rămâi la curent cu un click, fără să-ți aglomerezi căsuța de email. Abonează-te și primești 15% reducere la prima comandă de produse care nu sunt la promoție!",
+    "button": "Abonează-te",
+    "toast": "Abonare reușită",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtre",
+      "search": "Caută",
+      "price": "Preț",
+      "from": "de la",
+      "to": "până la",
+      "apply": "Aplică",
+      "clear": "Șterge toate filtrele",
+      "min": "Min",
+      "max": "Max",
+      "searchOption": "Caută…",
+      "noOption": "Nicio opțiune nu corespunde",
+      "reset": "Resetează",
+      "close": "Închide",
+      "remove": "Elimină"
+    },
+    "actions": {
+      "showDetails": "vezi detalii",
+      "showAll": "Vezi tot"
+    },
+    "listing": {
+      "resultFor": "Rezultate pentru",
+      "allOf": "Toate pentru",
+      "of": "din",
+      "counter": {
+        "viewed": "Ai vizualizat",
+        "of": "din",
+        "products": "produse"
+      }
+    },
+    "pagination": {
+      "label": "Paginare",
+      "previous": "Anterioara",
+      "next": "Următoarea",
+      "page": "Pagina {n}",
+      "pageOf": "Pagina {n} din {total}",
+      "showing": "Produsele {from}–{to} din {total}",
+      "goTo": "Mergi la pagina",
+      "go": "Mergi"
+    },
+    "sorting": {
+      "sortBy": "Sortează după",
+      "newest": "Noutăți",
+      "priceCheapest": "Cel mai ieftin",
+      "priceExpensive": "Cel mai scump",
+      "nameAtoZ": "Nume (A - Z)",
+      "nameZtoA": "Nume (Z - A)"
+    },
+    "filters": {
+      "language": "Limbă",
+      "condition": "Stare",
+      "brand": "Brand",
+      "available": "Disponibil",
+      "IT": "italiană",
+      "EN": "engleză",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "disponibil",
+      "false": "indisponibil",
+      "NA": "altele",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japoneză",
+      "it": "Italiană",
+      "en": "Engleză",
+      "de": "Germană",
+      "fr": "Franceză",
+      "es": "Spaniolă",
+      "pt": "Portugheză",
+      "ru": "Rusă",
+      "ko": "Coreeană",
+      "zh": "Chineză",
+      "zh-CN": "Chineză simplificată",
+      "zh-TW": "Chineză tradițională",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Niciun produs găsit",
+      "subtitle": "Încearcă să lărgești căutarea eliminând câteva filtre.",
+      "clearFilters": "Elimină toate filtrele",
+      "backHome": "Înapoi la pagina principală"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "începând de la",
+      "soldOut": "stoc epuizat",
+      "lastUnits": "Ultima bucată disponibilă | Ultimele {count} bucăți"
+    },
+    "hero": {
+      "TaxesAndShipping": "Taxe incluse. Costul livrării se calculează la finalizarea comenzii",
+      "Language": "Limbă",
+      "Quantity": "Cantitate",
+      "AddToCart": "adaugă în coș",
+      "BuyWithPaypal": "Cumpără cu PayPal",
+      "Description": "Descriere",
+      "addToCartToast": "Produs adăugat în coș cu succes"
+    },
+    "quantity": {
+      "quantity": "Cantitate",
+      "availability": "Disponibilitate",
+      "pieces": "bucăți"
+    },
+    "messages": {
+      "suggested": "Le-ai văzut pe acestea?"
+    },
+    "description": {
+      "fromSet": "{name} este o carte din expansiunea {expansion}.",
+      "number": "Număr de colecție {number}.",
+      "rarity": "Raritate: {rarity}.",
+      "languages": "Limbi disponibile: {languages}.",
+      "conditions": "Stări disponibile: {conditions}.",
+      "fromSetProduct": "{name} este un produs din expansiunea {expansion}."
+    },
+    "sections": {
+      "recommended": "Te-ar putea interesa"
+    },
+    "quickAdd": {
+      "add": "Adaugă",
+      "added": "Adăugat",
+      "choose": "Alege versiunea",
+      "maxed": "Ai deja în coș toate bucățile disponibile",
+      "aria": "Adaugă {name} în coș"
+    },
+    "neighbors": {
+      "label": "Alte cărți din set",
+      "previous": "Anterioara",
+      "next": "Următoarea"
+    }
+  },
+  "cart": {
+    "title": "Coș",
+    "empty": "Călătoria ta de antrenor încă n-a început!",
+    "startExploring": "Începe de aici",
+    "summary": {
+      "title": "Sumarul coșului",
+      "shipping": "Livrare",
+      "total": "Total",
+      "free": "Gratuit"
+    },
+    "shipping": {
+      "heading": "Metodă de livrare",
+      "note": "*poți alege altă metodă la finalizarea comenzii",
+      "couponPlaceholder": "Introdu codul cuponului",
+      "total": "Total",
+      "couponQuestion": "Ai un cod de cupon?",
+      "apply": "Aplică codul",
+      "applyDesktop": "aplică",
+      "buyCta": "Finalizează comanda",
+      "back": "Înapoi la produse",
+      "couponLabel": "Cupon",
+      "removeCoupon": "Elimină cuponul"
+    },
+    "help": {
+      "title": "Ai nevoie de ajutor?",
+      "content": "Livrăm în Italia și în toate țările Uniunii Europene prin curier cu urmărire. Cărțile sunt protejate în sleeve și toploader și ambalate astfel încât să ajungă în aceeași stare în care le vezi descrise. Pentru orice nelămurire legată de comandă, ne poți scrie din pagina Asistență."
+    },
+    "stockChanged": "Unele articole nu mai sunt disponibile în cantitatea solicitată:",
+    "stockRequested": "solicitate",
+    "stockAvailable": "disponibile",
+    "recommended": "Completează-ți colecția"
+  },
+  "filter": {
+    "language": "Limbă",
+    "condition": "Stare",
+    "brand": "Brand",
+    "type": "Tip",
+    "expansion": "Expansiune",
+    "available": "Disponibil",
+    "IT": "italiană",
+    "EN": "engleză",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "disponibil",
+    "false": "indisponibil",
+    "NA": "altele",
+    "pokemon": "pokemon",
+    "it": "Italiană",
+    "en": "Engleză",
+    "jp": "Japoneză",
+    "de": "Germană",
+    "fr": "Franceză",
+    "es": "Spaniolă",
+    "pt": "Portugheză",
+    "ru": "Rusă",
+    "ko": "Coreeană",
+    "zh": "Chineză",
+    "zh-CN": "Chineză simplificată",
+    "zh-TW": "Chineză tradițională",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Raritate"
+  },
+  "filterType": {
+    "singles": "Cărți individuale",
+    "single-card": "Carte individuală",
+    "preconstructed-deck": "Deck-uri preconstruite",
+    "booster": "Booster",
+    "boosters": "Boostere",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Ai vizualizat",
+    "of": "din",
+    "products": "produse"
+  },
+  "checkout": {
+    "title": "Finalizare comandă",
+    "shippingInfo": "Informații de livrare",
+    "actions": {
+      "confirmAndPay": "Confirmă și plătește",
+      "paying": "Se procesează plata…"
+    },
+    "thanks": {
+      "main": "Mulțumim!",
+      "newsletter": "Îți mulțumim că te-ai abonat la newsletterul nostru! Vei primi în curând un email cu toate detaliile.",
+      "order": "Plata a fost efectuată cu succes, iar comanda ta este confirmată.",
+      "backHome": "Înapoi la pagina principală"
+    },
+    "confirming": "Îți confirmăm comanda…",
+    "confirmFailed": "Nu am reușit să confirmăm comanda",
+    "orderNumber": "Numărul comenzii",
+    "genericError": "A apărut o eroare. Contactează asistența și menționează ora achiziției.",
+    "paymentUnavailable": "Plata online nu este disponibilă momentan. Încearcă din nou în câteva momente sau contactează-ne.",
+    "completeForm": "Completează datele de livrare pentru a trece la plată.",
+    "priceChanged": "Unele prețuri s-au schimbat: verifică noul total și apasă din nou „Confirmă și plătește”.",
+    "couponNoLongerValid": "Cuponul nu mai este valabil ({reason}): totalul a fost actualizat.",
+    "paymentFailed": "Plata nu a reușit. Încearcă din nou sau folosește altă metodă.",
+    "emailSentTo": "Ți-am trimis confirmarea la {email}.",
+    "processingTitle": "Plată în curs de procesare",
+    "processingText": "Banca ta încă confirmă plata. Imediat ce o primim, îți trimitem emailul de confirmare a comenzii: nu trebuie să plătești din nou.",
+    "paymentFailedTitle": "Plată nereușită",
+    "paymentFailedText": "Plata nu a fost finalizată și nu ți s-a debitat nimic. Coșul este tot aici: poți încerca din nou.",
+    "backToCheckout": "Înapoi la finalizarea comenzii",
+    "nothingToConfirm": "Nu există nicio plată de confirmat.",
+    "noShippingForCountry": "Momentan nu livrăm în această țară. Alege alta sau scrie-ne din pagina Asistență."
+  },
+  "forms": {
+    "fields": {
+      "name": "Prenume",
+      "surname": "Nume",
+      "email": "Email",
+      "message": "Mesaj",
+      "nation": "Țară",
+      "cap": "Cod poștal",
+      "city": "Oraș",
+      "streetAndHouseNumber": "Stradă și număr",
+      "iWantTheInvoice": "Vreau factură",
+      "acceptTerms": "Am citit și accept {terms} și am luat la cunoștință {privacy}.",
+      "termsLink": "condițiile de vânzare",
+      "privacyLink": "politica de confidențialitate",
+      "phone": "Telefon",
+      "province": "Provincie",
+      "provincePlaceholder": "Alege provincia",
+      "optional": "opțional",
+      "invoiceKind": "Tip factură",
+      "invoiceKind_private": "Persoană fizică",
+      "invoiceKind_company": "Firmă / cod TVA",
+      "taxCode": "Cod fiscal (Codice Fiscale)",
+      "companyName": "Denumirea firmei",
+      "vatNumber": "Cod de TVA (Partita IVA)",
+      "sdiCode": "Cod SDI",
+      "pec": "PEC (email certificat)",
+      "invoiceHint": "Indică codul SDI sau adresa PEC: dacă nu ai niciunul dintre ele, factura electronică va ajunge în spațiul tău fiscal online (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Factura va fi emisă pe numele și adresa de livrare.",
+      "invoiceHintForeignCompany": "Indică codul de TVA intracomunitar (VIES), cu sau fără prefixul țării."
+    },
+    "actions": {
+      "submit": "Trimite"
+    },
+    "contact": {
+      "title": "Formular de contact",
+      "placeholders": {
+        "name": "Nume",
+        "email": "Adresă de email",
+        "phone": "Număr de telefon",
+        "message": "Scrie mesajul tău"
+      },
+      "phoneValidation": "Introdu un număr de telefon valid",
+      "submit": "Trimite"
+    },
+    "support": {
+      "title": "Asistență",
+      "mail": "Ne poți contacta pe email la",
+      "message": "sau prin mesaj/WhatsApp la",
+      "form": "Dacă preferi, poți completa formularul de mai jos.",
+      "answer": "Vei primi un răspuns / Îți răspundem în 48 de ore.",
+      "sending": "Se trimite…",
+      "sent": "Mesaj trimis! Îți vom răspunde cât mai curând.",
+      "failed": "Nu am reușit să trimitem mesajul. Încearcă din nou sau scrie-ne pe email."
+    },
+    "validation": {
+      "required": "Câmp obligatoriu",
+      "invalidEmail": "Introdu o adresă de email validă",
+      "invalidCAP": "Introdu un cod poștal valid",
+      "acceptTerms": "Pentru a continua, trebuie să accepți condițiile de vânzare",
+      "invalidPhone": "Introdu un număr de telefon valid",
+      "invalidTaxCode": "Introdu un cod fiscal (Codice Fiscale) valid",
+      "invalidVatNumber": "Introdu un cod de TVA valid (11 cifre)",
+      "invalidSdi": "Codul SDI are 7 caractere",
+      "invalidVatNumberEu": "Introdu un cod de TVA intracomunitar valid"
+    }
+  },
+  "payments": {
+    "terms": "plăți cu",
+    "methodsTitle": "Metode de plată",
+    "options": {
+      "creditCard": "Card de credit",
+      "wireTransfer": "Transfer bancar"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Produs adăugat în coș",
+      "error": "Nu am reușit să adăugăm produsul în coș. Încearcă din nou.",
+      "overflow": "Ai deja în coș toate bucățile disponibile din acest produs."
+    },
+    "checkout": {
+      "success": "Comandă finalizată cu succes",
+      "error": "Din cauza unei probleme tehnice, comanda nu a fost finalizată"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Abonarea la newsletterul Jigglycard a fost înregistrată cu succes",
+      "adminSubject": "Abonat nou la newsletterul Jigglycard",
+      "storeName": "Jigglycard Store",
+      "plainText": "Ai primit o nouă comunicare din newsletter."
+    },
+    "support": {
+      "subject": "Tichet de asistență",
+      "adminSubject": "Tichet de asistență de la: {name} - Email: {email}",
+      "plainText": "Ai primit un nou tichet de asistență."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boostere",
+    "dragon-ball-super-singles": "Cărți individuale",
+    "ff-single-card": "Cărți individuale",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Cărți individuale",
+    "pokemon-blisters": "Blistere",
+    "pokemon-booster": "Boostere",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Cutii goale și depozitare",
+    "pokemon-preconstructed-deck": "Deck-uri preconstruite",
+    "pokemon-singles": "Cărți individuale",
+    "yu-gi-oh-boosters": "Boostere"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Pokédex Jigglycard",
+    "title": "Pokémonul tău,",
+    "titleHighlight": "toate cărțile lui.",
+    "lead": "Alege un Pokémon și descoperă toate cărțile lui individuale disponibile în magazin, de la cea mai rară la cea mai comună.",
+    "searchPlaceholder": "Caută după nume sau număr",
+    "generation": "Generație",
+    "all": "Toate",
+    "shown": "{n} Pokémon",
+    "noMatch": "Niciun Pokémon nu corespunde căutării.",
+    "back": "Toți Pokémonii",
+    "loading": "Caut cărțile…",
+    "cardsFound": "Cărți disponibile: {n}",
+    "noCards": "Momentan nu avem cărți cu {name} disponibile.",
+    "browseSingles": "Răsfoiește toate cărțile individuale",
+    "loadMore": "Arată mai multe cărți",
+    "pickTitle": "Alege un Pokémon",
+    "pickText": "Selectează un Pokémon din listă ca să vezi toate cărțile lui disponibile."
+  },
+  "shippingPage": {
+    "kicker": "Livrare",
+    "title": "Livrare,",
+    "titleHighlight": "retururi și rambursări.",
+    "methodsTitle": "Metode de livrare",
+    "methodsLead": "Metoda o alegi la finalizarea comenzii: acestea sunt prețurile de azi.",
+    "domestic": "Italia",
+    "international": "Uniunea Europeană",
+    "maxValue": "Pentru comenzi de până la {value}",
+    "packagingTitle": "Cum ambalăm cărțile",
+    "returnsTitle": "Retururi și rambursări",
+    "returnsText": "Pentru un retur sau o rambursare, scrie-ne din pagina Asistență și menționează numărul comenzii: îți răspundem cu toate instrucțiunile.",
+    "cta": "Mergi la asistență"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon și numele personajelor sunt mărci înregistrate ale Nintendo, Creatures Inc. și GAME FREAK inc., gestionate de The Pokémon Company. Jigglycard este un revânzător independent de produse originale și nu este afiliat, sponsorizat sau aprobat de aceste companii. Imaginile cărților servesc doar la identificarea produselor de vânzare."
+  }
+}

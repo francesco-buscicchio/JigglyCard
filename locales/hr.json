@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "privatnost",
+      "cookies": "kolačići",
+      "terms": "uvjeti prodaje",
+      "cookiePreferences": "postavke kolačića"
+    },
+    "messages": {
+      "noResults": "Nema rezultata"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Stranica nije pronađena",
+      "notFoundDescription": "Čini se da te je šuma iluzija odvela s puta... pokušaj pronaći put natrag!",
+      "backHome": "Natrag na početnu"
+    },
+    "genericError": "Nešto je pošlo po zlu. Pokušaj ponovno za koji trenutak."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Svi proizvodi",
+      "language": "Jezik"
+    },
+    "footer": {
+      "links": {
+        "about": "O nama",
+        "shipping": "Dostava, povrati i povrat novca",
+        "support": "Podrška"
+      }
+    },
+    "routes": {
+      "cart": "Košarica",
+      "/carrello": "Košarica",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Pojedinačne karte",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Gotovi špilovi",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Svi proizvodi",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Pojedinačne karte",
+      "/one-piece/mazzi-precostruiti": "One Piece - Gotovi špilovi",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Svi proizvodi",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Pojedinačne karte",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Gotovi špilovi",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Svi proizvodi",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Pojedinačne karte",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Gotovi špilovi",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Svi proizvodi",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Pojedinačne karte",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Gotovi špilovi",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Svi proizvodi",
+      "/servizi": "Usluge",
+      "/contatti": "Kontakt",
+      "/": "Početna"
+    },
+    "breadcrumb": {
+      "label": "Navigacijski put",
+      "home": "Početna",
+      "all": "Svi proizvodi",
+      "search": "Pretraga: {term}",
+      "cart": "Košarica",
+      "checkout": "Blagajna"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Izdvojeni proizvodi",
+      "conditions": "Stanje karata",
+      "weeklyOffers": "Tjedne ponude",
+      "preOrders": "Prednarudžbe",
+      "highlights": "Istaknuto",
+      "whatsNew": "Novo u ponudi",
+      "deals": "Akcije"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Praćena i zaštićena dostava",
+        "description": "Svaka narudžba šalje se kurirskom službom s praćenjem, obično u roku od tri radna dana, a karte su u zaštitnim omotima i toploaderima."
+      },
+      "support": {
+        "title": "Podrška kupcima",
+        "description": "Piši nam e-mailom ili na WhatsApp: odgovaramo u roku od 48 radnih sati."
+      },
+      "prices": {
+        "title": "Uvijek ažurne cijene",
+        "description": "Cijene usklađujemo s tržištem više puta dnevno, tako da za svaku kartu plaćaš pravu cijenu."
+      },
+      "security": {
+        "title": "Zaštićeni podaci",
+        "description": "Tvoji osobni podaci i podaci o plaćanju zaštićeni su enkripcijom prema industrijskim standardima."
+      }
+    },
+    "hero": {
+      "products": "proizvoda",
+      "from": "od",
+      "explore": "Istraži set"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Prednosti trgovine",
+        "marquee": {
+          "shipping": "Narudžbe šaljemo u roku od 3 radna dana",
+          "payments": "Sigurna i zaštićena plaćanja",
+          "sell": "Prodaj svoju kolekciju: procjena uz dogovor termina",
+          "games": "Pojedinačne karte, booster paketi i zapečaćene kutije"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Svaka karta",
+        "titleLine2": "ima svoju priču.",
+        "titleHighlight": "Sljedeća je tvoja.",
+        "lead": "Pojedinačne karte, booster paketi i zapečaćene kutije koje biraju kolekcionari za kolekcionare. Pronađi kartu koja nedostaje tvojoj kolekciji: šaljemo je u roku od tri radna dana, uvijek dobro zaštićenu.",
+        "ctaPrimary": "Pronađi svoju kartu",
+        "ctaSecondary": "Otvori booster",
+        "trust": {
+          "shipping": "Slanje u roku od 3 radna dana",
+          "payments": "Sigurna plaćanja",
+          "marketplaces": "Pronađi nas i na Cardmarketu i Cardtraderu"
+        },
+        "latestKicker": "Upravo stigla",
+        "stats": {
+          "products": "proizvoda dostupno odmah",
+          "shipping": "do otpreme",
+          "shippingValue": "3 radna dana",
+          "payments": "zaštićena plaćanja",
+          "singles": "pojedinačnih karata dostupno"
+        },
+        "scroll": "Listaj"
+      },
+      "story": {
+        "label": "Od boostera do tvog stola",
+        "packSubtitle": "Kolekcionarski booster",
+        "packTitleFallback": "Nova ekspanzija",
+        "badge": "Provjerena i zaštićena",
+        "pack": {
+          "kicker": "Booster",
+          "title1": "Svaki booster",
+          "title2": "je obećanje.",
+          "text": "Unutra uvijek postoji šansa: zato svako otvaranje ubrza otkucaje srca. Boosteri i kutije stižu ti zapečaćeni, točno onakvi kakvi su izašli iz tvornice."
+        },
+        "fan": {
+          "kicker": "Lepeza",
+          "title1": "Obične, neobične,",
+          "title2": "reverse. A onda zadnja.",
+          "text": "Najbolja karta uvijek je na kraju. To zna svatko tko je ikad otvorio booster, a znamo i mi."
+        },
+        "hit": {
+          "kicker": "Hit",
+          "title1": "Ona",
+          "title2": "koju tražiš.",
+          "text": "Holo, reverse, full art, posebne ilustracije: rijetkost od koje drhte ruke. A ako se ne želiš oslanjati na sreću, već je imamo među pojedinačnim kartama."
+        },
+        "safe": {
+          "kicker": "Na sigurnom",
+          "title1": "Zaštićena,",
+          "title2": "sve do tvojih vrata.",
+          "text": "Svaka narudžba kreće u roku od tri radna dana i uvijek putuje zaštićena, jer savršena karta mora stići savršena.",
+          "cta": "Pogledaj pojedinačne karte"
+        }
+      },
+      "categories": {
+        "kicker": "Katalog",
+        "title": "Što tražiš?",
+        "lead": "Od karte koja nedostaje tvojoj kolekciji do kutije koju ćeš otvoriti s prijateljima.",
+        "products": "proizvoda",
+        "enter": "Uđi"
+      },
+      "showcase": {
+        "kicker": "Trenutačno na stolu",
+        "title": "Karte trenutka.",
+        "from": "od",
+        "previous": "Prethodne karte",
+        "next": "Sljedeće karte",
+        "all": "Pogledaj cijeli katalog"
+      },
+      "opening": {
+        "kicker": "Virtualni booster · besplatno",
+        "title1": "Dodirni booster.",
+        "title2": "Otkrij svoj hit.",
+        "lead": "Odaberi jedan od japanskih boostera koje imamo u trgovini i otvori ga ovdje, besplatno. Unutra su samo japanske karte iz tog seta, uzete iz naših dostupnih pojedinačnih karata: ako ti se svidi ona koju izvučeš, već je u prodaji. A ako ti se svidjelo uzbuđenje, pravi booster udaljen je samo jedan klik.",
+        "facts": {
+          "cards": "karata po boosteru",
+          "hit": "zajamčeni hit",
+          "price": "za igru",
+          "set": "karata iz seta u trgovini"
+        },
+        "tear": "Razderi booster",
+        "tapHint": "Dodirni da ga razdereš",
+        "packSubtitle": "Virtualni booster",
+        "flip": "Okreni kartu {n}",
+        "revealAll": "Otkrij sve",
+        "yourHit": "Tvoj hit",
+        "seeCard": "Pogledaj kartu",
+        "again": "Otvori još jedan booster",
+        "status": {
+          "idle": "Zapečaćeni booster · 5 karata",
+          "torn": "Otvaranje…",
+          "dealt": "Karte za okretanje: {n}",
+          "done": "Booster otvoren",
+          "idlePack": "{name} · zapečaćen"
+        },
+        "choosePack": "Odaberi booster za otvaranje",
+        "buyPack": "Kupi booster · {price} €",
+        "cardsShort": "karata"
+      },
+      "sell": {
+        "kicker": "Prodaj nama",
+        "title": "Imaš kolekciju u ladici?",
+        "lead": "Procijenit ćemo je mi, bez žurbe i uz dogovor termina. Rezerviraj procjenu i saznaj koliko zaista vrijedi.",
+        "cta": "Rezerviraj procjenu",
+        "rules": "Pročitaj pravila"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Pridruži se našoj zajednici i iskoristi posebne ponude, izravno u svom sandučiću e-pošte!",
+    "caption": {
+      "first": "Otkrij sve prednosti praćenja novosti jednim klikom: ekskluzivne najave, posebne promocije, detaljni članci i personalizirani podsjetnici za tvoje kupnje, i sve to bez zatrpavanja sandučića e-pošte. Prijavi se odmah i iskoristi ",
+      "bold": " kod za popust od 15% ",
+      "second": " koji vrijedi za tvoju prvu kupnju artikala koji nisu na akciji!"
+    },
+    "emailValidation": "Unesi valjanu e-mail adresu.",
+    "short": "Prati novosti jednim klikom, bez zatrpavanja sandučića. Prijavi se i ostvari 15% popusta na prvu kupnju artikala koji nisu na akciji!",
+    "button": "Prijavi se",
+    "toast": "Prijava je uspješna",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtri",
+      "search": "Traži",
+      "price": "Cijena",
+      "from": "od",
+      "to": "do",
+      "apply": "Primijeni",
+      "clear": "Očisti sve filtre",
+      "min": "Min",
+      "max": "Maks",
+      "searchOption": "Traži…",
+      "noOption": "Nema odgovarajućih stavki",
+      "reset": "Poništi",
+      "close": "Zatvori",
+      "remove": "Ukloni"
+    },
+    "actions": {
+      "showDetails": "pogledaj detalje",
+      "showAll": "Prikaži sve"
+    },
+    "listing": {
+      "resultFor": "Rezultati za",
+      "allOf": "Sve za",
+      "of": "od",
+      "counter": {
+        "viewed": "Pregledano",
+        "of": "od",
+        "products": "proizvoda"
+      }
+    },
+    "pagination": {
+      "label": "Paginacija",
+      "previous": "Prethodna",
+      "next": "Sljedeća",
+      "page": "Stranica {n}",
+      "pageOf": "Stranica {n} od {total}",
+      "showing": "{from}–{to} od {total} proizvoda",
+      "goTo": "Idi na stranicu",
+      "go": "Idi"
+    },
+    "sorting": {
+      "sortBy": "Poredaj po",
+      "newest": "Najnovije",
+      "priceCheapest": "Najjeftinije",
+      "priceExpensive": "Najskuplje",
+      "nameAtoZ": "Naziv (A - Z)",
+      "nameZtoA": "Naziv (Z - A)"
+    },
+    "filters": {
+      "language": "Jezik",
+      "condition": "Stanje",
+      "brand": "Brend",
+      "available": "Dostupno",
+      "IT": "talijanski",
+      "EN": "engleski",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "dostupno",
+      "false": "nije dostupno",
+      "NA": "ostalo",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japanski",
+      "it": "Talijanski",
+      "en": "Engleski",
+      "de": "Njemački",
+      "fr": "Francuski",
+      "es": "Španjolski",
+      "pt": "Portugalski",
+      "ru": "Ruski",
+      "ko": "Korejski",
+      "zh": "Kineski",
+      "zh-CN": "Pojednostavljeni kineski",
+      "zh-TW": "Tradicionalni kineski",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Nema pronađenih proizvoda",
+      "subtitle": "Pokušaj proširiti pretragu uklanjanjem nekih filtara.",
+      "clearFilters": "Ukloni sve filtre",
+      "backHome": "Natrag na početnu"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "već od",
+      "soldOut": "rasprodano",
+      "lastUnits": "Posljednji dostupni komad | Još samo {count} kom."
+    },
+    "hero": {
+      "TaxesAndShipping": "PDV uključen. Dostava se obračunava pri plaćanju",
+      "Language": "Jezik",
+      "Quantity": "Količina",
+      "AddToCart": "dodaj u košaricu",
+      "BuyWithPaypal": "Kupi uz PayPal",
+      "Description": "Opis",
+      "addToCartToast": "Proizvod je uspješno dodan u košaricu"
+    },
+    "quantity": {
+      "quantity": "Količina",
+      "availability": "Dostupnost",
+      "pieces": "kom."
+    },
+    "messages": {
+      "suggested": "Pogledaj i ove"
+    },
+    "description": {
+      "fromSet": "{name} je karta iz ekspanzije {expansion}.",
+      "number": "Kolekcionarski broj {number}.",
+      "rarity": "Rijetkost: {rarity}.",
+      "languages": "Dostupno na jezicima: {languages}.",
+      "conditions": "Dostupna stanja: {conditions}.",
+      "fromSetProduct": "{name} je proizvod iz ekspanzije {expansion}."
+    },
+    "sections": {
+      "recommended": "Moglo bi te zanimati"
+    },
+    "quickAdd": {
+      "add": "Dodaj",
+      "added": "Dodano",
+      "choose": "Odaberi verziju",
+      "maxed": "U košarici već imaš sve dostupne komade",
+      "aria": "Dodaj {name} u košaricu"
+    },
+    "neighbors": {
+      "label": "Druge karte iz seta",
+      "previous": "Prethodna",
+      "next": "Sljedeća"
+    }
+  },
+  "cart": {
+    "title": "Košarica",
+    "empty": "Tvoje trenersko putovanje još nije počelo!",
+    "startExploring": "Kreni odavde",
+    "summary": {
+      "title": "Pregled košarice",
+      "shipping": "Dostava",
+      "total": "Ukupno",
+      "free": "Besplatno"
+    },
+    "shipping": {
+      "heading": "Način dostave",
+      "note": "*drugi način dostave možeš odabrati na blagajni",
+      "couponPlaceholder": "Unesi kod kupona",
+      "total": "Ukupno",
+      "couponQuestion": "Imaš kod kupona?",
+      "apply": "Primijeni kod",
+      "applyDesktop": "primijeni",
+      "buyCta": "Nastavi s kupnjom",
+      "back": "Natrag na proizvode",
+      "couponLabel": "Kupon",
+      "removeCoupon": "Ukloni kupon"
+    },
+    "help": {
+      "title": "Trebaš pomoć?",
+      "content": "Šaljemo u Italiju i sve zemlje Europske unije kurirskom službom s praćenjem. Karte stavljamo u zaštitni omot i toploader te ih pakiramo tako da stignu u istom stanju u kojem su opisane. Za sva pitanja o narudžbi možeš nam pisati preko stranice Podrška."
+    },
+    "stockChanged": "Neki artikli više nisu dostupni u traženoj količini:",
+    "stockRequested": "traženo",
+    "stockAvailable": "dostupno",
+    "recommended": "Upotpuni kolekciju"
+  },
+  "filter": {
+    "language": "Jezik",
+    "condition": "Stanje",
+    "brand": "Brend",
+    "type": "Vrsta",
+    "expansion": "Ekspanzija",
+    "available": "Dostupno",
+    "IT": "talijanski",
+    "EN": "engleski",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "dostupno",
+    "false": "nije dostupno",
+    "NA": "ostalo",
+    "pokemon": "pokemon",
+    "it": "Talijanski",
+    "en": "Engleski",
+    "jp": "Japanski",
+    "de": "Njemački",
+    "fr": "Francuski",
+    "es": "Španjolski",
+    "pt": "Portugalski",
+    "ru": "Ruski",
+    "ko": "Korejski",
+    "zh": "Kineski",
+    "zh-CN": "Pojednostavljeni kineski",
+    "zh-TW": "Tradicionalni kineski",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Rijetkost"
+  },
+  "filterType": {
+    "singles": "Pojedinačne karte",
+    "single-card": "Pojedinačna karta",
+    "preconstructed-deck": "Gotovi špilovi",
+    "booster": "Booster",
+    "boosters": "Boosteri",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Pregledano",
+    "of": "od",
+    "products": "proizvoda"
+  },
+  "checkout": {
+    "title": "Blagajna",
+    "shippingInfo": "Podaci za dostavu",
+    "actions": {
+      "confirmAndPay": "Potvrdi i plati",
+      "paying": "Plaćanje u tijeku…"
+    },
+    "thanks": {
+      "main": "Hvala!",
+      "newsletter": "Hvala na prijavi na naš newsletter! Uskoro ćeš primiti e-mail sa svim detaljima.",
+      "order": "Plaćanje je uspješno i tvoja je narudžba potvrđena.",
+      "backHome": "Natrag na početnu"
+    },
+    "confirming": "Potvrđujemo tvoju narudžbu…",
+    "confirmFailed": "Nismo uspjeli potvrditi narudžbu",
+    "orderNumber": "Broj narudžbe",
+    "genericError": "Došlo je do pogreške. Obrati se podršci i navedi vrijeme kupnje.",
+    "paymentUnavailable": "Online plaćanje trenutačno nije dostupno. Pokušaj ponovno za koji trenutak ili nam se javi.",
+    "completeForm": "Ispuni podatke za dostavu za nastavak na plaćanje.",
+    "priceChanged": "Neke su se cijene promijenile: provjeri novi iznos i ponovno pritisni „Potvrdi i plati“.",
+    "couponNoLongerValid": "Kupon više nije valjan ({reason}): ukupni iznos je ažuriran.",
+    "paymentFailed": "Plaćanje nije uspjelo. Pokušaj ponovno ili odaberi drugi način plaćanja.",
+    "emailSentTo": "Potvrdu smo poslali na {email}.",
+    "processingTitle": "Plaćanje se obrađuje",
+    "processingText": "Tvoja banka još potvrđuje plaćanje. Čim potvrda stigne, poslat ćemo ti e-mail s potvrdom narudžbe: ne trebaš ponovno plaćati.",
+    "paymentFailedTitle": "Plaćanje nije uspjelo",
+    "paymentFailedText": "Plaćanje nije dovršeno i ništa ti nije naplaćeno. Košarica je još uvijek ovdje: možeš pokušati ponovno.",
+    "backToCheckout": "Natrag na blagajnu",
+    "nothingToConfirm": "Nema plaćanja za potvrdu.",
+    "noShippingForCountry": "Trenutačno ne šaljemo u ovu zemlju. Odaberi drugu ili nam piši preko stranice Podrška."
+  },
+  "forms": {
+    "fields": {
+      "name": "Ime",
+      "surname": "Prezime",
+      "email": "E-mail",
+      "message": "Poruka",
+      "nation": "Zemlja",
+      "cap": "Poštanski broj",
+      "city": "Grad",
+      "streetAndHouseNumber": "Ulica i kućni broj",
+      "iWantTheInvoice": "Želim račun",
+      "acceptTerms": "Prihvaćam {terms} i potvrđujem da mi je poznata {privacy}.",
+      "termsLink": "uvjete prodaje",
+      "privacyLink": "politika privatnosti",
+      "phone": "Telefon",
+      "province": "Pokrajina",
+      "provincePlaceholder": "Odaberi pokrajinu",
+      "optional": "neobavezno",
+      "invoiceKind": "Vrsta računa",
+      "invoiceKind_private": "Fizička osoba",
+      "invoiceKind_company": "Tvrtka / PDV broj",
+      "taxCode": "Porezni broj (codice fiscale)",
+      "companyName": "Naziv tvrtke",
+      "vatNumber": "PDV broj (partita IVA)",
+      "sdiCode": "SDI kod",
+      "pec": "PEC (certificirana e-pošta)",
+      "invoiceHint": "Unesi SDI kod ili PEC adresu: ako nemaš ni jedno ni drugo, e-račun će stići u tvoj porezni pretinac (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Račun će glasiti na ime i adresu za dostavu.",
+      "invoiceHintForeignCompany": "Unesi PDV identifikacijski broj EU-a (VIES), s oznakom zemlje ili bez nje."
+    },
+    "actions": {
+      "submit": "Pošalji"
+    },
+    "contact": {
+      "title": "Kontakt obrazac",
+      "placeholders": {
+        "name": "Ime",
+        "email": "E-mail adresa",
+        "phone": "Broj telefona",
+        "message": "Napiši poruku"
+      },
+      "phoneValidation": "Unesi valjan broj telefona",
+      "submit": "Pošalji"
+    },
+    "support": {
+      "title": "Podrška",
+      "mail": "Možeš nam se javiti e-mailom na",
+      "message": "ili porukom/WhatsAppom na broj",
+      "form": "Ako ti je draže, možeš ispuniti obrazac u nastavku.",
+      "answer": "Dobit ćeš odgovor / Odgovorit ćemo ti u roku od 48 sati.",
+      "sending": "Slanje…",
+      "sent": "Poruka je poslana! Odgovorit ćemo ti što je prije moguće.",
+      "failed": "Nismo uspjeli poslati poruku. Pokušaj ponovno ili nam piši e-mailom."
+    },
+    "validation": {
+      "required": "Obavezno polje",
+      "invalidEmail": "Unesi valjanu e-mail adresu",
+      "invalidCAP": "Unesi valjan poštanski broj",
+      "acceptTerms": "Za nastavak moraš prihvatiti uvjete prodaje",
+      "invalidPhone": "Unesi valjan broj telefona",
+      "invalidTaxCode": "Unesi valjan porezni broj (codice fiscale)",
+      "invalidVatNumber": "Unesi valjan PDV broj (partita IVA, 11 znamenki)",
+      "invalidSdi": "SDI kod ima 7 znakova",
+      "invalidVatNumberEu": "Unesi valjan PDV identifikacijski broj EU-a"
+    }
+  },
+  "payments": {
+    "terms": "plaćanje putem",
+    "methodsTitle": "Načini plaćanja",
+    "options": {
+      "creditCard": "Kreditna kartica",
+      "wireTransfer": "Bankovni prijenos"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Proizvod je dodan u košaricu",
+      "error": "Nismo uspjeli dodati proizvod u košaricu. Pokušaj ponovno.",
+      "overflow": "U košarici već imaš sve dostupne komade ovog proizvoda."
+    },
+    "checkout": {
+      "success": "Narudžba je uspješno dovršena",
+      "error": "Zbog tehničkog problema narudžba nije dovršena"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Uspješna prijava na Jigglycard newsletter",
+      "adminSubject": "Novi pretplatnik na Jigglycard newsletter",
+      "storeName": "Jigglycard Store",
+      "plainText": "Stigla je nova poruka s newslettera."
+    },
+    "support": {
+      "subject": "Zahtjev za podršku",
+      "adminSubject": "Zahtjev za podršku od: {name} - E-mail: {email}",
+      "plainText": "Stigao je novi zahtjev za podršku."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosteri",
+    "dragon-ball-super-singles": "Pojedinačne karte",
+    "ff-single-card": "Pojedinačne karte",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Pojedinačne karte",
+    "pokemon-blisters": "Blisteri",
+    "pokemon-booster": "Boosteri",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Prazne kutije i spremnici",
+    "pokemon-preconstructed-deck": "Gotovi špilovi",
+    "pokemon-singles": "Pojedinačne karte",
+    "yu-gi-oh-boosters": "Boosteri"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "Tvoj Pokémon,",
+    "titleHighlight": "sve njegove karte.",
+    "lead": "Odaberi Pokémona i otkrij sve njegove pojedinačne karte dostupne u trgovini, od najrjeđe do najčešće.",
+    "searchPlaceholder": "Traži po imenu ili broju",
+    "generation": "Generacija",
+    "all": "Sve",
+    "shown": "{n} Pokémona",
+    "noMatch": "Nijedan Pokémon ne odgovara pretrazi.",
+    "back": "Svi Pokémoni",
+    "loading": "Tražim karte…",
+    "cardsFound": "Dostupno karata: {n}",
+    "noCards": "Trenutačno nemamo dostupnih karata za {name}.",
+    "browseSingles": "Pregledaj sve pojedinačne karte",
+    "loadMore": "Prikaži još karata",
+    "pickTitle": "Odaberi Pokémona",
+    "pickText": "Odaberi Pokémona s popisa i pogledaj sve njegove dostupne karte."
+  },
+  "shippingPage": {
+    "kicker": "Dostava",
+    "title": "Dostava,",
+    "titleHighlight": "povrati i povrat novca.",
+    "methodsTitle": "Načini dostave",
+    "methodsLead": "Način dostave biraš na blagajni: ovo su današnje cijene.",
+    "domestic": "Italija",
+    "international": "Europska unija",
+    "maxValue": "Za narudžbe do {value}",
+    "packagingTitle": "Kako pakiramo karte",
+    "returnsTitle": "Povrati i povrat novca",
+    "returnsText": "Za povrat proizvoda ili novca piši nam preko stranice Podrška i navedi broj narudžbe: odgovorit ćemo ti sa svim uputama.",
+    "cta": "Idi na podršku"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon i imena likova registrirani su zaštitni znakovi tvrtki Nintendo, Creatures Inc. i GAME FREAK inc., kojima upravlja The Pokémon Company. Jigglycard je neovisni prodavač originalnih proizvoda i nije povezan s tim tvrtkama, niti ga one sponzoriraju ili odobravaju. Slike karata služe isključivo za prepoznavanje proizvoda u prodaji."
+  }
+}

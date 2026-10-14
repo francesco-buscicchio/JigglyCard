@@ -104,8 +104,48 @@ export default defineNuxtConfig({
   // Il sito non usa prefissi di lingua negli indirizzi. Con la strategia
   // predefinita ogni pagina inesistente veniva rimandata su /it/..., che poi
   // finiva nella rotta del catalogo come se "it" fosse un gioco.
+  //
+  // Italiano per tutti finché non si sceglie altro dal selettore: la lingua
+  // del browser non si guarda, perché i testi SEO, og:locale e i nomi delle
+  // carte indicizzati sono italiani. La scelta resta nel cookie
+  // `jigglycard_locale`, letto da plugins/locale.ts anche durante il rendering
+  // sul server, così la pagina arriva già nella lingua giusta.
+  //
+  // Una lingua per ogni paese in cui si spedisce (vedi data/countries.ts),
+  // col nome scritto nella lingua stessa per il selettore. I file si caricano
+  // solo quando servono (`lazy`): chi visita il sito scarica la sua lingua,
+  // non tutte. Irlanda e Malta usano l'inglese, il Lussemburgo francese e
+  // tedesco.
   i18n: {
     strategy: "no_prefix",
+    defaultLocale: "it",
+    lazy: true,
+    langDir: "locales",
+    locales: [
+      { code: "it", language: "it-IT", name: "Italiano", file: "it.json" },
+      { code: "en", language: "en-US", name: "English", file: "en.json" },
+      { code: "bg", language: "bg-BG", name: "Български", file: "bg.json" },
+      { code: "cs", language: "cs-CZ", name: "Čeština", file: "cs.json" },
+      { code: "da", language: "da-DK", name: "Dansk", file: "da.json" },
+      { code: "de", language: "de-DE", name: "Deutsch", file: "de.json" },
+      { code: "el", language: "el-GR", name: "Ελληνικά", file: "el.json" },
+      { code: "es", language: "es-ES", name: "Español", file: "es.json" },
+      { code: "et", language: "et-EE", name: "Eesti", file: "et.json" },
+      { code: "fi", language: "fi-FI", name: "Suomi", file: "fi.json" },
+      { code: "fr", language: "fr-FR", name: "Français", file: "fr.json" },
+      { code: "hr", language: "hr-HR", name: "Hrvatski", file: "hr.json" },
+      { code: "hu", language: "hu-HU", name: "Magyar", file: "hu.json" },
+      { code: "lt", language: "lt-LT", name: "Lietuvių", file: "lt.json" },
+      { code: "lv", language: "lv-LV", name: "Latviešu", file: "lv.json" },
+      { code: "nl", language: "nl-NL", name: "Nederlands", file: "nl.json" },
+      { code: "pl", language: "pl-PL", name: "Polski", file: "pl.json" },
+      { code: "pt", language: "pt-PT", name: "Português", file: "pt.json" },
+      { code: "ro", language: "ro-RO", name: "Română", file: "ro.json" },
+      { code: "sk", language: "sk-SK", name: "Slovenčina", file: "sk.json" },
+      { code: "sl", language: "sl-SI", name: "Slovenščina", file: "sl.json" },
+      { code: "sv", language: "sv-SE", name: "Svenska", file: "sv.json" },
+    ],
+    detectBrowserLanguage: false,
   },
 
   // /welcome era la pagina d'iscrizione alla newsletter pre-lancio: la

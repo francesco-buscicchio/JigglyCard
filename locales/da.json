@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "privatlivspolitik",
+      "cookies": "cookies",
+      "terms": "salgsbetingelser",
+      "cookiePreferences": "cookieindstillinger"
+    },
+    "messages": {
+      "noResults": "Ingen resultater"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Siden blev ikke fundet",
+      "notFoundDescription": "Det ser ud til, at du er faret vild i illusionernes skov... prøv at finde vejen tilbage!",
+      "backHome": "Tilbage til forsiden"
+    },
+    "genericError": "Noget gik galt. Prøv igen om lidt."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Alle produkter",
+      "language": "Sprog"
+    },
+    "footer": {
+      "links": {
+        "about": "Om os",
+        "shipping": "Levering, returnering og refusion",
+        "support": "Kundeservice"
+      }
+    },
+    "routes": {
+      "cart": "Kurv",
+      "/carrello": "Kurv",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Enkeltkort",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Færdigbyggede decks",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Alle produkter",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Enkeltkort",
+      "/one-piece/mazzi-precostruiti": "One Piece - Færdigbyggede decks",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Alle produkter",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Enkeltkort",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Færdigbyggede decks",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Alle produkter",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Enkeltkort",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Færdigbyggede decks",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Alle produkter",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Enkeltkort",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Færdigbyggede decks",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Alle produkter",
+      "/servizi": "Tjenester",
+      "/contatti": "Kontakt",
+      "/": "Forside"
+    },
+    "breadcrumb": {
+      "label": "Navigationssti",
+      "home": "Forside",
+      "all": "Alle produkter",
+      "search": "Søgning: {term}",
+      "cart": "Kurv",
+      "checkout": "Kasse"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Udvalgte produkter",
+      "conditions": "Stand",
+      "weeklyOffers": "Ugens tilbud",
+      "preOrders": "Forudbestillinger",
+      "highlights": "I fokus",
+      "whatsNew": "Nyheder",
+      "deals": "Tilbud"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Sporbar og sikker forsendelse",
+        "description": "Alle ordrer sendes med sporbar fragt, normalt inden for tre hverdage, med kortene i sleeves og toploaders."
+      },
+      "support": {
+        "title": "Personlig kundeservice",
+        "description": "Skriv til os på e-mail eller WhatsApp: vi svarer inden for 48 timer på hverdage."
+      },
+      "prices": {
+        "title": "Altid opdaterede priser",
+        "description": "Vi tilpasser vores priser til markedet flere gange om dagen, så du altid betaler den rigtige pris for hvert kort."
+      },
+      "security": {
+        "title": "Beskyttede data",
+        "description": "Dine person- og betalingsoplysninger er beskyttet med kryptering efter branchestandard."
+      }
+    },
+    "hero": {
+      "products": "produkter",
+      "from": "fra",
+      "explore": "Udforsk sættet"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Butikkens fordele",
+        "marquee": {
+          "shipping": "Ordrer sendes inden for 3 hverdage",
+          "payments": "Sikre og beskyttede betalinger",
+          "sell": "Sælg din samling: vurdering efter aftale",
+          "games": "Enkeltkort, forseglede boosters og bokse"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Hvert kort",
+        "titleLine2": "har en historie.",
+        "titleHighlight": "Det næste er dit.",
+        "lead": "Enkeltkort, forseglede boosters og bokse, udvalgt af samlere til samlere. Find den brik, der mangler i din samling: vi sender den inden for tre hverdage, altid godt beskyttet.",
+        "ctaPrimary": "Find dit kort",
+        "ctaSecondary": "Åbn en booster",
+        "trust": {
+          "shipping": "Afsendelse inden for 3 hverdage",
+          "payments": "Sikre betalinger",
+          "marketplaces": "Du finder os også på Cardmarket og Cardtrader"
+        },
+        "latestKicker": "Lige kommet ind",
+        "stats": {
+          "products": "produkter tilgængelige nu",
+          "shipping": "til afsendelse",
+          "shippingValue": "3 hverdage",
+          "payments": "beskyttede betalinger",
+          "singles": "enkeltkort på lager"
+        },
+        "scroll": "Rul"
+      },
+      "story": {
+        "label": "Fra boosteren til dit bord",
+        "packSubtitle": "Boosterpakke",
+        "packTitleFallback": "Ny udvidelse",
+        "badge": "Kontrolleret og beskyttet",
+        "pack": {
+          "kicker": "Boosteren",
+          "title1": "Hver booster",
+          "title2": "er et løfte.",
+          "text": "Der er altid en chance indeni: derfor får hver åbning hjertet til at banke. Boosters og bokse når frem til dig forseglede, præcis som de forlod fabrikken."
+        },
+        "fan": {
+          "kicker": "Viften",
+          "title1": "Commons, uncommons,",
+          "title2": "reverses. Og så det sidste.",
+          "text": "Det bedste kort ligger altid bagerst. Det ved alle, der har åbnet en booster, og det ved vi også."
+        },
+        "hit": {
+          "kicker": "Hittet",
+          "title1": "Det kort,",
+          "title2": "du ledte efter.",
+          "text": "Holo, reverse, full art, Special Illustration Rare: den sjældenhed, der får hænderne til at ryste. Og vil du ikke stole på held, finder du det allerede blandt vores enkeltkort."
+        },
+        "safe": {
+          "kicker": "I sikkerhed",
+          "title1": "Beskyttet",
+          "title2": "hele vejen hjem til dig.",
+          "text": "Alle ordrer sendes inden for tre hverdage og er altid godt beskyttet undervejs, for et perfekt kort skal også nå perfekt frem.",
+          "cta": "Se vores enkeltkort"
+        }
+      },
+      "categories": {
+        "kicker": "Kataloget",
+        "title": "Hvad leder du efter?",
+        "lead": "Fra kortet, der mangler i din samling, til boksen, du åbner sammen med vennerne.",
+        "products": "produkter",
+        "enter": "Udforsk"
+      },
+      "showcase": {
+        "kicker": "På bordet lige nu",
+        "title": "Øjeblikkets kort.",
+        "from": "fra",
+        "previous": "Forrige kort",
+        "next": "Næste kort",
+        "all": "Se hele kataloget"
+      },
+      "opening": {
+        "kicker": "Virtuel booster · gratis",
+        "title1": "Tryk på boosteren.",
+        "title2": "Find dit hit.",
+        "lead": "Vælg en af de japanske boosters, vi har i butikken, og åbn den her – gratis. Den indeholder kun japanske kort fra det sæt, taget fra vores enkeltkort på lager: kan du lide det kort, du trækker, er det allerede til salg. Og nød du spændingen, er den rigtige booster kun et klik væk.",
+        "facts": {
+          "cards": "kort pr. booster",
+          "hit": "garanteret hit",
+          "price": "for at spille",
+          "set": "kort fra sættet på lager"
+        },
+        "tear": "Riv boosteren op",
+        "tapHint": "Tryk for at rive den op",
+        "packSubtitle": "Virtuel booster",
+        "flip": "Vend kort {n}",
+        "revealAll": "Vend alle",
+        "yourHit": "Dit hit",
+        "seeCard": "Se kortet",
+        "again": "Åbn en booster til",
+        "status": {
+          "idle": "Forseglet booster · 5 kort",
+          "torn": "Åbner…",
+          "dealt": "Kort tilbage at vende: {n}",
+          "done": "Boosteren er åbnet",
+          "idlePack": "{name} · forseglet"
+        },
+        "choosePack": "Vælg den booster, du vil åbne",
+        "buyPack": "Køb boosteren · {price} €",
+        "cardsShort": "kort"
+      },
+      "sell": {
+        "kicker": "Sælg til os",
+        "title": "Har du en samling liggende i skuffen?",
+        "lead": "Vi vurderer den i ro og mag og efter aftale. Book en vurdering, og find ud af, hvad den reelt er værd.",
+        "cta": "Book en vurdering",
+        "rules": "Læs reglerne"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Bliv en del af vores community, og få særlige tilbud direkte i din indbakke!",
+    "caption": {
+      "first": "Få alle fordelene ved at holde dig opdateret med ét klik: eksklusive forhåndsvisninger, særlige kampagner, grundige artikler og personlige påmindelser om dine køb – helt uden at fylde din indbakke op. Tilmeld dig nu, og få en ",
+      "bold": " rabatkode på 15 % ",
+      "second": " til dit første køb af varer, der ikke allerede er på tilbud!"
+    },
+    "emailValidation": "Indtast en gyldig e-mailadresse.",
+    "short": "Hold dig opdateret med ét klik uden at fylde din indbakke op. Tilmeld dig, og få 15 % rabat på dit første køb af varer, der ikke er på tilbud!",
+    "button": "Tilmeld",
+    "toast": "Du er nu tilmeldt",
+    "emailPlaceholder": "E-mail"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtre",
+      "search": "Søg",
+      "price": "Pris",
+      "from": "fra",
+      "to": "til",
+      "apply": "Anvend",
+      "clear": "Ryd alle filtre",
+      "min": "Min",
+      "max": "Maks",
+      "searchOption": "Søg…",
+      "noOption": "Ingen match",
+      "reset": "Nulstil",
+      "close": "Luk",
+      "remove": "Fjern"
+    },
+    "actions": {
+      "showDetails": "se detaljer",
+      "showAll": "Se alle"
+    },
+    "listing": {
+      "resultFor": "Resultater for",
+      "allOf": "Alle for",
+      "of": "af",
+      "counter": {
+        "viewed": "Du har set",
+        "of": "af",
+        "products": "produkter"
+      }
+    },
+    "pagination": {
+      "label": "Sideinddeling",
+      "previous": "Forrige",
+      "next": "Næste",
+      "page": "Side {n}",
+      "pageOf": "Side {n} af {total}",
+      "showing": "{from}–{to} af {total} produkter",
+      "goTo": "Gå til side",
+      "go": "Gå"
+    },
+    "sorting": {
+      "sortBy": "Sortér efter",
+      "newest": "Nyeste",
+      "priceCheapest": "Billigste",
+      "priceExpensive": "Dyreste",
+      "nameAtoZ": "Navn (A - Å)",
+      "nameZtoA": "Navn (Å - A)"
+    },
+    "filters": {
+      "language": "Sprog",
+      "condition": "Stand",
+      "brand": "Mærke",
+      "available": "Tilgængelig",
+      "IT": "italiensk",
+      "EN": "engelsk",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "tilgængelig",
+      "false": "ikke tilgængelig",
+      "NA": "andet",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japansk",
+      "it": "Italiensk",
+      "en": "Engelsk",
+      "de": "Tysk",
+      "fr": "Fransk",
+      "es": "Spansk",
+      "pt": "Portugisisk",
+      "ru": "Russisk",
+      "ko": "Koreansk",
+      "zh": "Kinesisk",
+      "zh-CN": "Forenklet kinesisk",
+      "zh-TW": "Traditionel kinesisk",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Ingen produkter fundet",
+      "subtitle": "Prøv at udvide din søgning ved at fjerne nogle filtre.",
+      "clearFilters": "Fjern alle filtre",
+      "backHome": "Tilbage til forsiden"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "fra",
+      "soldOut": "udsolgt",
+      "lastUnits": "Sidste eksemplar | Kun {count} tilbage"
+    },
+    "hero": {
+      "TaxesAndShipping": "Inkl. moms. Fragt beregnes ved kassen",
+      "Language": "Sprog",
+      "Quantity": "Antal",
+      "AddToCart": "læg i kurven",
+      "BuyWithPaypal": "Køb med PayPal",
+      "Description": "Beskrivelse",
+      "addToCartToast": "Produktet er lagt i kurven"
+    },
+    "quantity": {
+      "quantity": "Antal",
+      "availability": "Tilgængelighed",
+      "pieces": "stk."
+    },
+    "messages": {
+      "suggested": "Har du set disse?"
+    },
+    "description": {
+      "fromSet": "{name} er et kort fra udvidelsen {expansion}.",
+      "number": "Samlernummer {number}.",
+      "rarity": "Sjældenhed: {rarity}.",
+      "languages": "Fås på følgende sprog: {languages}.",
+      "conditions": "Fås i følgende stand: {conditions}.",
+      "fromSetProduct": "{name} er et produkt fra udvidelsen {expansion}."
+    },
+    "sections": {
+      "recommended": "Måske kan du også lide"
+    },
+    "quickAdd": {
+      "add": "Tilføj",
+      "added": "Tilføjet",
+      "choose": "Vælg version",
+      "maxed": "Du har allerede alle tilgængelige eksemplarer i kurven",
+      "aria": "Læg {name} i kurven"
+    },
+    "neighbors": {
+      "label": "Flere kort fra sættet",
+      "previous": "Forrige",
+      "next": "Næste"
+    }
+  },
+  "cart": {
+    "title": "Kurv",
+    "empty": "Din rejse som træner er ikke begyndt endnu!",
+    "startExploring": "Start her",
+    "summary": {
+      "title": "Oversigt over kurven",
+      "shipping": "Fragt",
+      "total": "I alt",
+      "free": "Gratis"
+    },
+    "shipping": {
+      "heading": "Leveringsmetode",
+      "note": "*du kan vælge en anden metode ved kassen",
+      "couponPlaceholder": "Indtast din rabatkode",
+      "total": "I alt",
+      "couponQuestion": "Har du en rabatkode?",
+      "apply": "Anvend kode",
+      "applyDesktop": "anvend",
+      "buyCta": "Gå til kassen",
+      "back": "Tilbage til produkterne",
+      "couponLabel": "Rabatkode",
+      "removeCoupon": "Fjern rabatkode"
+    },
+    "help": {
+      "title": "Brug for hjælp?",
+      "content": "Vi sender til Italien og alle EU-lande med sporbar fragt. Kortene beskyttes i sleeves og toploaders og pakkes, så de når frem i præcis den stand, de er beskrevet i. Har du spørgsmål til din ordre, kan du skrive til os via siden Kundeservice."
+    },
+    "stockChanged": "Nogle varer er ikke længere tilgængelige i det ønskede antal:",
+    "stockRequested": "ønsket",
+    "stockAvailable": "på lager",
+    "recommended": "Gør samlingen komplet"
+  },
+  "filter": {
+    "language": "Sprog",
+    "condition": "Stand",
+    "brand": "Mærke",
+    "type": "Type",
+    "expansion": "Udvidelse",
+    "available": "Tilgængelig",
+    "IT": "italiensk",
+    "EN": "engelsk",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "tilgængelig",
+    "false": "ikke tilgængelig",
+    "NA": "andet",
+    "pokemon": "pokemon",
+    "it": "Italiensk",
+    "en": "Engelsk",
+    "jp": "Japansk",
+    "de": "Tysk",
+    "fr": "Fransk",
+    "es": "Spansk",
+    "pt": "Portugisisk",
+    "ru": "Russisk",
+    "ko": "Koreansk",
+    "zh": "Kinesisk",
+    "zh-CN": "Forenklet kinesisk",
+    "zh-TW": "Traditionel kinesisk",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Sjældenhed"
+  },
+  "filterType": {
+    "singles": "Enkeltkort",
+    "single-card": "Enkeltkort",
+    "preconstructed-deck": "Færdigbyggede decks",
+    "booster": "Booster",
+    "boosters": "Boosters",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Boxes",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Du har set",
+    "of": "af",
+    "products": "produkter"
+  },
+  "checkout": {
+    "title": "Kasse",
+    "shippingInfo": "Leveringsoplysninger",
+    "actions": {
+      "confirmAndPay": "Bekræft og betal",
+      "paying": "Behandler betaling…"
+    },
+    "thanks": {
+      "main": "Tak!",
+      "newsletter": "Tak, fordi du har tilmeldt dig vores nyhedsbrev! Du modtager snart en e-mail med alle detaljerne.",
+      "order": "Betalingen er gennemført, og din ordre er bekræftet.",
+      "backHome": "Tilbage til forsiden"
+    },
+    "confirming": "Vi bekræfter din ordre…",
+    "confirmFailed": "Vi kunne ikke bekræfte din ordre",
+    "orderNumber": "Ordrenummer",
+    "genericError": "Der opstod en fejl. Kontakt kundeservice, og oplys tidspunktet for dit køb.",
+    "paymentUnavailable": "Onlinebetaling er ikke tilgængelig lige nu. Prøv igen om lidt, eller kontakt os.",
+    "completeForm": "Udfyld leveringsoplysningerne for at gå videre til betaling.",
+    "priceChanged": "Nogle priser er ændret: tjek det nye beløb i alt, og tryk på »Bekræft og betal« igen.",
+    "couponNoLongerValid": "Rabatkoden er ikke længere gyldig ({reason}): beløbet i alt er blevet opdateret.",
+    "paymentFailed": "Betalingen gik ikke igennem. Prøv igen, eller brug en anden betalingsmetode.",
+    "emailSentTo": "Vi har sendt bekræftelsen til {email}.",
+    "processingTitle": "Betalingen behandles",
+    "processingText": "Din bank er stadig ved at bekræfte betalingen. Så snart den er gået igennem, sender vi dig en ordrebekræftelse på e-mail: du behøver ikke at betale igen.",
+    "paymentFailedTitle": "Betalingen mislykkedes",
+    "paymentFailedText": "Betalingen blev ikke gennemført, og du er ikke blevet opkrævet noget. Din kurv er her stadig: du kan prøve igen.",
+    "backToCheckout": "Tilbage til kassen",
+    "nothingToConfirm": "Der er ingen betaling at bekræfte.",
+    "noShippingForCountry": "Vi sender i øjeblikket ikke til dette land. Vælg et andet, eller skriv til os via siden Kundeservice."
+  },
+  "forms": {
+    "fields": {
+      "name": "Fornavn",
+      "surname": "Efternavn",
+      "email": "E-mail",
+      "message": "Besked",
+      "nation": "Land",
+      "cap": "Postnummer",
+      "city": "By",
+      "streetAndHouseNumber": "Vejnavn og husnummer",
+      "iWantTheInvoice": "Jeg ønsker en faktura",
+      "acceptTerms": "Jeg har læst og accepterer {terms} og har gjort mig bekendt med {privacy}.",
+      "termsLink": "salgsbetingelserne",
+      "privacyLink": "privatlivspolitikken",
+      "phone": "Telefon",
+      "province": "Provins",
+      "provincePlaceholder": "Vælg provins",
+      "optional": "valgfrit",
+      "invoiceKind": "Fakturatype",
+      "invoiceKind_private": "Privatperson",
+      "invoiceKind_company": "Virksomhed / momsnr.",
+      "taxCode": "Skattenummer (codice fiscale)",
+      "companyName": "Firmanavn",
+      "vatNumber": "Momsnummer (Partita IVA)",
+      "sdiCode": "SDI-kode",
+      "pec": "PEC (certificeret e-mail)",
+      "invoiceHint": "Angiv din SDI-kode eller PEC-adresse: har du ingen af delene, leveres e-fakturaen til din digitale skattemappe (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Fakturaen udstedes til navnet og adressen fra leveringsoplysningerne.",
+      "invoiceHintForeignCompany": "Angiv dit EU-momsnummer (VIES) med eller uden landekode."
+    },
+    "actions": {
+      "submit": "Send"
+    },
+    "contact": {
+      "title": "Kontaktformular",
+      "placeholders": {
+        "name": "Navn",
+        "email": "E-mailadresse",
+        "phone": "Telefonnummer",
+        "message": "Skriv din besked"
+      },
+      "phoneValidation": "Indtast et gyldigt telefonnummer",
+      "submit": "Send"
+    },
+    "support": {
+      "title": "Kundeservice",
+      "mail": "Du kan kontakte os på e-mail på",
+      "message": "eller via besked/WhatsApp på",
+      "form": "Hvis du foretrækker det, kan du udfylde formularen nedenfor.",
+      "answer": "Du får svar / Vi svarer inden for 48 timer.",
+      "sending": "Sender…",
+      "sent": "Beskeden er sendt! Vi svarer så hurtigt som muligt.",
+      "failed": "Vi kunne ikke sende din besked. Prøv igen, eller skriv til os på e-mail."
+    },
+    "validation": {
+      "required": "Påkrævet felt",
+      "invalidEmail": "Indtast en gyldig e-mailadresse",
+      "invalidCAP": "Indtast et gyldigt postnummer",
+      "acceptTerms": "Du skal acceptere salgsbetingelserne for at fortsætte",
+      "invalidPhone": "Indtast et gyldigt telefonnummer",
+      "invalidTaxCode": "Indtast et gyldigt skattenummer (codice fiscale)",
+      "invalidVatNumber": "Indtast et gyldigt momsnummer (Partita IVA, 11 cifre)",
+      "invalidSdi": "SDI-koden består af 7 tegn",
+      "invalidVatNumberEu": "Indtast et gyldigt EU-momsnummer"
+    }
+  },
+  "payments": {
+    "terms": "betal med",
+    "methodsTitle": "Betalingsmetoder",
+    "options": {
+      "creditCard": "Kreditkort",
+      "wireTransfer": "Bankoverførsel"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Produktet er lagt i kurven",
+      "error": "Vi kunne ikke lægge produktet i kurven. Prøv igen.",
+      "overflow": "Du har allerede alle tilgængelige eksemplarer af dette produkt i kurven."
+    },
+    "checkout": {
+      "success": "Købet er gennemført",
+      "error": "Købet blev ikke gennemført på grund af et teknisk problem"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Du er nu tilmeldt Jigglycards nyhedsbrev",
+      "adminSubject": "Ny tilmelding til Jigglycards nyhedsbrev",
+      "storeName": "Jigglycard Store",
+      "plainText": "Du har modtaget en ny meddelelse fra nyhedsbrevet."
+    },
+    "support": {
+      "subject": "Supportsag",
+      "adminSubject": "Supportsag fra: {name} - E-mail: {email}",
+      "plainText": "Du har modtaget en ny supportsag."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Boosters",
+    "dragon-ball-super-singles": "Enkeltkort",
+    "ff-single-card": "Enkeltkort",
+    "magic-booster-boxes": "Booster boxes",
+    "one-piece-single-card": "Enkeltkort",
+    "pokemon-blisters": "Blisters",
+    "pokemon-booster": "Boosters",
+    "pokemon-box-set": "Box sets",
+    "pokemon-empty-boxes-storage": "Tomme bokse og opbevaring",
+    "pokemon-preconstructed-deck": "Færdigbyggede decks",
+    "pokemon-singles": "Enkeltkort",
+    "yu-gi-oh-boosters": "Boosters"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycards Pokédex",
+    "title": "Din Pokémon,",
+    "titleHighlight": "alle dens kort.",
+    "lead": "Vælg en Pokémon, og se alle de enkeltkort med den, vi har på lager – fra de sjældneste til de mest almindelige.",
+    "searchPlaceholder": "Søg efter navn eller nummer",
+    "generation": "Generation",
+    "all": "Alle",
+    "shown": "{n} Pokémon",
+    "noMatch": "Ingen Pokémon matcher din søgning.",
+    "back": "Alle Pokémon",
+    "loading": "Leder efter kort…",
+    "cardsFound": "{n} kort tilgængelige",
+    "noCards": "Vi har ingen {name}-kort på lager i øjeblikket.",
+    "browseSingles": "Se alle enkeltkort",
+    "loadMore": "Vis flere kort",
+    "pickTitle": "Vælg en Pokémon",
+    "pickText": "Vælg en Pokémon på listen for at se alle dens tilgængelige kort."
+  },
+  "shippingPage": {
+    "kicker": "Levering",
+    "title": "Levering,",
+    "titleHighlight": "returnering og refusion.",
+    "methodsTitle": "Leveringsmetoder",
+    "methodsLead": "Du vælger metoden ved kassen: her er dagens priser.",
+    "domestic": "Italien",
+    "international": "Den Europæiske Union",
+    "maxValue": "For ordrer op til {value}",
+    "packagingTitle": "Sådan pakker vi kortene",
+    "returnsTitle": "Returnering og refusion",
+    "returnsText": "Vil du returnere en vare eller have pengene tilbage, så skriv til os via siden Kundeservice, og oplys dit ordrenummer: vi svarer med alle instruktionerne.",
+    "cta": "Gå til kundeservice"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon og figurernes navne er registrerede varemærker tilhørende Nintendo, Creatures Inc. og GAME FREAK inc. og administreres af The Pokémon Company. Jigglycard er en uafhængig forhandler af originale produkter og er hverken tilknyttet, sponsoreret eller godkendt af disse virksomheder. Billederne af kortene bruges udelukkende til at identificere de produkter, der sælges."
+  }
+}

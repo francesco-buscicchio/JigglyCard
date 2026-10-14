@@ -1,0 +1,655 @@
+{
+  "brand": {
+    "name": "Jigglycard"
+  },
+  "common": {
+    "links": {
+      "privacy": "privatumas",
+      "cookies": "slapukai",
+      "terms": "pardavimo sąlygos",
+      "cookiePreferences": "slapukų nustatymai"
+    },
+    "messages": {
+      "noResults": "Rezultatų nėra"
+    },
+    "errors": {
+      "notFoundTitle": "404 - Puslapis nerastas",
+      "notFoundDescription": "Atrodo, kad paklydote iliuzijų miške... pabandykite rasti kelią atgal!",
+      "backHome": "Grįžti į pradžios puslapį"
+    },
+    "genericError": "Kažkas nutiko ne taip. Netrukus pabandykite dar kartą."
+  },
+  "layout": {
+    "header": {
+      "allProductsLink": "Visos prekės",
+      "language": "Kalba"
+    },
+    "footer": {
+      "links": {
+        "about": "Apie mus",
+        "shipping": "Pristatymas, prekių ir pinigų grąžinimas",
+        "support": "Pagalba"
+      }
+    },
+    "routes": {
+      "cart": "Krepšelis",
+      "/carrello": "Krepšelis",
+      "/pokemon/booster-box": "Pokemon - Booster Box",
+      "/pokemon/box-set": "Pokemon - Box Set",
+      "/pokemon/bundle": "Pokemon - Bundle",
+      "/pokemon/singole": "Pokemon - Pavienės kortelės",
+      "/pokemon/mazzi-precostruiti": "Pokemon - Paruoštos kaladės",
+      "/pokemon/tins": "Pokemon - Tins",
+      "/pokemon/all": "Pokemon - Visos prekės",
+      "/one-piece/booster-box": "One Piece - Booster Box",
+      "/one-piece/box-set": "One Piece - Box Set",
+      "/one-piece/bundle": "One Piece - Bundle",
+      "/one-piece/singole": "One Piece - Pavienės kortelės",
+      "/one-piece/mazzi-precostruiti": "One Piece - Paruoštos kaladės",
+      "/one-piece/tins": "One Piece - Tins",
+      "/one-piece/all": "One Piece - Visos prekės",
+      "/final-fantasy/booster-box": "Final Fantasy - Booster Box",
+      "/final-fantasy/box-set": "Final Fantasy - Box Set",
+      "/final-fantasy/bundle": "Final Fantasy - Bundle",
+      "/final-fantasy/singole": "Final Fantasy - Pavienės kortelės",
+      "/final-fantasy/mazzi-precostruiti": "Final Fantasy - Paruoštos kaladės",
+      "/final-fantasy/tins": "Final Fantasy - Tins",
+      "/final-fantasy/all": "Final Fantasy - Visos prekės",
+      "/dragon-ball/booster-box": "Dragon Ball - Booster Box",
+      "/dragon-ball/box-set": "Dragon Ball - Box Set",
+      "/dragon-ball/bundle": "Dragon Ball - Bundle",
+      "/dragon-ball/singole": "Dragon Ball - Pavienės kortelės",
+      "/dragon-ball/mazzi-precostruiti": "Dragon Ball - Paruoštos kaladės",
+      "/dragon-ball/tins": "Dragon Ball - Tins",
+      "/dragon-ball/all": "Dragon Ball - Visos prekės",
+      "/lorcana/booster-box": "Lorcana - Booster Box",
+      "/lorcana/box-set": "Lorcana - Box Set",
+      "/lorcana/bundle": "Lorcana - Bundle",
+      "/lorcana/singole": "Lorcana - Pavienės kortelės",
+      "/lorcana/mazzi-precostruiti": "Lorcana - Paruoštos kaladės",
+      "/lorcana/tins": "Lorcana - Tins",
+      "/lorcana/all": "Lorcana - Visos prekės",
+      "/servizi": "Paslaugos",
+      "/contatti": "Kontaktai",
+      "/": "Pradinis puslapis"
+    },
+    "breadcrumb": {
+      "label": "Naršymo kelias",
+      "home": "Pradžia",
+      "all": "Visos prekės",
+      "search": "Paieška: {term}",
+      "cart": "Krepšelis",
+      "checkout": "Atsiskaitymas"
+    }
+  },
+  "home": {
+    "sections": {
+      "featuredProducts": "Rekomenduojamos prekės",
+      "conditions": "Būklė",
+      "weeklyOffers": "Savaitės pasiūlymai",
+      "preOrders": "Išankstiniai užsakymai",
+      "highlights": "Dėmesio centre",
+      "whatsNew": "Naujienos",
+      "deals": "Akcijos"
+    },
+    "service": {
+      "fastShipping": {
+        "title": "Sekamas ir saugus siuntimas",
+        "description": "Kiekvieną užsakymą siunčiame per kurjerį su siuntos sekimu, paprastai per tris darbo dienas, o korteles įdedame į įmautes ir toploader dėklus."
+      },
+      "support": {
+        "title": "Dėmesingas aptarnavimas",
+        "description": "Rašykite mums el. paštu arba per WhatsApp: atsakysime per 48 darbo valandas."
+      },
+      "prices": {
+        "title": "Visada aktualios kainos",
+        "description": "Kelis kartus per dieną deriname kainas prie rinkos, todėl už kiekvieną kortelę mokate teisingą kainą."
+      },
+      "security": {
+        "title": "Apsaugoti duomenys",
+        "description": "Jūsų asmens ir mokėjimo duomenys apsaugoti pramonės standartus atitinkančiu šifravimu."
+      }
+    },
+    "hero": {
+      "products": "prekės",
+      "from": "nuo",
+      "explore": "Peržiūrėti rinkinį"
+    },
+    "immersive": {
+      "hero": {
+        "marqueeLabel": "Parduotuvės privalumai",
+        "marquee": {
+          "shipping": "Užsakymus išsiunčiame per 3 darbo dienas",
+          "payments": "Saugūs ir apsaugoti mokėjimai",
+          "sell": "Parduokite savo kolekciją: įvertinimas iš anksto susitarus",
+          "games": "Pavienės kortelės, neatplėšti pakeliai ir dėžės"
+        },
+        "eyebrow": "Pokémon TCG",
+        "titleLine1": "Kiekviena kortelė",
+        "titleLine2": "turi savo istoriją.",
+        "titleHighlight": "Kita bus jūsų.",
+        "lead": "Pavienės kortelės, neatplėšti pakeliai ir dėžės, kolekcininkų atrinkti kolekcininkams. Raskite tai, ko trūksta jūsų kolekcijai: išsiųsime per tris darbo dienas ir visada saugiai supakuosime.",
+        "ctaPrimary": "Rasti savo kortelę",
+        "ctaSecondary": "Atidaryti pakelį",
+        "trust": {
+          "shipping": "Išsiuntimas per 3 darbo dienas",
+          "payments": "Saugūs mokėjimai",
+          "marketplaces": "Mus rasite ir platformose Cardmarket bei Cardtrader"
+        },
+        "latestKicker": "Ką tik atkeliavo",
+        "stats": {
+          "products": "šiuo metu turimos prekės",
+          "shipping": "darbo dienos iki išsiuntimo",
+          "shippingValue": "3 dienos",
+          "payments": "apsaugoti mokėjimai",
+          "singles": "turimos pavienės kortelės"
+        },
+        "scroll": "Slinkite"
+      },
+      "story": {
+        "label": "Nuo pakelio iki jūsų stalo",
+        "packSubtitle": "Kolekcinis pakelis",
+        "packTitleFallback": "Naujas rinkinys",
+        "badge": "Patikrinta ir apsaugota",
+        "pack": {
+          "kicker": "Pakelis",
+          "title1": "Kiekvienas pakelis",
+          "title2": "yra pažadas.",
+          "text": "Viduje visada slypi galimybė: štai kodėl kiekvienas atplėšimas priverčia širdį plakti greičiau. Pakeliai ir dėžės jus pasieks neatplėšti, lygiai tokie, kokie išvažiavo iš gamyklos."
+        },
+        "fan": {
+          "kicker": "Vėduoklė",
+          "title1": "Dažnos, retesnės,",
+          "title2": "reverse. O tada – paskutinė.",
+          "text": "Geriausia kortelė visada slepiasi pačiame gale. Tai žino kiekvienas, kada nors atplėšęs pakelį, – ir mes taip pat."
+        },
+        "hit": {
+          "kicker": "Hitas",
+          "title1": "Ta,",
+          "title2": "kurios ieškojote.",
+          "text": "Holo, reverse, full art, specialios iliustracijos: retenybė, nuo kurios dreba rankos. O jei nenorite pasikliauti sėkme, ją jau rasite tarp mūsų pavienių kortelių."
+        },
+        "safe": {
+          "kicker": "Saugiai",
+          "title1": "Apsaugota",
+          "title2": "iki pat jūsų namų.",
+          "text": "Kiekvienas užsakymas išsiunčiamas per tris darbo dienas ir visada keliauja saugiai supakuotas, nes tobula kortelė turi atkeliauti tobulos būklės.",
+          "cta": "Peržiūrėti pavienes korteles"
+        }
+      },
+      "categories": {
+        "kicker": "Katalogas",
+        "title": "Ko ieškote?",
+        "lead": "Nuo kortelės, kurios trūksta jūsų kolekcijai, iki dėžės, kurią atplėšite su draugais.",
+        "products": "prekės",
+        "enter": "Žiūrėti"
+      },
+      "showcase": {
+        "kicker": "Dabar ant stalo",
+        "title": "Šiuo metu populiarios kortelės.",
+        "from": "nuo",
+        "previous": "Ankstesnės kortelės",
+        "next": "Kitos kortelės",
+        "all": "Žiūrėti visą katalogą"
+      },
+      "opening": {
+        "kicker": "Virtualus pakelis · nemokamai",
+        "title1": "Palieskite pakelį.",
+        "title2": "Atraskite savo hitą.",
+        "lead": "Išsirinkite vieną iš mūsų parduotuvėje turimų japoniškų pakelių ir atplėškite jį čia nemokamai. Jame – tik to rinkinio japoniškos kortelės iš mūsų turimų pavienių kortelių: jei rasta kortelė jums patiks, ją jau galite įsigyti. O jei patiko jaudulys, tikras pakelis – vos per vieną paspaudimą.",
+        "facts": {
+          "cards": "kortelės pakelyje",
+          "hit": "garantuotas hitas",
+          "price": "už žaidimą",
+          "set": "šio rinkinio kortelės parduotuvėje"
+        },
+        "tear": "Atplėšti pakelį",
+        "tapHint": "Palieskite, kad atplėštumėte",
+        "packSubtitle": "Virtualus pakelis",
+        "flip": "Apversti kortelę Nr. {n}",
+        "revealAll": "Atversti visas",
+        "yourHit": "Jūsų hitas",
+        "seeCard": "Peržiūrėti kortelę",
+        "again": "Atplėšti dar vieną pakelį",
+        "status": {
+          "idle": "Neatplėštas pakelis · 5 kortelės",
+          "torn": "Atplėšiama…",
+          "dealt": "Neapverstos kortelės: {n}",
+          "done": "Pakelis atplėštas",
+          "idlePack": "{name} · neatplėštas"
+        },
+        "choosePack": "Pasirinkite, kurį pakelį atplėšti",
+        "buyPack": "Pirkti pakelį · {price} €",
+        "cardsShort": "kortelės"
+      },
+      "sell": {
+        "kicker": "Parduokite mums",
+        "title": "Kolekcija guli stalčiuje?",
+        "lead": "Mes ją įvertinsime ramiai ir iš anksto susitarę dėl laiko. Užsiregistruokite vertinimui ir sužinokite, kiek ji iš tiesų vertinga.",
+        "cta": "Užsiregistruoti vertinimui",
+        "rules": "Skaityti taisykles"
+      }
+    }
+  },
+  "newsletter": {
+    "title": "Gotta catch us!",
+    "header": "Prisijunkite prie mūsų bendruomenės ir gaukite specialius pasiūlymus tiesiai į savo el. pašto dėžutę!",
+    "caption": {
+      "first": "Atraskite visus naujienų privalumus vienu paspaudimu: išskirtinės peržiūros, specialios akcijos, išsamios apžvalgos ir asmeniniai priminimai apie jūsų pirkinius – ir visa tai neužkemšant jūsų pašto dėžutės. Užsiprenumeruokite dabar ir gaukite ",
+      "bold": " 15% nuolaidos kodą ",
+      "second": " pirmajam nenukainotų prekių pirkiniui!"
+    },
+    "emailValidation": "Įveskite galiojantį el. pašto adresą.",
+    "short": "Gaukite naujienas vienu paspaudimu neužkemšant pašto dėžutės. Užsiprenumeruokite ir gaukite 15% nuolaidą pirmajam nenukainotų prekių pirkiniui!",
+    "button": "Prenumeruoti",
+    "toast": "Sėkmingai užsiprenumeravote",
+    "emailPlaceholder": "El. paštas"
+  },
+  "catalog": {
+    "controls": {
+      "filters": "filtrai",
+      "search": "Ieškoti",
+      "price": "Kaina",
+      "from": "nuo",
+      "to": "iki",
+      "apply": "Taikyti",
+      "clear": "Išvalyti visus filtrus",
+      "min": "Min.",
+      "max": "Maks.",
+      "searchOption": "Ieškoti…",
+      "noOption": "Atitinkančių parinkčių nėra",
+      "reset": "Atkurti",
+      "close": "Uždaryti",
+      "remove": "Pašalinti"
+    },
+    "actions": {
+      "showDetails": "žiūrėti išsamiau",
+      "showAll": "Rodyti viską"
+    },
+    "listing": {
+      "resultFor": "Rezultatai",
+      "allOf": "Visos prekės",
+      "of": "iš",
+      "counter": {
+        "viewed": "Peržiūrėjote",
+        "of": "iš",
+        "products": "prekių"
+      }
+    },
+    "pagination": {
+      "label": "Puslapiai",
+      "previous": "Ankstesnis",
+      "next": "Kitas",
+      "page": "Puslapis {n}",
+      "pageOf": "Puslapis {n} iš {total}",
+      "showing": "{from}–{to} iš {total} prekių",
+      "goTo": "Eiti į puslapį",
+      "go": "Eiti"
+    },
+    "sorting": {
+      "sortBy": "Rikiuoti pagal",
+      "newest": "Naujausios",
+      "priceCheapest": "Pigiausios",
+      "priceExpensive": "Brangiausios",
+      "nameAtoZ": "Pavadinimas (A - Z)",
+      "nameZtoA": "Pavadinimas (Z - A)"
+    },
+    "filters": {
+      "language": "Kalba",
+      "condition": "Būklė",
+      "brand": "Prekės ženklas",
+      "available": "Prieinamumas",
+      "IT": "italų",
+      "EN": "anglų",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
+      "true": "yra sandėlyje",
+      "false": "nėra sandėlyje",
+      "NA": "kita",
+      "pokemon": "pokemon"
+    },
+    "tags": {
+      "Near Mint": "Near Mint",
+      "Slightly Played": "Excellent",
+      "Moderately Played": "Good",
+      "Played": "Played",
+      "Poor": "Poor",
+      "jp": "Japonų",
+      "it": "Italų",
+      "en": "Anglų",
+      "de": "Vokiečių",
+      "fr": "Prancūzų",
+      "es": "Ispanų",
+      "pt": "Portugalų",
+      "ru": "Rusų",
+      "ko": "Korėjiečių",
+      "zh": "Kinų",
+      "zh-CN": "Supaprastinta kinų",
+      "zh-TW": "Tradicinė kinų",
+      "Mint": "Mint"
+    },
+    "empty": {
+      "title": "Prekių nerasta",
+      "subtitle": "Pabandykite išplėsti paiešką pašalindami kelis filtrus.",
+      "clearFilters": "Pašalinti visus filtrus",
+      "backHome": "Grįžti į pradžią"
+    }
+  },
+  "product": {
+    "card": {
+      "startingFrom": "nuo",
+      "soldOut": "išparduota",
+      "lastUnits": "Paskutinis vienetas | Liko tik {count} vnt."
+    },
+    "hero": {
+      "TaxesAndShipping": "Mokesčiai įskaičiuoti. Pristatymo kaina apskaičiuojama atsiskaitant",
+      "Language": "Kalba",
+      "Quantity": "Kiekis",
+      "AddToCart": "dėti į krepšelį",
+      "BuyWithPaypal": "Pirkti su PayPal",
+      "Description": "Aprašymas",
+      "addToCartToast": "Prekė sėkmingai įdėta į krepšelį"
+    },
+    "quantity": {
+      "quantity": "Kiekis",
+      "availability": "Sandėlyje",
+      "pieces": "vnt."
+    },
+    "messages": {
+      "suggested": "Ar jau matėte šias prekes?"
+    },
+    "description": {
+      "fromSet": "{name} – kortelė iš rinkinio {expansion}.",
+      "number": "Kolekcinis numeris {number}.",
+      "rarity": "Retumas: {rarity}.",
+      "languages": "Galimos kalbos: {languages}.",
+      "conditions": "Galimos būklės: {conditions}.",
+      "fromSetProduct": "{name} – prekė iš rinkinio {expansion}."
+    },
+    "sections": {
+      "recommended": "Jums gali patikti"
+    },
+    "quickAdd": {
+      "add": "Pridėti",
+      "added": "Pridėta",
+      "choose": "Pasirinkti versiją",
+      "maxed": "Krepšelyje jau yra visi turimi vienetai",
+      "aria": "Įdėti į krepšelį: {name}"
+    },
+    "neighbors": {
+      "label": "Kitos šio rinkinio kortelės",
+      "previous": "Ankstesnė",
+      "next": "Kita"
+    }
+  },
+  "cart": {
+    "title": "Krepšelis",
+    "empty": "Jūsų trenerio kelionė dar neprasidėjo!",
+    "startExploring": "Pradėkite čia",
+    "summary": {
+      "title": "Krepšelio suvestinė",
+      "shipping": "Pristatymas",
+      "total": "Iš viso",
+      "free": "Nemokamai"
+    },
+    "shipping": {
+      "heading": "Pristatymo būdas",
+      "note": "*kitą būdą galėsite pasirinkti atsiskaitydami",
+      "couponPlaceholder": "Įveskite kupono kodą",
+      "total": "Iš viso",
+      "couponQuestion": "Turite kupono kodą?",
+      "apply": "Pritaikyti kodą",
+      "applyDesktop": "pritaikyti",
+      "buyCta": "Tęsti pirkimą",
+      "back": "Grįžti į prekes",
+      "couponLabel": "Kuponas",
+      "removeCoupon": "Pašalinti kuponą"
+    },
+    "help": {
+      "title": "Reikia pagalbos?",
+      "content": "Siunčiame į Italiją ir visas Europos Sąjungos šalis per kurjerį su siuntos sekimu. Korteles įdedame į įmautes ir toploader dėklus bei supakuojame taip, kad jos atkeliautų tokios pat būklės, kokia nurodyta aprašyme. Kilus klausimų dėl užsakymo, parašykite mums per puslapį „Pagalba“."
+    },
+    "stockChanged": "Kai kurių prekių nebeturime prašomu kiekiu:",
+    "stockRequested": "prašoma",
+    "stockAvailable": "turima",
+    "recommended": "Papildykite kolekciją"
+  },
+  "filter": {
+    "language": "Kalba",
+    "condition": "Būklė",
+    "brand": "Prekės ženklas",
+    "type": "Tipas",
+    "expansion": "Rinkinys",
+    "available": "Prieinamumas",
+    "IT": "italų",
+    "EN": "anglų",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
+    "true": "yra sandėlyje",
+    "false": "nėra sandėlyje",
+    "NA": "kita",
+    "pokemon": "pokemon",
+    "it": "Italų",
+    "en": "Anglų",
+    "jp": "Japonų",
+    "de": "Vokiečių",
+    "fr": "Prancūzų",
+    "es": "Ispanų",
+    "pt": "Portugalų",
+    "ru": "Rusų",
+    "ko": "Korėjiečių",
+    "zh": "Kinų",
+    "zh-CN": "Supaprastinta kinų",
+    "zh-TW": "Tradicinė kinų",
+    "Mint": "Mint",
+    "Near Mint": "Near Mint",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
+    "rarity": "Retumas"
+  },
+  "filterType": {
+    "singles": "Pavienės kortelės",
+    "single-card": "Pavienė kortelė",
+    "preconstructed-deck": "Paruoštos kaladės",
+    "booster": "Booster",
+    "boosters": "Booster",
+    "booster-box": "Booster Box",
+    "booster-boxes": "Booster Box",
+    "bundle": "Bundle",
+    "box-set": "Box Set",
+    "tins": "Tins"
+  },
+  "listingCounter": {
+    "youHaveViewed": "Peržiūrėjote",
+    "of": "iš",
+    "products": "prekių"
+  },
+  "checkout": {
+    "title": "Atsiskaitymas",
+    "shippingInfo": "Pristatymo informacija",
+    "actions": {
+      "confirmAndPay": "Patvirtinti ir apmokėti",
+      "paying": "Vykdomas mokėjimas…"
+    },
+    "thanks": {
+      "main": "Ačiū!",
+      "newsletter": "Ačiū, kad užsiprenumeravote mūsų naujienlaiškį! Netrukus gausite el. laišką su visa informacija.",
+      "order": "Mokėjimas sėkmingas, jūsų užsakymas patvirtintas.",
+      "backHome": "Grįžti į pradžios puslapį"
+    },
+    "confirming": "Tvirtiname jūsų užsakymą…",
+    "confirmFailed": "Nepavyko patvirtinti užsakymo",
+    "orderNumber": "Užsakymo numeris",
+    "genericError": "Įvyko klaida. Susisiekite su pagalbos tarnyba ir nurodykite pirkimo laiką.",
+    "paymentUnavailable": "Mokėjimas internetu šiuo metu negalimas. Netrukus bandykite dar kartą arba susisiekite su mumis.",
+    "completeForm": "Užpildykite pristatymo duomenis, kad galėtumėte pereiti prie apmokėjimo.",
+    "priceChanged": "Kai kurios kainos pasikeitė: patikrinkite naują sumą ir dar kartą spustelėkite „Patvirtinti ir apmokėti“.",
+    "couponNoLongerValid": "Kuponas nebegalioja ({reason}): suma atnaujinta.",
+    "paymentFailed": "Mokėjimas nepavyko. Bandykite dar kartą arba pasirinkite kitą mokėjimo būdą.",
+    "emailSentTo": "Patvirtinimą išsiuntėme adresu {email}.",
+    "processingTitle": "Mokėjimas apdorojamas",
+    "processingText": "Jūsų bankas dar tvirtina mokėjimą. Kai tik jį gausime, atsiųsime užsakymo patvirtinimą el. paštu: mokėti dar kartą nereikia.",
+    "paymentFailedTitle": "Mokėjimas nepavyko",
+    "paymentFailedText": "Mokėjimas nebuvo užbaigtas, pinigai nenuskaičiuoti. Jūsų krepšelis vis dar čia: galite bandyti dar kartą.",
+    "backToCheckout": "Grįžti į atsiskaitymą",
+    "nothingToConfirm": "Nėra mokėjimo, kurį reikėtų patvirtinti.",
+    "noShippingForCountry": "Šiuo metu į šią šalį nesiunčiame. Pasirinkite kitą šalį arba parašykite mums per puslapį „Pagalba“."
+  },
+  "forms": {
+    "fields": {
+      "name": "Vardas",
+      "surname": "Pavardė",
+      "email": "El. paštas",
+      "message": "Žinutė",
+      "nation": "Šalis",
+      "cap": "Pašto kodas",
+      "city": "Miestas",
+      "streetAndHouseNumber": "Gatvė ir namo numeris",
+      "iWantTheInvoice": "Noriu sąskaitos faktūros",
+      "acceptTerms": "Sutinku su {terms} ir patvirtinu, kad susipažinau su {privacy}.",
+      "termsLink": "pardavimo sąlygomis",
+      "privacyLink": "privatumo politika",
+      "phone": "Telefonas",
+      "province": "Provincija",
+      "provincePlaceholder": "Pasirinkite provinciją",
+      "optional": "neprivaloma",
+      "invoiceKind": "Sąskaitos tipas",
+      "invoiceKind_private": "Fizinis asmuo",
+      "invoiceKind_company": "Įmonė / PVM mokėtojas",
+      "taxCode": "Mokesčių kodas (Codice fiscale)",
+      "companyName": "Įmonės pavadinimas",
+      "vatNumber": "PVM mokėtojo kodas (Partita IVA)",
+      "sdiCode": "SDI kodas",
+      "pec": "PEC (sertifikuotas el. paštas)",
+      "invoiceHint": "Nurodykite SDI kodą arba PEC adresą: jei neturite nė vieno, elektroninė sąskaita bus pateikta jūsų mokesčių paskyroje (cassetto fiscale).",
+      "invoiceHintForeignPrivate": "Sąskaita bus išrašyta pristatymo gavėjo vardu ir adresu.",
+      "invoiceHintForeignCompany": "Nurodykite ES PVM mokėtojo kodą (VIES) su šalies priešdėliu arba be jo."
+    },
+    "actions": {
+      "submit": "Siųsti"
+    },
+    "contact": {
+      "title": "Kontaktinė forma",
+      "placeholders": {
+        "name": "Vardas",
+        "email": "El. pašto adresas",
+        "phone": "Telefono numeris",
+        "message": "Jūsų žinutė"
+      },
+      "phoneValidation": "Įveskite galiojantį telefono numerį",
+      "submit": "Siųsti"
+    },
+    "support": {
+      "title": "Pagalba",
+      "mail": "Susisiekti su mumis galite el. paštu",
+      "message": "arba žinute/WhatsApp numeriu",
+      "form": "Jei patogiau, galite užpildyti žemiau esančią formą.",
+      "answer": "Gausite atsakymą / Atsakysime per 48 valandas.",
+      "sending": "Siunčiama…",
+      "sent": "Žinutė išsiųsta! Atsakysime kuo greičiau.",
+      "failed": "Nepavyko išsiųsti žinutės. Bandykite dar kartą arba parašykite mums el. paštu."
+    },
+    "validation": {
+      "required": "Privalomas laukas",
+      "invalidEmail": "Įveskite galiojantį el. pašto adresą",
+      "invalidCAP": "Įveskite galiojantį pašto kodą",
+      "acceptTerms": "Norėdami tęsti, turite sutikti su pardavimo sąlygomis",
+      "invalidPhone": "Įveskite galiojantį telefono numerį",
+      "invalidTaxCode": "Įveskite galiojantį mokesčių kodą (codice fiscale)",
+      "invalidVatNumber": "Įveskite galiojantį PVM mokėtojo kodą (Partita IVA, 11 skaitmenų)",
+      "invalidSdi": "SDI kodą sudaro 7 simboliai",
+      "invalidVatNumberEu": "Įveskite galiojantį ES PVM mokėtojo kodą"
+    }
+  },
+  "payments": {
+    "terms": "priimame",
+    "methodsTitle": "Mokėjimo būdai",
+    "options": {
+      "creditCard": "Kredito kortelė",
+      "wireTransfer": "Banko pavedimas"
+    }
+  },
+  "toast": {
+    "cart": {
+      "success": "Prekė įdėta į krepšelį",
+      "error": "Nepavyko įdėti prekės į krepšelį. Bandykite dar kartą.",
+      "overflow": "Krepšelyje jau yra visi turimi šios prekės vienetai."
+    },
+    "checkout": {
+      "success": "Užsakymas sėkmingai pateiktas",
+      "error": "Dėl techninės klaidos užsakymo pateikti nepavyko"
+    }
+  },
+  "emails": {
+    "newsletter": {
+      "subscriptionSubject": "Sėkmingai užsiprenumeravote Jigglycard naujienlaiškį",
+      "adminSubject": "Naujas Jigglycard naujienlaiškio prenumeratorius",
+      "storeName": "Jigglycard Store",
+      "plainText": "Gavote naują naujienlaiškio pranešimą."
+    },
+    "support": {
+      "subject": "Pagalbos užklausa",
+      "adminSubject": "Pagalbos užklausa nuo: {name} - El. paštas: {email}",
+      "plainText": "Gavote naują pagalbos užklausą."
+    }
+  },
+  "category": {
+    "dragon-ball-super-boosters": "Booster",
+    "dragon-ball-super-singles": "Pavienės kortelės",
+    "ff-single-card": "Pavienės kortelės",
+    "magic-booster-boxes": "Booster box",
+    "one-piece-single-card": "Pavienės kortelės",
+    "pokemon-blisters": "Blister",
+    "pokemon-booster": "Booster",
+    "pokemon-box-set": "Box set",
+    "pokemon-empty-boxes-storage": "Tuščios dėžės ir laikymo priemonės",
+    "pokemon-preconstructed-deck": "Paruoštos kaladės",
+    "pokemon-singles": "Pavienės kortelės",
+    "yu-gi-oh-boosters": "Booster"
+  },
+  "pokedex": {
+    "menu": "Pokédex",
+    "kicker": "Jigglycard Pokédex",
+    "title": "Jūsų Pokémon,",
+    "titleHighlight": "visos jo kortelės.",
+    "lead": "Pasirinkite Pokémon ir atraskite visas jo pavienes korteles, kurias turime parduotuvėje, – nuo rečiausios iki dažniausios.",
+    "searchPlaceholder": "Ieškoti pagal pavadinimą arba numerį",
+    "generation": "Karta",
+    "all": "Visos",
+    "shown": "{n} Pokémon",
+    "noMatch": "Nė vienas Pokémon neatitinka paieškos.",
+    "back": "Visi Pokémon",
+    "loading": "Ieškome kortelių…",
+    "cardsFound": "Turimos kortelės: {n}",
+    "noCards": "Šiuo metu neturime {name} kortelių.",
+    "browseSingles": "Naršyti visas pavienes korteles",
+    "loadMore": "Rodyti daugiau kortelių",
+    "pickTitle": "Pasirinkite Pokémon",
+    "pickText": "Pasirinkite Pokémon iš sąrašo ir pamatysite visas turimas jo korteles."
+  },
+  "shippingPage": {
+    "kicker": "Pristatymas",
+    "title": "Pristatymas,",
+    "titleHighlight": "prekių ir pinigų grąžinimas.",
+    "methodsTitle": "Pristatymo būdai",
+    "methodsLead": "Būdą pasirinksite atsiskaitydami: čia – šiandienos kainos.",
+    "domestic": "Italija",
+    "international": "Europos Sąjunga",
+    "maxValue": "Užsakymams iki {value}",
+    "packagingTitle": "Kaip pakuojame korteles",
+    "returnsTitle": "Prekių ir pinigų grąžinimas",
+    "returnsText": "Norėdami grąžinti prekę ar atgauti pinigus, parašykite mums per puslapį „Pagalba“ ir nurodykite užsakymo numerį: atsakysime ir pateiksime visus nurodymus.",
+    "cta": "Eiti į pagalbos puslapį"
+  },
+  "footer": {
+    "trademarkDisclaimer": "Pokémon ir veikėjų vardai yra Nintendo, Creatures Inc. ir GAME FREAK inc. prekių ženklai, kuriuos valdo The Pokémon Company. Jigglycard yra nepriklausomas originalių prekių pardavėjas ir nėra susijęs su šiomis bendrovėmis, jų remiamas ar patvirtintas. Kortelių vaizdai naudojami tik parduodamoms prekėms identifikuoti."
+  }
+}

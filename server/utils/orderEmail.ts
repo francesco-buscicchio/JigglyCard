@@ -1,4 +1,5 @@
 import { SELLER, SELLER_ADDRESS } from "~/data/const";
+import { countryName } from "~/data/countries";
 
 /**
  * Email di conferma d'ordine al cliente.
@@ -120,7 +121,7 @@ export function renderOrderConfirmationEmail(order: OrderEmailData) {
     `${order.customer.name} ${order.customer.surname}`.trim(),
     order.address.street,
     cityLine,
-    order.address.country && order.address.country !== "IT" ? order.address.country : "Italia",
+    countryName(order.address.country || "IT", "it"),
     order.customer.phone ? `Tel. ${order.customer.phone}` : "",
   ].filter(Boolean);
   const address = addressLines

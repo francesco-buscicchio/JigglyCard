@@ -21,7 +21,8 @@
   },
   "layout": {
     "header": {
-      "allProductsLink": "Tutti i prodotti"
+      "allProductsLink": "Tutti i prodotti",
+      "language": "Lingua"
     },
     "footer": {
       "links": {
@@ -300,11 +301,11 @@
       "available": "Disponibile",
       "IT": "italiano",
       "EN": "inglese",
-      "NM": "near mint",
-      "EX": "excellent",
-      "PL": "played",
-      "PO": "poor",
-      "GD": "good",
+      "NM": "Near Mint",
+      "EX": "Excellent",
+      "PL": "Played",
+      "PO": "Poor",
+      "GD": "Good",
       "true": "disponibile",
       "false": "non disponibile",
       "NA": "altro",
@@ -409,7 +410,7 @@
     },
     "help": {
       "title": "Hai bisogno di assistenza?",
-      "content": "Spediamo in tutta Italia con corriere tracciato. Le carte vengono protette in bustina e toploader, e imballate in modo da arrivare nelle stesse condizioni in cui le vedi descritte. Per qualsiasi dubbio sull'ordine puoi scriverci dalla pagina Assistenza."
+      "content": "Spediamo in Italia e in tutti i paesi dell'Unione Europea con corriere tracciato. Le carte vengono protette in bustina e toploader, e imballate in modo da arrivare nelle stesse condizioni in cui le vedi descritte. Per qualsiasi dubbio sull'ordine puoi scriverci dalla pagina Assistenza."
     },
     "stockChanged": "Alcuni articoli non sono più disponibili nella quantità richiesta:",
     "stockRequested": "richiesti",
@@ -425,11 +426,11 @@
     "available": "Disponibile",
     "IT": "italiano",
     "EN": "inglese",
-    "NM": "near mint",
-    "EX": "excellent",
-    "PL": "played",
-    "PO": "poor",
-    "GD": "good",
+    "NM": "Near Mint",
+    "EX": "Excellent",
+    "PL": "Played",
+    "PO": "Poor",
+    "GD": "Good",
     "true": "disponibile",
     "false": "non disponibile",
     "NA": "altro",
@@ -448,10 +449,10 @@
     "zh-TW": "Cinese Tradizionale",
     "Mint": "Mint",
     "Near Mint": "Near Mint",
-    "Slightly Played": "Lievemente giocata",
-    "Moderately Played": "Mediamente giocata",
-    "Played": "Giocata",
-    "Poor": "Rovinata",
+    "Slightly Played": "Slightly Played",
+    "Moderately Played": "Moderately Played",
+    "Played": "Played",
+    "Poor": "Poor",
     "rarity": "Rarità"
   },
   "filterType": {
@@ -499,7 +500,8 @@
     "paymentFailedTitle": "Pagamento non riuscito",
     "paymentFailedText": "Il pagamento non è stato completato e non ti è stato addebitato nulla. Il carrello è ancora qui: puoi riprovare.",
     "backToCheckout": "Torna al checkout",
-    "nothingToConfirm": "Non c'è nessun pagamento da confermare."
+    "nothingToConfirm": "Non c'è nessun pagamento da confermare.",
+    "noShippingForCountry": "Al momento non spediamo in questo paese. Scegline un altro o scrivici dalla pagina Assistenza."
   },
   "forms": {
     "fields": {
@@ -518,7 +520,6 @@
       "phone": "Telefono",
       "province": "Provincia",
       "provincePlaceholder": "Scegli la provincia",
-      "countryItaly": "Italia",
       "optional": "facoltativo",
       "invoiceKind": "Tipo di fattura",
       "invoiceKind_private": "Privato",
@@ -528,7 +529,9 @@
       "vatNumber": "Partita IVA",
       "sdiCode": "Codice SDI",
       "pec": "PEC",
-      "invoiceHint": "Indica il codice SDI o la PEC: se non hai nessuno dei due, la fattura elettronica arriverà nel tuo cassetto fiscale."
+      "invoiceHint": "Indica il codice SDI o la PEC: se non hai nessuno dei due, la fattura elettronica arriverà nel tuo cassetto fiscale.",
+      "invoiceHintForeignPrivate": "La fattura sarà intestata al nome e all'indirizzo di spedizione.",
+      "invoiceHintForeignCompany": "Indica la partita IVA comunitaria (VIES), con o senza il prefisso del paese."
     },
     "actions": {
       "submit": "Invia"
@@ -562,7 +565,8 @@
       "invalidPhone": "Inserisci un numero di telefono valido",
       "invalidTaxCode": "Inserisci un codice fiscale valido",
       "invalidVatNumber": "Inserisci una partita IVA valida (11 cifre)",
-      "invalidSdi": "Il codice SDI ha 7 caratteri"
+      "invalidSdi": "Il codice SDI ha 7 caratteri",
+      "invalidVatNumberEu": "Inserisci una partita IVA comunitaria valida"
     }
   },
   "payments": {
@@ -942,7 +946,7 @@
     "methodsTitle": "Metodi di spedizione",
     "methodsLead": "Il metodo si sceglie al checkout: questi sono i prezzi di oggi.",
     "domestic": "Italia",
-    "international": "Internazionale",
+    "international": "Unione Europea",
     "maxValue": "Per ordini fino a {value}",
     "packagingTitle": "Come imballiamo le carte",
     "returnsTitle": "Resi e rimborsi",

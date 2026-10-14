@@ -29,7 +29,29 @@
       </p>
     </div>
 
-    <div class="field field--half" :class="{ 'is-invalid': showError('province') }">
+    <!-- Si spedisce nell'Unione Europea: il paese decide le spedizioni
+         proposte (Poste in Italia, UPS altrove) e quali campi servono. -->
+    <div class="field field--half">
+      <label class="field__control">
+        <span class="field__label">{{ t("forms.fields.nation") }}</span>
+        <select
+          class="field__select"
+          autocomplete="country"
+          :value="formValues.country"
+          @change="setCountry(($event.target as HTMLSelectElement).value)"
+        >
+          <option v-for="country in countries" :key="country.code" :value="country.code">
+            {{ country.name }}
+          </option>
+        </select>
+      </label>
+    </div>
+
+    <div
+      v-if="isDomestic"
+      class="field field--half"
+      :class="{ 'is-invalid': showError('province') }"
+    >
       <label class="field__control">
         <span class="field__label">{{ t("forms.fields.province") }}</span>
         <select
@@ -49,15 +71,6 @@
         <Icon name="heroicons:exclamation-circle-20-solid" size="16" />
         {{ formErrors.province }}
       </p>
-    </div>
-
-    <!-- Si spedisce solo in Italia (vedi pagina Spedizioni): il paese è fisso
-         e lo si mostra, invece di lasciarlo indovinare. -->
-    <div class="field field--half">
-      <div class="field__control">
-        <span class="field__label">{{ t("forms.fields.nation") }}</span>
-        <p class="field__static">{{ t("forms.fields.countryItaly") }}</p>
-      </div>
     </div>
 
     <div class="invoice">
@@ -121,8 +134,8 @@
           </div>
         </div>
 
-        <p v-if="formValues.invoiceKind === 'company'" class="invoice__hint">
-          {{ t("forms.fields.invoiceHint") }}
+        <p v-if="invoiceHint" class="invoice__hint">
+          {{ t(invoiceHint) }}
         </p>
       </div>
     </div>
@@ -160,9 +173,16 @@
 <script setup lang="ts">
 import { computed, reactive } from "vue";
 import { PROVINCES } from "~/data/provinces";
+import {
+  HOME_COUNTRY,
+  POSTCODE_PATTERN,
+  VAT_PATTERN,
+  countryOptions,
+  stripVatPrefix,
+} from "~/data/countries";
 import type { CheckoutFormData } from "~/pages/checkout.vue";
 
-const { t } = useI18n();
+const { t, locale } = useI18n();
 
 const emit = defineEmits<{
   (e: "updateFormStatus", payload: { values: CheckoutFormData; isValid: boolean }): void;
@@ -172,10 +192,10 @@ type FieldKey = Exclude<
   keyof CheckoutFormData,
   "iWantTheInvoice" | "invoiceKind" | "acceptTerms"
 >;
-type ValidatedKey = FieldKey | "acceptTerms";
+type ValidatedKey = Exclude<FieldKey, "country"> | "acceptTerms";
 
 type FieldConfig = {
-  key: FieldKey;
+  key: ValidatedKey & FieldKey;
   label: string;
   span: string;
   autocomplete: string;
@@ -185,29 +205,56 @@ type FieldConfig = {
   optional?: boolean;
 };
 
-const contactFields: FieldConfig[] = [
+const countries = computed(() => countryOptions(locale.value));
+const isDomestic = computed(() => formValues.country === HOME_COUNTRY);
+
+const contactFields = computed<FieldConfig[]>(() => [
   { key: "name", label: "forms.fields.name", span: "field--half", autocomplete: "given-name", maxlength: 80 },
   { key: "surname", label: "forms.fields.surname", span: "field--half", autocomplete: "family-name", maxlength: 80 },
   { key: "email", label: "forms.fields.email", span: "field--half", autocomplete: "email", type: "email", inputmode: "email", maxlength: 160 },
   { key: "phone", label: "forms.fields.phone", span: "field--half", autocomplete: "tel", type: "tel", inputmode: "tel", maxlength: 20 },
   { key: "streetAndHouseNumber", label: "forms.fields.streetAndHouseNumber", span: "", autocomplete: "street-address", maxlength: 160 },
-  { key: "cap", label: "forms.fields.cap", span: "field--cap", autocomplete: "postal-code", inputmode: "numeric", maxlength: 5 },
+  // Fuori dall'Italia il CAP può avere lettere e spazi (es. "1012 AB").
+  isDomestic.value
+    ? { key: "cap", label: "forms.fields.cap", span: "field--cap", autocomplete: "postal-code", inputmode: "numeric", maxlength: 5 }
+    : { key: "cap", label: "forms.fields.cap", span: "field--cap", autocomplete: "postal-code", maxlength: 10 },
   { key: "city", label: "forms.fields.city", span: "field--city", autocomplete: "address-level2", maxlength: 80 },
-];
+]);
 
 const invoiceKinds = ["private", "company"] as const;
 
-const invoiceFields = computed<FieldConfig[]>(() =>
-  formValues.invoiceKind === "private"
-    ? [{ key: "invoiceTaxCode", label: "forms.fields.taxCode", span: "", autocomplete: "off", maxlength: 16 }]
-    : [
-        { key: "invoiceCompanyName", label: "forms.fields.companyName", span: "", autocomplete: "organization", maxlength: 160 },
-        { key: "invoiceVatNumber", label: "forms.fields.vatNumber", span: "field--half", autocomplete: "off", maxlength: 13 },
-        { key: "invoiceTaxCode", label: "forms.fields.taxCode", span: "field--half", autocomplete: "off", maxlength: 16, optional: true },
-        { key: "invoiceSdiCode", label: "forms.fields.sdiCode", span: "field--half", autocomplete: "off", maxlength: 7, optional: true },
-        { key: "invoicePec", label: "forms.fields.pec", span: "field--half", autocomplete: "off", maxlength: 160, optional: true },
-      ],
-);
+/**
+ * Codice fiscale, SDI e PEC esistono solo in Italia: all'estero la fattura a
+ * un privato è intestata ai dati di spedizione, a un'azienda serve la partita
+ * IVA comunitaria.
+ */
+const invoiceFields = computed<FieldConfig[]>(() => {
+  if (formValues.invoiceKind === "private") {
+    return isDomestic.value
+      ? [{ key: "invoiceTaxCode", label: "forms.fields.taxCode", span: "", autocomplete: "off", maxlength: 16 }]
+      : [];
+  }
+  const company: FieldConfig[] = [
+    { key: "invoiceCompanyName", label: "forms.fields.companyName", span: "", autocomplete: "organization", maxlength: 160 },
+    { key: "invoiceVatNumber", label: "forms.fields.vatNumber", span: "field--half", autocomplete: "off", maxlength: isDomestic.value ? 13 : 17 },
+  ];
+  if (!isDomestic.value) return company;
+  return [
+    ...company,
+    { key: "invoiceTaxCode", label: "forms.fields.taxCode", span: "field--half", autocomplete: "off", maxlength: 16, optional: true },
+    { key: "invoiceSdiCode", label: "forms.fields.sdiCode", span: "field--half", autocomplete: "off", maxlength: 7, optional: true },
+    { key: "invoicePec", label: "forms.fields.pec", span: "field--half", autocomplete: "off", maxlength: 160, optional: true },
+  ];
+});
+
+const invoiceHint = computed(() => {
+  if (isDomestic.value) {
+    return formValues.invoiceKind === "company" ? "forms.fields.invoiceHint" : "";
+  }
+  return formValues.invoiceKind === "company"
+    ? "forms.fields.invoiceHintForeignCompany"
+    : "forms.fields.invoiceHintForeignPrivate";
+});
 
 const formValues = reactive<CheckoutFormData>({
   name: "",
@@ -218,6 +265,7 @@ const formValues = reactive<CheckoutFormData>({
   cap: "",
   city: "",
   province: "",
+  country: HOME_COUNTRY,
   iWantTheInvoice: false,
   invoiceKind: "private",
   invoiceTaxCode: "",
@@ -236,8 +284,8 @@ const compact = (value: unknown) => String(value ?? "").replace(/[\s.\-/()]/g, "
 
 /** Campi richiesti in questo momento: quelli della fattura solo se la si chiede. */
 const activeKeys = computed<ValidatedKey[]>(() => [
-  ...contactFields.map((field) => field.key),
-  "province",
+  ...contactFields.value.map((field) => field.key),
+  ...(isDomestic.value ? (["province"] as const) : []),
   ...(formValues.iWantTheInvoice ? invoiceFields.value.map((field) => field.key) : []),
   "acceptTerms",
 ]);
@@ -260,18 +308,23 @@ function validateField(field: ValidatedKey): string | null {
         : t("forms.validation.invalidPhone");
     case "cap":
       if (!textValue) return required;
-      return /^\d{5}$/.test(textValue) ? null : t("forms.validation.invalidCAP");
+      return POSTCODE_PATTERN(formValues.country).test(textValue)
+        ? null
+        : t("forms.validation.invalidCAP");
     case "invoiceTaxCode": {
       const optional = formValues.invoiceKind === "company";
       if (!textValue) return optional ? null : required;
       const pattern = optional ? /^([A-Z0-9]{16}|[0-9]{11})$/ : /^[A-Z0-9]{16}$/;
       return pattern.test(compact(textValue)) ? null : t("forms.validation.invalidTaxCode");
     }
-    case "invoiceVatNumber":
+    case "invoiceVatNumber": {
       if (!textValue) return required;
-      return /^(IT)?[0-9]{11}$/.test(compact(textValue))
-        ? null
-        : t("forms.validation.invalidVatNumber");
+      const vat = stripVatPrefix(compact(textValue), formValues.country);
+      if (VAT_PATTERN(formValues.country).test(vat)) return null;
+      return isDomestic.value
+        ? t("forms.validation.invalidVatNumber")
+        : t("forms.validation.invalidVatNumberEu");
+    }
     case "invoiceSdiCode":
       if (!textValue) return null;
       return /^[A-Z0-9]{7}$/.test(compact(textValue)) ? null : t("forms.validation.invalidSdi");
@@ -304,6 +357,15 @@ function updateField(field: ValidatedKey, value: string) {
 function onBlur(field: ValidatedKey) {
   touchedFields[field] = true;
   formErrors[field] = validateField(field);
+  emitFormStatus();
+}
+
+/** Il paese cambia formato del CAP e campi richiesti: si ricontrolla il già scritto. */
+function setCountry(country: string) {
+  formValues.country = country;
+  for (const key of ["cap", "province", "invoiceTaxCode", "invoiceVatNumber", "invoiceSdiCode", "invoicePec"] as const) {
+    if (touchedFields[key]) formErrors[key] = validateField(key);
+  }
   emitFormStatus();
 }
 
@@ -447,16 +509,6 @@ defineExpose({ revealErrors });
 .field.is-invalid .field__select {
   border-color: rgba(255, 128, 150, 0.7);
   box-shadow: 0 0 0 3px rgba(255, 128, 150, 0.12);
-}
-
-.field__static {
-  display: flex;
-  align-items: center;
-  min-height: 50px;
-  padding: 0 16px;
-  border-radius: 16px;
-  border: 1px dashed var(--im-line);
-  color: var(--im-ink);
 }
 
 .field__optional {

@@ -24,8 +24,12 @@ import {
  */
 const route = useRoute();
 const currentUrl = computed(() => `${SITE_URL}${canonicalPath(route.path)}`);
+const { locale } = useI18n();
 
 useHead({
+  // Segue il selettore di lingua; nuxt.config resta il valore della pagina
+  // d'errore.
+  htmlAttrs: { lang: () => locale.value },
   // Alcune pagine (legali, regolamento) hanno già " | Jigglycard" nel
   // titolo: non si aggiunge una seconda volta. Senza titolo resta quello
   // della home.
