@@ -31,6 +31,24 @@
         </div>
 
         <div class="filter-panel__body">
+          <!-- Prima sezione: nel cassetto la lista espansioni è lunga e il
+               prezzo, assente su mobile, deve essere raggiungibile subito.
+               Componente, etichette e payload sono gli stessi del desktop. -->
+          <MoleculesFilterSection
+            v-if="maxPrice > minumPrice"
+            :title="t('catalog.controls.price')"
+            :selected="isPriceRangeSelected ? 1 : 0"
+            initially-open
+          >
+            <MoleculesPriceRange
+              :min="minumPrice"
+              :max="maxPrice"
+              :low="selectedMinPrice"
+              :high="selectedMaxPrice"
+              @change="updatePriceRange"
+            />
+          </MoleculesFilterSection>
+
           <MoleculesFilterSection
             v-for="(category, index) of filterCategories"
             :key="category.objectID"
@@ -75,6 +93,7 @@
 import { ref, watch, computed, type PropType } from "vue";
 import { getTypeTranslationKey } from "~/utils/filterTranslation";
 import { rarityRank } from "~/utils/showcaseCards";
+import { usePriceFilter } from "~/composables/usePriceFilter";
 
 const props = defineProps({
   filters: {
@@ -94,6 +113,15 @@ const props = defineProps({
     type: Object as PropType<{ min: number; max: number } | null>,
     default: null,
   },
+  /**
+   * Fascia già applicata al catalogo (euro). Quando il genitore la azzera
+   * — "Cancella tutti" o lo stato vuoto — lo slider torna sui bordi, come
+   * il reset del pannello desktop.
+   */
+  appliedPrice: {
+    type: Object as PropType<{ min?: number; max?: number } | null>,
+    default: null,
+  },
 });
 
 const { t, te } = useI18n();
@@ -107,11 +135,17 @@ const filterCategories = ref<
 >([]);
 const facetOptionCache = ref<Record<string, Set<string>>>({});
 const isOpen = ref(false);
-const minumPrice = ref(0);
-const maxPrice = ref(0);
-const selectedMinPrice = ref(0);
-const selectedMaxPrice = ref(0);
-const inputKey = ref(0);
+const priceStats = computed(() => props.priceStats);
+const {
+  minumPrice,
+  maxPrice,
+  selectedMinPrice,
+  selectedMaxPrice,
+  isPriceRangeSelected,
+  pricePayload,
+  setRange,
+  resetPrice,
+} = usePriceFilter(priceStats, { preserveBounds: true });
 /** categoria del pannello filtri -> chiave del dizionario etichette */
 const FACET_LABEL_KEYS: Record<string, string> = {
   brand: "tcg",
@@ -151,70 +185,36 @@ watch(
   { immediate: true }
 );
 
+/**
+ * Il catalogo è stato ripulito dal prezzo (chip "Cancella tutti" o risultati
+ * vuoti) mentre il cassetto teneva ancora la fascia: si riallinea lo slider.
+ */
 watch(
-  () => props.priceStats,
-  (stats) => {
-    if (!stats) {
-      minumPrice.value = 0;
-      maxPrice.value = 0;
-      selectedMinPrice.value = 0;
-      selectedMaxPrice.value = 0;
-      inputKey.value++;
-      return;
-    }
-
-    const normalizedMin = Math.floor(stats.min ?? 0);
-    const normalizedMax = Math.ceil(stats.max ?? 0);
-    const safeMax = Math.max(normalizedMin, normalizedMax);
-
-    minumPrice.value = normalizedMin;
-    maxPrice.value = safeMax;
-
-    selectedMinPrice.value = Math.max(
-      normalizedMin,
-      Math.min(
-        selectedMinPrice.value || normalizedMin,
-        safeMax
-      )
-    );
-
-    selectedMaxPrice.value = Math.min(
-      safeMax,
-      Math.max(
-        selectedMaxPrice.value || safeMax,
-        selectedMinPrice.value
-      )
-    );
-    inputKey.value++;
+  () => props.appliedPrice,
+  (price) => {
+    const cleared = price?.min === undefined && price?.max === undefined;
+    if (cleared && isPriceRangeSelected.value) resetPrice();
   },
-  { immediate: true }
 );
 
-const areFiltersSelected = computed(() => {
-  const hasCheckedFilter = filterCategories.value?.some(
-    (category: {
-      name: string;
-      value: { name: string; checked: boolean }[];
-    }) => {
-      return category.value.some((filter) => filter.checked);
-    }
-  );
-
-  const isPriceRangeSelected =
-    selectedMaxPrice.value !== maxPrice.value ||
-    selectedMinPrice.value !== minumPrice.value;
-  return hasCheckedFilter || isPriceRangeSelected;
-});
+const areFiltersSelected = computed(
+  () =>
+    isPriceRangeSelected.value ||
+    filterCategories.value.some((category) =>
+      category.value.some((filter) => filter.checked),
+    ),
+);
 
 const emit = defineEmits(["filterUpdate"]);
 
-/** Voci spuntate, da mostrare sul pulsante che apre il pannello. */
-const activeCount = computed(() =>
-  filterCategories.value.reduce(
-    (sum, category) =>
-      sum + category.value.filter((filter) => filter.checked).length,
-    0,
-  ),
+/** Voci spuntate più la fascia di prezzo, se ristretta: come sul desktop. */
+const activeCount = computed(
+  () =>
+    filterCategories.value.reduce(
+      (sum, category) =>
+        sum + category.value.filter((filter) => filter.checked).length,
+      0,
+    ) + (isPriceRangeSelected.value ? 1 : 0),
 );
 
 function togglePanel() {
@@ -236,74 +236,39 @@ function updateCheckboxValue(
   filter.checked = value;
 }
 
-function updateMinPrice(value: number) {
-  selectedMinPrice.value = value;
-  if (selectedMaxPrice.value < value) {
-    selectedMaxPrice.value = value;
-  }
+/** Lo slider aggiorna solo la bozza: su mobile si conferma con "Applica". */
+function updatePriceRange(range: { low: number; high: number }) {
+  setRange(range);
 }
 
-function updateMaxPrice(value: number) {
-  selectedMaxPrice.value = Math.min(value, maxPrice.value);
-}
-
-function validateNumberInput(event: KeyboardEvent) {
-  const allowedKeys = ["Backspace", "ArrowLeft", "ArrowRight", "Tab"];
-  if (!/\d/.test(event.key) && !allowedKeys.includes(event.key)) {
-    event.preventDefault();
-  }
-}
-
-function validatePriceInput(type: "min" | "max", event: Event) {
-  const input = (event.target as HTMLInputElement).value;
-  const numericValue = parseInt(input, 10);
-
-  if (!isNaN(numericValue)) {
-    if (type === "min") {
-      selectedMinPrice.value = Math.max(
-        minumPrice.value,
-        Math.min(numericValue, selectedMaxPrice.value)
-      );
-    } else {
-      selectedMaxPrice.value = Math.min(
-        Math.max(numericValue, selectedMinPrice.value),
-        maxPrice.value
-      );
-    }
-  }
-}
-
-function applyFilters() {
+function currentFilters() {
   const result = filterCategories.value.reduce((acc: any, item: any) => {
     acc[item.name] = item.value
       .filter((val: any) => val.checked)
       .map((val: any) => val.name);
     return acc;
   }, {});
-  togglePanel();
-
-  result["price"] = {
-    min:
-      selectedMinPrice.value === minumPrice.value
-        ? undefined
-        : selectedMinPrice.value,
-    max:
-      selectedMaxPrice.value === maxPrice.value
-        ? undefined
-        : selectedMaxPrice.value,
-  };
-  emit("filterUpdate", result);
+  result.price = pricePayload.value;
+  return result;
 }
 
+function applyFilters() {
+  emit("filterUpdate", currentFilters());
+  togglePanel();
+}
+
+/**
+ * Stesso effetto del reset desktop: toglie voci e fascia e rilancia la
+ * ricerca. Il cassetto resta aperto, "Applica" lo chiude.
+ */
 function resetAllFilters() {
   filterCategories.value.forEach((category: any) => {
     category.value.forEach((filter: any) => {
       filter.checked = false;
     });
   });
-  selectedMinPrice.value = minumPrice.value;
-  selectedMaxPrice.value = maxPrice.value;
-  inputKey.value++; //force rerender
+  resetPrice();
+  emit("filterUpdate", currentFilters());
 }
 
 function buildFilterCategories(
