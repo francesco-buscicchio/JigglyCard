@@ -5,10 +5,9 @@ import { assertRateLimit } from "~/server/utils/rateLimit";
 /**
  * Modulo di assistenza: inoltra il messaggio alla casella del negozio.
  *
- * Sostituisce la vecchia rotta SendGrid, che spediva qualunque email il
- * browser le passasse (mittente, destinatario e HTML compresi). Qui mittente e
- * destinatario sono fissi; il cliente compare solo come "rispondi a", e il
- * suo testo viaggia come testo semplice.
+ * Mittente e destinatario sono fissi; il cliente compare solo come "rispondi a",
+ * e il suo testo viaggia come testo semplice. Il browser non sceglie destinatario
+ * né corpo HTML.
  */
 
 const LIMITS = { name: 80, email: 160, phone: 30, message: 5000 };
