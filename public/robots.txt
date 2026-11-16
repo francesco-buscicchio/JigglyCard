@@ -15,4 +15,16 @@ Allow: /api/shop/menu
 Allow: /api/shop/home
 Allow: /api/shop/expansions
 
+# Crawler che non portano visite al negozio ma fanno girare una funzione
+# Netlify a ogni pagina: il crawler AI di Meta, monitoraggio social, strumenti
+# SEO e Amazon. Un crawler segue solo il gruppo che lo nomina, quindi per loro
+# vale questo e non quello generale. Le anteprime dei link condivisi su
+# Facebook e Instagram passano da facebookexternalhit, che resta ammesso.
+User-agent: meta-externalagent
+User-agent: AwarioBot
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: Amazonbot
+Disallow: /
+
 Sitemap: https://www.jigglycard.com/sitemap.xml
