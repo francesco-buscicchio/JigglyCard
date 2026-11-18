@@ -77,6 +77,7 @@
 import { ref, watch, computed, type PropType } from "vue";
 import { getTypeTranslationKey } from "~/utils/filterTranslation";
 import { rarityRank } from "~/utils/showcaseCards";
+import { toPriceFilterPayload } from "~/utils/priceFilter";
 const props = defineProps({
   filters: {
     type: Array as PropType<string[]>,
@@ -266,16 +267,12 @@ function applyFilters() {
     return acc;
   }, {});
 
-  result["price"] = {
-    min:
-      selectedMinPrice.value === minumPrice.value
-        ? undefined
-        : selectedMinPrice.value,
-    max:
-      selectedMaxPrice.value === maxPrice.value
-        ? undefined
-        : selectedMaxPrice.value,
-  };
+  result["price"] = toPriceFilterPayload({
+    boundMin: minumPrice.value,
+    boundMax: maxPrice.value,
+    selectedMin: selectedMinPrice.value,
+    selectedMax: selectedMaxPrice.value,
+  });
   emit("filterUpdate", result);
 }
 

@@ -18,6 +18,7 @@
               :facets="facets"
               :facetLabels="facetLabels"
               :priceStats="priceStats"
+              :appliedPrice="appliedPrice"
             />
           </div>
           <MoleculesItemsCounter
@@ -166,6 +167,20 @@ const isSearchRoute = computed(() => route.params.tcg === "search");
  * si costruiva prima: i valori dei filtri arrivano già come slug dalle faccette.
  */
 const activeFilters = ref<ShopCatalogFilters>({});
+/**
+ * Fascia prezzo già inviata al CMS, in euro, per riallineare lo slider mobile
+ * quando i filtri vengono azzerati da fuori dal cassetto.
+ */
+const appliedPrice = computed(() => ({
+  min:
+    activeFilters.value.minPriceCents !== undefined
+      ? activeFilters.value.minPriceCents / 100
+      : undefined,
+  max:
+    activeFilters.value.maxPriceCents !== undefined
+      ? activeFilters.value.maxPriceCents / 100
+      : undefined,
+}));
 /** Prodotti per pagina usati nell'ultima richiesta al catalogo. */
 let fetchedPerPage = 0;
 
